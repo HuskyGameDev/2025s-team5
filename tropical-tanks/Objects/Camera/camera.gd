@@ -17,3 +17,6 @@ func _physics_process(delta: float) -> void:
 	# Move camera towards target position
 	%Camera3D.position += (cam_target_position - %Camera3D.global_position) * delta * follow_speed * Vector3(1,0,1)
 	
+
+func shake(force):
+	pass
