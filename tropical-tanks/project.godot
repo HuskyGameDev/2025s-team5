@@ -11,9 +11,9 @@ config_version=5
 [application]
 
 config/name="Tropical tanks"
-run/main_scene="res://test_main_scene.tscn"
+run/main_scene="res://Scenes/test_main_scene.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://TropicalTanksIcon.png"
+config/icon="res://Images/TropicalTanksIcon.png"
 
 [dotnet]
 

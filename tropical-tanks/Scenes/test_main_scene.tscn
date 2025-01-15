@@ -42,3 +42,5 @@ mesh = SubResource("BoxMesh_oh6ib")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02548, 5.69556)
+
+[node name="Node3D" type="Node3D" parent="."]
