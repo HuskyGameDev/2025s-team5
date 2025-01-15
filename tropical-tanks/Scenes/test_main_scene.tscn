@@ -1,46 +1,38 @@
-[gd_scene load_steps=7 format=3 uid="uid://wrmqgco20q5r"]
+[gd_scene load_steps=2 format=3 uid="uid://cabj2sa5bx725"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_enxu1"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[ext_resource type="Script" path="res://Scenes/devmenu.gd" id="1_53q1n"]
 
-[sub_resource type="Sky" id="Sky_tdlhe"]
-sky_material = SubResource("ProceduralSkyMaterial_enxu1")
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_53q1n")
 
-[sub_resource type="Environment" id="Environment_f0lbo"]
-background_mode = 2
-sky = SubResource("Sky_tdlhe")
-tonemap_mode = 2
-glow_enabled = true
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_fdlp1"]
-size = Vector2(10, 10)
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_l2bx2"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_oh6ib"]
-
-[node name="TestMainScene" type="Node3D"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_f0lbo")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
-shadow_enabled = true
-
-[node name="GroundPlane" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_fdlp1")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="GroundPlane"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/StaticBody3D"]
-shape = SubResource("WorldBoundaryShape3D_l2bx2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_oh6ib")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02548, 5.69556)
-
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 190.0
+offset_right = 76.0
+offset_bottom = 213.0
+autowrap_mode = 2

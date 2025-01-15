@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://wrmqgco20q5r"]
+
+[ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Objects/Tank/Tank.tscn" id="1_wftq8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_enxu1"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_tdlhe"]
+sky_material = SubResource("ProceduralSkyMaterial_enxu1")
+
+[sub_resource type="Environment" id="Environment_f0lbo"]
+background_mode = 2
+sky = SubResource("Sky_tdlhe")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fdlp1"]
+size = Vector2(10, 10)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_l2bx2"]
+
+[node name="TestMainScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f0lbo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="GroundPlane" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_fdlp1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="GroundPlane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_l2bx2")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02548, 5.69556)
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="Tank" parent="." instance=ExtResource("1_wftq8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02649, 0, 1.80798)

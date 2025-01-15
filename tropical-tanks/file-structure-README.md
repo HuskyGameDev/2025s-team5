@@ -7,7 +7,7 @@ res://
 
   Art: Repository for the game media...
   
-  -    Sound: music and sfx go here
+  -    Sounds: music and sfx go here
   
   -    Images: textures, pngs, etc go here if they are used by multiple objects
   
