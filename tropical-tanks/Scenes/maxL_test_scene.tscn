@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://wrmqgco20q5r"]
+[gd_scene load_steps=8 format=3 uid="uid://wrmqgco20q5r"]
 
+[ext_resource type="PackedScene" uid="uid://cnpjr2qs65c5s" path="res://Objects/Camera/camera.tscn" id="1_abtwb"]
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Objects/Tank/Tank.tscn" id="1_wftq8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_enxu1"]
@@ -37,10 +38,7 @@ mesh = SubResource("PlaneMesh_fdlp1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/StaticBody3D"]
 shape = SubResource("WorldBoundaryShape3D_l2bx2")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.02548, 5.69556)
-
-[node name="Node3D" type="Node3D" parent="."]
-
 [node name="Tank" parent="." instance=ExtResource("1_wftq8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.02649, 0, 1.80798)
+
+[node name="Camera" parent="Tank" instance=ExtResource("1_abtwb")]
