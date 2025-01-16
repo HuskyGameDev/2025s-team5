@@ -4,7 +4,8 @@ const VERSION = "alpha 1"
 
 var levels = [
 "res://Scenes/mat_test_scene.tscn",
-"res://Scenes/maxL_test_scene.tscn"
+"res://Scenes/maxL_test_scene.tscn",
+"res://Scenes/test_scene_empty.tscn"
 ]
 
 

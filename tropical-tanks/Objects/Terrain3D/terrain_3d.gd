@@ -26,8 +26,9 @@ func _ready():
 		for z in zsize:
 			var color : Color = heightImage.get_pixel(x,z) * Color(0,1,0,1)
 			
+			#st.set_normal(Vector3(0,1,0))
 			st.set_color(color)
-			st.add_vertex(Vector3(x    , height_data[Vector2(x,z)], z    ))
+			st.add_vertex(Vector3(x + randf_range(-0.3,0.3)    , height_data[Vector2(x,z)], z   + randf_range(-0.3,0.3)  ))
 			
 	for x in xsize-1:
 		for z in zsize-1:
