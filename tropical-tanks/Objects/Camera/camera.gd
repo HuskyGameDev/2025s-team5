@@ -3,20 +3,44 @@ extends Node3D
 @export var follow_speed : float = 2.0
 @export var mouse_weight : float = 0.01
 
+
 @onready var camera = %Camera3D
 
+var aim_target_position : Vector3 
+var camera_offset = Vector3(0,10,0)
+var ray_length = 200 # How far the mouse detects the ground
 
 func _physics_process(delta: float) -> void:
-	# Get mouse position relative to the center of the viewport
-	# Scale it down by mouse_weight
-	var mouse_position = (get_viewport().get_mouse_position() -  Vector2(get_viewport().size / 2) ) * mouse_weight
+	# Use a raycast from mouse to find where the mouse is intersecting the scene.
+	aim_target_position = raycast_from_mouse(get_viewport().get_mouse_position(),1)["position"]
 	
-	# find target position by adding moouse position to the camera root global position
-	var cam_target_position = global_position + Vector3(mouse_position.x, 0, mouse_position.y)
+	# Find target position by adding mouse position to the camera root global position
+	# Then add camera offset
+	var cam_target_position = \
+		global_position  \
+		+ (aim_target_position - global_position) * Vector3(1,0,1) / 4 \
+		+ camera_offset
 	
 	# Move camera towards target position
-	%Camera3D.position += (cam_target_position - %Camera3D.global_position) * delta * follow_speed * Vector3(1,0,1)
+	%Camera3D.position += (cam_target_position - %Camera3D.global_position) * delta * follow_speed * Vector3(1,1,1)
 	
-
+	
+	
+	
 func shake(force):
 	pass
+
+
+func raycast_from_mouse(m_pos, collision_mask):
+	var ray_start = camera.project_ray_origin(m_pos)
+	var ray_end = ray_start + camera.project_ray_normal(m_pos) * ray_length
+	var world3d : World3D = get_world_3d()
+	var space_state = world3d.direct_space_state
+	
+	if space_state == null:
+		return
+	
+	var query = PhysicsRayQueryParameters3D.create(ray_start, ray_end, collision_mask)
+	query.collide_with_areas = true
+	
+	return space_state.intersect_ray(query)
