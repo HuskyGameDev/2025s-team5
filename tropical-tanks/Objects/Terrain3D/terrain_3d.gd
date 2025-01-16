@@ -22,23 +22,38 @@ func _ready():
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
 	
 	# Turn pixels of the image into quads with vertex color from image
-	for x in xsize-1:
-		for z in zsize-1:
+	for x in xsize:
+		for z in zsize:
 			var color : Color = heightImage.get_pixel(x,z) * Color(0,1,0,1)
 			
 			st.set_color(color)
 			st.add_vertex(Vector3(x    , height_data[Vector2(x,z)], z    ))
-			st.set_color(color)
-			st.add_vertex(Vector3(x + 1, height_data[Vector2(x+1,z+1)], z + 1))
-			st.set_color(color)
-			st.add_vertex(Vector3(x    , height_data[Vector2(x,z+1)], z + 1))
 			
-			st.set_color(color)
-			st.add_vertex(Vector3(x    , height_data[Vector2(x,z)], z    ))
-			st.set_color(color)
-			st.add_vertex(Vector3(x + 1, height_data[Vector2(x+1,z)], z    ))
-			st.set_color(color)
-			st.add_vertex(Vector3(x + 1, height_data[Vector2(x+1,z+1)], z + 1))
+	for x in xsize-1:
+		for z in zsize-1:
+			st.add_index((x) * zsize + z)
+			st.add_index((x + 1) * zsize + z + 1)
+			st.add_index((x) * zsize + z + 1)
+			
+			st.add_index((x) * zsize + z)
+			st.add_index((x + 1) * zsize + z)
+			st.add_index((x + 1) * zsize + z + 1)
+			
+			
+			
+			#st.set_color(color)
+			#st.add_vertex(Vector3(x    , height_data[Vector2(x,z)], z    ))
+			#st.set_color(color)
+			#st.add_vertex(Vector3(x + 1, height_data[Vector2(x+1,z+1)], z + 1))
+			#st.set_color(color)
+			#st.add_vertex(Vector3(x    , height_data[Vector2(x,z+1)], z + 1))
+			#
+			#st.set_color(color)
+			#st.add_vertex(Vector3(x    , height_data[Vector2(x,z)], z    ))
+			#st.set_color(color)
+			#st.add_vertex(Vector3(x + 1, height_data[Vector2(x+1,z)], z    ))
+			#st.set_color(color)
+			#st.add_vertex(Vector3(x + 1, height_data[Vector2(x+1,z+1)], z + 1))
 			
 	# Generate normals
 	st.generate_normals()
