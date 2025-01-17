@@ -78,7 +78,7 @@ func place_ground_scatter():
 	for i in randi_range(30,60):
 		var ground_scatter_object = GROUND_SCATTER.instantiate()
 		add_child(ground_scatter_object)
-		var pos = Vector2(randi_range(0,xsize),randi_range(0,zsize))
+		var pos = Vector2(randi_range(0,xsize-1),randi_range(0,zsize-1))
 		ground_scatter_object.position = Vector3(pos.x, height_data[pos], pos.y)
 		
 	
