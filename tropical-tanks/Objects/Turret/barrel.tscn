@@ -13,3 +13,7 @@ script = ExtResource("1_8k4xu")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.446882)
 mesh = SubResource("CylinderMesh_ypprg")
+
+[node name="ShellSpawn" type="Marker3D" parent="MeshInstance3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.484002, 2.11564e-08)

@@ -9,11 +9,12 @@ var BARREL = preload("res://Objects/Turret/barrel.tscn")
 @export var aimer : Node3D
 
 var split_barrels : int = 1
-var double_barrels : int = 3
+var double_barrels : int = 10
 
 var angular_spread_per_split_barrel = .2
 var position_spread_per_split_barrel = .3 / split_barrels
 var double_barrels_radius = .06 + double_barrels * 0.01
+
 
 @onready var bearing = $TurretHub/Bearing
 
