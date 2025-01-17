@@ -5,6 +5,7 @@ var velocity : Vector3 = Vector3(0,0,0)
 var gravity : Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_vector") * ProjectSettings.get_setting("physics/3d/default_gravity")
 var mass : float = 1.0
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
