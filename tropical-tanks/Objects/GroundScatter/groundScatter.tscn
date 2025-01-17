@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://0mhao2dpnqvl"]
+
+[ext_resource type="Script" path="res://Objects/GroundScatter/ground_scatter.gd" id="1_oosj4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_g8s8e"]
+size = Vector3(1, 5, 1)
+
+[node name="GroundScatter" type="Node3D"]
+script = ExtResource("1_oosj4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.22848, 0)
+mesh = SubResource("BoxMesh_g8s8e")

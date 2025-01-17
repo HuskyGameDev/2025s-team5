@@ -10,9 +10,10 @@ extends Node3D
 @onready var heightMap = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
 @onready var heightImage = heightMap.get_image()
 
+var height_data = {}
+
 func _ready():
 	# Create a dictionary with Vector2 keys to each pixel's color
-	var height_data = {}
 	for x in xsize:
 		for z in zsize:
 			height_data[Vector2(x,z)] = heightImage.get_pixel(x,z).r * 10
@@ -70,3 +71,14 @@ func _ready():
 		
 	# Generate a collision shape for the mesh
 	$MeshInstance3D.create_trimesh_collision()
+	place_ground_scatter()
+	
+var GROUND_SCATTER = preload("res://Objects/GroundScatter/groundScatter.tscn")
+func place_ground_scatter():
+	for i in randi_range(30,60):
+		var ground_scatter_object = GROUND_SCATTER.instantiate()
+		add_child(ground_scatter_object)
+		var pos = Vector2(randi_range(0,xsize),randi_range(0,zsize))
+		ground_scatter_object.position = Vector3(pos.x, height_data[pos], pos.y)
+		
+	

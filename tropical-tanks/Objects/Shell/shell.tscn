@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://dh5mgvc4y04ql"]
+[gd_scene load_steps=2 format=3 uid="uid://dh5mgvc4y04ql"]
+
+[ext_resource type="Script" path="res://Objects/Shell/shell.gd" id="1_f5510"]
 
 [node name="Shell" type="Node3D"]
+script = ExtResource("1_f5510")
