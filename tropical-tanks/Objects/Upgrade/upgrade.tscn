@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cffc6hqf0dgah"]
+
+[ext_resource type="Script" path="res://Objects/Upgrade/upgrade.gd" id="1_uxvdl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vxc7m"]
+
+[node name="Upgrade" type="Node3D"]
+script = ExtResource("1_uxvdl")
+
+[node name="CollectionArea3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollectionArea3D"]
+shape = SubResource("BoxShape3D_vxc7m")
+
+[connection signal="body_entered" from="CollectionArea3D" to="." method="_on_collection_area_3d_body_entered"]
