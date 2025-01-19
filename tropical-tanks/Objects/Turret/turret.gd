@@ -14,7 +14,7 @@ var BARREL = preload("res://Objects/Turret/barrel.tscn")
 		if Engine.is_editor_hint():
 			set_barrels()
 		
-@export var double_barrels : int = 2 :
+@export var double_barrels : int = 1 :
 	set(value):
 		double_barrels = value
 		if Engine.is_editor_hint():
@@ -39,7 +39,8 @@ func set_barrels() -> void:
 	var double_barrels_radius = .06 + double_barrels * 0.01
 	
 	for child in bearing.get_children():
-		child.queue_free()
+		if child is Barrel:
+			child.queue_free()
 	
 	split_barrel_holder = []
 	$Timer.wait_time = shoot_cooldown / double_barrels
@@ -74,8 +75,8 @@ func _physics_process(delta: float) -> void:
 	
 	# Change target position if aimer has aim_target_position
 	if "aim_target_position" in aimer:
-		
-		target_position = aimer.aim_target_position + Vector3(0,global_position.distance_to(aimer.aim_target_position)/6,0)
+		global_position.distance_to(aimer.aim_target_position)
+		target_position = aimer.aim_target_position + Vector3(0,5.0,0)
 	look_at(target_position)
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)

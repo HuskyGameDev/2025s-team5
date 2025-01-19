@@ -6,17 +6,21 @@ extends Node3D
 @export var xsize = 100
 @export var zsize = 100
 
+var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
+
 # Load heightMap and convert to image
 @onready var heightMap = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
 @onready var heightImage = heightMap.get_image()
 
 var height_data = {}
 
+var index_mode : bool = false
+
 func _ready():
 	# Create a dictionary with Vector2 keys to each pixel's color
-	for x in xsize:
-		for z in zsize:
-			height_data[Vector2(x,z)] = heightImage.get_pixel(x,z).r * 10
+	for x in xsize + 1:
+		for z in zsize + 1:
+			height_data[Vector2(x,z)] = Vector3(x + randf_range(-0.2,0.2), heightImage.get_pixel(x,z).r * 10, z   + randf_range(-0.2,0.2))
 	
 	# Start surface tool with PRIMITIVE_TRIANGLES
 	var st = SurfaceTool.new()
@@ -27,19 +31,36 @@ func _ready():
 		for z in zsize:
 			var color : Color = heightImage.get_pixel(x,z) * Color(0,1,0,1)
 			
-			#st.set_normal(Vector3(0,1,0))
-			st.set_color(color)
-			st.add_vertex(Vector3(x + randf_range(-0.2,0.2)    , height_data[Vector2(x,z)], z   + randf_range(-0.2,0.2)  ))
-			
-	for x in xsize-1:
-		for z in zsize-1:
-			st.add_index((x) * zsize + z)
-			st.add_index((x + 1) * zsize + z + 1)
-			st.add_index((x) * zsize + z + 1)
-			
-			st.add_index((x) * zsize + z)
-			st.add_index((x + 1) * zsize + z)
-			st.add_index((x + 1) * zsize + z + 1)
+			if index_mode == true:
+				st.set_color(color)
+				st.set_uv(Vector2(x,z))
+				st.add_vertex(height_data[Vector2(x,z)])
+				
+			else:
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x,z)])
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x+1,z+1)])
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x,z+1)])
+				
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x,z)])
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x+1,z)])
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x+1,z+1)])
+				
+	if index_mode == true:
+		for x in xsize-1:
+			for z in zsize-1:
+				st.add_index((x) * zsize + z)
+				st.add_index((x + 1) * zsize + z + 1)
+				st.add_index((x) * zsize + z + 1)
+				
+				st.add_index((x) * zsize + z)
+				st.add_index((x + 1) * zsize + z)
+				st.add_index((x + 1) * zsize + z + 1)
 			
 			
 			
@@ -62,7 +83,7 @@ func _ready():
 	# Build the mesh and set it as the MeshInstance3D's mesh. Then set the material to the terrain material
 	var mesh = st.commit()
 	$MeshInstance3D.mesh = mesh
-	$MeshInstance3D.set_surface_override_material(0,preload("res://Objects/Terrain3D/terrain_material.tres"))
+	$MeshInstance3D.set_surface_override_material(0,ground_material)
 	# The terrain material has "Use vertex color as albedo" enabled
 	
 	# Stop following code if still in editor
@@ -79,6 +100,6 @@ func place_ground_scatter():
 		var ground_scatter_object = GROUND_SCATTER.instantiate()
 		add_child(ground_scatter_object)
 		var pos = Vector2(randi_range(0,xsize-1),randi_range(0,zsize-1))
-		ground_scatter_object.position = Vector3(pos.x, height_data[pos], pos.y)
+		ground_scatter_object.position = height_data[pos]
 		
 	
