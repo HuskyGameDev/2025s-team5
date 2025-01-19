@@ -9,7 +9,9 @@ var BARREL = preload("res://Objects/Turret/barrel.tscn")
 @export var aimer : Node3D
 
 var split_barrels : int = 1
-var double_barrels : int = 10
+var double_barrels : int = 2
+
+var shoot_cooldown = 1.0
 
 var angular_spread_per_split_barrel = .2
 var position_spread_per_split_barrel = .3 / split_barrels
@@ -18,10 +20,14 @@ var double_barrels_radius = .06 + double_barrels * 0.01
 
 @onready var bearing = $TurretHub/Bearing
 
-var barrels = []
+var split_barrel_holder = []
 
 func _ready() -> void:
+	$Timer.wait_time = shoot_cooldown / double_barrels
+	
+	
 	for i in split_barrels:
+		var double_barrel_holder = []
 		for w in double_barrels:
 			var barrel : Barrel = BARREL.instantiate()
 			barrel.position.x += - position_spread_per_split_barrel * split_barrels  + position_spread_per_split_barrel * (i + 0.5) * 2
@@ -38,8 +44,8 @@ func _ready() -> void:
 			barrel.rotation.y = angular_spread_per_split_barrel * split_barrels - angular_spread_per_split_barrel * (i + 0.5) * 2
 			bearing.add_child(barrel)
 		
-			barrels.append(barrel)
-		
+			double_barrel_holder.append(barrel)
+		split_barrel_holder.append(double_barrel_holder)
 		
 	
 
@@ -59,6 +65,9 @@ func _physics_process(delta: float) -> void:
 	
 
 
+var i = 0
 func _on_timer_timeout() -> void:
-	for barrel : Barrel in barrels:
-		barrel.fire_shell()
+	for split_barrel in split_barrel_holder:
+		split_barrel[i].fire_shell()
+		i += 1
+		i = i % double_barrels
