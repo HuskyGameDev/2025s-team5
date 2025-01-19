@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c4ui8j2t8glw0"]
 
-[ext_resource type="Script" path="res://Objects/Turret/turret.gd" id="1_p3y8b"]
+[ext_resource type="Script" path="res://Components/Turret/turret.gd" id="1_p3y8b"]
 [ext_resource type="PackedScene" uid="uid://dvqixvep58v8v" path="res://Art/Models/TurretHub.blend" id="2_c4hkx"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_aqewf"]

@@ -34,6 +34,8 @@ func _ready() -> void:
 	
 	
 func set_barrels() -> void:
+	if !bearing:
+		return
 	var angular_spread_per_split_barrel = .2
 	var position_spread_per_split_barrel = .3 / split_barrels
 	var double_barrels_radius = .06 + double_barrels * 0.01
@@ -76,7 +78,7 @@ func _physics_process(delta: float) -> void:
 	# Change target position if aimer has aim_target_position
 	if "aim_target_position" in aimer:
 		global_position.distance_to(aimer.aim_target_position)
-		target_position = aimer.aim_target_position + Vector3(0,5.0,0)
+		target_position = aimer.aim_target_position + Vector3(0,1.0,0)
 	look_at(target_position)
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)

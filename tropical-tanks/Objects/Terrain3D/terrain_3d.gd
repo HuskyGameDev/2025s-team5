@@ -29,7 +29,7 @@ func _ready():
 	# Turn pixels of the image into quads with vertex color from image
 	for x in xsize:
 		for z in zsize:
-			var color : Color = heightImage.get_pixel(x,z) * Color(0,1,0,1)
+			var color : Color = heightImage.get_pixel(x,z) * Color(0.6,0.9,0.1,1)
 			
 			if index_mode == true:
 				st.set_color(color)

@@ -1,9 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://wrmqgco20q5r"]
+[gd_scene load_steps=8 format=3 uid="uid://wrmqgco20q5r"]
 
-[ext_resource type="PackedScene" uid="uid://cnpjr2qs65c5s" path="res://Objects/Camera/camera.tscn" id="1_abtwb"]
-[ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Objects/Tank/Tank.tscn" id="1_wftq8"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="3_1he4n"]
-[ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Objects/Turret/turret.tscn" id="3_wdr32"]
+[ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="5_opj3q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_enxu1"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -40,13 +38,7 @@ mesh = SubResource("PlaneMesh_fdlp1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/StaticBody3D"]
 shape = SubResource("WorldBoundaryShape3D_l2bx2")
 
-[node name="Tank" parent="." instance=ExtResource("1_wftq8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.04878, 15.0001, 1.80798)
-
-[node name="Camera" parent="Tank" instance=ExtResource("1_abtwb")]
-
-[node name="Turret" parent="Tank" node_paths=PackedStringArray("aimer") instance=ExtResource("3_wdr32")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.554867, 0)
-aimer = NodePath("../Camera")
-
 [node name="Terrain3D" parent="." instance=ExtResource("3_1he4n")]
+
+[node name="Player" parent="." instance=ExtResource("5_opj3q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.4094, 9.32635, 7.19651)
