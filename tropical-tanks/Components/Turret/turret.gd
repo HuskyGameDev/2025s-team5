@@ -3,7 +3,7 @@ extends Node3D
 
 var target_position : Vector3 = Vector3(0,0,0)
 
-var BARREL = preload("res://Objects/Turret/barrel.tscn")
+var BARREL = preload("res://Components/Turret/barrel.tscn")
 
 # The node that holds aim_target_position to aim the turret
 @export var aimer : Node3D
@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 	look_at(target_position)
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)
-	$TurretHub.rotation = rotation * Vector3(0,1,0)
+	$TurretHub.global_rotation = rotation * Vector3(0,1,0)
 	bearing.rotation = rotation * Vector3(1,0,1)
 	
 	
