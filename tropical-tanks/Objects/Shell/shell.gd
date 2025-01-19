@@ -1,6 +1,8 @@
 extends Node3D
 class_name Shell
 
+const CRATER = preload("res://Objects/Crater/crater.tscn")
+
 var velocity : Vector3 = Vector3(0,0,0)
 var gravity : Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_vector") * ProjectSettings.get_setting("physics/3d/default_gravity")
 var mass : float = 1.0
@@ -21,7 +23,13 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func explode():
+	
+	
 	print("Shell Explode!")
+	var crater = CRATER.instantiate()
+	crater.position = global_position
+	crater.rotation.y = deg_to_rad(randi_range(1,360))
+	get_tree().root.add_child(crater)
 	queue_free()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:

@@ -29,7 +29,7 @@ func _ready():
 			
 			#st.set_normal(Vector3(0,1,0))
 			st.set_color(color)
-			st.add_vertex(Vector3(x + randf_range(-0.3,0.3)    , height_data[Vector2(x,z)], z   + randf_range(-0.3,0.3)  ))
+			st.add_vertex(Vector3(x + randf_range(-0.2,0.2)    , height_data[Vector2(x,z)], z   + randf_range(-0.2,0.2)  ))
 			
 	for x in xsize-1:
 		for z in zsize-1:

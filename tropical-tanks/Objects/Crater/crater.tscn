@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cmy8wgluaej20"]
+
+[ext_resource type="Script" path="res://Objects/Crater/crater.gd" id="1_eh0l1"]
+[ext_resource type="Texture2D" uid="uid://degot5yg7wb0t" path="res://Art/Images/CraterPlaceholder.png" id="1_kva30"]
+[ext_resource type="Texture2D" uid="uid://cygh27vjdxru4" path="res://Art/Images/CraterPlaceholderNormalMap.png" id="2_itaym"]
+
+[node name="Crater" type="Node3D"]
+script = ExtResource("1_eh0l1")
+
+[node name="Decal" type="Decal" parent="."]
+unique_name_in_owner = true
+size = Vector3(1, 1, 1)
+texture_albedo = ExtResource("1_kva30")
+texture_normal = ExtResource("2_itaym")
+cull_mask = 1048573

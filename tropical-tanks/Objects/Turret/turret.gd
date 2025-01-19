@@ -8,14 +8,19 @@ var BARREL = preload("res://Objects/Turret/barrel.tscn")
 # The node that holds aim_target_position to aim the turret
 @export var aimer : Node3D
 
-var split_barrels : int = 1
-var double_barrels : int = 2
+@export var split_barrels : int = 1 :
+	set(value):
+		split_barrels = value
+		if Engine.is_editor_hint():
+			set_barrels()
+		
+@export var double_barrels : int = 2 :
+	set(value):
+		double_barrels = value
+		if Engine.is_editor_hint():
+			set_barrels()
 
 var shoot_cooldown = 1.0
-
-var angular_spread_per_split_barrel = .2
-var position_spread_per_split_barrel = .3 / split_barrels
-var double_barrels_radius = .06 + double_barrels * 0.01
 
 
 @onready var bearing = $TurretHub/Bearing
@@ -23,25 +28,39 @@ var double_barrels_radius = .06 + double_barrels * 0.01
 var split_barrel_holder = []
 
 func _ready() -> void:
+	set_barrels()
+	
+	
+	
+	
+func set_barrels() -> void:
+	var angular_spread_per_split_barrel = .2
+	var position_spread_per_split_barrel = .3 / split_barrels
+	var double_barrels_radius = .06 + double_barrels * 0.01
+	
+	for child in bearing.get_children():
+		child.queue_free()
+	
+	split_barrel_holder = []
 	$Timer.wait_time = shoot_cooldown / double_barrels
 	
 	
-	for i in split_barrels:
+	for i_split_barrel in split_barrels:
 		var double_barrel_holder = []
-		for w in double_barrels:
+		for i_double_barrel in double_barrels:
 			var barrel : Barrel = BARREL.instantiate()
-			barrel.position.x += - position_spread_per_split_barrel * split_barrels  + position_spread_per_split_barrel * (i + 0.5) * 2
+			barrel.position.x += - position_spread_per_split_barrel * split_barrels  + position_spread_per_split_barrel * (i_split_barrel + 0.5) * 2
 			#barrel.position.x += - double_barrels_radius * double_barrels + double_barrels_radius * (w + 0.5) * 2
 			
 			if double_barrels > 1:
 				var angle = deg_to_rad(360/double_barrels)
 				var two_barrel_shift = int(double_barrels == 2) * deg_to_rad(90)
-				barrel.position += Vector3(0,double_barrels_radius,0).rotated(Vector3(0,0,1), angle * (w) + two_barrel_shift)
+				barrel.position += Vector3(0,double_barrels_radius,0).rotated(Vector3(0,0,1), angle * (i_double_barrel) + two_barrel_shift)
 	
 				
 
 			
-			barrel.rotation.y = angular_spread_per_split_barrel * split_barrels - angular_spread_per_split_barrel * (i + 0.5) * 2
+			barrel.rotation.y = angular_spread_per_split_barrel * split_barrels - angular_spread_per_split_barrel * (i_split_barrel + 0.5) * 2
 			bearing.add_child(barrel)
 		
 			double_barrel_holder.append(barrel)
@@ -55,7 +74,8 @@ func _physics_process(delta: float) -> void:
 	
 	# Change target position if aimer has aim_target_position
 	if "aim_target_position" in aimer:
-		target_position = aimer.aim_target_position + Vector3(0,.1,0)
+		
+		target_position = aimer.aim_target_position + Vector3(0,global_position.distance_to(aimer.aim_target_position)/6,0)
 	look_at(target_position)
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)
