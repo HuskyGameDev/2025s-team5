@@ -12,4 +12,4 @@ unique_name_in_owner = true
 size = Vector3(1, 1, 1)
 texture_albedo = ExtResource("1_kva30")
 texture_normal = ExtResource("2_itaym")
-cull_mask = 1048573
+cull_mask = 1048569

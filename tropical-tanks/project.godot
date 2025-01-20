@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Tropical tanks"
-run/main_scene="res://Objects/Explosion/explosion.tscn"
+run/main_scene="res://Scenes/devmenu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://Art/Images/TropicalTanksIcon.png"
 
@@ -23,6 +23,7 @@ project/assembly_name="Tropical tanks"
 
 3d_render/layer_1="Ground"
 3d_render/layer_2="Tanks"
+3d_render/layer_3="Explosions"
 
 [rendering]
 
