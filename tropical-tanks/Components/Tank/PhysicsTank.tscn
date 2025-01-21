@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://byai8yfh6lrrw"]
+
+[ext_resource type="Script" path="res://Components/Tank/physicsTank.gd" id="1_u0v4w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2pwh0"]
+size = Vector3(1, 0.5, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rjs5t"]
+size = Vector3(1, 0.449219, 1.53125)
+
+[node name="Tank" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502262, 0)
+collision_layer = 0
+collision_mask = 0
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+angular_damp = 10.0
+script = ExtResource("1_u0v4w")
+
+[node name="PlaceholderMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.289526, 0)
+mesh = SubResource("BoxMesh_2pwh0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.275391, 0.0107422)
+shape = SubResource("BoxShape3D_rjs5t")

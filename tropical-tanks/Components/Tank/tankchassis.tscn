@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://8bgogrhf5gis"]
+
+[ext_resource type="PackedScene" uid="uid://c45cee2ybphm" path="res://Art/Models/tank.blend" id="1_t2dx7"]
+
+[node name="tank" instance=ExtResource("1_t2dx7")]
+
+[node name="Plane" parent="." index="0"]
+layers = 2
+
+[node name="Threads" parent="." index="1"]
+layers = 2
+
+[node name="Plane_001" parent="." index="2"]
+layers = 2

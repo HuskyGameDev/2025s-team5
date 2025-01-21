@@ -8,8 +8,9 @@
 
 [node name="Tank" parent="." instance=ExtResource("1_avp0u")]
 
-[node name="Turret" parent="Tank" node_paths=PackedStringArray("aimer") instance=ExtResource("2_tqbjc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.514147, 0)
+[node name="Turret3" parent="Tank" node_paths=PackedStringArray("aimer") instance=ExtResource("2_tqbjc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377569, 0)
 aimer = NodePath("../CameraRoot")
+double_barrels = 2
 
 [node name="CameraRoot" parent="Tank" instance=ExtResource("3_wp58l")]

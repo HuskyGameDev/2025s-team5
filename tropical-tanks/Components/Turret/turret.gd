@@ -82,7 +82,7 @@ func _physics_process(delta: float) -> void:
 	look_at(target_position)
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)
-	$TurretHub.global_rotation = rotation * Vector3(0,1,0)
+	$TurretHub.global_rotation = global_rotation * Vector3(0,1,0)
 	bearing.rotation = rotation * Vector3(1,0,1)
 	
 	
