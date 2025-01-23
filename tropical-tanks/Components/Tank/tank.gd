@@ -19,6 +19,7 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	
 	var direction = false
+	
 	if Input.is_action_pressed("ui_up"):
 		direction = true
 		velocity = chassis.basis.z * SPEED * Vector3(1,0,1)
