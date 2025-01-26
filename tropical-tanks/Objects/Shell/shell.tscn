@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Objects/Shell/shell.gd" id="1_f5510"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_grhgd"]
-size = Vector3(0.1, 0.1, 0.3)
+size = Vector3(0.108008, 0.108374, 0.308826)
 
 [sub_resource type="BoxMesh" id="BoxMesh_40gua"]
 size = Vector3(0.1, 0.1, 0.3)
@@ -14,6 +14,7 @@ script = ExtResource("1_f5510")
 [node name="Area3D" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00126953, 0.000476077, -0.000238031)
 shape = SubResource("BoxShape3D_grhgd")
 
 [node name="TempMesh" type="MeshInstance3D" parent="."]
