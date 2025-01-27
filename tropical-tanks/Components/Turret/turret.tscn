@@ -1,13 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4ui8j2t8glw0"]
+[gd_scene load_steps=5 format=3 uid="uid://c4ui8j2t8glw0"]
 
 [ext_resource type="Script" path="res://Components/Turret/turret.gd" id="1_p3y8b"]
 [ext_resource type="PackedScene" uid="uid://dvqixvep58v8v" path="res://Art/Models/TurretHub.blend" id="2_c4hkx"]
+[ext_resource type="PackedScene" uid="uid://d1lq821ro2ajm" path="res://Components/CrosshairSetter/crosshair_setter.tscn" id="3_5c1ct"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_aqewf"]
 size = Vector3(0.5, 0.15, 0.15)
 
-[node name="Turret" type="Node3D"]
+[node name="Turret" type="Node3D" node_paths=PackedStringArray("crosshair_setter")]
 script = ExtResource("1_p3y8b")
+crosshair_setter = NodePath("CrosshairSetter")
 
 [node name="TurretHub" parent="." instance=ExtResource("2_c4hkx")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
@@ -18,11 +20,14 @@ transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, -0.733179)
 mesh = SubResource("BoxMesh_aqewf")
 skeleton = NodePath("../..")
 
-[node name="RayCast3D" type="RayCast3D" parent="TurretHub/Bearing"]
+[node name="AimLaser" type="RayCast3D" parent="TurretHub/Bearing"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.13016)
 target_position = Vector3(0, 0, -100)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true
+
+[node name="CrosshairSetter" parent="." instance=ExtResource("3_5c1ct")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

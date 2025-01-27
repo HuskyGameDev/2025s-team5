@@ -1,12 +1,16 @@
 @tool
 extends Node3D
 
+signal change_crosshair(crosshair_index)
+
 var target_position : Vector3 = Vector3(0,0,0)
 
 var BARREL = preload("res://Components/Turret/barrel.tscn")
 
 # The node that holds aim_target_position to aim the turret
 @export var aimer : Node3D
+
+@export var crosshair_setter : CrosshairSetter
 
 @export var split_barrels : int = 1 :
 	set(value):
@@ -24,6 +28,7 @@ var shoot_cooldown = 1.0
 
 
 @onready var bearing = $TurretHub/Bearing
+@onready var aim_laser = %AimLaser
 
 var split_barrel_holder = []
 
@@ -79,6 +84,14 @@ func _physics_process(delta: float) -> void:
 	if "aim_target_position" in aimer:
 		global_position.distance_to(aimer.aim_target_position)
 		target_position = aimer.aim_target_position + Vector3(0,1.0,0)
+		if aim_laser.is_colliding():
+			var distance = aim_laser.get_collision_point().length() - target_position.length()
+			if distance < 0:
+				change_crosshair.emit(1)
+				crosshair_setter.set_crosshair(1)
+			else:
+				change_crosshair.emit(0)
+				crosshair_setter.set_crosshair(0)
 	look_at(target_position)
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)
