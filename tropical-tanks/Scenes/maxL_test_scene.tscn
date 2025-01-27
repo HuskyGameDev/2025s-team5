@@ -1,9 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://wrmqgco20q5r"]
+[gd_scene load_steps=8 format=3 uid="uid://wrmqgco20q5r"]
 
+[ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_an2gu"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="3_1he4n"]
-[ext_resource type="PackedScene" uid="uid://cnpjr2qs65c5s" path="res://Components/Camera/camera.tscn" id="3_ag1d7"]
-[ext_resource type="Script" path="res://Scenes/vehicle_body_3d.gd" id="3_ffysl"]
-[ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="4_wmmot"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_enxu1"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -22,12 +20,6 @@ glow_enabled = true
 size = Vector2(10, 10)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_l2bx2"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_q4hls"]
-size = Vector3(1, 0.5, 2)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_s75bq"]
-size = Vector3(1, 0.407715, 1.97021)
 
 [node name="TestMainScene" type="Node3D"]
 
@@ -51,50 +43,5 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 xsize = 200
 zsize = 200
 
-[node name="VehicleBody3D" type="VehicleBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.26883, 7.17701, 11.3943)
-script = ExtResource("3_ffysl")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="VehicleBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.227592, 0)
-mesh = SubResource("BoxMesh_q4hls")
-
-[node name="BackWheelRight" type="VehicleWheel3D" parent="VehicleBody3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
-use_as_traction = true
-
-[node name="BackWheelRight2" type="VehicleWheel3D" parent="VehicleBody3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
-use_as_traction = true
-
-[node name="BackWheelLeft" type="VehicleWheel3D" parent="VehicleBody3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1)
-use_as_traction = true
-
-[node name="BackWheelLeft2" type="VehicleWheel3D" parent="VehicleBody3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-use_as_traction = true
-
-[node name="FrontWheelRight" type="VehicleWheel3D" parent="VehicleBody3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 1)
-use_as_traction = true
-
-[node name="FrontWheelLeft" type="VehicleWheel3D" parent="VehicleBody3D"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
-use_as_traction = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="VehicleBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.296143, 0.0310059)
-shape = SubResource("BoxShape3D_s75bq")
-
-[node name="CameraRoot" parent="VehicleBody3D/CollisionShape3D" instance=ExtResource("3_ag1d7")]
-
-[node name="Turret" parent="VehicleBody3D" node_paths=PackedStringArray("aimer") instance=ExtResource("4_wmmot")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.629412, 0)
-aimer = NodePath("../CollisionShape3D/CameraRoot")
+[node name="PlayerRoot" parent="." instance=ExtResource("2_an2gu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24013, 10.3469, 16.3718)

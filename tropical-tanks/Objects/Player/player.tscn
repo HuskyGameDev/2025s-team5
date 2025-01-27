@@ -1,9 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://3oknlbv35lld"]
+[gd_scene load_steps=4 format=3 uid="uid://3oknlbv35lld"]
 
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/Tank/Tank.tscn" id="1_avp0u"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_tqbjc"]
 [ext_resource type="PackedScene" uid="uid://cnpjr2qs65c5s" path="res://Components/Camera/camera.tscn" id="3_wp58l"]
-[ext_resource type="PackedScene" uid="uid://d1lq821ro2ajm" path="res://Components/CrosshairSetter/crosshair_setter.tscn" id="4_c5qdc"]
 
 [node name="PlayerRoot" type="Node3D"]
 
@@ -16,4 +15,5 @@ double_barrels = 2
 
 [node name="CameraRoot" parent="Tank" instance=ExtResource("3_wp58l")]
 
-[node name="CrosshairSetter" parent="." instance=ExtResource("4_c5qdc")]
+[node name="RayCast3D" type="RayCast3D" parent="Tank"]
+unique_name_in_owner = true
