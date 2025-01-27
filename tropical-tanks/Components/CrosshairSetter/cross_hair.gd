@@ -2,7 +2,7 @@ extends Node2D
 
 @export var crosshair_size : Vector2 = Vector2(50, 50)
 
-var reticle : CompressedTexture2D = preload("res://Art/Images/CrossHair.svg")
+var reticle : CompressedTexture2D = preload("res://Art/Images/CrossHairALLWHITE.svg")
 var blocked_reticle = preload("res://Art/Images/CrossHairBlocked.svg")
 var outOfRange_reticle = preload("res://Art/Images/CrossHairOutOfRange.svg")
 
