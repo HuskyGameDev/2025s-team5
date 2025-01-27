@@ -1,16 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://c35oxtjcpmqv4"]
 
 [ext_resource type="Script" path="res://Scenes/mat_test_scene.gd" id="1_dx4kc"]
-[ext_resource type="Texture2D" uid="uid://77f4ocqbvilc" path="res://Art/Images/CrossHair.svg" id="1_fcqfw"]
 [ext_resource type="Script" path="res://Scenes/crosshair2D.gd" id="3_c5ici"]
+[ext_resource type="Texture2D" uid="uid://dvurnxli5ri8m" path="res://Art/Images/CrossHairALLWHITE.svg" id="3_f4lha"]
 
 [node name="mat_test_scene" type="Node2D"]
 script = ExtResource("1_dx4kc")
 
 [node name="Node2D" type="Node2D" parent="."]
-visible = false
 scale = Vector2(0.1, 0.1)
 script = ExtResource("3_c5ici")
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]
-texture = ExtResource("1_fcqfw")
+texture = ExtResource("3_f4lha")
