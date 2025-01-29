@@ -84,14 +84,12 @@ func _physics_process(delta: float) -> void:
 	if "aim_target_position" in aimer:
 		global_position.distance_to(aimer.aim_target_position)
 		target_position = aimer.aim_target_position + Vector3(0,1.0,0)
+		change_crosshair.emit(0)
+		crosshair_setter.set_crosshair(0)
 		if aim_laser.is_colliding():
-			var distance = aim_laser.get_collision_point().length() - target_position.length()
-			if distance < 0:
+			if aim_laser.get_collision_point().length() - target_position.length() > 0:
 				change_crosshair.emit(1)
 				crosshair_setter.set_crosshair(1)
-			else:
-				change_crosshair.emit(0)
-				crosshair_setter.set_crosshair(0)
 	look_at(target_position)
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)
