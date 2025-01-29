@@ -19,6 +19,10 @@ config/icon="res://Art/Images/TropicalTanksIcon.png"
 
 project/assembly_name="Tropical tanks"
 
+[global_group]
+
+Enemy="Enemy tank object."
+
 [layer_names]
 
 3d_render/layer_1="Ground"

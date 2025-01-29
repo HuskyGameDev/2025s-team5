@@ -1,3 +1,47 @@
-[gd_scene format=3 uid="uid://bl67abvf3dbvy"]
+[gd_scene load_steps=8 format=3 uid="uid://bl67abvf3dbvy"]
 
-[node name="JakeTestScene" type="Node3D"]
+[ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_82kpi"]
+[ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_0msfh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_enxu1"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_tdlhe"]
+sky_material = SubResource("ProceduralSkyMaterial_enxu1")
+
+[sub_resource type="Environment" id="Environment_f0lbo"]
+background_mode = 2
+sky = SubResource("Sky_tdlhe")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fdlp1"]
+size = Vector2(10, 10)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_l2bx2"]
+
+[node name="TestMainScene" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_f0lbo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="GroundPlane" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_fdlp1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="GroundPlane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_l2bx2")
+
+[node name="Terrain3D" parent="." instance=ExtResource("1_82kpi")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+xsize = 200
+zsize = 200
+
+[node name="PlayerRoot" parent="." instance=ExtResource("2_0msfh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24013, 10.3469, 16.3718)
