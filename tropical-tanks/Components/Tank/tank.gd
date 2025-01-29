@@ -27,17 +27,23 @@ func _physics_process(delta: float) -> void:
 		
 		
 		if Input.is_action_pressed("ui_up"):
-			velocity = move_vector.rotated(rotation_axis,move_vector_angle) * SPEED * delta
+			velocity = delta * SPEED * move_vector
 		
 		if Input.is_action_pressed("ui_down"):
-			velocity = move_vector.rotated(rotation_axis,move_vector_angle) * -SPEED * delta
+			#if move_vector_angle != 0:
+				#velocity = delta * -SPEED * move_vector.rotated(rotation_axis,move_vector_angle)
+			#else:
+				velocity = delta * -SPEED * move_vector
 		
 		if Input.is_action_pressed("ui_left"):
 			tank_rotation += SPEED / 180 * delta
 		if Input.is_action_pressed("ui_right"):
 			tank_rotation += -SPEED / 180 * delta
 		
-		$tank.look_at($tank.global_position + move_vector.rotated(rotation_axis,move_vector_angle))
+		if move_vector_angle != 0 and velocity != Vector3.ZERO:
+			velocity = velocity.rotated(rotation_axis,move_vector_angle)
+			
+		$tank.look_at($tank.global_position + move_vector)
 		
 	else:
 		velocity += get_gravity() * delta

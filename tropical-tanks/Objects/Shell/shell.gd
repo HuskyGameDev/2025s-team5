@@ -51,6 +51,7 @@ func bounce():
 func _physics_process(delta: float) -> void:
 	position += velocity * delta
 	velocity += gravity * delta + get_drag() * delta # Decreases velocity by the drag constant
+	look_at(position + velocity) # Look in direction of travel
 	pass
 
 func get_drag() -> Vector3:
