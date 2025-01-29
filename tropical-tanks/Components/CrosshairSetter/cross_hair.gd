@@ -5,7 +5,7 @@ class_name CrosshairSetter
 
 var reticle : CompressedTexture2D = preload("res://Art/Images/CrossHairALLWHITE.svg")
 var blocked_reticle = preload("res://Art/Images/CrossHairBlocked.svg")
-var outOfRange_reticle : CompressedTexture2D = preload("res://Art/Images/CrossHairOutOfRange.svg")
+var outOfRange_reticle : CompressedTexture2D = preload("res://Art/Images/CrossHairBlocked.svg")
 
 func _ready() -> void:
 	

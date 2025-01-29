@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 529 368" width="529" height="368"><defs></defs><g transform="matrix(1,0,0,1,-12.152466802,-91)">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 550 550" width="550" height="550"><defs></defs><g>
 <g>
 	<g>
-		<path d="M275,91C376.528399,91 459,173.471601 459,275 C459,376.528399 376.528399,459 275,459 C173.471601,459 91,376.528399 91,275 C91,173.471601 173.471601,91 275,91 Z" transform="matrix(1,0,0,1,0,0)" fill="#ffffff" fill-opacity="0" stroke="#ffcb41" stroke-width="32" opacity="0.8"/>
-		<path d="M537.312111,208.482926C537.312111,208.482926 16.939009,343.48503 16.939009,343.48503 " transform="matrix(1,0,0,1,0,0)" fill="none" stroke="#ffcb41" stroke-width="32" opacity="0.8"/>
-		<path d="M12.152467,229.571059C12.152467,229.571059 542.016566,320.44333 542.016566,320.44333 " transform="matrix(1,0,0,1,0,0)" fill="none" stroke="#ffcb41" stroke-width="32" opacity="0.8"/>
+		<path d="M275,91C376.528399,91 459,173.471601 459,275 C459,376.528399 376.528399,459 275,459 C173.471601,459 91,376.528399 91,275 C91,173.471601 173.471601,91 275,91 Z" transform="matrix(1,0,0,1,0,0)" fill="#ffffff" fill-opacity="0" stroke="#ffe400" stroke-width="32"/>
+		<path d="M90.477988,79.538852C90.477988,79.538852 459.522012,470.461148 459.522012,470.461148 " transform="matrix(1,0,0,1,0,0)" fill="none" stroke="#ffe400" stroke-width="32"/>
+		<path d="M468.965504,88.90643C468.965504,88.90643 81.034496,461.09357 81.034496,461.09357 " transform="matrix(1,0,0,1,0,0)" fill="none" stroke="#ffe400" stroke-width="32"/>
 	</g>
 </g></g></svg>
