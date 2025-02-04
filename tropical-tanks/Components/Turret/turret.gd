@@ -75,7 +75,7 @@ func set_barrels() -> void:
 		split_barrel_holder.append(double_barrel_holder)
 		
 	
-
+var look_position = Vector3.ZERO
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
@@ -86,6 +86,7 @@ func _physics_process(delta: float) -> void:
 		target_position = aimer.aim_target_position + Vector3(0,1.0,0)
 		change_crosshair.emit(0)
 		crosshair_setter.set_crosshair(0)
+		look_position = look_position.move_toward(target_position,delta * 30)
 		if aim_laser.is_colliding():
 			if aim_laser.get_collision_point().length() - target_position.length() > 0:
 				change_crosshair.emit(1)
@@ -98,6 +99,12 @@ func _physics_process(delta: float) -> void:
 	rotation.x = clamp(rotation.x, -0.4, 2)
 	$TurretHub.global_rotation = global_rotation * Vector3(0,1,0)
 	bearing.rotation = rotation * Vector3(1,0,1)
+	look_at(look_position)
+	
+	#$TurretHub.global_position = global_position
+	#rotation.x = clamp(rotation.x, -0.4, 2)
+	#$TurretHub.global_rotation = global_rotation * Vector3(1,1,1)
+	#bearing.rotation = rotation * Vector3(1,0,1)
 	
 	
 
