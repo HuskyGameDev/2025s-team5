@@ -15,7 +15,7 @@ func _physics_process(delta: float) -> void:
 	tank.controls = controls
 	
 	
-
+	
 func _on_timer_timeout() -> void:
 	var r = randi_range(0, 4)
 	if (r == 0):
