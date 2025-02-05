@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://3oknlbv35lld"]
+[gd_scene load_steps=5 format=3 uid="uid://3oknlbv35lld"]
 
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/Tank/Tank.tscn" id="1_avp0u"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_tqbjc"]
 [ext_resource type="PackedScene" uid="uid://cnpjr2qs65c5s" path="res://Components/Camera/camera.tscn" id="3_wp58l"]
+[ext_resource type="PackedScene" uid="uid://bnqy4inc3l26i" path="res://Components/TankController/tankController.tscn" id="4_rxv75"]
 
 [node name="PlayerRoot" type="Node3D"]
 
-[node name="Tank" parent="." instance=ExtResource("1_avp0u")]
+[node name="Tank" parent="." node_paths=PackedStringArray("controller") instance=ExtResource("1_avp0u")]
+controller = NodePath("../TankController")
 
 [node name="Turret3" parent="Tank" node_paths=PackedStringArray("aimer") instance=ExtResource("2_tqbjc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377569, 0)
@@ -17,3 +19,5 @@ double_barrels = 2
 
 [node name="RayCast3D" type="RayCast3D" parent="Tank"]
 unique_name_in_owner = true
+
+[node name="TankController" parent="." instance=ExtResource("4_rxv75")]

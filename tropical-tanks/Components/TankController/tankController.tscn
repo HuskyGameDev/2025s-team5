@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnqy4inc3l26i"]
+
+[ext_resource type="Script" path="res://Components/TankController/tankController.gd" id="1_2shn5"]
+
+[node name="TankController" type="Node3D"]
+script = ExtResource("1_2shn5")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

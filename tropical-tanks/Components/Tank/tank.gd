@@ -9,7 +9,18 @@ var move_vector = Vector3(0,0,1)
 var tank_rotation = 0.0
 @onready var ray = %RayCast3D
 
+var controls = {
+	"forward" = false,
+	"backward" = false,
+	"turn_left" = false,
+	"turn_right" = false
+	
+}
+
+@export var controller : TankController
+
 func _physics_process(delta: float) -> void:
+	controls = controller.controls
 	# Add the gravity.
 	if ray.is_colliding():
 		velocity = Vector3(0,0,0)
@@ -26,18 +37,14 @@ func _physics_process(delta: float) -> void:
 		
 		
 		
-		if Input.is_action_pressed("ui_up"):
+		if controls.get("forward"):
 			velocity = delta * SPEED * move_vector
+		if controls.get("backward"):
+			velocity = delta * -SPEED * move_vector
 		
-		if Input.is_action_pressed("ui_down"):
-			#if move_vector_angle != 0:
-				#velocity = delta * -SPEED * move_vector.rotated(rotation_axis,move_vector_angle)
-			#else:
-				velocity = delta * -SPEED * move_vector
-		
-		if Input.is_action_pressed("ui_left"):
+		if controls.get("turn_left"):
 			tank_rotation += SPEED / 180 * delta
-		if Input.is_action_pressed("ui_right"):
+		if controls.get("turn_right"):
 			tank_rotation += -SPEED / 180 * delta
 		
 		if move_vector_angle != 0 and velocity != Vector3.ZERO:
