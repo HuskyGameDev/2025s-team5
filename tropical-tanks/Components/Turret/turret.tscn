@@ -25,7 +25,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.13016)
 target_position = Vector3(0, 0, -100)
 
 [node name="Timer" type="Timer" parent="."]
-autostart = true
+one_shot = true
 
 [node name="CrosshairSetter" parent="." instance=ExtResource("3_5c1ct")]
 

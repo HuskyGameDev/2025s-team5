@@ -4,6 +4,11 @@
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="3_1he4n"]
 [ext_resource type="PackedScene" uid="uid://dwdirwkk7kcgs" path="res://Objects/Enemy/enemy.tscn" id="3_ox8ft"]
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_fdlp1"]
+size = Vector2(10, 10)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_l2bx2"]
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_enxu1"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -17,19 +22,7 @@ sky = SubResource("Sky_tdlhe")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_fdlp1"]
-size = Vector2(10, 10)
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_l2bx2"]
-
 [node name="TestMainScene" type="Node3D"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_f0lbo")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
-shadow_enabled = true
 
 [node name="GroundPlane" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_fdlp1")
@@ -39,6 +32,25 @@ mesh = SubResource("PlaneMesh_fdlp1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/StaticBody3D"]
 shape = SubResource("WorldBoundaryShape3D_l2bx2")
 
+[node name="NorthPlane" type="StaticBody3D" parent="GroundPlane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/NorthPlane"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_l2bx2")
+
+[node name="WestPlane" type="StaticBody3D" parent="GroundPlane"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/WestPlane"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_l2bx2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="GroundPlane"]
+environment = SubResource("Environment_f0lbo")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="GroundPlane"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
 [node name="Terrain3D" parent="." instance=ExtResource("3_1he4n")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 xsize = 200
@@ -47,17 +59,6 @@ zsize = 200
 [node name="PlayerRoot" parent="." instance=ExtResource("2_an2gu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24013, 10.3469, 16.3718)
 
-[node name="EnemyRoot" parent="." instance=ExtResource("3_ox8ft")]
+[node name="EnemyRoot" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_ox8ft")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.3773, 8.32162, 21.5296)
-
-[node name="NorthPlane" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NorthPlane"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-shape = SubResource("WorldBoundaryShape3D_l2bx2")
-
-[node name="WestPlane" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WestPlane"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("WorldBoundaryShape3D_l2bx2")
+target = NodePath("../PlayerRoot")

@@ -6,23 +6,22 @@ var controls = {
 	"forward" = false,
 	"backward" = false,
 	"turn_left" = false,
-	"turn_right" = false
-	
+	"turn_right" = false,
+	"shoot" = false,
 }
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	
 	tank.controls = controls
 	controls = {
 	"forward" = false,
 	"backward" = false,
 	"turn_left" = false,
-	"turn_right" = false
+	"turn_right" = false,
+	"shoot" = false,
 	}
 	
 	if Input.is_action_pressed("tank_forward"):
@@ -36,3 +35,6 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_pressed("tank_turn_right"):
 		controls["turn_right"] = true
+		
+	if Input.is_action_pressed("tank_shoot"):
+		controls["shoot"] = true

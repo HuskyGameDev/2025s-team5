@@ -1,10 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://dwdirwkk7kcgs"]
 
+[ext_resource type="Script" path="res://Components/TankController/tankController.gd" id="1_gxatg"]
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/Tank/Tank.tscn" id="1_umy6l"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_ck6tt"]
-[ext_resource type="PackedScene" uid="uid://bnqy4inc3l26i" path="res://Components/TankController/tankController.tscn" id="4_fenr7"]
 
-[node name="EnemyRoot" type="Node3D" groups=["Enemy"]]
+[node name="EnemyRoot" type="Node3D" node_paths=PackedStringArray("tank", "turrets") groups=["Enemy"]]
+script = ExtResource("1_gxatg")
+tank = NodePath("Tank")
+turrets = [NodePath("Tank/Turret3")]
 
 [node name="Tank" parent="." instance=ExtResource("1_umy6l")]
 
@@ -15,5 +18,7 @@ double_barrels = 2
 [node name="RayCast3D" type="RayCast3D" parent="Tank"]
 unique_name_in_owner = true
 
-[node name="TankController" parent="." node_paths=PackedStringArray("tank") instance=ExtResource("4_fenr7")]
-tank = NodePath("../Tank")
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

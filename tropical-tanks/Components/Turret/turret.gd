@@ -99,9 +99,16 @@ func _physics_process(delta: float) -> void:
 	
 
 
-var i = 0
+var shoot_cooleddown = true
 func _on_timer_timeout() -> void:
-	for split_barrel in split_barrel_holder:
-		split_barrel[i].fire_shell()
-		i += 1
-		i = i % double_barrels
+	shoot_cooleddown = true
+	
+var i = 0
+func shoot():
+	if shoot_cooleddown:
+		for split_barrel in split_barrel_holder:
+			split_barrel[i].fire_shell()
+			i += 1
+			i = i % double_barrels
+		shoot_cooleddown = false
+		$Timer.start()

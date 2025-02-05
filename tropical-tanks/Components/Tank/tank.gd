@@ -2,7 +2,6 @@ extends CharacterBody3D
 class_name Tank
 
 const SPEED = 250.0
-const JUMP_VELOCITY = 4.5
 
 var move_vector = Vector3(0,0,-1)
 
@@ -13,7 +12,8 @@ var controls = {
 	"forward" = false,
 	"backward" = false,
 	"turn_left" = false,
-	"turn_right" = false
+	"turn_right" = false,
+	"shoot" = false,
 	
 }
 
@@ -26,13 +26,14 @@ func _physics_process(delta: float) -> void:
 		
 		move_vector = Vector3(0,0,-1).rotated(move_normal,tank_rotation)
 		
-		
-		
 		var difference = move_normal - ray.get_collision_normal()
 		var rotation_axis = (move_normal.cross(ray.get_collision_normal())).normalized()
 		var move_vector_angle = move_normal.angle_to(ray.get_collision_normal())
 		
-		
+		if controls.get("shoot"):
+			for turret in get_children():
+				if turret is Turret:
+					turret.shoot()
 		
 		if controls.get("forward"):
 			velocity = delta * SPEED * move_vector
@@ -51,5 +52,4 @@ func _physics_process(delta: float) -> void:
 		
 	else:
 		velocity += get_gravity() * delta
-		
 	move_and_slide()

@@ -3,7 +3,7 @@ class_name Barrel
 
 var SHELL = preload("res://Objects/Shell/shell.tscn")
 
-var shell_spread = 0.0
+var shell_spread = 0.01
 
 
 
