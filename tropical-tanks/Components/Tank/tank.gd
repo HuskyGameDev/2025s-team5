@@ -4,7 +4,7 @@ class_name Tank
 const SPEED = 250.0
 const JUMP_VELOCITY = 4.5
 
-var move_vector = Vector3(0,0,1)
+var move_vector = Vector3(0,0,-1)
 
 var tank_rotation = 0.0
 @onready var ray = %RayCast3D
@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 		
 		var move_normal = Vector3(0,1,0)
 		
-		move_vector = Vector3(0,0,1).rotated(move_normal,tank_rotation)
+		move_vector = Vector3(0,0,-1).rotated(move_normal,tank_rotation)
 		
 		
 		

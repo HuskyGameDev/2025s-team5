@@ -49,3 +49,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24013, 10.3469, 16.3718)
 
 [node name="EnemyRoot" parent="." instance=ExtResource("3_ox8ft")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.3773, 8.32162, 21.5296)
+
+[node name="NorthPlane" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NorthPlane"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_l2bx2")
+
+[node name="WestPlane" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WestPlane"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("WorldBoundaryShape3D_l2bx2")
