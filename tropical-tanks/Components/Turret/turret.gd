@@ -5,7 +5,7 @@ class_name Turret
 
 signal change_crosshair(crosshair_index)
 
-var target_position : Vector3 = Vector3(0,0,0)
+@export var target_position : Vector3 = Vector3(0,0,0)
 
 var BARREL = preload("res://Components/Turret/barrel.tscn")
 

@@ -5,8 +5,9 @@ const SPEED = 250.0
 
 var move_vector = Vector3(0,0,-1)
 
-var tank_rotation = 0.0
-@onready var ray = %RayCast3D
+@export var tank_rotation : float = 0.0
+
+@onready var ray = $RayCast3D
 
 var controls = {
 	"forward" = false,
@@ -19,12 +20,13 @@ var controls = {
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	if ray.is_colliding():
+	
+	var move_normal = Vector3(0,1,0)
+	move_vector = Vector3(0,0,-1).rotated(move_normal,tank_rotation)
+	
+	if ray and ray.is_colliding():
 		velocity = Vector3(0,0,0)
 		
-		var move_normal = Vector3(0,1,0)
-		
-		move_vector = Vector3(0,0,-1).rotated(move_normal,tank_rotation)
 		
 		var difference = move_normal - ray.get_collision_normal()
 		var rotation_axis = (move_normal.cross(ray.get_collision_normal())).normalized()
@@ -48,8 +50,8 @@ func _physics_process(delta: float) -> void:
 		if move_vector_angle != 0 and velocity != Vector3.ZERO:
 			velocity = velocity.rotated(rotation_axis,move_vector_angle)
 			
-		$tank.look_at($tank.global_position + move_vector)
 		
 	else:
 		velocity += get_gravity() * delta
+	$tank.look_at($tank.global_position + move_vector)
 	move_and_slide()
