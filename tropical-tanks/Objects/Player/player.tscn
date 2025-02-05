@@ -1,11 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://3oknlbv35lld"]
 
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/Tank/Tank.tscn" id="1_avp0u"]
+[ext_resource type="Script" path="res://Objects/Player/player_controller.gd" id="1_ikaho"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_tqbjc"]
 [ext_resource type="PackedScene" uid="uid://cnpjr2qs65c5s" path="res://Components/Camera/camera.tscn" id="3_wp58l"]
-[ext_resource type="PackedScene" uid="uid://bnqy4inc3l26i" path="res://Components/TankController/tankController.tscn" id="4_rxv75"]
 
-[node name="PlayerRoot" type="Node3D"]
+[node name="PlayerRoot" type="Node3D" node_paths=PackedStringArray("tank")]
+script = ExtResource("1_ikaho")
+tank = NodePath("Tank")
 
 [node name="Tank" parent="." instance=ExtResource("1_avp0u")]
 
@@ -18,6 +20,3 @@ double_barrels = 2
 
 [node name="RayCast3D" type="RayCast3D" parent="Tank"]
 unique_name_in_owner = true
-
-[node name="TankController" parent="." node_paths=PackedStringArray("tank") instance=ExtResource("4_rxv75")]
-tank = NodePath("../Tank")

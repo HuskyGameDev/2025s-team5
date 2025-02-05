@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://wrmqgco20q5r"]
+[gd_scene load_steps=9 format=3 uid="uid://wrmqgco20q5r"]
 
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_an2gu"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="3_1he4n"]
+[ext_resource type="PackedScene" uid="uid://dwdirwkk7kcgs" path="res://Objects/Enemy/enemy.tscn" id="3_ox8ft"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_enxu1"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -45,3 +46,6 @@ zsize = 200
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_an2gu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24013, 10.3469, 16.3718)
+
+[node name="EnemyRoot" parent="." instance=ExtResource("3_ox8ft")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.3773, 8.32162, 21.5296)
