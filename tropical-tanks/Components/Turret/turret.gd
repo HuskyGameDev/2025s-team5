@@ -1,5 +1,7 @@
 @tool
 extends Node3D
+class_name Turret
+
 
 signal change_crosshair(crosshair_index)
 
@@ -81,16 +83,14 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# Change target position if aimer has aim_target_position
-	if aimer and "aim_target_position" in aimer:
-		global_position.distance_to(aimer.aim_target_position)
-		target_position = aimer.aim_target_position + Vector3(0,0.0,0)
-		change_crosshair.emit(0)
-		crosshair_setter.set_crosshair(0)
-		look_position = look_position.move_toward(target_position,delta * 30)
-		if aim_laser.is_colliding():
-			if (aim_laser.get_collision_point() - global_position).length() - (target_position - global_position).length() + 1 < 0:
-				change_crosshair.emit(1)
-				crosshair_setter.set_crosshair(1)
+
+	change_crosshair.emit(0)
+	crosshair_setter.set_crosshair(0)
+	look_position = look_position.move_toward(target_position,delta * 30)
+	if aim_laser.is_colliding():
+		if (aim_laser.get_collision_point() - global_position).length() - (target_position - global_position).length() + 1 < 0:
+			change_crosshair.emit(1)
+			crosshair_setter.set_crosshair(1)
 				
 	look_at(target_position)
 	$TurretHub.global_position = global_position

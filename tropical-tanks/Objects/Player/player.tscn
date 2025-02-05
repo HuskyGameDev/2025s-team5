@@ -16,7 +16,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377569, 0)
 aimer = NodePath("../CameraRoot")
 double_barrels = 2
 
-[node name="CameraRoot" parent="Tank" instance=ExtResource("3_wp58l")]
+[node name="CameraRoot" parent="Tank" node_paths=PackedStringArray("turrets") instance=ExtResource("3_wp58l")]
+turrets = [NodePath("../Turret3")]
 
 [node name="RayCast3D" type="RayCast3D" parent="Tank"]
 unique_name_in_owner = true

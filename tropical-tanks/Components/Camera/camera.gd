@@ -3,6 +3,7 @@ extends Node3D
 @export var follow_speed : float = 2.0
 @export var mouse_weight : float = 0.01
 
+@export var turrets : Array[Turret]
 
 @onready var camera = %Camera3D
 
@@ -10,9 +11,16 @@ var aim_target_position : Vector3
 var camera_offset = Vector3(0,10,0)
 var ray_length = 200 # How far the mouse detects the ground
 
+func _ready() -> void:
+	assert(turrets.size() > 0, "Camera controller has no turrets to control") # ADD TURRETS TO THE CAMERA IN INSPECTOR
+
 func _physics_process(delta: float) -> void:
 	# Use a raycast from mouse to find where the mouse is intersecting the scene.
 	aim_target_position = raycast_from_mouse(get_viewport().get_mouse_position(),1)["position"]
+			
+	if turrets:
+		for turret in turrets:
+			turret.target_position = aim_target_position
 	
 	# Find target position by adding mouse position to the camera root global position
 	# Then add camera offset
