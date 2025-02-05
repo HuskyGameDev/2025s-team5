@@ -17,4 +17,21 @@ func _physics_process(delta: float) -> void:
 	
 
 func _on_timer_timeout() -> void:
-	controls["forward"] = !controls["forward"]
+	var r = randi_range(0, 4)
+	if (r == 0):
+		controls["backward"] = false
+		controls["forward"] = true
+	if (r == 1):
+		controls["forward"] = false
+		controls["backward"] = true
+	if (r == 2):
+		controls["turn_right"] = false
+		controls["turn_left"] = true
+	if (r == 3):
+		controls["turn_left"] = false
+		controls["turn_right"] = true
+	if (r == 4):
+		controls["turn_right"] = false
+		controls["turn_left"] = false
+		controls["backward"] = false
+		controls["forward"] = false
