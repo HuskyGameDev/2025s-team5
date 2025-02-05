@@ -88,7 +88,7 @@ func _physics_process(delta: float) -> void:
 		crosshair_setter.set_crosshair(0)
 		look_position = look_position.move_toward(target_position,delta * 30)
 		if aim_laser.is_colliding():
-			if aim_laser.get_collision_point().length() - target_position.length() > 0:
+			if target_position.length() - aim_laser.get_collision_point().length() > 0:
 				change_crosshair.emit(1)
 				crosshair_setter.set_crosshair(1)
 			else:
