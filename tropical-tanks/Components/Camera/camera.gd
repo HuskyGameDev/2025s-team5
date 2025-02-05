@@ -6,6 +6,7 @@ extends Node3D
 @export var turrets : Array[Turret]
 
 @onready var camera = %Camera3D
+@export var crosshair_setter : CrosshairSetter
 
 var aim_target_position : Vector3 
 var camera_offset = Vector3(0,10,0)
@@ -21,6 +22,15 @@ func _physics_process(delta: float) -> void:
 	if turrets:
 		for turret in turrets:
 			turret.target_position = aim_target_position
+			
+		#change_crosshair.emit(0)
+		#crosshair_setter.set_crosshair(0)
+		#if aim_laser.is_colliding():
+			#var collision_difference = (aim_laser.get_collision_point() - global_position).length() - (target_position - global_position).length()
+			#print(collision_difference)
+			#if collision_difference + 1 < 0:
+				#change_crosshair.emit(1)
+				#crosshair_setter.set_crosshair(1)
 	
 	# Find target position by adding mouse position to the camera root global position
 	# Then add camera offset
