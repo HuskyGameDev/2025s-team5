@@ -1,6 +1,6 @@
 extends Node3D
-class_name TankController
 
+@export var tank : Tank
 
 var controls = {
 	"forward" = false,
@@ -12,7 +12,7 @@ var controls = {
 
 
 func _physics_process(delta: float) -> void:
-	pass
+	tank.controls = controls
 	
 	
 

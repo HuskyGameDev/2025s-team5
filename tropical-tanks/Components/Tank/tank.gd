@@ -1,5 +1,5 @@
 extends CharacterBody3D
-
+class_name Tank
 
 const SPEED = 250.0
 const JUMP_VELOCITY = 4.5
@@ -17,10 +17,7 @@ var controls = {
 	
 }
 
-@export var controller : TankController
-
 func _physics_process(delta: float) -> void:
-	controls = controller.controls
 	# Add the gravity.
 	if ray.is_colliding():
 		velocity = Vector3(0,0,0)
