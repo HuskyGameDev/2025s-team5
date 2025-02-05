@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	# Change target position if aimer has aim_target_position
-	if "aim_target_position" in aimer:
+	if aimer and "aim_target_position" in aimer:
 		global_position.distance_to(aimer.aim_target_position)
 		target_position = aimer.aim_target_position + Vector3(0,0.0,0)
 		change_crosshair.emit(0)
