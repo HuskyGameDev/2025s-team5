@@ -79,7 +79,7 @@ func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	print((target_position - global_position).length())
+	#print((target_position - global_position).length())
 
 	look_position = look_position.move_toward(target_position,delta * 30)
 	

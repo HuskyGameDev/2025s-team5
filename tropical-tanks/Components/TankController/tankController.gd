@@ -1,6 +1,6 @@
 extends Node3D
 
-@export var tank : Tank
+@export var tank : TankChassis
 @export var turrets : Array[Turret]
 @export var target : Node3D
 

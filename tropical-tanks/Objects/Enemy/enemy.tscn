@@ -9,7 +9,7 @@ script = ExtResource("1_gxatg")
 tank = NodePath("Tank")
 turrets = [NodePath("Tank/Turret3")]
 
-[node name="Tank" parent="." instance=ExtResource("1_umy6l")]
+[node name="Tank" parent="." groups=["Enemy"] instance=ExtResource("1_umy6l")]
 
 [node name="Turret3" parent="Tank" instance=ExtResource("2_ck6tt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377569, 0)

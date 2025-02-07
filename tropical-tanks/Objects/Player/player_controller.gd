@@ -1,6 +1,6 @@
 extends Node
 
-@export var tank : Tank
+@export var tank : TankChassis
 
 var controls = {
 	"forward" = false,

@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://wrmqgco20q5r"]
 
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_eub6h"]
-[ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="3_1he4n"]
+[ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/TankChassis/tankChassis.tscn" id="2_r3nu8"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_fdlp1"]
 size = Vector2(10, 10)
@@ -31,18 +31,6 @@ mesh = SubResource("PlaneMesh_fdlp1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/StaticBody3D"]
 shape = SubResource("WorldBoundaryShape3D_l2bx2")
 
-[node name="NorthPlane" type="StaticBody3D" parent="GroundPlane"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/NorthPlane"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-shape = SubResource("WorldBoundaryShape3D_l2bx2")
-
-[node name="WestPlane" type="StaticBody3D" parent="GroundPlane"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/WestPlane"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("WorldBoundaryShape3D_l2bx2")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GroundPlane"]
 environment = SubResource("Environment_f0lbo")
 
@@ -50,8 +38,10 @@ environment = SubResource("Environment_f0lbo")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Terrain3D" parent="." instance=ExtResource("3_1he4n")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-
 [node name="PlayerRoot" parent="." instance=ExtResource("2_eub6h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5558, 8.27925, 25.4399)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.11397, 1.72595, 3.48149)
+
+[node name="DummyRoot" type="Node3D" parent="." groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.47554, 0)
+
+[node name="TankChassis" parent="DummyRoot" groups=["Enemy"] instance=ExtResource("2_r3nu8")]

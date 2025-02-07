@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://0mhao2dpnqvl"]
+[gd_scene load_steps=5 format=3 uid="uid://0mhao2dpnqvl"]
 
 [ext_resource type="Script" path="res://Objects/GroundScatter/ground_scatter.gd" id="1_oosj4"]
 [ext_resource type="PackedScene" uid="uid://rifkhcc4lnmn" path="res://Art/Models/palmera_rokerflower_on_Free3D.fbx" id="2_owv2k"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_g8s8e"]
 size = Vector3(1, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tv7wp"]
+size = Vector3(0.5, 5, 0.5)
 
 [node name="GroundScatter" type="Node3D"]
 script = ExtResource("1_oosj4")
@@ -15,4 +18,10 @@ visible = false
 mesh = SubResource("BoxMesh_g8s8e")
 
 [node name="palmera_rokerflower_on_Free3D" parent="." instance=ExtResource("2_owv2k")]
-transform = Transform3D(0.205, 0, 0, 0, 0.205, 0, 0, 0, 0.205, -0.0506772, 0, 0.19925)
+transform = Transform3D(0.205, 0, 0, 0, 0.205, 0, 0, 0, 0.205, -0.0107432, 0, 0.254121)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51454, 0)
+shape = SubResource("BoxShape3D_tv7wp")
