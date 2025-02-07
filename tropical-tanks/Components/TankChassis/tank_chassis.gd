@@ -7,7 +7,8 @@ var move_vector = Vector3(0,0,-1)
 
 @export var tank_rotation : float = 0.0
 
-@onready var ray = $RayCast3D
+@onready var ground_raycast = $GroundRaycast
+@onready var tank_chassis = $TankChassisModelParts
 
 var controls = {
 	"forward" = false,
@@ -24,12 +25,12 @@ func _physics_process(delta: float) -> void:
 	var move_normal = Vector3(0,1,0)
 	move_vector = Vector3(0,0,-1).rotated(move_normal,tank_rotation)
 	
-	if ray and ray.is_colliding():
+	if ground_raycast and ground_raycast.is_colliding():
 		velocity = Vector3(0,0,0)
 		
 		
-		var rotation_axis = (move_normal.cross(ray.get_collision_normal())).normalized()
-		var move_vector_angle = move_normal.angle_to(ray.get_collision_normal())
+		var rotation_axis = (move_normal.cross(ground_raycast.get_collision_normal())).normalized()
+		var move_vector_angle = move_normal.angle_to(ground_raycast.get_collision_normal())
 		
 		if controls.get("shoot"):
 			for turret in get_children():
@@ -52,5 +53,5 @@ func _physics_process(delta: float) -> void:
 		
 	else:
 		velocity += get_gravity() * delta
-	$tank.look_at($tank.global_position + move_vector)
+	tank_chassis.look_at(tank_chassis.global_position + move_vector)
 	move_and_slide()

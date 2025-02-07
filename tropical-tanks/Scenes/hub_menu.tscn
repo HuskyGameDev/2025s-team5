@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://8f2oqghi887u"]
 
 [ext_resource type="Script" path="res://Scenes/hub_menu.gd" id="1_dnwjy"]
-[ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/Tank/Tank.tscn" id="1_tploy"]
+[ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/TankChassis/tankChassis.tscn" id="1_tploy"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_nwenx"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tjabw"]

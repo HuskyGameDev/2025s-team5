@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://8bgogrhf5gis"]
 
-[ext_resource type="PackedScene" uid="uid://c45cee2ybphm" path="res://Art/Models/tank.blend" id="1_t2dx7"]
+[ext_resource type="PackedScene" uid="uid://c45cee2ybphm" path="res://Art/Models/tank.blend" id="1_k8b07"]
 
-[node name="tank" instance=ExtResource("1_t2dx7")]
+[node name="tank" instance=ExtResource("1_k8b07")]
 
 [node name="Plane" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
