@@ -31,6 +31,7 @@ func _physics_process(delta: float) -> void:
 	
 	if ground_raycast and ground_raycast.is_colliding():
 		
+		velocity = Vector3.ZERO
 		
 		var rotation_axis = (move_normal.cross(ground_raycast.get_collision_normal())).normalized()
 		var move_vector_angle = move_normal.angle_to(ground_raycast.get_collision_normal())
@@ -48,8 +49,9 @@ func _physics_process(delta: float) -> void:
 		
 		if move_vector_angle != 0 and velocity != Vector3.ZERO:
 			velocity = velocity.rotated(rotation_axis,move_vector_angle)
-			look_at(global_position + move_vector.rotated(rotation_axis,move_vector_angle))
+			#look_at(global_position + move_vector.rotated(rotation_axis,move_vector_angle))
 			#tank_chassis.look_at(global_position + move_vector.rotated(rotation_axis,move_vector_angle))
+			
 	elif !is_on_floor():
 		velocity += get_gravity() * delta
 		
@@ -57,5 +59,5 @@ func _physics_process(delta: float) -> void:
 			for turret in get_children():
 				if turret is Turret:
 					turret.shoot()
-					
+	tank_chassis.look_at(global_position + move_vector)
 	move_and_slide()

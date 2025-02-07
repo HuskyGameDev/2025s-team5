@@ -13,7 +13,6 @@ var power : float = 0 # Total power of the bullet based on speed * mass
 ## Physics Variables
 var shell_variables = {
 }
-
 @export var mass : float = 1.0 :
 	set(value):
 		mass = value
@@ -31,13 +30,14 @@ var shell_variables = {
 @export var evaporation : float = 1.0:
 	set(value):
 		evaporation = value
-@export var bounces_left : float = 1.0:
+@export var bounces_left : float = 4.0:
 	set(value):
 		bounces_left = value
-@export var bounciness : float = 0.7 #What percent of velocity is conserved in a bounce
+@export var bounce_loss : float = 0.4 #What percent of velocity is lost in a bounce
+@export var bounce_explode : float = 0.1
 		
 ## Mid Flight Control Variables
-@export var fuse_time : float = 2.0
+@export var fuse_time : float = 5.0
 @export var fuel : float = 0.0
 @export var thrust_power : float = 1.0
 
@@ -49,6 +49,7 @@ func _ready() -> void:
 
 func fuse():
 	explode()
+	queue_free()
 	
 	# TODO: Write code to trigger bullet split upgrades after the fuse upgrade has been unlocked
 	
@@ -56,9 +57,12 @@ func bounce(normal_vector : Vector3):
 	var rotation_axis = normal_vector.cross(velocity).normalized()
 	var reflect_plane = normal_vector.rotated(rotation_axis, PI/2)
 	
+	if bounce_explode >= 1 or randf_range(0.0,1.0) < bounce_explode:
+		explode()
+	
 	# TODO: Calculate new bullet vector based on how the bullet hits the object
+	velocity = velocity.reflect(reflect_plane) * (1.0 - bounce_loss/bounces_left)
 	bounces_left = bounces_left - 1 # Decrement bounce counter
-	velocity = velocity.reflect(reflect_plane) * bounciness
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -72,15 +76,16 @@ func _physics_process(delta: float) -> void:
 			position += collision_vector
 			
 			var body = cast.get_collider()
-			print(body)
 			if body.is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
 				explode()
+				impact()
 				print("hit enemy")
 			else : # Only bounce if hitting terrain and is able to bounce
 				if bounces_left >= 1:
 					bounce(cast.get_collision_normal())
 				else:
 					explode() # Otherwise, just explode
+					impact()
 
 	position += velocity * delta
 	velocity += gravity * delta + get_drag() * delta # Decreases velocity by the drag constant
@@ -90,13 +95,16 @@ func _physics_process(delta: float) -> void:
 func get_drag() -> Vector3:
 	return -(velocity*velocity.length()) * drag * 0.5 # Returns a drag vector to factor in to velocity
 
+## Explode
 func explode():
 	var explosion = EXPLOSION.instantiate()
 	explosion.position = global_position
 	explosion.explosion_power = explosion_power
 	get_tree().root.add_child(explosion)
-	queue_free()
 
+## Apply Kinetic damage through an imapct
+func impact():
+	queue_free()
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
