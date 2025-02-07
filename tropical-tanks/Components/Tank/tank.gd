@@ -28,7 +28,6 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3(0,0,0)
 		
 		
-		var difference = move_normal - ray.get_collision_normal()
 		var rotation_axis = (move_normal.cross(ray.get_collision_normal())).normalized()
 		var move_vector_angle = move_normal.angle_to(ray.get_collision_normal())
 		

@@ -57,8 +57,16 @@ xsize = 200
 zsize = 200
 
 [node name="EnemyRoot" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.4523, 5.18664, 27.4994)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.7714, 5.18664, 35.6813)
 target = NodePath("../PlayerRoot")
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_nwsly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.29544, 6.66492, 13.8819)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.807, 6.66492, 31.6718)
+
+[node name="EnemyRoot2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.3577, 6.02505, 26.7979)
+target = NodePath("../PlayerRoot")
+
+[node name="EnemyRoot3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.9809, 6.08751, 32.4849)
+target = NodePath("../PlayerRoot")

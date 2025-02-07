@@ -1,5 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://wrmqgco20q5r"]
+[gd_scene load_steps=8 format=3 uid="uid://wrmqgco20q5r"]
 
+[ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_eub6h"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="3_1he4n"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_fdlp1"]
@@ -51,5 +52,6 @@ shadow_enabled = true
 
 [node name="Terrain3D" parent="." instance=ExtResource("3_1he4n")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-xsize = 200
-zsize = 200
+
+[node name="PlayerRoot" parent="." instance=ExtResource("2_eub6h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5558, 8.27925, 25.4399)

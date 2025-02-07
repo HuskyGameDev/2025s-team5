@@ -17,6 +17,6 @@ func set_crosshair(crosshair_index) -> void:
 	reticle_image.resize(crosshair_size.x, crosshair_size.y, Image.INTERPOLATE_CUBIC)
 	outOfRange_reticle_image.resize(crosshair_size.x, crosshair_size.y, Image.INTERPOLATE_CUBIC)
 	if crosshair_index == 0:
-		Input.set_custom_mouse_cursor(reticle_image, 0, crosshair_size/2)
+		Input.set_custom_mouse_cursor(reticle_image, Input.CURSOR_ARROW, crosshair_size/2)
 	if crosshair_index == 1:
-		Input.set_custom_mouse_cursor(outOfRange_reticle_image, 0, crosshair_size/2)
+		Input.set_custom_mouse_cursor(outOfRange_reticle_image, Input.CURSOR_ARROW, crosshair_size/2)

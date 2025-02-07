@@ -17,12 +17,6 @@ func _ready() -> void:
 	get_tree().root.add_child(crater)
 	crater.global_position = global_position
 	
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
 # Animation 
 func _on_timer_timeout() -> void:
 	for i in randi_range(0,2):

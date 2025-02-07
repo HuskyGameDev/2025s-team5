@@ -13,7 +13,7 @@ var controls = {
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	
 	tank.controls = controls
 	controls = {
