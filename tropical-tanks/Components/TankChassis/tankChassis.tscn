@@ -1,20 +1,22 @@
-[gd_scene load_steps=5 format=3 uid="uid://6mmhgkmoq6oa"]
+[gd_scene load_steps=6 format=3 uid="uid://6mmhgkmoq6oa"]
 
 [ext_resource type="Script" path="res://Components/TankChassis/tank_chassis.gd" id="1_bgbpq"]
 [ext_resource type="PackedScene" uid="uid://8bgogrhf5gis" path="res://Components/TankChassis/tankChassisModelParts.tscn" id="2_eebcv"]
 [ext_resource type="Texture2D" uid="uid://boi17sxf60ef6" path="res://Art/Images/Arrow.svg" id="3_m6eku"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_ro8yc"]
+radius = 0.2
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_8pf4t"]
-size = Vector3(1, 0.5, 1)
+size = Vector3(1, 0.565918, 1.93127)
 
 [node name="TankChassis" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502262, 0)
 collision_mask = 3
 script = ExtResource("1_bgbpq")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.109605, 0.0102539)
-shape = SubResource("BoxShape3D_8pf4t")
+[node name="Collider" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ro8yc")
 
 [node name="TankChassisModelParts" parent="." instance=ExtResource("2_eebcv")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
@@ -30,3 +32,12 @@ text = "PLACEHOLDER"
 [node name="GroundRaycast" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.574452, 0)
 top_level = true
+target_position = Vector3(0, -0.5, 0)
+
+[node name="Area3D" type="Area3D" parent="." groups=["Enemy"]]
+collision_layer = 2
+collision_mask = 0
+
+[node name="Hitbox" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.076646, -0.0293579)
+shape = SubResource("BoxShape3D_8pf4t")

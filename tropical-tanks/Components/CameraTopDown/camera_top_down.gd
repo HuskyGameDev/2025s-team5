@@ -5,6 +5,8 @@ extends Node3D
 
 @export var turrets : Array[Turret]
 
+@export var target_node : Node3D
+
 @onready var camera = %Camera3D
 @export var crosshair_setter : CrosshairSetter
 
@@ -16,6 +18,8 @@ func _ready() -> void:
 	assert(turrets.size() > 0, "Camera controller has no turrets to control") # ADD TURRETS TO THE CAMERA IN INSPECTOR
 
 func _physics_process(delta: float) -> void:
+	if target_node:
+		position = target_node.position
 	# Use a raycast from mouse to find where the mouse is intersecting the scene.
 	aim_target_position = raycast_from_mouse(get_viewport().get_mouse_position(),1)["position"]
 			

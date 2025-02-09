@@ -15,5 +15,7 @@ tank = NodePath("Tank")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377569, 0)
 double_barrels = 5
 
-[node name="CameraRoot" parent="Tank" node_paths=PackedStringArray("turrets") instance=ExtResource("3_wp58l")]
-turrets = [NodePath("../Turret3")]
+[node name="CameraRoot" parent="." node_paths=PackedStringArray("turrets", "target_node") instance=ExtResource("3_wp58l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502262, 0)
+turrets = [NodePath("../Tank/Turret3")]
+target_node = NodePath("../Tank")

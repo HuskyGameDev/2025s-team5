@@ -40,7 +40,7 @@ var shell_variables = {
 @export var fuse_time : float = 5.0
 @export var fuel : float = 0.0
 @export var thrust_power : float = 1.0
-@export var backwardness : float = 1.5 # How backward the shell is
+@export var backwardness : float = 0.0 # How backward the shell is
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
