@@ -119,6 +119,7 @@ func impact(body : Node3D):
 	impact_attack.damage = velocity.length() * mass
 	impact_attack.armor_piercing = armor_piercing
 	
+	body = body.get_parent()
 	# Apply attack to body
 	if body.has_method("take_damage"):
 		body.take_damage(impact_attack)

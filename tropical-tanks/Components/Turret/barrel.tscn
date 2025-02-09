@@ -17,3 +17,6 @@ mesh = SubResource("CylinderMesh_ypprg")
 [node name="ShellSpawn" type="Marker3D" parent="MeshInstance3D"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.484002, 2.11564e-08)
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -1)

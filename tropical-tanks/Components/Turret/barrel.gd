@@ -8,6 +8,8 @@ var shell_spread = 0.01
 
 
 func fire_shell():
+	if $RayCast3D.is_colliding():
+		return	
 	print("Fired Shell!")
 	var shell : Shell = SHELL.instantiate()
 	shell.velocity = -20 * global_basis.z.rotated(global_basis.x,randf_range(0,shell_spread)).rotated(global_basis.z,randf_range(0,2*PI))
