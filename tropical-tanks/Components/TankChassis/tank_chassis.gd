@@ -1,6 +1,18 @@
 extends CharacterBody3D
 class_name TankChassis
 
+var health : float = 100.0
+
+func take_damage(attack : Attack):
+	health = health - attack.damage
+	
+	if health <= 0:
+		death()
+
+func death():
+	position = Vector3.ZERO
+	health = 100.0
+
 const SPEED = 250.0
 
 var move_vector = Vector3(0,0,-1)

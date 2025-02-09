@@ -40,12 +40,18 @@ var shell_variables = {
 @export var fuse_time : float = 5.0
 @export var fuel : float = 0.0
 @export var thrust_power : float = 1.0
+@export var backwardness : float = 1.5 # How backward the shell is
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	# Start Fuse timer
 	if fuse_time > 0.2:
 		$FuseTimer.wait_time = fuse_time
 		$FuseTimer.start()
+		
+	# Reverse bullet for every other level of backwardness
+	if int(backwardness) % 2 == 1:
+		$TempMesh.rotation.y = deg_to_rad(180)
 
 func fuse():
 	explode()
@@ -54,19 +60,21 @@ func fuse():
 	# TODO: Write code to trigger bullet split upgrades after the fuse upgrade has been unlocked
 	
 func bounce(normal_vector : Vector3):
+	# Calculate plane to mirror the bullet, in vector form
 	var rotation_axis = normal_vector.cross(velocity).normalized()
-	var reflect_plane = normal_vector.rotated(rotation_axis, PI/2)
+	var reflection_plane = normal_vector.rotated(rotation_axis, PI/2)
 	
+	# Explode when bounce_explode is high, chance to explode when below 1
 	if bounce_explode >= 1 or randf_range(0.0,1.0) < bounce_explode:
 		explode()
-	
-	# TODO: Calculate new bullet vector based on how the bullet hits the object
-	velocity = velocity.reflect(reflect_plane) * (1.0 - bounce_loss/bounces_left)
+		
+	velocity = velocity.reflect(reflection_plane) * (1.0 - bounce_loss/bounces_left)
 	bounces_left = bounces_left - 1 # Decrement bounce counter
 	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	# Ray Cast collisions
 	if cast.is_colliding():
 		
 		power = velocity.length() * mass
@@ -78,19 +86,21 @@ func _physics_process(delta: float) -> void:
 			var body = cast.get_collider()
 			if body.is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
 				explode()
-				impact()
+				impact(body)
 				print("hit enemy")
 			else : # Only bounce if hitting terrain and is able to bounce
 				if bounces_left >= 1:
 					bounce(cast.get_collision_normal())
 				else:
 					explode() # Otherwise, just explode
-					impact()
+					impact(body)
 
+	# Integrate position and velocity
 	position += velocity * delta
 	velocity += gravity * delta + get_drag() * delta # Decreases velocity by the drag constant
-	look_at(position + velocity) # Look in direction of travel
-	pass
+	
+	# Look in direction of travel
+	look_at(position + velocity)
 
 func get_drag() -> Vector3:
 	return -(velocity*velocity.length()) * drag * 0.5 # Returns a drag vector to factor in to velocity
@@ -103,9 +113,16 @@ func explode():
 	get_tree().root.add_child(explosion)
 
 ## Apply Kinetic damage through an imapct
-func impact():
+func impact(body : Node3D):
+	# Create new Attack
+	var impact_attack : Attack = Attack.new()
+	impact_attack.damage = velocity.length() * mass
+	impact_attack.armor_piercing = armor_piercing
+	
+	# Apply attack to body
+	if body.has_method("take_damage"):
+		body.take_damage(impact_attack)
 	queue_free()
-
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	return
