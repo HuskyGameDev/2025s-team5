@@ -61,6 +61,9 @@ func fuse():
 	
 func bounce(normal_vector : Vector3):
 	# Calculate plane to mirror the bullet, in vector form
+	if(velocity.length() < 5):
+		explode()
+		queue_free()
 	var rotation_axis = normal_vector.cross(velocity).normalized()
 	var reflection_plane = normal_vector.rotated(rotation_axis, PI/2)
 	
