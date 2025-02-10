@@ -3,9 +3,11 @@ extends Control
 const VERSION = "alpha 1"
 
 var levels = [
+"res://Scenes/main_menu.tscn",
 "res://Scenes/hub_menu.tscn",
 "res://Scenes/mat_test_scene.tscn",
 "res://Scenes/area_tropical.tscn",
+"res://Scenes/area_rio.tscn",
 "res://Scenes/maxL_test_scene.tscn",
 "res://Scenes/jake_test_scene.tscn",
 "res://Scenes/test_scene_empty.tscn",

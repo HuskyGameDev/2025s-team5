@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmh56nspmxqck"
-path.s3tc="res://.godot/imported/TripleShot.svg-3107696134b3620c5ee085b93972fe52.s3tc.ctex"
+uid="uid://brf0dryj5rfmr"
+path.s3tc="res://.godot/imported/BulletShell.svg-c947e5a8ef411ccf8ab3f04c3466e3da.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Art/Images/TripleShot.svg"
-dest_files=["res://.godot/imported/TripleShot.svg-3107696134b3620c5ee085b93972fe52.s3tc.ctex"]
+source_file="res://Art/Images/BulletShell.svg"
+dest_files=["res://.godot/imported/BulletShell.svg-c947e5a8ef411ccf8ab3f04c3466e3da.s3tc.ctex"]
 
 [params]
 

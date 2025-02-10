@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cdll3cassyhme"]
+[gd_scene load_steps=11 format=3 uid="uid://cdll3cassyhme"]
 
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_3njuy"]
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_nwsly"]
@@ -21,6 +21,11 @@ background_mode = 2
 sky = SubResource("Sky_tdlhe")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vwuxk"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cnlw0"]
+noise = SubResource("FastNoiseLite_vwuxk")
 
 [node name="AreaTropical" type="Node3D"]
 
@@ -55,13 +60,14 @@ shadow_enabled = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 xsize = 200
 zsize = 200
+heightMap = SubResource("NoiseTexture2D_cnlw0")
 
 [node name="EnemyRoot" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.7714, 5.18664, 35.6813)
 target = NodePath("../PlayerRoot")
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_nwsly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.807, 6.66492, 31.6718)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.807, 8.03493, 31.6718)
 
 [node name="EnemyRoot2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.3577, 6.02505, 26.7979)

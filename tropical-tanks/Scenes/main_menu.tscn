@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://crptm3tpqf23q"]
+
+[ext_resource type="Script" path="res://Scenes/main_menu.gd" id="1_behrf"]
+[ext_resource type="Texture2D" uid="uid://dcfnyr04pw7hj" path="res://Art/Images/TropicalTanksIcon.png" id="2_qe1vf"]
+[ext_resource type="Texture2D" uid="uid://bmh56nspmxqck" path="res://Art/Images/TripleShot.svg" id="3_e5jsv"]
+[ext_resource type="Texture2D" uid="uid://bosppbg8rh2nd" path="res://Art/Images/DoubleShot.svg" id="4_3mej2"]
+
+[node name="MainMenu" type="Node3D"]
+script = ExtResource("1_behrf")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -4.22952, 0, 0)
+texture = ExtResource("2_qe1vf")
+
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+transform = Transform3D(0.41, 0, 0, 0, -1.79217e-08, 0.41, 0, -0.41, -1.79217e-08, 3.31885, 0, -0.258588)
+texture = ExtResource("3_e5jsv")
+
+[node name="Sprite3D3" type="Sprite3D" parent="."]
+transform = Transform3D(0.41, 0, 0, 0, -1.79217e-08, 0.41, 0, -0.41, -1.79217e-08, 3.31885, 0, 2.28045)
+texture = ExtResource("4_3mej2")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 5, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer"]
+layout_mode = 2
+
+[node name="StartButton" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Start"
+
+[node name="SettingsButton" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
+[node name="HowToPlayButton" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "How To Play"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = -429.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Tropical Tanks"
+
+[node name="CreditsButton" type="Button" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+offset_right = 8.0
+grow_vertical = 0
+text = "Credits"
+
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

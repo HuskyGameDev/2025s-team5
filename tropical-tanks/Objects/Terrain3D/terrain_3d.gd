@@ -8,8 +8,9 @@ extends Node3D
 
 var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 
-# Load heightMap and convert to image
-@onready var heightMap = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
+# Load heightMap and convert to images
+@export var heightMap : NoiseTexture2D
+#@onready var heightMap = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
 @onready var heightImage = heightMap.get_image()
 
 var height_data = {}
