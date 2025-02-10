@@ -11,7 +11,6 @@ var controls = {
 	"turn_left" = false,
 	"turn_right" = false,
 	"shoot" = false
-	
 }
 
 
@@ -31,7 +30,6 @@ func _on_timer_timeout() -> void:
 		controls["forward"] = true
 	if (randi_range(0,4)) == 0:
 		controls["forward"] = false
-		
 	var r = randi_range(2, 4)
 	if (r == 2):
 		controls["turn_right"] = false
