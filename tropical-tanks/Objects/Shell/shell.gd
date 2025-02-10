@@ -60,10 +60,12 @@ func fuse():
 	# TODO: Write code to trigger bullet split upgrades after the fuse upgrade has been unlocked
 	
 func bounce(normal_vector : Vector3):
-	# Calculate plane to mirror the bullet, in vector form
+	# Explode and remove bullet if speed is too low to bounce
 	if(velocity.length() < 5):
 		explode()
 		queue_free()
+	
+	# Calculate plane to mirror the bullet, in vector form
 	var rotation_axis = normal_vector.cross(velocity).normalized()
 	var reflection_plane = normal_vector.rotated(rotation_axis, PI/2)
 	
