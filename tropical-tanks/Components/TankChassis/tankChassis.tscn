@@ -12,6 +12,7 @@ size = Vector3(1, 0.565918, 1.93127)
 
 [node name="TankChassis" type="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502262, 0)
+collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_bgbpq")
 
