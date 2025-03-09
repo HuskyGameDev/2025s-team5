@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=4 uid="uid://becekjbr5mdjl"]
+[gd_scene load_steps=7 format=4 uid="uid://becekjbr5mdjl"]
 
 [ext_resource type="Script" path="res://Objects/Terrain3D/terrain_3d.gd" id="1_osno8"]
 [ext_resource type="Material" uid="uid://3wikrk5j0ufw" path="res://Objects/Terrain3D/terrain_material.tres" id="2_62uki"]
 [ext_resource type="Material" uid="uid://ciim7bllow23e" path="res://Objects/Terrain3D/water_material.tres" id="3_gc1wh"]
+[ext_resource type="Script" path="res://Objects/Terrain3D/water_plane.gd" id="4_m30s4"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_sm778"]
 _surfaces = [{
@@ -16,7 +17,7 @@ _surfaces = [{
 }]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pmers"]
-size = Vector2(512, 512)
+size = Vector2(1028, 1028)
 
 [node name="Terrain3D" type="Node3D"]
 script = ExtResource("1_osno8")
@@ -27,5 +28,7 @@ mesh = SubResource("ArrayMesh_sm778")
 surface_material_override/0 = ExtResource("2_62uki")
 
 [node name="WaterPlane" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 1, 0, 0, 0, 0.5, 50, 0, 50)
 material_override = ExtResource("3_gc1wh")
 mesh = SubResource("PlaneMesh_pmers")
+script = ExtResource("4_m30s4")

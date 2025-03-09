@@ -31,6 +31,7 @@ noise = SubResource("FastNoiseLite_vwuxk")
 [node name="AreaTropical" type="Node3D"]
 
 [node name="GroundPlane" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 mesh = SubResource("PlaneMesh_rb057")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="GroundPlane"]

@@ -6,20 +6,32 @@
 noise = SubResource("FastNoiseLite_vornl")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lngo5"]
+frequency = 0.0415
+fractal_octaves = 4
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6v4jx"]
+seamless = true
+seamless_blend_skirt = 0.085
 as_normal_map = true
+bump_strength = 1.8
 noise = SubResource("FastNoiseLite_lngo5")
 
 [resource]
-albedo_color = Color(0, 0.431373, 1, 1)
+transparency = 1
+albedo_color = Color(0, 0.431373, 1, 0.784314)
 roughness = 0.03
 normal_enabled = true
 normal_texture = SubResource("NoiseTexture2D_6v4jx")
-clearcoat_enabled = true
 clearcoat = 0.04
 clearcoat_roughness = 0.08
-heightmap_enabled = true
+heightmap_scale = -16.0
 heightmap_texture = SubResource("NoiseTexture2D_o3pb7")
 subsurf_scatter_enabled = true
 subsurf_scatter_strength = 0.89
+refraction_enabled = true
+texture_filter = 0
+grow = true
+point_size = 128.0
+proximity_fade_enabled = true
+proximity_fade_distance = 0.2
+distance_fade_mode = 1

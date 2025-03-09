@@ -14,14 +14,15 @@ var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 @onready var heightImage = heightMap.get_image()
 
 var height_data = {}
+var water_level = 0.4 #Float: -1 for no water, 0.0 to 1.0 for water level
 
 var index_mode : bool = false
 
 func _ready():
-	# Create a dictionary with Vector2 keys to each pixel's color
+	# Create a dictionary with Vector2 keys to each pixel's red color multplied by 10
 	for x in xsize + 1:
 		for z in zsize + 1:
-			height_data[Vector2(x,z)] = Vector3(x + randf_range(-0.2,0.2), heightImage.get_pixel(x,z).r * 10, z   + randf_range(-0.2,0.2))
+			height_data[Vector2(x,z)] = Vector3(x + randf_range(-0.2,0.2), (heightImage.get_pixel(x,z).r - water_level) * 10, z   + randf_range(-0.2,0.2))
 	
 	# Start surface tool with PRIMITIVE_TRIANGLES
 	var st = SurfaceTool.new()
