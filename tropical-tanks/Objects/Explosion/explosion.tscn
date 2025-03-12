@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://butucvxhhtntj"]
+[gd_scene load_steps=7 format=3 uid="uid://butucvxhhtntj"]
 
 [ext_resource type="Script" path="res://Objects/Explosion/explosion.gd" id="1_fpfk5"]
 [ext_resource type="Material" uid="uid://d0rj1a8rwauo3" path="res://Objects/Explosion/Explosion_material.tres" id="2_w7kyo"]
@@ -6,11 +6,14 @@
 [ext_resource type="ArrayMesh" uid="uid://dcods1aj4fchc" path="res://Art/Models/ExplosionModel.res" id="3_k8f1b"]
 [ext_resource type="Material" uid="uid://d4mp5cekwq0n4" path="res://Objects/Explosion/Explosion_material3.tres" id="3_lrwm2"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_4tfri"]
+radius = 1.0
+
 [node name="Explosion" type="Node3D"]
 script = ExtResource("1_fpfk5")
 
 [node name="ExplosionModels" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.1, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ExplosionModels"]
 transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0, 0)
@@ -34,4 +37,11 @@ mesh = ExtResource("3_k8f1b")
 wait_time = 0.2
 autostart = true
 
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_4tfri")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

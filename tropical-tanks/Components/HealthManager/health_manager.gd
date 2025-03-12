@@ -1,14 +1,18 @@
 extends Node3D
+class_name HealthManager
 
-@export var Health : float = 100.0
+@export var health : float = 100.0
 
+func take_damage(attack : Attack):
+	health = health - attack.damage
+	
+	if health <= 0:
+		death()
 
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func death():
+	var P = get_parent()
+	if P.has_method("death"):
+		P.death()
+	else:
+		get_parent().position = Vector3.ZERO
+		health = 100.0

@@ -1,13 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://6mmhgkmoq6oa"]
+[gd_scene load_steps=8 format=3 uid="uid://6mmhgkmoq6oa"]
 
 [ext_resource type="Script" path="res://Components/TankChassis/tank_chassis.gd" id="1_bgbpq"]
 [ext_resource type="PackedScene" uid="uid://8bgogrhf5gis" path="res://Components/TankChassis/tankChassisModelParts.tscn" id="2_eebcv"]
 [ext_resource type="Texture2D" uid="uid://boi17sxf60ef6" path="res://Art/Images/Arrow.svg" id="3_m6eku"]
+[ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="4_3tv7r"]
+[ext_resource type="PackedScene" uid="uid://xtnuh7brto2v" path="res://Components/HealthManager/health_manager.tscn" id="5_5raij"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ro8yc"]
 radius = 0.2
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8pf4t"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_iotof"]
 size = Vector3(1, 0.565918, 1.93127)
 
 [node name="TankChassis" type="CharacterBody3D"]
@@ -35,10 +37,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.574452, 0)
 top_level = true
 target_position = Vector3(0, -0.5, 0)
 
-[node name="Area3D" type="Area3D" parent="." groups=["Enemy"]]
-collision_layer = 2
-collision_mask = 0
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("4_3tv7r")]
+health_manager = NodePath("../HealthManager")
 
-[node name="Hitbox" type="CollisionShape3D" parent="Area3D"]
+[node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.076646, -0.0293579)
-shape = SubResource("BoxShape3D_8pf4t")
+shape = SubResource("BoxShape3D_iotof")
+
+[node name="HealthManager" parent="." instance=ExtResource("5_5raij")]

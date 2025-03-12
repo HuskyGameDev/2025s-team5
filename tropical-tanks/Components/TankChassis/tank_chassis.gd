@@ -1,18 +1,6 @@
 extends CharacterBody3D
 class_name TankChassis
 
-var health : float = 100.0
-
-func take_damage(attack : Attack):
-	health = health - attack.damage
-	
-	if health <= 0:
-		death()
-
-func death():
-	position = Vector3.ZERO
-	health = 100.0
-
 const SPEED = 250.0
 
 var move_vector = Vector3(0,0,-1)
@@ -53,7 +41,7 @@ func _physics_process(delta: float) -> void:
 			if move_vector_angle != 0 and velocity != Vector3.ZERO:
 				velocity = velocity.rotated(rotation_axis,move_vector_angle)
 		if controls.get("backward"):
-			velocity = (delta * -SPEED * move_vector).rotated(rotation_axis,move_vector_angle)
+			velocity = (delta * -SPEED * move_vector).rotated(rotation_axis.normalized(),move_vector_angle)
 			if move_vector_angle != 0 and velocity != Vector3.ZERO:
 				velocity = velocity.rotated(rotation_axis, -move_vector_angle)
 

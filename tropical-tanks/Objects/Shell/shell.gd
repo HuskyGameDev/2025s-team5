@@ -21,23 +21,20 @@ var shell_variables = {
 		drag = value
 		
 ## Gameplay Variables
-@export var armor_piercing : float = 1.0 :
-	set(value):
-		armor_piercing = value
-@export var explosion_power : float = 1.0 :
-	set(value):
-		explosion_power = value
-@export var evaporation : float = 1.0:
-	set(value):
-		evaporation = value
-@export var bounces_left : float = 4.0:
-	set(value):
-		bounces_left = value
-@export var bounce_loss : float = 0.4 #What percent of velocity is lost in a bounce
-@export var bounce_explode : float = 0.1
+@export var armor_piercing : float = 1.0
+@export var explosion_power : float = 1.0 
+@export var evaporation : float = 0.0 # Bullet shrink over time
+@export var bounces_left : float = 0.0 
+
+@export var bounce_loss : float = 0.4 # What percent of velocity is lost in a bounce
+@export var bounce_explode : float = 0.0
+
+@export var ice_effect : float = 0.0 # Amount to freeze
+@export var flame_effect : float = 0.0 # Amount to burn
+
 		
 ## Mid Flight Control Variables
-@export var fuse_time : float = 5.0
+@export var fuse_time : float = 0.0 # If fuse 0.2
 @export var fuel : float = 0.0
 @export var thrust_power : float = 1.0
 @export var backwardness : float = 0.0 # How backward the shell is
@@ -89,7 +86,9 @@ func _physics_process(delta: float) -> void:
 			position += collision_vector
 			
 			var body = cast.get_collider()
-			if body.is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
+			print("BODY: ")
+			print(body)
+			if body.get_parent().is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
 				explode()
 				impact(body)
 				print("hit enemy")
@@ -121,13 +120,18 @@ func explode():
 func impact(body : Node3D):
 	# Create new Attack
 	var impact_attack : Attack = Attack.new()
-	impact_attack.damage = velocity.length() * mass
-	impact_attack.armor_piercing = armor_piercing
 	
-	body = body.get_parent()
+	# Set attack variables
+	impact_attack.damage = velocity.length() * mass  # Set attack damage to the momentum of the shell #Momentum = Velocity * Mass
+	impact_attack.armor_piercing = armor_piercing
+	impact_attack.ice_effect = ice_effect
+	
+	
 	# Apply attack to body
 	if body.has_method("take_damage"):
+		print("Body Take Damage")
 		body.take_damage(impact_attack)
+		
 	queue_free()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
