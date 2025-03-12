@@ -38,3 +38,8 @@ func _physics_process(_delta: float) -> void:
 		
 	if Input.is_action_pressed("tank_shoot"):
 		controls["shoot"] = true
+
+
+func _on_double_barrel_upgrade_pickup() -> void:
+	var turret = $Tank/Turret3
+	turret.double_barrels += 1

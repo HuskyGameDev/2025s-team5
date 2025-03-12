@@ -14,14 +14,15 @@ var BARREL = preload("res://Components/Turret/barrel.tscn")
 @export var split_barrels : int = 1 :
 	set(value):
 		split_barrels = value
-		if Engine.is_editor_hint():
-			set_barrels()
+		set_barrels()
+		# if Engine.is_editor_hint():
+		
 		
 @export var double_barrels : int = 1 :
 	set(value):
 		double_barrels = value
-		if Engine.is_editor_hint():
-			set_barrels()
+		set_barrels()
+		# if Engine.is_editor_hint():
 
 var shoot_cooldown = 1.0
 
