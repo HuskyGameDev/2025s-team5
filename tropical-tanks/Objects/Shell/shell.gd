@@ -86,8 +86,7 @@ func _physics_process(delta: float) -> void:
 			position += collision_vector
 			
 			var body = cast.get_collider()
-			print("BODY: ")
-			print(body)
+
 			if body.get_parent().is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
 				explode()
 				impact(body)
@@ -129,7 +128,6 @@ func impact(body : Node3D):
 	
 	# Apply attack to body
 	if body.has_method("take_damage"):
-		print("Body Take Damage")
 		body.take_damage(impact_attack)
 		
 	queue_free()

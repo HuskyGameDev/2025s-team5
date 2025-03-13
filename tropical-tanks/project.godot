@@ -24,6 +24,14 @@ window/stretch/aspect="keep_height"
 
 project/assembly_name="Tropical tanks"
 
+[file_customization]
+
+folder_colors={
+"res://Art/": "yellow",
+"res://Components/": "blue",
+"res://Objects/": "teal"
+}
+
 [global_group]
 
 Enemy="Enemy tank object."
