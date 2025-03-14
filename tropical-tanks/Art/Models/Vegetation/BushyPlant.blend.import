@@ -35,7 +35,7 @@ _subresources={
 "materials": {
 "Material.001": {
 "use_external/enabled": true,
-"use_external/path": "res://Art/Materials/Vegetation/stem_material.tres"
+"use_external/path": "res://Art/Materials/Vegetation/leaves_material.tres"
 },
 "Material.004": {
 "use_external/enabled": true,

@@ -35,11 +35,11 @@ _subresources={
 "materials": {
 "Material.005": {
 "use_external/enabled": true,
-"use_external/path": "res://Art/Materials/Vegetation/stem_material.tres"
+"use_external/path": "res://Art/Materials/Vegetation/leaves_material.tres"
 },
 "Material.007": {
 "use_external/enabled": true,
-"use_external/path": "res://Art/Materials/Vegetation/leaves_material.tres"
+"use_external/path": "res://Art/Materials/Vegetation/stem_material.tres"
 }
 }
 }

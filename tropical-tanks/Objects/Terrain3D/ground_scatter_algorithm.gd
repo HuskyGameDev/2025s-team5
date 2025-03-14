@@ -88,7 +88,7 @@ func place_plant(scene_pack: PackedScene, grid_pos: Vector2, random_rotation: bo
 	var world_pos = terrain.height_data[grid_pos]
 	var plant = scene_pack.instantiate()
 	plant.position = world_pos
-	plant.rotation.y = (randf() * TAU) if random_rotation else 0
+	plant.rotation.y = (randf() * TAU) 
 	terrain.add_child(plant)
 	terrain.occupied_positions[grid_pos] = true
 	print("plant")
