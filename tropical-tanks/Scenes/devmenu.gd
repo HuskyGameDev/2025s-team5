@@ -11,6 +11,7 @@ var levels = [
 "res://Scenes/maxL_test_scene.tscn",
 "res://Scenes/jake_test_scene.tscn",
 "res://Scenes/test_scene_empty.tscn",
+"res://Objects/GroundScatter/groundScatter.tscn"
 ]
 
 

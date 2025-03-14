@@ -1,6 +1,6 @@
 extends Node3D
 
-var GSA = GroundScatteringAlgorithm.new()
+var GSA
 
 # Terrain size
 const xsize = 256
@@ -41,6 +41,8 @@ const decim_max_step : int = 2
 var rng = RandomNumberGenerator.new()
 
 func _ready():
+	GSA = GroundScatteringAlgorithm.new()
+	GSA.terrain = self
 	rng.randomize()
 	heightMap = ResourceLoader.load("res://Objects/Terrain3D/terrain_noise2D.tres") as NoiseTexture2D
 	# Initialize the height image from the NoiseTexture2D
@@ -201,189 +203,53 @@ func add_triangle(surface_tool, color, a, b, c) -> void:
 	surface_tool.add_vertex(c)
 
 # Vegetation assets
-var GROUND_SCATTER = preload("res://Objects/GroundScatter/TallPalm.blend")
-var GROUND_SCATTER2 = preload("res://Objects/GroundScatter/ShortPalm.blend")
-var GROUND_SCATTER3 = preload("res://Objects/GroundScatter/MidTree.blend")
-var GROUND_SCATTER4 = preload("res://Objects/GroundScatter/BushyPlant.blend")
-var GROUND_SCATTER5 = preload("res://Objects/GroundScatter/RedFlower.blend")
-var GROUND_SCATTER6 = preload("res://Objects/GroundScatter/BlueFlower.blend")
-var GROUND_SCATTER7 = preload("res://Objects/GroundScatter/fern.blend")
-var GROUND_SCATTER8 = preload("res://Objects/GroundScatter/PurpleFlower.blend")
+
+#var GROUND_SCATTER4 = preload("res://Objects/GroundScatter/BushyPlant.blend")
+#var GROUND_SCATTER5 = preload("res://Objects/GroundScatter/RedFlower.blend")
+#var GROUND_SCATTER6 = preload("res://Objects/GroundScatter/BlueFlower.blend")
+#var GROUND_SCATTER7 = preload("res://Objects/GroundScatter/fern.blend")
+#var GROUND_SCATTER8 = preload("res://Objects/GroundScatter/PurpleFlower.blend")
 
 
 ## Configuration
 @export var min_tree_distance: float = 5.0
 @export var min_bush_distance: float = 3.0
 @export var flower_border_width: int = 2
-@export var forest_min_radius: float = 20.0
-@export var forest_max_radius: float = 30.0
-@export var bush_max_density: float = 0.2  # Lower chance for bushes.
-@export var fern_max_density: float = 0.05  # Lower chance for ferns.
+@export var forest_radius_range: Vector2 = Vector2(20.0, 30.0)
+@export var bush_radius_range: Vector2 = Vector2(15.0,25.0)
 
 # Global variables for tracking positions
 var bush_positions = []
 var occupied_positions = {}  # Dictionary: grid position (Vector2) -> true
 
+var trees = [preload("res://Art/Models/Vegetation/MidTree.blend"), preload("res://Art/Models/Vegetation/ShortPalm.blend"), preload("res://Art/Models/Vegetation/TallPalm.blend")]
+var ferns = [preload("res://Art/Models/Vegetation/Fern.blend")]
+var bushes = [preload("res://Art/Models/Vegetation/BushyPlant.blend"),preload("res://Art/Models/Vegetation/Fern.blend"),]
+var flowers = [preload("res://Art/Models/Vegetation/Flower.blend")]
+
 func place_ground_scatter() -> void:
-	spawn_forests()
-	spawn_bushlands()
-	spawn_flower_borders()
-	spawn_palm_forests()
-
-# GENERALIZED PLANT PLACEMENT FUNCTION
-func spawn_plant(plants : Array, radius_range : Vector2, plant_count_range : Vector2 ,min_dist: float, max_dist: float, count: int):
-	var centers = GSA.poisson_disk_sampling(min_dist, max_dist, count)
-	
-	for center in centers:
-		var cluster_radius = randf_range(radius_range.x, radius_range.y)
-		var plant_count : int = randi_range(plant_count_range.x, plant_count_range.y)
-		var placed_plants = []
-		for i in range(plant_count):
-			var angle = randf() * TAU #Random angle in radians
-			var distance = randf_range(0, cluster_radius)
-			var pos = center + Vector2(cos(angle), sin(angle)) * distance
-			var grid_pos = get_grid_position(pos)
-			
-			if is_position_valid(grid_pos) and !is_too_close(grid_pos, placed_plants, min_tree_distance):
-				var tree = plants.pick_random().instantiate()
-				place_plant(tree, grid_pos, true)
-				placed_plants.append(grid_pos)
-				
-				# Occasionally spawn a fern under a tree (15% chance)
-				if randf() > 0.85:
-					var fern_pos = grid_pos + Vector2(randf_range(-1, 1), randf_range(-1, 1))
-					fern_pos = get_grid_position(fern_pos)
-					if is_position_valid(fern_pos):
-						var fern = GROUND_SCATTER7.instantiate()
-						place_plant(fern, fern_pos, true)
-						
-						
-	
-########################################
-# FUNCTION: Spawn Forests
-########################################
-func spawn_forests() -> void:
-	var forest_centers = GSA.poisson_disk_sampling(40.0, 60.0, 15)
-	
-	for center in forest_centers:
-		var forest_radius = randf_range(forest_min_radius, forest_max_radius)
-		var tree_count = randi() % 80 + 100
-		var placed_trees = []
-		
-		# Spawn trees in the forest cluster
-		for i in range(tree_count):
-			var angle = randf() * TAU
-			var distance = randf_range(0, forest_radius)
-			var pos = center + Vector2(cos(angle), sin(angle)) * distance
-			var grid_pos = get_grid_position(pos)
-			
-			if is_position_valid(grid_pos) and !is_too_close(grid_pos, placed_trees, min_tree_distance):
-				var tree = select_forest_tree().instantiate()
-				place_plant(tree, grid_pos, true)
-				placed_trees.append(grid_pos)
-				
-				# Occasionally spawn a fern under a tree (15% chance)
-				if randf() > 0.85:
-					var fern_pos = grid_pos + Vector2(randf_range(-1, 1), randf_range(-1, 1))
-					fern_pos = get_grid_position(fern_pos)
-					if is_position_valid(fern_pos):
-						var fern = GROUND_SCATTER7.instantiate()
-						place_plant(fern, fern_pos, true)
-						
-########################################
-# FUNCTION: Spawn Bushlands
-########################################
-func spawn_bushlands() -> Array:
-	var bushland_centers = GSA.poisson_disk_sampling(30.0, 50.0, 20)
-	var bush_clusters = []
-	
-	for center in bushland_centers:
-		var bush_radius = randf_range(15.0, 25.0)
-		var plant_count = randi() % 50 + 70  # Total plants (bushes + ferns)
-		var placed_bushes = []
-		var placed_ferns = []
-		var d_plants = []  # Tracks all plants (bushes & ferns)
-
-		for i in range(plant_count):
-			var angle = randf() * TAU
-			var distance = randf_range(0, bush_radius)
-			var pos = center + Vector2(cos(angle), sin(angle)) * distance
-			var grid_pos = get_grid_position(pos)
-
-			if is_position_valid(grid_pos) and !is_too_close(grid_pos, d_plants, min_bush_distance):
-				if randf() > 0.5:  # 50/50 chance for bush or fern
-					var bush = GROUND_SCATTER4.instantiate()
-					place_plant(bush, grid_pos, true)
-					placed_bushes.append(grid_pos)
-				else:
-					var fern = GROUND_SCATTER7.instantiate()
-					place_plant(fern, grid_pos, true)
-					placed_ferns.append(grid_pos)
-
-				d_plants.append(grid_pos)  # Track both bushes & ferns
-		
-		bush_clusters.append(placed_bushes)
-	
-	return bush_clusters
-
-
-
-########################################
-# FUNCTION: Spawn Flower Borders
-########################################
-func spawn_flower_borders() -> void:
-	var bush_clusters = spawn_bushlands()
-	
-	for cluster in bush_clusters:
-		var edge_positions = []
-		
-		# Determine edge positions for each bush cluster
-		for bush_pos in cluster:
-			for dx in [-1, 0, 1]:
-				for dz in [-1, 0, 1]:
-					if dx == 0 and dz == 0:
-						continue
-					var neighbor_pos = bush_pos + Vector2(dx, dz)
-					if !cluster.has(neighbor_pos) and is_position_valid(neighbor_pos):
-						edge_positions.append(neighbor_pos)
-		
-		# Place flowers along the border edges
-		for edge_pos in edge_positions:
-			if randf() > 0.7 and is_position_valid(edge_pos):
-				var flower = select_flower().instantiate()
-				place_plant(flower, edge_pos, false)
-
-########################################
-# FUNCTION: Spawn Palm Forests
-########################################
-func spawn_palm_forests() -> void:
-	# Iterate over a grid of sample positions in the terrain.
-	for x in range(0, xsize, 15):
-		for z in range(0, zsize, 15):
-			var grid_pos = Vector2(x, z)
-			if is_position_valid(grid_pos):
-				var height = height_data.get(grid_pos, Vector3.ZERO).y
-				if height < sand_height + 2 and height > sand_height - 1:
-					if randf() > 0.7:
-						spawn_palm_cluster(grid_pos)
+	GSA.spawn_plants(trees, ferns, 0.15, forest_radius_range, min_tree_distance, Vector2(100,180), [], 0.0, Vector3(40.0, 60.0, 15))
+	#spawn_forests()
+	GSA.spawn_plants(bushes, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), [], 0.0, Vector3(30.0, 50.0, 20))
+	GSA.spawn_plants(bushes, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), flowers, 0.3, Vector3(30.0, 50.0, 20))
 
 ########################################
 # FUNCTION: Spawn a Palm Cluster
 ########################################
-func spawn_palm_cluster(center: Vector2) -> void:
-	var palm_count = randi() % 15 + 20
-	var placed_palms = []
-	
-	for i in range(palm_count):
-		var angle = randf() * TAU
-		var distance = randf_range(0, 8.0)
-		var pos = center + Vector2(cos(angle), sin(angle)) * distance
-		var grid_pos = get_grid_position(pos)
-		
-		if is_position_valid(grid_pos) and !is_too_close(grid_pos, placed_palms, min_tree_distance):
-			var palm = select_palm_tree().instantiate()
-			place_plant(palm, grid_pos, true)
-			placed_palms.append(grid_pos)
+#func spawn_palm_cluster(center: Vector2) -> void:
+	#var palm_count = randi() % 15 + 20
+	#var placed_palms = []
+	#
+	#for i in range(palm_count):
+		#var angle = randf() * TAU
+		#var distance = randf_range(0, 8.0)
+		#var pos = center + Vector2(cos(angle), sin(angle)) * distance
+		#var grid_pos = get_grid_position(pos)
+		#
+		#if is_position_valid(grid_pos) and !is_too_close(grid_pos, placed_palms, min_tree_distance):
+			#var palm = select_palm_tree().instantiate()
+			#place_plant(palm, grid_pos, true)
+			#placed_palms.append(grid_pos)
 
 ########################################
 # HELPER FUNCTIONS
@@ -421,14 +287,14 @@ func place_plant(plant: Node3D, grid_pos: Vector2, random_rotation: bool) -> voi
 	add_child(plant)
 	occupied_positions[grid_pos] = true
 
-func select_forest_tree() -> Resource:
-	return [GROUND_SCATTER, GROUND_SCATTER2, GROUND_SCATTER3].pick_random()
-
-func select_flower() -> Resource:
-	return [GROUND_SCATTER5, GROUND_SCATTER6, GROUND_SCATTER8].pick_random()
-
-func select_palm_tree() -> Resource:
-	return [GROUND_SCATTER, GROUND_SCATTER2].pick_random()
+#func select_forest_tree() -> Resource:
+	#return [GROUND_SCATTER, GROUND_SCATTER2, GROUND_SCATTER3].pick_random()
+#
+#func select_flower() -> Resource:
+	#return [GROUND_SCATTER5, GROUND_SCATTER6, GROUND_SCATTER8].pick_random()
+#
+#func select_palm_tree() -> Resource:
+	#return [GROUND_SCATTER, GROUND_SCATTER2].pick_random()
 
 func is_too_close(pos: Vector2, existing: Array, min_dist: float) -> bool:
 	for p in existing:

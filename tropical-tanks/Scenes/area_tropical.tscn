@@ -55,8 +55,6 @@ shadow_enabled = true
 
 [node name="Terrain3D" parent="." instance=ExtResource("1_3njuy")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-max_slope_factor = 1.5
-slope_blend_factor = 0.5
 
 [node name="EnemyRoot" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.7714, 5.18664, 35.6813)

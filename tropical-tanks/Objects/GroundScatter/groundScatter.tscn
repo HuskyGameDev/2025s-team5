@@ -1,11 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://0mhao2dpnqvl"]
+[gd_scene load_steps=7 format=3 uid="uid://0mhao2dpnqvl"]
 
 [ext_resource type="Script" path="res://Objects/GroundScatter/ground_scatter.gd" id="1_oosj4"]
-[ext_resource type="Material" uid="uid://iaghp5ctnvwn" path="res://Art/Materials/Vegetation/leaves_material.tres" id="2_06gg8"]
+[ext_resource type="PackedScene" uid="uid://cdap8ph6wiajs" path="res://Art/Models/Vegetation/TallPalm.blend" id="2_bexx7"]
 [ext_resource type="Script" path="res://Components/HealthManager/health_manager.gd" id="3_qic6b"]
 [ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="4_c4geh"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_yk32x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tv7wp"]
 size = Vector3(0.5, 5, 0.5)
@@ -15,12 +13,9 @@ size = Vector3(0.612854, 2.80905, 0.615761)
 
 [node name="GroundScatter" type="Node3D"]
 script = ExtResource("1_oosj4")
+MODEL = ExtResource("2_bexx7")
 
 [node name="MeshRoot" type="Node3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshRoot"]
-material_override = ExtResource("2_06gg8")
-mesh = SubResource("CylinderMesh_yk32x")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -38,3 +33,6 @@ health_manager = NodePath("../HealthManager")
 [node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 1.41412, 0.0172162)
 shape = SubResource("BoxShape3D_m4xs2")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.66334, 9.86135)
