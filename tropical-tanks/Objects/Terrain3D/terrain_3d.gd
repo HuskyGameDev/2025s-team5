@@ -110,21 +110,34 @@ func generate_terrain_mesh() -> void:
 				height_data[Vector2(x, z + 1)]
 			)
 
-	st.generate_normals()
+	# st.generate_normals()
 	var mesh = st.commit()
 	$MeshInstance3D.mesh = mesh
 	$MeshInstance3D.set_surface_override_material(0, ground_material)
 
 func add_quad(surface_tool, color, a, b, c, d) -> void:
+	# First triangle (a, b, c)
+	var normal1 = ((b - a).cross(c - a)).normalized()
+	normal1 = -normal1  # Flip the normal
 	surface_tool.set_color(color)
+	surface_tool.set_normal(normal1)
 	surface_tool.add_vertex(a)
+	surface_tool.set_normal(normal1)
 	surface_tool.add_vertex(b)
+	surface_tool.set_normal(normal1)
 	surface_tool.add_vertex(c)
 	
+	# Second triangle (a, c, d)
+	var normal2 = ((c - a).cross(d - a)).normalized()
+	normal2 = -normal2  # Flip the normal
 	surface_tool.set_color(color)
+	surface_tool.set_normal(normal2)
 	surface_tool.add_vertex(a)
+	surface_tool.set_normal(normal2)
 	surface_tool.add_vertex(c)
+	surface_tool.set_normal(normal2)
 	surface_tool.add_vertex(d)
+
 
 
 # Vegetation assets
