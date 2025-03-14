@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://ol1vp0hlrsc7"
-path="res://.godot/imported/RedFlower.blend-31e59e0f5b72fea20a1d15912f1c795d.scn"
+path="res://.godot/imported/Flower.blend-511b8d8c2725490149598a62680d85ed.scn"
 
 [deps]
 
-source_file="res://Objects/GroundScatter/RedFlower.blend"
-dest_files=["res://.godot/imported/RedFlower.blend-31e59e0f5b72fea20a1d15912f1c795d.scn"]
+source_file="res://Art/Models/Vegetation/Flower.blend"
+dest_files=["res://.godot/imported/Flower.blend-511b8d8c2725490149598a62680d85ed.scn"]
 
 [params]
 
@@ -31,7 +31,26 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"Material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/flower_red_material.tres"
+},
+"Material.005": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/leaves_material.tres"
+},
+"Material.006": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/flower_center_material.tres"
+},
+"Material.007": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/stem_material.tres"
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

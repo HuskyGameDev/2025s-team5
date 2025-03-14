@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c45lckfu4xxjq"
-path="res://.godot/imported/MidTree.blend-4e6e62b7f0c23ebff7b160c25538aa16.scn"
+path="res://.godot/imported/MidTree.blend-09dbbe673f5f68d22c3552536b11e47f.scn"
 
 [deps]
 
-source_file="res://Objects/GroundScatter/MidTree.blend"
-dest_files=["res://.godot/imported/MidTree.blend-4e6e62b7f0c23ebff7b160c25538aa16.scn"]
+source_file="res://Art/Models/Vegetation/MidTree.blend"
+dest_files=["res://.godot/imported/MidTree.blend-09dbbe673f5f68d22c3552536b11e47f.scn"]
 
 [params]
 
@@ -31,7 +31,18 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"Material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/wood_material.tres"
+},
+"Material.003": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/leaves_material.tres"
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

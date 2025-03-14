@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c7u05jps3oijk"
-path="res://.godot/imported/ShortPalm.blend-0e9954088996f1978e669182f1550c35.scn"
+uid="uid://cdap8ph6wiajs"
+path="res://.godot/imported/TallPalm.blend-0b90e241c8a51d5c2d42ea1ce2ce0c91.scn"
 
 [deps]
 
-source_file="res://Objects/GroundScatter/ShortPalm.blend"
-dest_files=["res://.godot/imported/ShortPalm.blend-0e9954088996f1978e669182f1550c35.scn"]
+source_file="res://Art/Models/Vegetation/TallPalm.blend"
+dest_files=["res://.godot/imported/TallPalm.blend-0b90e241c8a51d5c2d42ea1ce2ce0c91.scn"]
 
 [params]
 
@@ -31,7 +31,18 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"Material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/wood_material.tres"
+},
+"Material.003": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/leaves_material.tres"
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

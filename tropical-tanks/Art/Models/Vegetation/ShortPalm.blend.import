@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://mvpmjygq223s"
-path="res://.godot/imported/fern.blend-57cfdb5cdede1c4a4b35ac3077c16581.scn"
+uid="uid://c7u05jps3oijk"
+path="res://.godot/imported/ShortPalm.blend-0572d79b5c8abf7354bd0ad1bde9f229.scn"
 
 [deps]
 
-source_file="res://Objects/GroundScatter/fern.blend"
-dest_files=["res://.godot/imported/fern.blend-57cfdb5cdede1c4a4b35ac3077c16581.scn"]
+source_file="res://Art/Models/Vegetation/ShortPalm.blend"
+dest_files=["res://.godot/imported/ShortPalm.blend-0572d79b5c8abf7354bd0ad1bde9f229.scn"]
 
 [params]
 
@@ -31,7 +31,22 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"Material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/wood_material.tres"
+},
+"Material.002": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/wood_material.tres"
+},
+"Material.003": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/leaves_material.tres"
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bjd3xms73n3s8"
-path="res://.godot/imported/BlueFlower.blend-94a1a02290debdb3bfb9f3dcbba02dad.scn"
+uid="uid://mvpmjygq223s"
+path="res://.godot/imported/Fern.blend-3d7ff728be315e702991dbdebe46b69a.scn"
 
 [deps]
 
-source_file="res://Objects/GroundScatter/BlueFlower.blend"
-dest_files=["res://.godot/imported/BlueFlower.blend-94a1a02290debdb3bfb9f3dcbba02dad.scn"]
+source_file="res://Art/Models/Vegetation/Fern.blend"
+dest_files=["res://.godot/imported/Fern.blend-3d7ff728be315e702991dbdebe46b69a.scn"]
 
 [params]
 
@@ -31,7 +31,18 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"Material.005": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/stem_material.tres"
+},
+"Material.007": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/leaves_material.tres"
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

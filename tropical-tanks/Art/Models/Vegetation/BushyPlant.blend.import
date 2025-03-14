@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dd5w4sikmy41w"
-path="res://.godot/imported/PurpleFlower.blend-28240e2a934fe40b1024414c55019566.scn"
+uid="uid://d0el5x6evas6p"
+path="res://.godot/imported/BushyPlant.blend-eb442ebdae8adb1e976b1715dfb14fe1.scn"
 
 [deps]
 
-source_file="res://Objects/GroundScatter/PurpleFlower.blend"
-dest_files=["res://.godot/imported/PurpleFlower.blend-28240e2a934fe40b1024414c55019566.scn"]
+source_file="res://Art/Models/Vegetation/BushyPlant.blend"
+dest_files=["res://.godot/imported/BushyPlant.blend-eb442ebdae8adb1e976b1715dfb14fe1.scn"]
 
 [params]
 
@@ -31,7 +31,18 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={}
+_subresources={
+"materials": {
+"Material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/stem_material.tres"
+},
+"Material.004": {
+"use_external/enabled": true,
+"use_external/path": "res://Art/Materials/Vegetation/stem_material.tres"
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true
