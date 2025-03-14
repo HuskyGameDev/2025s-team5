@@ -3,3 +3,4 @@
 [resource]
 shading_mode = 2
 vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
