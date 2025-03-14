@@ -1,12 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://0mhao2dpnqvl"]
+[gd_scene load_steps=6 format=3 uid="uid://0mhao2dpnqvl"]
 
 [ext_resource type="Script" path="res://Objects/GroundScatter/ground_scatter.gd" id="1_oosj4"]
-[ext_resource type="PackedScene" uid="uid://rifkhcc4lnmn" path="res://Art/Models/palmera_rokerflower_on_Free3D.fbx" id="2_owv2k"]
 [ext_resource type="Script" path="res://Components/HealthManager/health_manager.gd" id="3_qic6b"]
 [ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="4_c4geh"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_g8s8e"]
-size = Vector3(1, 5, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_tv7wp"]
 size = Vector3(0.5, 5, 0.5)
@@ -17,13 +13,7 @@ size = Vector3(0.612854, 2.80905, 0.615761)
 [node name="GroundScatter" type="Node3D"]
 script = ExtResource("1_oosj4")
 
-[node name="PlaceholderMesh3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.22848, 0)
-visible = false
-mesh = SubResource("BoxMesh_g8s8e")
-
-[node name="palmera_rokerflower_on_Free3D" parent="." instance=ExtResource("2_owv2k")]
-transform = Transform3D(0.205, 0, 0, 0, 0.205, 0, 0, 0, 0.205, -0.0107432, 0, 0.254121)
+[node name="MeshRoot" type="Node3D" parent="."]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
