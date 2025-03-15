@@ -18,7 +18,7 @@ noise = SubResource("FastNoiseLite_lngo5")
 
 [resource]
 transparency = 1
-albedo_color = Color(0, 0.431373, 1, 0.784314)
+albedo_color = Color(0, 0.431373, 1, 1)
 roughness = 0.03
 normal_enabled = true
 normal_texture = SubResource("NoiseTexture2D_6v4jx")
@@ -33,5 +33,6 @@ texture_filter = 0
 grow = true
 point_size = 128.0
 proximity_fade_enabled = true
-proximity_fade_distance = 0.2
+proximity_fade_distance = 0.07
 distance_fade_mode = 1
+distance_fade_max_distance = 20.0

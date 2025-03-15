@@ -12,7 +12,7 @@ size = Vector3(0.5, 5, 0.5)
 size = Vector3(0.612854, 2.80905, 0.615761)
 
 [node name="GroundScatter" type="Node3D"]
-transform = Transform3D(0.49036, 0, 0.871519, 0, 1, 0, -0.871519, 0, 0.49036, 0, 0, 0)
+transform = Transform3D(0.311457, 0, -0.950259, 0, 1, 0, 0.950259, 0, 0.311457, 0, 0, 0)
 script = ExtResource("1_oosj4")
 MODEL = ExtResource("2_bexx7")
 

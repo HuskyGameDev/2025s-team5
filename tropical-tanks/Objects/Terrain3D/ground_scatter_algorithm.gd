@@ -1,23 +1,28 @@
 extends Node3D
 class_name GroundScatteringAlgorithm
 
-var terrain
+var terrain : Terrain3D
 func _ready() -> void:
 	terrain = get_parent()
 	assert(terrain, "Terrain must be set")
 
 
 # GENERALIZED PLANT PLACEMENT FUNCTION
-func spawn_plants(PLANTS : Array, FERNS : Array, fern_chance : float, radius_range : Vector2, min_plant_dist  : float, plant_count_range : Vector2 , FLOWERS : Array, flower_chance : float, poisson_vector : Vector3 = Vector3.ZERO):
+func spawn_plants(PLANTS : Array, plant_chance, FERNS : Array, fern_chance : float, radius_range : Vector2, min_plant_dist  : float, plant_count_range : Vector2 , FLOWERS : Array, flower_chance : float, poisson_vector : Vector2 = Vector2.ZERO):
 	
-	var centers = []
-	if poisson_vector != Vector3.ZERO:
+	var centers = [] # Holds positions of the center of plant groups
+	var clusters = [] # Holds clusters of plants
+	
+	# Pick center generation algorithm
+	if poisson_vector != Vector2.ZERO: # Check if function is passed a poisson vector value
 		centers = poisson_disk_sampling(poisson_vector)
-	else:
+		print(centers.size())
+	else: # Get random centers on map
 		for x in range(0, terrain.xsize, 15):
 			for z in range(0, terrain.zsize, 15):
-				centers.append(Vector2(x, z))
-	var clusters = []
+				if randf() < plant_chance:
+					centers.append(Vector2(x, z))
+				
 	
 	for center in centers:
 		var cluster_radius = randf_range(radius_range.x, radius_range.y)
@@ -30,12 +35,13 @@ func spawn_plants(PLANTS : Array, FERNS : Array, fern_chance : float, radius_ran
 			var pos = center + Vector2(cos(angle), sin(angle)) * distance
 			var grid_pos = get_grid_position(pos)
 			
+			# Forest Spawning
 			if is_position_valid(grid_pos) and !is_too_close(grid_pos, placed_plants, min_plant_dist):
 				var plant = PLANTS.pick_random()
 				place_plant(plant, grid_pos, true)
 				placed_plants.append(grid_pos)
 				
-				# Occasionally spawn a fern under a tree (15% chance)
+				# Fern spawning
 				if FERNS.size() > 0 and randf() < fern_chance:
 					var fern_pos = grid_pos + Vector2(randf_range(-1, 1), randf_range(-1, 1))
 					fern_pos = get_grid_position(fern_pos)
@@ -68,35 +74,34 @@ func spawn_plants(PLANTS : Array, FERNS : Array, fern_chance : float, radius_ran
 ########################################
 # FUNCTION: Poisson Disk Sampling
 ########################################
-func poisson_disk_sampling(poisson_vector : Vector3) -> Array:
+func poisson_disk_sampling(poisson_vector : Vector2) -> Array:
 	var points = []
 	var attempts = 0
-	var distance_range = Vector2(poisson_vector.x,poisson_vector.y)
-	var count = poisson_vector.z
-	# Use a random radius between min and max. (This example uses a single radius per call.)
-	var sample_radius = randf_range(distance_range.x,distance_range.y)
+	
+	var sample_min_radius = poisson_vector.x
+	var count = poisson_vector.y
 	
 	while points.size() < count and attempts < 1000:
-		var pos = Vector2(randf_range(0, terrain.xsize), randf_range(0, terrain.zsize))
+		var new_point = Vector2(randf_range(0, terrain.xsize), randf_range(0, terrain.zsize))
 		var valid = true
-		for existing in points:
-			if pos.distance_to(existing) < sample_radius:
+		for existing_point in points:
+			if new_point.distance_to(existing_point) < sample_min_radius:
 				valid = false
 				break
 		if valid:
-			points.append(pos)
+			points.append(new_point)
 		attempts += 1
+	print(attempts)
 	return points
 	
 	
 func place_plant(scene_pack: PackedScene, grid_pos: Vector2, random_rotation: bool) -> void:
 	var world_pos = terrain.height_data[grid_pos]
 	var plant = scene_pack.instantiate()
-	plant.position = world_pos
+	plant.position = world_pos 
 	plant.rotation.y = (randf() * TAU) 
-	terrain.add_child(plant)
+	terrain.terrain_mesh.add_child(plant)
 	terrain.occupied_positions[grid_pos] = true
-	print("plant")
 	
 func get_grid_position(pos: Vector2) -> Vector2:
 	return Vector2(clamp(roundi(pos.x), 0, terrain.xsize), clamp(roundi(pos.y), 0, terrain.zsize))

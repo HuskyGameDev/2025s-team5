@@ -3,10 +3,8 @@ extends MeshInstance3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	position.x = get_parent().xsize / 2.0
-	position.z = get_parent().zsize / 2.0
-	scale.x = .25
-	scale.z = .25
+	pass
+
 
 var water_speed = 1
 var time = 0

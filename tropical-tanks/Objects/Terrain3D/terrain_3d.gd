@@ -1,6 +1,9 @@
+@tool
 extends Node3D
+class_name Terrain3D
 
-var GSA
+var GSA = GroundScatteringAlgorithm.new()
+var rng = RandomNumberGenerator.new()
 
 # Terrain size
 const xsize = 256
@@ -8,6 +11,8 @@ const zsize = 256
 
 # Material for the terrain mesh
 var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
+
+@onready var terrain_mesh : MeshInstance3D = $TerrainMesh
 
 # Heightmap configuration
 @export var heightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
@@ -24,10 +29,7 @@ const sand_height = 3  # Height threshold for sand
 const steep_slope_threshold = 1.5  # Height difference for rocky terrain
 @export var max_slope_factor = 1.5  # Factor to control steep slope coloration blending
 @export var grass_color = Color(0.6, 0.9, 0.1, 1)  # Grass green (used for blending)
-
-# Color parameters for blending
 @export var sand_color = Color(0.8, 0.7, 0.5, 1)  # Sandy color
-const rock_color = Color(0.5, 0.3, 0.1, 1)  # Rocky (brown) color
 
 # Interpolation blending control parameters
 const height_blend_factor = 3  # Control how much height influences blending
@@ -37,12 +39,7 @@ const height_blend_factor = 3  # Control how much height influences blending
 const decim_min_step : int = 1
 const decim_max_step : int = 2
 
-# Random number generator (for consistent randomness)
-var rng = RandomNumberGenerator.new()
-
 func _ready():
-	GSA = GroundScatteringAlgorithm.new()
-	GSA.terrain = self
 	rng.randomize()
 	heightMap = ResourceLoader.load("res://Objects/Terrain3D/terrain_noise2D.tres") as NoiseTexture2D
 	# Initialize the height image from the NoiseTexture2D
@@ -63,9 +60,9 @@ func _ready():
 	
 	# Final setup: add collision and scatter objects if not in the editor
 	if not Engine.is_editor_hint():
-		$MeshInstance3D.create_trimesh_collision()
+		terrain_mesh.create_trimesh_collision()
+		GSA.terrain = self
 		place_ground_scatter()
-
 func generate_height_data() -> void:
 	height_data.clear()
 	for x in range(xsize + 1):
@@ -189,8 +186,10 @@ func generate_terrain_mesh() -> void:
 			add_triangle(st, final_color_tri2, v1, v3, v4)
 	
 	var mesh = st.commit()
-	$MeshInstance3D.mesh = mesh
-	$MeshInstance3D.set_surface_override_material(0, ground_material)
+	terrain_mesh.mesh = mesh
+	terrain_mesh.set_surface_override_material(0, ground_material)
+	#terrain_mesh.position.x -= xsize/2
+	#terrain_mesh.position.z -= zsize/2
 
 # New helper function to add a single colored triangle
 func add_triangle(surface_tool, color, a, b, c) -> void:
@@ -202,13 +201,7 @@ func add_triangle(surface_tool, color, a, b, c) -> void:
 	surface_tool.add_vertex(b)
 	surface_tool.add_vertex(c)
 
-# Vegetation assets
 
-#var GROUND_SCATTER4 = preload("res://Objects/GroundScatter/BushyPlant.blend")
-#var GROUND_SCATTER5 = preload("res://Objects/GroundScatter/RedFlower.blend")
-#var GROUND_SCATTER6 = preload("res://Objects/GroundScatter/BlueFlower.blend")
-#var GROUND_SCATTER7 = preload("res://Objects/GroundScatter/fern.blend")
-#var GROUND_SCATTER8 = preload("res://Objects/GroundScatter/PurpleFlower.blend")
 
 
 ## Configuration
@@ -228,93 +221,11 @@ var bushes = [preload("res://Art/Models/Vegetation/BushyPlant.blend"),preload("r
 var flowers = [preload("res://Art/Models/Vegetation/Flower.blend")]
 
 func place_ground_scatter() -> void:
-	GSA.spawn_plants(trees, ferns, 0.40, forest_radius_range, min_tree_distance, Vector2(100,180), [], 0.0, Vector3(40.0, 60.0,15))
+	#GSA.spawn_plants(trees, 1.0, ferns, 0.40, forest_radius_range, min_tree_distance, Vector2(100,180), [], 0.0, Vector3(50,15))
 	#spawn_forests()
-	GSA.spawn_plants(bushes, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), [], 0.0, Vector3(30.0, 50.0, 20))
-	GSA.spawn_plants(bushes, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), flowers, 0.3, Vector3(30.0, 50.0, 20))
-
-	GSA.spawn_plants(trees, ferns, 0.3,Vector2(0.0,8.0),min_tree_distance,Vector2(20,35),[],0.0)
+	#GSA.spawn_plants(bushes, 1.0, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), [], 0.0, Vector3(40, 20))
+	#GSA.spawn_plants(bushes, 1.0, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), flowers, 0.3, Vector3(40, 20))
 	
-#########################################
-## FUNCTION: Spawn Palm Forests
-#########################################
-#func spawn_palm_forests() -> void:
-	## Iterate over a grid of sample positions in the terrain.
-	#for x in range(0, xsize, 15):
-		#for z in range(0, zsize, 15):
-			#var grid_pos = Vector2(x, z)
-			#if is_position_valid(grid_pos):
-				#var height = height_data.get(grid_pos, Vector3.ZERO).y
-				#if height < sand_height + 2 and height > sand_height - 1:
-					#if randf() > 0.7:
-						#spawn_palm_cluster(grid_pos)
-
+	#GSA.spawn_plants(trees, 0.4, ferns, 0.3,Vector2(0.0,8.0),min_tree_distance,Vector2(3,8),[],0.0,Vector3(40, 100))
+	GSA.spawn_plants(bushes,0.8,flowers,0.3,Vector2(0.0,8.0),min_bush_distance,Vector2(10,15),[],0.0,Vector2(20, 100))
 	
-#########################################
-## FUNCTION: Spawn a Palm Cluster
-#########################################
-#func spawn_palm_cluster(center: Vector2) -> void:
-	#var palm_count = randi() % 15 + 20
-	#var placed_palms = []
-	#
-	#for i in range(palm_count):
-		#var angle = randf() * TAU
-		#var distance = randf_range(0, 8.0)
-		#var pos = center + Vector2(cos(angle), sin(angle)) * distance
-		#var grid_pos = get_grid_position(pos)
-		#
-		#if is_position_valid(grid_pos) and !is_too_close(grid_pos, placed_palms, min_tree_distance):
-			#var palm = select_palm_tree().instantiate()
-			#place_plant(palm, grid_pos, true)
-			#placed_palms.append(grid_pos)
-
-########################################
-# HELPER FUNCTIONS
-########################################
-func get_grid_position(pos: Vector2) -> Vector2:
-	return Vector2(clamp(roundi(pos.x), 0, xsize), clamp(roundi(pos.y), 0, zsize))
-
-func is_position_valid(grid_pos: Vector2) -> bool:
-	if not height_data.has(grid_pos):
-		return false
-	
-	var h = height_data[grid_pos].y
-	var slope = calculate_slope(grid_pos)
-	
-	return slope < steep_slope_threshold and h > sand_height
-
-func calculate_slope(grid_pos: Vector2) -> float:
-	var current_height = height_data[grid_pos].y
-	var max_diff = 0.0
-	
-	for dx in [-1, 0, 1]:
-		for dz in [-1, 0, 1]:
-			if dx == 0 and dz == 0:
-				continue
-			var neighbor = grid_pos + Vector2(dx, dz)
-			if height_data.has(neighbor):
-				var diff = abs(current_height - height_data[neighbor].y)
-				max_diff = max(max_diff, diff)
-	return max_diff
-
-func place_plant(plant: Node3D, grid_pos: Vector2, random_rotation: bool) -> void:
-	var world_pos = height_data[grid_pos]
-	plant.position = world_pos
-	plant.rotation.y = (randf() * TAU) if random_rotation else 0
-	add_child(plant)
-	occupied_positions[grid_pos] = true
-
-#func select_forest_tree() -> Resource:
-	#return [GROUND_SCATTER, GROUND_SCATTER2, GROUND_SCATTER3].pick_random()
-#
-#func select_flower() -> Resource:
-	#return [GROUND_SCATTER5, GROUND_SCATTER6, GROUND_SCATTER8].pick_random()
-#
-#func select_palm_tree() -> Resource:
-	#return [GROUND_SCATTER, GROUND_SCATTER2].pick_random()
-
-func is_too_close(pos: Vector2, existing: Array, min_dist: float) -> bool:
-	for p in existing:
-		if pos.distance_to(p) < min_dist:
-			return true
-	return false

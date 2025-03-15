@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://cdll3cassyhme"]
+[gd_scene load_steps=9 format=3 uid="uid://cdll3cassyhme"]
 
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_3njuy"]
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_nwsly"]
@@ -7,8 +7,6 @@
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rb057"]
 size = Vector2(10, 10)
-
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_jicmf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j4h0l"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -28,23 +26,6 @@ glow_enabled = true
 [node name="GroundPlane" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 mesh = SubResource("PlaneMesh_rb057")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="GroundPlane"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/StaticBody3D"]
-shape = SubResource("WorldBoundaryShape3D_jicmf")
-
-[node name="NorthPlane" type="StaticBody3D" parent="GroundPlane"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/NorthPlane"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-shape = SubResource("WorldBoundaryShape3D_jicmf")
-
-[node name="WestPlane" type="StaticBody3D" parent="GroundPlane"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/WestPlane"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("WorldBoundaryShape3D_jicmf")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="GroundPlane"]
 environment = SubResource("Environment_7vr7b")
