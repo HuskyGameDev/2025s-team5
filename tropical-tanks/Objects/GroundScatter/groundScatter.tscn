@@ -12,11 +12,9 @@ size = Vector3(0.5, 5, 0.5)
 size = Vector3(0.612854, 2.80905, 0.615761)
 
 [node name="GroundScatter" type="Node3D"]
-transform = Transform3D(0.543593, 0, -0.839347, 0, 1, 0, 0.839347, 0, 0.543593, 0, 0, 0)
+transform = Transform3D(0.0886953, 0, 0.996057, 0, 1, 0, -0.996057, 0, 0.0886953, 0, 0, 0)
 script = ExtResource("1_oosj4")
 MODEL = ExtResource("2_bexx7")
-
-[node name="MeshRoot" type="Node3D" parent="."]
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -37,3 +35,5 @@ shape = SubResource("BoxShape3D_m4xs2")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.66334, 9.86135)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
