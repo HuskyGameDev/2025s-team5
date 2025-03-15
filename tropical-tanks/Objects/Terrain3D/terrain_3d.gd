@@ -58,10 +58,12 @@ func _ready():
 	# Generate the decimated low-poly terrain mesh
 	generate_terrain_mesh()
 	
+	
+	GSA.terrain = self
+	
 	# Final setup: add collision and scatter objects if not in the editor
 	if not Engine.is_editor_hint():
 		terrain_mesh.create_trimesh_collision()
-		GSA.terrain = self
 		place_ground_scatter()
 func generate_height_data() -> void:
 	height_data.clear()
@@ -221,11 +223,11 @@ var bushes = [preload("res://Art/Models/Vegetation/BushyPlant.blend"),preload("r
 var flowers = [preload("res://Art/Models/Vegetation/Flower.blend")]
 
 func place_ground_scatter() -> void:
-	#GSA.spawn_plants(trees, 1.0, ferns, 0.40, forest_radius_range, min_tree_distance, Vector2(100,180), [], 0.0, Vector3(50,15))
+	GSA.spawn_plants(trees, 1.0, ferns, 0.40, forest_radius_range, min_tree_distance, Vector2(100,180), [], 0.0, Vector2(50,15))
 	#spawn_forests()
-	#GSA.spawn_plants(bushes, 1.0, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), [], 0.0, Vector3(40, 20))
-	#GSA.spawn_plants(bushes, 1.0, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), flowers, 0.3, Vector3(40, 20))
+	GSA.spawn_plants(bushes, 1.0, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), [], 0.0, Vector2(40, 20))
+	GSA.spawn_plants(bushes, 1.0, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), flowers, 0.3, Vector2(40, 20))
 	
-	#GSA.spawn_plants(trees, 0.4, ferns, 0.3,Vector2(0.0,8.0),min_tree_distance,Vector2(3,8),[],0.0,Vector3(40, 100))
+	#GSA.spawn_plants(trees, 0.4, ferns, 0.3,Vector2(0.0,8.0),min_tree_distance,Vector2(3,8),[],0.0,Vector2(40, 100))
 	GSA.spawn_plants(bushes,0.8,flowers,0.3,Vector2(0.0,8.0),min_bush_distance,Vector2(10,15),[],0.0,Vector2(20, 100))
 	
