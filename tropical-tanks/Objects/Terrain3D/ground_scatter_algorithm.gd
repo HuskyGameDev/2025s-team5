@@ -8,12 +8,15 @@ func _ready() -> void:
 
 
 # GENERALIZED PLANT PLACEMENT FUNCTION
-func spawn_plants(PLANTS : Array, FERNS : Array, fern_chance : float, radius_range : Vector2, min_plant_dist  : float, plant_count_range : Vector2 , FLOWERS : Array, flower_chance : float, poisson_vector : Vector3):
-	var min_disk_dist = poisson_vector.x
-	var max_disk_dist = poisson_vector.y
-	var count = poisson_vector.z
+func spawn_plants(PLANTS : Array, FERNS : Array, fern_chance : float, radius_range : Vector2, min_plant_dist  : float, plant_count_range : Vector2 , FLOWERS : Array, flower_chance : float, poisson_vector : Vector3 = Vector3.ZERO):
 	
-	var centers = poisson_disk_sampling(min_disk_dist, max_disk_dist, count)
+	var centers = []
+	if poisson_vector != Vector3.ZERO:
+		centers = poisson_disk_sampling(poisson_vector)
+	else:
+		for x in range(0, terrain.xsize, 15):
+			for z in range(0, terrain.zsize, 15):
+				centers.append(Vector2(x, z))
 	var clusters = []
 	
 	for center in centers:
@@ -65,11 +68,13 @@ func spawn_plants(PLANTS : Array, FERNS : Array, fern_chance : float, radius_ran
 ########################################
 # FUNCTION: Poisson Disk Sampling
 ########################################
-func poisson_disk_sampling(min_dist: float, max_dist: float, count: int) -> Array:
+func poisson_disk_sampling(poisson_vector : Vector3) -> Array:
 	var points = []
 	var attempts = 0
+	var distance_range = Vector2(poisson_vector.x,poisson_vector.y)
+	var count = poisson_vector.z
 	# Use a random radius between min and max. (This example uses a single radius per call.)
-	var sample_radius = randf_range(min_dist, max_dist)
+	var sample_radius = randf_range(distance_range.x,distance_range.y)
 	
 	while points.size() < count and attempts < 1000:
 		var pos = Vector2(randf_range(0, terrain.xsize), randf_range(0, terrain.zsize))

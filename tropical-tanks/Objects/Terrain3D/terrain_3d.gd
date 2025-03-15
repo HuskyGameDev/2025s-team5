@@ -228,14 +228,31 @@ var bushes = [preload("res://Art/Models/Vegetation/BushyPlant.blend"),preload("r
 var flowers = [preload("res://Art/Models/Vegetation/Flower.blend")]
 
 func place_ground_scatter() -> void:
-	GSA.spawn_plants(trees, ferns, 0.15, forest_radius_range, min_tree_distance, Vector2(100,180), [], 0.0, Vector3(40.0, 60.0, 15))
+	GSA.spawn_plants(trees, ferns, 0.40, forest_radius_range, min_tree_distance, Vector2(100,180), [], 0.0, Vector3(40.0, 60.0,15))
 	#spawn_forests()
 	GSA.spawn_plants(bushes, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), [], 0.0, Vector3(30.0, 50.0, 20))
 	GSA.spawn_plants(bushes, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), flowers, 0.3, Vector3(30.0, 50.0, 20))
 
-########################################
-# FUNCTION: Spawn a Palm Cluster
-########################################
+	GSA.spawn_plants(trees, ferns, 0.3,Vector2(0.0,8.0),min_tree_distance,Vector2(20,35),[],0.0)
+	
+#########################################
+## FUNCTION: Spawn Palm Forests
+#########################################
+#func spawn_palm_forests() -> void:
+	## Iterate over a grid of sample positions in the terrain.
+	#for x in range(0, xsize, 15):
+		#for z in range(0, zsize, 15):
+			#var grid_pos = Vector2(x, z)
+			#if is_position_valid(grid_pos):
+				#var height = height_data.get(grid_pos, Vector3.ZERO).y
+				#if height < sand_height + 2 and height > sand_height - 1:
+					#if randf() > 0.7:
+						#spawn_palm_cluster(grid_pos)
+
+	
+#########################################
+## FUNCTION: Spawn a Palm Cluster
+#########################################
 #func spawn_palm_cluster(center: Vector2) -> void:
 	#var palm_count = randi() % 15 + 20
 	#var placed_palms = []
