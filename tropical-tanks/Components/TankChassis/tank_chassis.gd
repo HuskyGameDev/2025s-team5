@@ -65,3 +65,6 @@ func _physics_process(delta: float) -> void:
 					turret.shoot()
 	look_at(global_position + move_vector)
 	move_and_slide()
+
+func death():
+	position = Vector3.ZERO

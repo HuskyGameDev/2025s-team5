@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://brhxv04ct77q"]
+
+[ext_resource type="Script" path="res://Components/HealthManager/health_manager.gd" id="1_62sw8"]
+[ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="2_y2ljg"]
+[ext_resource type="PackedScene" uid="uid://mvpmjygq223s" path="res://Art/Models/Vegetation/Fern.blend" id="3_whjoh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mm7np"]
+size = Vector3(3, 1, 3)
+
+[node name="Fern" type="Node3D"]
+
+[node name="HealthManager" type="Node3D" parent="."]
+script = ExtResource("1_62sw8")
+health = 2.0
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_y2ljg")]
+health_manager = NodePath("../HealthManager")
+
+[node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 1.41412, 0.0172162)
+shape = SubResource("BoxShape3D_mm7np")
+
+[node name="Fern" parent="." instance=ExtResource("3_whjoh")]

@@ -3,14 +3,14 @@ extends Node3D
 const EXPLOSION = preload("res://Objects/Explosion/explosion.tscn")
 const CRATER = preload("res://Objects/Crater/crater.tscn")
 
-@onready var collider = $Area3D/CollisionShape3D
+@onready var shape_cast = $ShapeCast3D
 
 var explosion_power : int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$ExplosionModels.scale = scale * explosion_power * 3
-	collider.shape.radius = explosion_power
+	shape_cast.shape.radius = explosion_power
 	
 	
 	for child : MeshInstance3D in $ExplosionModels.get_children():
@@ -21,6 +21,17 @@ func _ready() -> void:
 	crater.scale = crater.scale * explosion_power
 	get_tree().root.add_child(crater)
 	crater.global_position = global_position
+	
+	shape_cast.force_shapecast_update()
+	for collision in shape_cast.collision_result:
+		var body = collision["collider"]
+		if body.has_method("take_damage"):
+			var explosion_attack : Attack = Attack.new()
+			
+			explosion_attack.attack_position = position
+			explosion_attack.damage = (explosion_power * explosion_power * explosion_power + 1) 
+			
+			body.take_damage(explosion_attack)
 	
 	
 # Animation 
@@ -39,13 +50,3 @@ func spawn_child_explosion():
 		child_explosion.position = position + (Vector3(randf(),randf(),randf()) - Vector3.ONE * 0.5)
 		get_tree().root.add_child(child_explosion)
 		
-
-
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	if body.has_method("take_damage"):
-		var explosion_attack : Attack = Attack.new()
-		
-		explosion_attack.attack_position = position
-		explosion_attack.damage = (explosion_power * explosion_power * explosion_power) 
-		
-		body.take_damage(explosion_attack)

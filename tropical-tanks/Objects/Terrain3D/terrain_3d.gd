@@ -217,10 +217,12 @@ func add_triangle(surface_tool, color, a, b, c) -> void:
 var bush_positions = []
 var occupied_positions = {}  # Dictionary: grid position (Vector2) -> true
 
-var trees = [preload("res://Art/Models/Vegetation/MidTree.blend"), preload("res://Art/Models/Vegetation/ShortPalm.blend"), preload("res://Art/Models/Vegetation/TallPalm.blend")]
-var ferns = [preload("res://Art/Models/Vegetation/Fern.blend")]
-var bushes = [preload("res://Art/Models/Vegetation/BushyPlant.blend"),preload("res://Art/Models/Vegetation/Fern.blend"),]
-var flowers = [preload("res://Art/Models/Vegetation/Flower.blend")]
+
+#var trees = [preload("res://Art/Models/Vegetation/MidTree.blend"), preload("res://Art/Models/Vegetation/ShortPalm.blend"), preload("res://Art/Models/Vegetation/TallPalm.blend")]
+var trees = [preload("res://Objects/GroundScatter/mid_palm.tscn"), preload("res://Objects/GroundScatter/short_palm.tscn"), preload("res://Objects/GroundScatter/tall_palm.tscn")]
+var ferns = [preload("res://Objects/GroundScatter/fern.tscn")]
+var bushes = [preload("res://Objects/GroundScatter/bush.tscn"), preload("res://Objects/GroundScatter/fern.tscn")]
+var flowers = [preload("res://Objects/GroundScatter/flower.tscn")]
 
 func place_ground_scatter() -> void:
 	GSA.spawn_plants(trees, 1.0, ferns, 0.40, forest_radius_range, min_tree_distance, Vector2(100,180), [], 0.0, Vector2(50,15))

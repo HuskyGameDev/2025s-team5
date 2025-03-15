@@ -14,5 +14,4 @@ func death():
 	if P.has_method("death"):
 		P.death()
 	else:
-		get_parent().position = Vector3.ZERO
-		health = 100.0
+		get_parent().queue_free()
