@@ -283,7 +283,8 @@ var flowers = [preload("res://Objects/GroundScatter/flower.tscn")]
 var enemy = [preload("res://Objects/Enemy/enemy.tscn")]
 
 func place_ground_scatter() -> void:
-	GSA.spawn_plants(trees, 1.0, ferns, 0.40,[], 0.0, Vector2(100,180),forest_radius_range,min_tree_distance, 50,15, false)
+	pass
+	#GSA.spawn_plants(trees, 1.0, ferns, 0.40,[], 0.0, Vector2(100,180),forest_radius_range,min_tree_distance, 50,15, false)
 #
 	GSA.spawn_plants(bushes, 1.0, [], 0.0, [], 0.0, Vector2(70,120),bush_radius_range, min_bush_distance, 40, 20, false)
 	GSA.spawn_plants(bushes, 1.0, [], 0.0, flowers, 0.3, Vector2(70,120),bush_radius_range,  min_bush_distance, 40, 20, false)
@@ -293,3 +294,4 @@ func place_ground_scatter() -> void:
 	#
 	#GSA.spawn_plants(flowers,0.5,[],0.0,[],0.0,Vector2(50,100),Vector2(3,5),1.0,10,100,false)
 	#GSA.spawn_plants(enemy,0.1,[],0.0,[],0.0,Vector2(1,1),Vector2(1,1),10,10,50,true)
+	#GSA.spawn_plants(flowers,1.0,[],0.0,[],0.0,Vector2(50,100),Vector2(2,3),1.0,20,50,false)
