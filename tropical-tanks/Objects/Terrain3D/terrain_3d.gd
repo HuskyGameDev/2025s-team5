@@ -18,6 +18,8 @@ var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 @export var heightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
 @export var snowHeightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/snow_noise2D.tres")
 var heightImage : Image
+var colorImage : Image = Image.new()
+
 var snowHeightImage : Image
 
 # This dictionary will store the vertex positions after height adjustments
@@ -45,6 +47,7 @@ const decim_max_step : int = 2
 func _ready():
 	rng.randomize()
 	
+	colorImage.load("res://Art/Images/cat.jpg");
 	# Initialize the height image from the NoiseTexture2D
 	heightImage = heightMap.get_image().duplicate()
 	snowHeightImage = snowHeightMap.get_image()
@@ -147,6 +150,8 @@ func generate_terrain_mesh() -> void:
 			var v3 = decimated_vertices[i+1][j+1]
 			var v4 = decimated_vertices[i][j+1]
 			
+			var vertex_array = [v1, v2, v3, v4]
+			
 			# Process first triangle (v1, v2, v3)
 			# Calculate triangle properties
 			var tri1_heights = [v1.y, v2.y, v3.y]
@@ -168,8 +173,11 @@ func generate_terrain_mesh() -> void:
 			var height_factor_tri1 = clamp((avg_height_tri1 - sand_height) / height_blend_factor, 0.0, 1.0)
 			var final_color_tri1 = sand_color.lerp(grass_color, height_factor_tri1)
 			
+			var image_vertex_1 = vertex_array.pick_random()
+			var image_color_1 = colorImage.get_pixel(image_vertex_1.x, image_vertex_1.z)
+			
 			# Add first triangle to mesh
-			add_triangle(st, final_color_tri1, v1, v2, v3)
+			add_triangle(st, image_color_1, v1, v2, v3)
 			
 			# Process second triangle (v1, v3, v4)
 			var tri2_heights = [v1.y, v3.y, v4.y]
@@ -191,8 +199,11 @@ func generate_terrain_mesh() -> void:
 			var height_factor_tri2 = clamp((avg_height_tri2 - sand_height) / height_blend_factor, 0.0, 1.0)
 			var final_color_tri2 = sand_color.lerp(grass_color, height_factor_tri2)
 			
+			var image_vertex_2 = vertex_array.pick_random()
+			var image_color_2 = colorImage.get_pixel(image_vertex_2.x, image_vertex_2.z)
+			
 			# Add second triangle to mesh
-			add_triangle(st, final_color_tri2, v1, v3, v4)
+			add_triangle(st, image_color_2, v1, v3, v4)
 	
 	var mesh = st.commit()
 	terrain_mesh.mesh = mesh
