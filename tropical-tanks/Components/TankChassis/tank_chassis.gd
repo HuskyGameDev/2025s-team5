@@ -6,6 +6,7 @@ const SPEED = 250.0
 var move_vector = Vector3(0,0,-1)
 
 @export var tank_rotation : float = 0.0
+@export var upgrades : Array[Upgrade] = []
 
 @onready var ground_raycast = $GroundRaycast
 @onready var tank_chassis = $TankChassisModelParts
@@ -18,6 +19,8 @@ var controls = {
 	"shoot" = false,
 	
 }
+
+
 
 func _physics_process(delta: float) -> void:
 	ground_raycast.global_position = global_position
