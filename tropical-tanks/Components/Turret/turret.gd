@@ -95,7 +95,7 @@ func _physics_process(delta: float) -> void:
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)
 	$TurretHub.global_rotation = global_rotation * Vector3(0,1,0)
-	print(calculate_turret_angle(position,target_position,initial_shot_power/shell_parameters.mass))
+	print(calculate_turret_angle(position,target_position,initial_shot_power/shell_parameters.mass, -9.8, true))
 	bearing.rotation = rotation * Vector3(1,0,1)
 	look_at(look_position)
 	
@@ -124,7 +124,6 @@ func calculate_turret_angle(
 		(shell_initial_velocity * shell_initial_velocity - 2 * g * h) -
 		d * d * g * g
 	)
-	
 	# Return 45 degrees if path is impossible
 	if discriminant < 0:
 		return 45.0
@@ -141,8 +140,8 @@ func calculate_turret_angle(
 	var c2 = (d * d * sqrt_term) / (shell_initial_velocity * shell_initial_velocity * denominator)
 	
 	# Calculate both possible angles
-	var a1 = acos(sqrt((c1 - c2) / 2.0)) * PI / 180
-	var a2 = -sign(corrective_factor) * acos(sqrt((c1 + c2) / 2.0)) * PI / 180
+	var a1 = acos(sqrt((c1 - c2) / 2.0)) * 180 / PI
+	var a2 = -sign(corrective_factor) * acos(sqrt((c1 + c2) / 2.0)) * 180 / PI
 	
 	# Return selected angle based on mortar flag
 	# If mortar_angle is true, select the higher angle, otherwise lower angle.
