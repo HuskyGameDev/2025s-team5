@@ -225,11 +225,11 @@ var bushes = [preload("res://Objects/GroundScatter/bush.tscn"), preload("res://O
 var flowers = [preload("res://Objects/GroundScatter/flower.tscn")]
 
 func place_ground_scatter() -> void:
-	GSA.spawn_plants(trees, 1.0, ferns, 0.40, forest_radius_range, min_tree_distance, Vector2(100,180), [], 0.0, Vector2(50,15))
-	#spawn_forests()
-	GSA.spawn_plants(bushes, 1.0, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), [], 0.0, Vector2(40, 20))
-	GSA.spawn_plants(bushes, 1.0, [], 0.0, bush_radius_range, min_bush_distance, Vector2(70,120), flowers, 0.3, Vector2(40, 20))
+	GSA.spawn_plants(trees, 1.0, ferns, 0.40,[], 0.0, Vector2(100,180),forest_radius_range,min_tree_distance, 50,15, false)
+
+	GSA.spawn_plants(bushes, 1.0, [], 0.0, [], 0.0, Vector2(70,120),bush_radius_range, min_bush_distance, 40, 20, false)
+	GSA.spawn_plants(bushes, 1.0, [], 0.0, flowers, 0.3, Vector2(70,120),bush_radius_range,  min_bush_distance, 40, 20, false)
+	GSA.spawn_plants(trees, 0.3, ferns, 0.3, flowers, 0.1, Vector2(20,30),Vector2(0,10),min_tree_distance,15,40,true)
 	
-	#GSA.spawn_plants(trees, 0.4, ferns, 0.3,Vector2(0.0,8.0),min_tree_distance,Vector2(3,8),[],0.0,Vector2(40, 100))
-	GSA.spawn_plants(bushes,0.8,flowers,0.3,Vector2(0.0,8.0),min_bush_distance,Vector2(10,15),[],0.0,Vector2(20, 100))
+	GSA.spawn_plants(bushes,0.8,flowers,0.3,[],0.0,Vector2(10,15),Vector2(0.0,8.0), min_bush_distance,20, 100, true)
 	

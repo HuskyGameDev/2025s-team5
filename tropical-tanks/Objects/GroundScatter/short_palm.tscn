@@ -23,6 +23,7 @@ script = ExtResource("1_jp0hl")
 health = 20.0
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_p4ky7")]
+collision_layer = 4
 health_manager = NodePath("../HealthManager")
 
 [node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]

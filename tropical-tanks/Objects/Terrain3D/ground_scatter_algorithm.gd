@@ -8,25 +8,38 @@ func _ready() -> void:
 
 
 # GENERALIZED PLANT PLACEMENT FUNCTION
-func spawn_plants(PLANTS : Array, plant_chance, FERNS : Array, fern_chance : float, radius_range : Vector2, min_plant_dist  : float, plant_count_range : Vector2 , FLOWERS : Array, flower_chance : float, poisson_vector : Vector2 = Vector2.ZERO):
+func spawn_plants(
+	PLANTS : Array, plant_chance : float,
+	FERNS : Array, fern_chance : float,
+	FLOWERS : Array, flower_chance : float,  
+	
+	
+	plant_count_range : Vector2, cluster_radius_range : Vector2, min_plant_dist  : float, 
+	min_cluster_spacing : float, center_count : int, use_grid : bool = false
+	):
 	
 	var centers = [] # Holds positions of the center of plant groups
 	var clusters = [] # Holds clusters of plants
 	
 	# Pick center generation algorithm
-	if poisson_vector != Vector2.ZERO: # Check if function is passed a poisson vector value
-		centers = poisson_disk_sampling(poisson_vector)
-		print(centers.size())
+	if use_grid: 
+		var temp_centers = []
+		for x in range(0, terrain.xsize, min_cluster_spacing):
+			for z in range(0, terrain.zsize, min_cluster_spacing):
+				temp_centers.append(Vector2(x, z))
+		for i in clampi(center_count,0,temp_centers.size()):
+			var pop_center = temp_centers.pop_at(randi_range( 0 , temp_centers.size()-1 ))
+			centers.append(pop_center)
+			
 	else: # Get random centers on map
-		for x in range(0, terrain.xsize, 15):
-			for z in range(0, terrain.zsize, 15):
-				if randf() < plant_chance:
-					centers.append(Vector2(x, z))
+		centers = poisson_disk_sampling(min_cluster_spacing,center_count)
+	
+	print(centers.size())
 				
 	
 	for center in centers:
-		var cluster_radius = randf_range(radius_range.x, radius_range.y)
 		var plant_count : int = randi_range(plant_count_range.x, plant_count_range.y)
+		var cluster_radius : float = randf_range(cluster_radius_range.x, cluster_radius_range.y)
 		var placed_plants = []
 		
 		for i in range(plant_count):
@@ -51,7 +64,8 @@ func spawn_plants(PLANTS : Array, plant_chance, FERNS : Array, fern_chance : flo
 						
 		clusters.append(placed_plants)
 	
-	if flower_chance > 0.0:
+	# Flower Border
+	if FLOWERS.size() > 0:
 		for cluster in clusters:
 			var edge_positions = []
 			
@@ -74,18 +88,15 @@ func spawn_plants(PLANTS : Array, plant_chance, FERNS : Array, fern_chance : flo
 ########################################
 # FUNCTION: Poisson Disk Sampling
 ########################################
-func poisson_disk_sampling(poisson_vector : Vector2) -> Array:
+func poisson_disk_sampling(min_spacing : float, count : int) -> Array:
 	var points = []
 	var attempts = 0
 	
-	var sample_min_radius = poisson_vector.x
-	var count = poisson_vector.y
-	
-	while points.size() < count and attempts < 1000:
+	while points.size() < count and attempts < count * count:
 		var new_point = Vector2(randf_range(0, terrain.xsize), randf_range(0, terrain.zsize))
 		var valid = true
 		for existing_point in points:
-			if new_point.distance_to(existing_point) < sample_min_radius:
+			if new_point.distance_to(existing_point) < min_spacing:
 				valid = false
 				break
 		if valid:
