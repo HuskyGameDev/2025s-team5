@@ -81,7 +81,7 @@ func _physics_process(delta: float) -> void:
 			position += collision_vector
 			
 			var body = cast.get_collider()
-			if body:
+			if body and body:
 				if body.get_parent().is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
 					explode()
 					impact(body)

@@ -1,7 +1,6 @@
 extends Node3D
 
-
-@onready var decal : Decal  = %Decal
+@onready var decal : Decal  = $Decal
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

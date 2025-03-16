@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cc5o3twyp1s01"]
+
+[ext_resource type="Texture2D" uid="uid://mbia017vwtsw" path="res://Objects/Track/Tread.png" id="1_4sgch"]
+[ext_resource type="Script" path="res://Objects/Crater/crater.gd" id="1_wsgim"]
+
+[node name="Track" type="Node3D"]
+script = ExtResource("1_wsgim")
+
+[node name="Decal" type="Decal" parent="."]
+size = Vector3(0.3, 0.3, 1.4)
+texture_albedo = ExtResource("1_4sgch")
+modulate = Color(0.685236, 0.361341, 1.92523e-07, 1)

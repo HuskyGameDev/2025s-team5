@@ -1,12 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://8bgogrhf5gis"]
+[gd_scene load_steps=3 format=3 uid="uid://8bgogrhf5gis"]
 
 [ext_resource type="PackedScene" uid="uid://c45cee2ybphm" path="res://Art/Models/tank.blend" id="1_k8b07"]
+[ext_resource type="Material" uid="uid://ddc7m2wu05ej3" path="res://Art/Materials/TankMaterial.tres" id="2_o1732"]
 
 [node name="tank" instance=ExtResource("1_k8b07")]
 
 [node name="Plane" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)
 layers = 2
+surface_material_override/0 = ExtResource("2_o1732")
 
 [node name="Threads" parent="." index="1"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -15,3 +17,4 @@ layers = 2
 [node name="Plane_001" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 layers = 2
+material_override = ExtResource("2_o1732")

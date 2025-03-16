@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://do3q1y3fmiwh"]
+
+[ext_resource type="PackedScene" uid="uid://dvqixvep58v8v" path="res://Art/Models/TurretHub.blend" id="1_pgkcs"]
+[ext_resource type="Material" uid="uid://ddc7m2wu05ej3" path="res://Art/Materials/TankMaterial.tres" id="2_u8irv"]
+
+[node name="TurretHub" instance=ExtResource("1_pgkcs")]
+
+[node name="Cube" parent="." index="0"]
+layers = 2
+material_override = ExtResource("2_u8irv")

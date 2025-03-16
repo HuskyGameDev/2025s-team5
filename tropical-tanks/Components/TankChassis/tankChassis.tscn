@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://6mmhgkmoq6oa"]
+[gd_scene load_steps=9 format=3 uid="uid://6mmhgkmoq6oa"]
 
 [ext_resource type="Script" path="res://Components/TankChassis/tank_chassis.gd" id="1_bgbpq"]
-[ext_resource type="PackedScene" uid="uid://8bgogrhf5gis" path="res://Components/TankChassis/tankChassisModelParts.tscn" id="2_eebcv"]
+[ext_resource type="PackedScene" uid="uid://8bgogrhf5gis" path="res://Art/Models/tankChassisModelParts.tscn" id="2_eebcv"]
 [ext_resource type="Texture2D" uid="uid://boi17sxf60ef6" path="res://Art/Images/Arrow.svg" id="3_m6eku"]
 [ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="4_3tv7r"]
 [ext_resource type="PackedScene" uid="uid://xtnuh7brto2v" path="res://Components/HealthManager/health_manager.tscn" id="5_5raij"]
+[ext_resource type="PackedScene" uid="uid://c01vtjqhwsafa" path="res://Components/TreadSpawner/trackSpawner.tscn" id="6_14oo1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ro8yc"]
 radius = 0.2
@@ -19,6 +20,7 @@ collision_mask = 3
 script = ExtResource("1_bgbpq")
 
 [node name="Collider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.205778, 0)
 shape = SubResource("SphereShape3D_ro8yc")
 
 [node name="TankChassisModelParts" parent="." instance=ExtResource("2_eebcv")]
@@ -27,6 +29,15 @@ transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
 [node name="Sprite3D" type="Sprite3D" parent="TankChassisModelParts"]
 transform = Transform3D(-0.4, -3.49691e-08, 1.52855e-15, 0, -1.74846e-08, -0.4, 3.49691e-08, -0.4, 1.74846e-08, 0, 0, -5.35322)
 texture = ExtResource("3_m6eku")
+
+[node name="TreadSpawners" type="Node3D" parent="TankChassisModelParts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.618881, 0)
+
+[node name="TreadSpawner" parent="TankChassisModelParts/TreadSpawners" instance=ExtResource("6_14oo1")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -1.49231, -0.83051, 0)
+
+[node name="TreadSpawner2" parent="TankChassisModelParts/TreadSpawners" instance=ExtResource("6_14oo1")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 1.56724, -0.83051, 0)
 
 [node name="TankLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.470504, -0.88348)

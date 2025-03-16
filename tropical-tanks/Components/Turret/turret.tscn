@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c4ui8j2t8glw0"]
 
 [ext_resource type="Script" path="res://Components/Turret/turret.gd" id="1_p3y8b"]
-[ext_resource type="PackedScene" uid="uid://dvqixvep58v8v" path="res://Art/Models/TurretHub.blend" id="2_c4hkx"]
+[ext_resource type="PackedScene" uid="uid://do3q1y3fmiwh" path="res://Art/Models/turretHubModelParts.tscn" id="2_eg07v"]
 [ext_resource type="PackedScene" uid="uid://d1lq821ro2ajm" path="res://Components/CrosshairSetter/crosshair_setter.tscn" id="3_5c1ct"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_aqewf"]
@@ -10,7 +10,7 @@ size = Vector3(0.5, 0.15, 0.15)
 [node name="Turret" type="Node3D"]
 script = ExtResource("1_p3y8b")
 
-[node name="TurretHub" parent="." instance=ExtResource("2_c4hkx")]
+[node name="TurretHub" parent="." instance=ExtResource("2_eg07v")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 
 [node name="Bearing" type="MeshInstance3D" parent="TurretHub"]
