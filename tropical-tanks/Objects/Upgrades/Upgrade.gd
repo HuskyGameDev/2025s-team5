@@ -1,5 +1,6 @@
 extends Node3D
 
+@export var upgrade : Upgrade
 signal pickup()
 
 # Passed when an object enters the collection area
