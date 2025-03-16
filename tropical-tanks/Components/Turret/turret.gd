@@ -7,6 +7,8 @@ signal change_crosshair(crosshair_index)
 
 @export var target_position : Vector3 = Vector3(0,0,0)
 
+
+var shell_parameters : ShellParameter = ShellParameter.new()
 var BARREL = preload("res://Components/Turret/barrel.tscn")
 
 # The node that holds aim_target_position to aim the turret
@@ -34,6 +36,7 @@ var split_barrel_holder = []
 
 func _ready() -> void:
 	set_barrels()
+	shell_parameters.bounces_left = 3
 	
 	
 	
@@ -69,6 +72,7 @@ func set_barrels() -> void:
 
 			
 			barrel.rotation.y = angular_spread_per_split_barrel * split_barrels - angular_spread_per_split_barrel * (i_split_barrel + 0.5) * 2
+			barrel.turret = self
 			bearing.add_child(barrel)
 		
 			double_barrel_holder.append(barrel)
@@ -100,16 +104,16 @@ func _physics_process(delta: float) -> void:
 	
 
 
-var shoot_cooleddown = true
+var shoot_cooled_down = true
 func _on_timer_timeout() -> void:
-	shoot_cooleddown = true
+	shoot_cooled_down = true
 	
 var i = 0
 func shoot():
-	if shoot_cooleddown:
+	if shoot_cooled_down:
 		for split_barrel in split_barrel_holder:
 			split_barrel[i].fire_shell()
 			i += 1
 			i = i % double_barrels
-		shoot_cooleddown = false
+		shoot_cooled_down = false
 		$Timer.start()

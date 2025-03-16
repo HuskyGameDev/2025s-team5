@@ -9,8 +9,8 @@ var explosion_power : int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$ExplosionModels.scale = scale * explosion_power * 3
-	shape_cast.shape.radius = explosion_power
+	$ExplosionModels.scale = scale * explosion_power * 2
+	shape_cast.shape.radius = explosion_power / 2
 	
 	
 	for child : MeshInstance3D in $ExplosionModels.get_children():
@@ -18,7 +18,7 @@ func _ready() -> void:
 		
 	var crater = CRATER.instantiate()
 	crater.rotation.y = deg_to_rad(randi_range(1,360))
-	crater.scale = crater.scale * explosion_power
+	crater.scale = crater.scale * explosion_power 
 	get_tree().root.add_child(crater)
 	crater.global_position = global_position
 	
@@ -47,6 +47,6 @@ func spawn_child_explosion():
 	if child_explosion_power > 0:
 		var child_explosion = EXPLOSION.instantiate()
 		child_explosion.explosion_power = child_explosion_power
-		child_explosion.position = position + (Vector3(randf(),randf(),randf()) - Vector3.ONE * 0.5)
+		child_explosion.position = position + explosion_power * (Vector3(randf(),randf(),randf()) - Vector3.ONE * 0.5)
 		get_tree().root.add_child(child_explosion)
 		
