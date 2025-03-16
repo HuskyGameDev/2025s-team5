@@ -16,10 +16,13 @@ var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 
 # Heightmap configuration
 @export var heightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
+@export var snowHeightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/snow_noise2D.tres")
 var heightImage : Image
+var snowHeightImage : Image
 
 # This dictionary will store the vertex positions after height adjustments
 var height_data = {}
+var snow_height_data = {}
 
 # Reference to the erosion module
 var erosion : Erosion
@@ -41,10 +44,10 @@ const decim_max_step : int = 2
 
 func _ready():
 	rng.randomize()
-	heightMap = ResourceLoader.load("res://Objects/Terrain3D/terrain_noise2D.tres") as NoiseTexture2D
+	
 	# Initialize the height image from the NoiseTexture2D
 	heightImage = heightMap.get_image().duplicate()
-	
+	snowHeightImage = snowHeightMap.get_image()
 	# Create an instance of the Erosion class (make sure erosion.gd is in the specified path)
 	erosion = preload("res://Objects/Terrain3D/errosion.gd").new()
 	
@@ -52,21 +55,20 @@ func _ready():
 	# erosion.initialize_erosion_brush_indices(xsize + 1, erosion.erosion_radius)
 	# erosion.apply_erosion(heightImage, xsize + 1)
 	
-	# Generate height data from the height image
-	generate_height_data()
-	
-	# Generate the decimated low-poly terrain mesh
-	generate_terrain_mesh()
-	
-	
-	GSA.terrain = self
+	generate_height_data() 	# Generate height data from the height image
+	generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
+	#generate_snow_mesh()	# Generate the snow terrain layer
 	
 	# Final setup: add collision and scatter objects if not in the editor
 	if not Engine.is_editor_hint():
 		terrain_mesh.create_trimesh_collision()
+		GSA.terrain = self
 		place_ground_scatter()
+
+
 func generate_height_data() -> void:
 	height_data.clear()
+	snow_height_data.clear()
 	for x in range(xsize + 1):
 		for z in range(zsize + 1):
 			var raw_height = heightImage.get_pixel(x, z).r
@@ -74,6 +76,11 @@ func generate_height_data() -> void:
 			height_data[Vector2(x, z)] = Vector3(
 				x + randf_range(-0.2, 0.0),
 				adjusted_height,
+				z + randf_range(-0.2, 0.0)
+			)
+			snow_height_data[Vector2(x, z)] = Vector3(
+				x + randf_range(-0.2, 0.0),
+				adjusted_height - 3 + snowHeightImage.get_pixel(x,z).r * 8,
 				z + randf_range(-0.2, 0.0)
 			)
 
@@ -192,6 +199,56 @@ func generate_terrain_mesh() -> void:
 	terrain_mesh.set_surface_override_material(0, ground_material)
 	#terrain_mesh.position.x -= xsize/2
 	#terrain_mesh.position.z -= zsize/2
+
+func generate_snow_mesh():
+	var st = SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var index_mode = true
+	# Turn pixels of the image into quads with vertex color from image
+	for x in xsize:
+		for z in zsize:
+			var color : Color = Color(0.9,0.9,0.9,1)
+			
+			if index_mode == true:
+				st.set_color(color)
+				st.set_uv(Vector2(x,z))
+				st.add_vertex(Vector3(x,snow_height_data[Vector2(x,z)].y,z))
+				
+			else:
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x,z)])
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x+1,z+1)])
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x,z+1)])
+				
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x,z)])
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x+1,z)])
+				st.set_color(color)
+				st.add_vertex(height_data[Vector2(x+1,z+1)])
+				
+	if index_mode == true:
+		for x in xsize-1:
+			for z in zsize-1:
+				st.add_index((x) * zsize + z)
+				st.add_index((x + 1) * zsize + z + 1)
+				st.add_index((x) * zsize + z + 1)
+				
+				st.add_index((x) * zsize + z)
+				st.add_index((x + 1) * zsize + z)
+				st.add_index((x + 1) * zsize + z + 1)
+			
+			
+	# Generate normals
+	st.generate_normals()
+	# Build the mesh and set it as the MeshInstance3D's mesh. Then set the material to the terrain material
+	var mesh = st.commit()
+	$SnowMesh.mesh = mesh
+	$SnowMesh.set_surface_override_material(0,ground_material)
+	# The terrain material has "Use vertex color as albedo" enabled
+	
 
 # New helper function to add a single colored triangle
 func add_triangle(surface_tool, color, a, b, c) -> void:

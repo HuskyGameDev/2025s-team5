@@ -118,12 +118,17 @@ func get_grid_position(pos: Vector2) -> Vector2:
 	return Vector2(clamp(roundi(pos.x), 0, terrain.xsize), clamp(roundi(pos.y), 0, terrain.zsize))
 	
 func is_position_valid(grid_pos: Vector2) -> bool:
-	if not terrain.height_data.has(grid_pos):
+	var valid = false
+	if !terrain.height_data.has(grid_pos):
 		return false
 	var h = terrain.height_data[grid_pos].y
 	var slope = calculate_slope(grid_pos)
-	
-	return slope < terrain.steep_slope_threshold and h > terrain.sand_height
+	if slope < terrain.steep_slope_threshold and h > terrain.sand_height:
+		valid = true
+		
+	#if terrain.snow_height_data[grid_pos].y > 8:
+		#return false
+	return valid
 		
 func is_too_close(pos: Vector2, existing: Array, min_dist: float) -> bool:
 	for p in existing:
