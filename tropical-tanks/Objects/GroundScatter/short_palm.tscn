@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bjlcuur6kdajc"]
 
-[ext_resource type="Script" path="res://Components/HealthManager/health_manager.gd" id="1_jp0hl"]
+[ext_resource type="Script" uid="uid://eglj02lx7r0m" path="res://Components/HealthManager/health_manager.gd" id="1_jp0hl"]
 [ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="2_p4ky7"]
 [ext_resource type="PackedScene" uid="uid://c7u05jps3oijk" path="res://Art/Models/Vegetation/ShortPalm.blend" id="3_1dfd7"]
 

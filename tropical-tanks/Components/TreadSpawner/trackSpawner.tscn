@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c01vtjqhwsafa"]
 
-[ext_resource type="Script" path="res://Components/TreadSpawner/track_spawner.gd" id="1_nqmg3"]
+[ext_resource type="Script" uid="uid://bf3lx6khy4ful" path="res://Components/TreadSpawner/track_spawner.gd" id="1_nqmg3"]
 
 [node name="TrackSpawner" type="Node3D"]
 script = ExtResource("1_nqmg3")

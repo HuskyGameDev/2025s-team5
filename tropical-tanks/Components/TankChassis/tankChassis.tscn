@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://6mmhgkmoq6oa"]
 
-[ext_resource type="Script" path="res://Components/TankChassis/tank_chassis.gd" id="1_bgbpq"]
+[ext_resource type="Script" uid="uid://c3hmkj8xky03r" path="res://Components/TankChassis/tank_chassis.gd" id="1_bgbpq"]
 [ext_resource type="PackedScene" uid="uid://8bgogrhf5gis" path="res://Art/Models/tankChassisModelParts.tscn" id="2_eebcv"]
 [ext_resource type="Texture2D" uid="uid://boi17sxf60ef6" path="res://Art/Images/Arrow.svg" id="3_m6eku"]
 [ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="4_3tv7r"]

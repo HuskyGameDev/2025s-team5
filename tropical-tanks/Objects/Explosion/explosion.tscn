@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://butucvxhhtntj"]
 
-[ext_resource type="Script" path="res://Objects/Explosion/explosion.gd" id="1_fpfk5"]
+[ext_resource type="Script" uid="uid://ckxcf1dplxxw" path="res://Objects/Explosion/explosion.gd" id="1_fpfk5"]
 [ext_resource type="Material" uid="uid://d0rj1a8rwauo3" path="res://Objects/Explosion/Explosion_material.tres" id="2_w7kyo"]
 [ext_resource type="Material" uid="uid://bncu0pxppxq66" path="res://Objects/Explosion/Explosion_material2.tres" id="3_asgjv"]
 [ext_resource type="ArrayMesh" uid="uid://dcods1aj4fchc" path="res://Art/Models/ExplosionModel.res" id="3_k8f1b"]

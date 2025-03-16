@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://0mhao2dpnqvl"]
 
-[ext_resource type="Script" path="res://Components/HealthManager/health_manager.gd" id="1_ljn1o"]
+[ext_resource type="Script" uid="uid://eglj02lx7r0m" path="res://Components/HealthManager/health_manager.gd" id="1_ljn1o"]
 [ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="2_ba355"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_bsgsk"]

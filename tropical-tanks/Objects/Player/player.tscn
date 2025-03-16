@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://3oknlbv35lld"]
 
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/TankChassis/tankChassis.tscn" id="1_avp0u"]
-[ext_resource type="Script" path="res://Objects/Player/player_controller.gd" id="1_ikaho"]
+[ext_resource type="Script" uid="uid://dgykyycj35af1" path="res://Objects/Player/player_controller.gd" id="1_ikaho"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_tqbjc"]
 [ext_resource type="PackedScene" uid="uid://cnpjr2qs65c5s" path="res://Components/CameraTopDown/cameraTopDown.tscn" id="3_wp58l"]
 [ext_resource type="PackedScene" uid="uid://cxo7x33hr41go" path="res://Art/Effects/ParticleTest.tscn" id="4_l3euh"]

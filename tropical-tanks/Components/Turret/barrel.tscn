@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bkf085s2qsb4q"]
 
-[ext_resource type="Script" path="res://Components/Turret/barrel.gd" id="1_8k4xu"]
+[ext_resource type="Script" uid="uid://b34v0k834f88r" path="res://Components/Turret/barrel.gd" id="1_8k4xu"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ypprg"]
 top_radius = 0.05

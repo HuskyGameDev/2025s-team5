@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dwdirwkk7kcgs"]
 
-[ext_resource type="Script" path="res://Components/TankController/tankController.gd" id="1_gxatg"]
+[ext_resource type="Script" uid="uid://c5s8vboqw4eoo" path="res://Components/TankController/tankController.gd" id="1_gxatg"]
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/TankChassis/tankChassis.tscn" id="1_umy6l"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_ck6tt"]
 

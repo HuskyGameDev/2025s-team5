@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cnpjr2qs65c5s"]
 
-[ext_resource type="Script" path="res://Components/CameraTopDown/camera_top_down.gd" id="1_pvmvn"]
+[ext_resource type="Script" uid="uid://b3ueppaj1nsga" path="res://Components/CameraTopDown/camera_top_down.gd" id="1_pvmvn"]
 
 [node name="CameraRoot" type="Node3D"]
 script = ExtResource("1_pvmvn")
