@@ -57,7 +57,7 @@ func _ready():
 	
 	generate_height_data() 	# Generate height data from the height image
 	generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
-	#generate_snow_mesh()	# Generate the snow terrain layer
+	generate_snow_mesh()	# Generate the snow terrain layer
 	
 	# Final setup: add collision and scatter objects if not in the editor
 	if not Engine.is_editor_hint():
@@ -80,7 +80,7 @@ func generate_height_data() -> void:
 			)
 			snow_height_data[Vector2(x, z)] = Vector3(
 				x + randf_range(-0.2, 0.0),
-				adjusted_height - 3 + snowHeightImage.get_pixel(x,z).r * 8,
+				(snowHeightImage.get_pixel(x,z).r - 0.5) * 3,
 				z + randf_range(-0.2, 0.0)
 			)
 
@@ -212,7 +212,7 @@ func generate_snow_mesh():
 			if index_mode == true:
 				st.set_color(color)
 				st.set_uv(Vector2(x,z))
-				st.add_vertex(Vector3(x,snow_height_data[Vector2(x,z)].y,z))
+				st.add_vertex(Vector3(x,height_data[Vector2(x,z)].y + snow_height_data[Vector2(x,z)].y,z))
 				
 			else:
 				st.set_color(color)
@@ -246,7 +246,7 @@ func generate_snow_mesh():
 	# Build the mesh and set it as the MeshInstance3D's mesh. Then set the material to the terrain material
 	var mesh = st.commit()
 	$SnowMesh.mesh = mesh
-	$SnowMesh.set_surface_override_material(0,ground_material)
+	#$SnowMesh.set_surface_override_material(0,ground_material)
 	# The terrain material has "Use vertex color as albedo" enabled
 	
 

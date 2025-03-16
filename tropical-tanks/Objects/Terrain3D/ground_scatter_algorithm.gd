@@ -126,8 +126,8 @@ func is_position_valid(grid_pos: Vector2) -> bool:
 	if slope < terrain.steep_slope_threshold and h > terrain.sand_height:
 		valid = true
 		
-	#if terrain.snow_height_data[grid_pos].y > 8:
-		#return false
+	if terrain.snow_height_data[grid_pos].y > 0:
+		return false
 	return valid
 		
 func is_too_close(pos: Vector2, existing: Array, min_dist: float) -> bool:
