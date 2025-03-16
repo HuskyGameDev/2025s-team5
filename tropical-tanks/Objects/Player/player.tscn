@@ -21,6 +21,7 @@ double_barrels = 5
 
 [node name="ParticleTest" parent="Tank" instance=ExtResource("4_l3euh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.905977, 0)
+visible = false
 
 [node name="CameraRoot" parent="." node_paths=PackedStringArray("turrets", "target_node") instance=ExtResource("3_wp58l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502262, 0)

@@ -36,7 +36,7 @@ var split_barrel_holder = []
 
 func _ready() -> void:
 	set_barrels()
-	shell_parameters.bounces_left = 3
+	shell_parameters.bounces_left = 0
 	
 	
 	

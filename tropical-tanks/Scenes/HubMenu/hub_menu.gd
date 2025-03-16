@@ -1,6 +1,6 @@
 extends Node3D
 
-var area = "res://Scenes/area_tropical.tscn"
+var area = "res://Scenes/Areas/area_tropical.tscn"
 # Called when the node enters the scene tree for the first time.
 
 
