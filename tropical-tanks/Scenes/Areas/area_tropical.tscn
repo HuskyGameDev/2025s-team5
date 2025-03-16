@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_3njuy"]
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_nwsly"]
 [ext_resource type="PackedScene" uid="uid://dwdirwkk7kcgs" path="res://Objects/Enemy/enemy.tscn" id="3_0tgaw"]
-[ext_resource type="PackedScene" uid="uid://cffc6hqf0dgah" path="res://Objects/Upgrades/BarrelUpgrade.tscn" id="4_3ndvc"]
+[ext_resource type="PackedScene" uid="uid://cffc6hqf0dgah" path="res://Objects/Upgrades/Upgrade.tscn" id="4_3ndvc"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rb057"]
 size = Vector2(10, 10)
