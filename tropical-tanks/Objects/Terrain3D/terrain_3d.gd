@@ -4,6 +4,7 @@ class_name Terrain3D
 
 var GSA = GroundScatteringAlgorithm.new()
 var rng = RandomNumberGenerator.new()
+@export var color_noise = FastNoiseLite.new()
 
 # Terrain size
 const xsize = 256
@@ -13,14 +14,17 @@ const zsize = 256
 var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 
 @onready var terrain_mesh : MeshInstance3D = $TerrainMesh
+@onready var snow_mesh : MeshInstance3D = $SnowMesh
 
 # Heightmap configuration
+@export_category("Test")
+@export_group("Height Maps")
 @export var heightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
 @export var snowHeightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/snow_noise2D.tres")
-var heightImage : Image
-var colorImage : Image = Image.new()
 
+var heightImage : Image
 var snowHeightImage : Image
+var colorImage : Image = Image.new()
 
 # This dictionary will store the vertex positions after height adjustments
 var height_data = {}
@@ -46,6 +50,7 @@ const decim_max_step : int = 2
 
 func _ready():
 	rng.randomize()
+	color_noise.seed = rng.seed
 	
 	colorImage.load("res://Art/Images/cat.jpg");
 	# Initialize the height image from the NoiseTexture2D
@@ -63,6 +68,7 @@ func _ready():
 		erosion.save(heightImage, "user://erroded_map.png")
 	
 	generate_height_data() 	# Generate height data from the height image
+	calculate_colors()		# Calculate the colors
 	generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
 	generate_snow_mesh()	# Generate the snow terrain layer
 	
@@ -93,12 +99,7 @@ func generate_height_data() -> void:
 				z + randf_range(-0.2, 0.0)
 			)
 	
-	# Initialize color variation noise
-	var color_noise = FastNoiseLite.new()
-	color_noise.seed = rng.seed
-	color_noise.frequency = 0.15  # Higher frequency for smaller color patches
-	
-	# Second pass: calculate colors
+func calculate_colors():
 	colorImage = Image.create(xsize + 1, zsize + 1, false, Image.FORMAT_RGBA8)
 	for x in range(xsize + 1):
 		for z in range(zsize + 1):
@@ -237,58 +238,38 @@ func generate_terrain_mesh() -> void:
 	var mesh = st.commit()
 	terrain_mesh.mesh = mesh
 	terrain_mesh.set_surface_override_material(0, ground_material)
-	#terrain_mesh.position.x -= xsize/2
-	#terrain_mesh.position.z -= zsize/2
+	terrain_mesh.position.x = -xsize/2
+	terrain_mesh.position.z = -zsize/2
+	
 
 func generate_snow_mesh():
 	var st = SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var index_mode = true
 	# Turn pixels of the image into quads with vertex color from image
 	for x in xsize:
 		for z in zsize:
-			var color : Color = Color(0.9,0.9,0.9,1)
+			#var color : Color = Color(0.9,0.9,0.9,1)
+			#st.set_color(color)
 			
-			if index_mode == true:
-				st.set_color(color)
-				st.set_uv(Vector2(x,z))
-				st.add_vertex(Vector3(x,height_data[Vector2(x,z)].y + snow_height_data[Vector2(x,z)].y,z))
+			st.set_uv(Vector2(x,z))
+			st.add_vertex(Vector3(x,height_data[Vector2(x,z)].y + snow_height_data[Vector2(x,z)].y,z))
 				
-			else:
-				st.set_color(color)
-				st.add_vertex(height_data[Vector2(x,z)])
-				st.set_color(color)
-				st.add_vertex(height_data[Vector2(x+1,z+1)])
-				st.set_color(color)
-				st.add_vertex(height_data[Vector2(x,z+1)])
-				
-				st.set_color(color)
-				st.add_vertex(height_data[Vector2(x,z)])
-				st.set_color(color)
-				st.add_vertex(height_data[Vector2(x+1,z)])
-				st.set_color(color)
-				st.add_vertex(height_data[Vector2(x+1,z+1)])
-				
-	if index_mode == true:
-		for x in xsize-1:
-			for z in zsize-1:
-				st.add_index((x) * zsize + z)
-				st.add_index((x + 1) * zsize + z + 1)
-				st.add_index((x) * zsize + z + 1)
-				
-				st.add_index((x) * zsize + z)
-				st.add_index((x + 1) * zsize + z)
-				st.add_index((x + 1) * zsize + z + 1)
+	for x in xsize-1:
+		for z in zsize-1:
+			st.add_index((x) * zsize + z)
+			st.add_index((x + 1) * zsize + z + 1)
+			st.add_index((x) * zsize + z + 1)
 			
+			st.add_index((x) * zsize + z)
+			st.add_index((x + 1) * zsize + z)
+			st.add_index((x + 1) * zsize + z + 1)
 			
-	# Generate normals
 	st.generate_normals()
-	# Build the mesh and set it as the MeshInstance3D's mesh. Then set the material to the terrain material
 	var mesh = st.commit()
-	$SnowMesh.mesh = mesh
-	#$SnowMesh.set_surface_override_material(0,ground_material)
-	# The terrain material has "Use vertex color as albedo" enabled
-	
+	snow_mesh.mesh = mesh
+	snow_mesh.position.x = -xsize/2
+	snow_mesh.position.z = -zsize/2
+
 
 # New helper function to add a single colored triangle
 func add_triangle(surface_tool, color, a, b, c) -> void:
@@ -299,9 +280,6 @@ func add_triangle(surface_tool, color, a, b, c) -> void:
 	surface_tool.add_vertex(a)
 	surface_tool.add_vertex(b)
 	surface_tool.add_vertex(c)
-
-
-
 
 ## Configuration
 @export var min_tree_distance: float = 5.0

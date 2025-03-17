@@ -2,16 +2,12 @@
 extends Node3D
 class_name Turret
 
-
 signal change_crosshair(crosshair_index)
 
 @export var target_position : Vector3 = Vector3(0,0,0)
 
-
 var shell_parameters : ShellParameter = ShellParameter.new()
 var BARREL = preload("res://Components/Turret/barrel.tscn")
-
-# The node that holds aim_target_position to aim the turret
 
 @export var split_barrels : int = 1 :
 	set(value):
@@ -27,9 +23,7 @@ var BARREL = preload("res://Components/Turret/barrel.tscn")
 		# if Engine.is_editor_hint():
 
 var initial_shot_power = 20
-
 var shoot_cooldown = 1.0
-
 
 @onready var bearing = $TurretHub/Bearing
 @onready var aim_laser = %AimLaser
@@ -39,10 +33,7 @@ var split_barrel_holder = []
 func _ready() -> void:
 	set_barrels()
 	shell_parameters.bounces_left = 0
-	
-	
-	
-	
+
 func set_barrels() -> void:
 	if !bearing:
 		return
@@ -56,7 +47,6 @@ func set_barrels() -> void:
 	
 	split_barrel_holder = []
 	$Timer.wait_time = shoot_cooldown / double_barrels
-	
 	
 	for i_split_barrel in split_barrels:
 		var double_barrel_holder = []
@@ -79,33 +69,22 @@ func set_barrels() -> void:
 		
 			double_barrel_holder.append(barrel)
 		split_barrel_holder.append(double_barrel_holder)
-		
-	
+
+
 var look_position = Vector3.ZERO
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	#print((target_position - global_position).length())
-
 	look_position = look_position.move_toward(target_position,delta * 30)
 	
-				
 	look_at(target_position)
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)
 	$TurretHub.global_rotation = global_rotation * Vector3(0,1,0)
 	var best_turret_angle = deg_to_rad(calculate_turret_angle(global_position,target_position,initial_shot_power/shell_parameters.mass, -9.8, false))
-	print(rotation)
-	bearing.rotation.x = best_turret_angle #rotation *  Vector3(1,0,1)
-	#look_at(look_position)
-	
-	#$TurretHub.global_position = global_position
-	#rotation.x = clamp(rotation.x, -0.4, 2)
-	#$TurretHub.global_rotation = global_rotation * Vector3(1,1,1)
-	#bearing.rotation = rotation * Vector3(1,0,1)
-	
-	
+	bearing.rotation.x = best_turret_angle
+
 
 func calculate_turret_angle(
 	turret_position: Vector3,
@@ -114,8 +93,7 @@ func calculate_turret_angle(
 	gravity_acceleration: float = -9.8,
 	mortar_angle: bool = false) -> float:
 	# Calculate horizontal distance (d) and height difference (h)
-	var d = Vector2(turret_position.x, turret_position.z).distance_to(
-		Vector2(target_position.x, target_position.z))
+	var d = Vector2(turret_position.x, turret_position.z).distance_to(Vector2(target_position.x, target_position.z))
 	var h = target_position.y - turret_position.y
 	var g = -gravity_acceleration  # Convert to positive gravity value
 	
@@ -147,7 +125,6 @@ func calculate_turret_angle(
 	# Return selected angle based on mortar flag
 	# If mortar_angle is true, select the higher angle, otherwise lower angle.
 	return a1 if mortar_angle else a2
-
 
 var shoot_cooled_down = true
 func _on_timer_timeout() -> void:

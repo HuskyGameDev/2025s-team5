@@ -38,11 +38,11 @@ shadow_enabled = true
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="EnemyRoot" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.55885, 5.18664, 1.9779)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4813, 5.18664, 14.5975)
 target = NodePath("../PlayerRoot")
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_nwsly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 8.03493, -2.0316)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 8.03493, 15.8098)
 
 [node name="EnemyRoot2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14515, 6.02505, -6.9055)

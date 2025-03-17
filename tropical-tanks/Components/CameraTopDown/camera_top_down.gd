@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 	# Then add camera offset
 	var cam_target_position = \
 		global_position  \
-		+ (aim_target_position - global_position) * Vector3(1,0,1) / 4 \
+		+ (aim_target_position - global_position) * Vector3(1,0,1) / 2.1 \
 		+ camera_offset
 	
 	# Move camera towards target position

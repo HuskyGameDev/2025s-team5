@@ -12,7 +12,6 @@ func _ready() -> void:
 func fire_shell():
 	if $RayCast3D.is_colliding():
 		return	
-	print("Fired Shell!")
 	var shell : Shell = SHELL.instantiate()
 	shell.shell_parameters = turret.shell_parameters
 	shell.velocity = -1 * (turret.initial_shot_power / turret.shell_parameters.mass) * global_basis.z.normalized().rotated(global_basis.x,randf_range(0,shell_spread)).rotated(global_basis.z,randf_range(0,2*PI))

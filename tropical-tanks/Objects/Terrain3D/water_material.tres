@@ -6,6 +6,8 @@
 noise = SubResource("FastNoiseLite_vornl")
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_lngo5"]
+noise_type = 2
+seed = 1
 frequency = 0.0415
 fractal_octaves = 4
 
@@ -13,7 +15,7 @@ fractal_octaves = 4
 seamless = true
 seamless_blend_skirt = 0.085
 as_normal_map = true
-bump_strength = 1.8
+bump_strength = 3.8
 noise = SubResource("FastNoiseLite_lngo5")
 
 [resource]
