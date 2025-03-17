@@ -31,7 +31,7 @@ var erosion : Erosion
 
 # Terrain color thresholds
 const sand_height = 3  # Height threshold for sand
-const steep_slope_threshold = 1.5  # Height difference for rocky terrain
+const steep_slope_threshold = 1.25  # Height difference for rocky terrain
 @export var max_slope_factor = 1.5  # Factor to control steep slope coloration blending
 @export var grass_color = Color(0.6, 0.9, 0.1, 1)  # Grass green (used for blending)
 @export var sand_color = Color(0.8, 0.7, 0.5, 1)  # Sandy color
@@ -54,9 +54,13 @@ func _ready():
 	# Create an instance of the Erosion class (make sure erosion.gd is in the specified path)
 	erosion = preload("res://Objects/Terrain3D/errosion.gd").new()
 	
-	# Optionally you could apply erosion here
-	# erosion.initialize_erosion_brush_indices(xsize + 1, erosion.erosion_radius)
-	# erosion.apply_erosion(heightImage, xsize + 1)
+	var precomputed_erosion_height_map = erosion.load("res://Objects/Terrain3D/HeightMaps/erroded_map.png")
+	if precomputed_erosion_height_map:
+		heightImage = precomputed_erosion_height_map
+	else:
+		erosion.initialize_erosion_brush_indices(xsize + 1, erosion.erosion_radius)
+		erosion.apply_erosion(heightImage, xsize + 1)
+		erosion.save(heightImage, "user://erroded_map.png")
 	
 	generate_height_data() 	# Generate height data from the height image
 	generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
@@ -72,10 +76,12 @@ func _ready():
 func generate_height_data() -> void:
 	height_data.clear()
 	snow_height_data.clear()
+	
+	# First pass: populate height data
 	for x in range(xsize + 1):
 		for z in range(zsize + 1):
 			var raw_height = heightImage.get_pixel(x, z).r
-			var adjusted_height = raw_height * 15
+			var adjusted_height = raw_height * 30 - 2.5
 			height_data[Vector2(x, z)] = Vector3(
 				x + randf_range(-0.2, 0.0),
 				adjusted_height,
@@ -86,6 +92,74 @@ func generate_height_data() -> void:
 				(snowHeightImage.get_pixel(x,z).r - 0.5) * 3,
 				z + randf_range(-0.2, 0.0)
 			)
+	
+	# Initialize color variation noise
+	var color_noise = FastNoiseLite.new()
+	color_noise.seed = rng.seed
+	color_noise.frequency = 0.15  # Higher frequency for smaller color patches
+	
+	# Second pass: calculate colors
+	colorImage = Image.create(xsize + 1, zsize + 1, false, Image.FORMAT_RGBA8)
+	for x in range(xsize + 1):
+		for z in range(zsize + 1):
+			var adjusted_height = height_data[Vector2(x, z)].y
+			
+			# Calculate maximum slope difference
+			var max_slope_diff = 0.0
+			for dx in [-1, 1]:
+				var nx = x + dx
+				if nx >= 0 and nx <= xsize:
+					var neighbor_height = height_data[Vector2(nx, z)].y
+					max_slope_diff = max(max_slope_diff, abs(adjusted_height - neighbor_height))
+			for dz in [-1, 1]:
+				var nz = z + dz
+				if nz >= 0 and nz <= zsize:
+					var neighbor_height = height_data[Vector2(x, nz)].y
+					max_slope_diff = max(max_slope_diff, abs(adjusted_height - neighbor_height))
+			
+			# Calculate color components
+			var slope_blend = clamp(max_slope_diff / steep_slope_threshold * max_slope_factor, 0.0, 1.0)
+			var height_blend = clamp((adjusted_height - sand_height) / height_blend_factor, 0.0, 1.0)
+			
+			# Base color determination
+			var base_color: Color
+			if adjusted_height < sand_height:
+				base_color = sand_color
+			else:
+				# Generate green variations using noise
+				var noise_value = color_noise.get_noise_2d(x * 2, z * 2)
+				noise_value = (noise_value + 1.0) / 2.0  # Normalize to 0-1
+				
+				# Define green palette
+				var greens = [
+					Color(0.35, 0.55, 0.2),   # Dark forest green
+					Color(0.45, 0.7, 0.25),    # Vibrant lime
+					Color(0.6, 0.85, 0.3),     # Bright chartreuse
+					Color(0.5, 0.65, 0.25)     # Olive green
+				]
+				
+				# Select and blend greens based on noise
+				var green_index = clamp(int(noise_value * greens.size()), 0, greens.size() - 1)
+				var next_green = greens[clamp(green_index + 1, 0, greens.size() - 1)]
+				var green_blend = (noise_value * greens.size()) - green_index
+				base_color = greens[green_index].lerp(next_green, green_blend)
+				
+				# Add subtle yellow variation
+				if noise_value > 0.7:
+					base_color = base_color.lerp(Color(0.7, 0.8, 0.4), (noise_value - 0.7) * 3)
+			
+			# Slope-based blending with rocky color
+			var rocky_color = Color(0.45, 0.35, 0.25)  # Earthy brown
+			var slope_color = base_color.lerp(rocky_color, smoothstep(0.2, 0.8, slope_blend))
+			
+			# Final color blending
+			var final_color = sand_color.lerp(slope_color, height_blend)
+			
+			# Add micro-variations using original height noise
+			var micro_variation = 1.0 + (heightImage.get_pixel(x, z).r - 0.5) * 0.1
+			final_color = final_color * Color(micro_variation, micro_variation, micro_variation)
+			
+			colorImage.set_pixel(x, z, final_color)
 
 # Helper function to generate decimated indices along one axis with some natural variation.
 func generate_decimated_indices(max_index: int, min_step: int, max_step: int) -> Array:
@@ -150,57 +224,12 @@ func generate_terrain_mesh() -> void:
 			var v3 = decimated_vertices[i+1][j+1]
 			var v4 = decimated_vertices[i][j+1]
 			
-			var vertex_array = [v1, v2, v3, v4]
 			
-			# Process first triangle (v1, v2, v3)
-			# Calculate triangle properties
-			var tri1_heights = [v1.y, v2.y, v3.y]
-			var max_slope_tri1 = max(
-				abs(tri1_heights[0] - tri1_heights[1]),
-				abs(tri1_heights[1] - tri1_heights[2]),
-				abs(tri1_heights[2] - tri1_heights[0])
-			)
-			var avg_height_tri1 = (tri1_heights[0] + tri1_heights[1] + tri1_heights[2]) / 3.0
+			var image_color_1 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v2.x, v2.z) + colorImage.get_pixel(v3.x, v3.z)) / 3.
 			
-			# Determine color for first triangle
-			var base_color_tri1 : Color
-			if avg_height_tri1 < sand_height:
-				base_color_tri1 = sand_color
-			else:
-				base_color_tri1 = grass_color
-			
-			# Blend color based on height
-			var height_factor_tri1 = clamp((avg_height_tri1 - sand_height) / height_blend_factor, 0.0, 1.0)
-			var final_color_tri1 = sand_color.lerp(grass_color, height_factor_tri1)
-			
-			var image_vertex_1 = vertex_array.pick_random()
-			var image_color_1 = colorImage.get_pixel(image_vertex_1.x, image_vertex_1.z)
-			
-			# Add first triangle to mesh
 			add_triangle(st, image_color_1, v1, v2, v3)
 			
-			# Process second triangle (v1, v3, v4)
-			var tri2_heights = [v1.y, v3.y, v4.y]
-			var max_slope_tri2 = max(
-				abs(tri2_heights[0] - tri2_heights[1]),
-				abs(tri2_heights[1] - tri2_heights[2]),
-				abs(tri2_heights[2] - tri2_heights[0])
-			)
-			var avg_height_tri2 = (tri2_heights[0] + tri2_heights[1] + tri2_heights[2]) / 3.0
-			
-			# Determine color for second triangle
-			var base_color_tri2 : Color
-			if avg_height_tri2 < sand_height:
-				base_color_tri2 = sand_color
-			else:
-				base_color_tri2 = grass_color
-			
-			# Blend color based on height
-			var height_factor_tri2 = clamp((avg_height_tri2 - sand_height) / height_blend_factor, 0.0, 1.0)
-			var final_color_tri2 = sand_color.lerp(grass_color, height_factor_tri2)
-			
-			var image_vertex_2 = vertex_array.pick_random()
-			var image_color_2 = colorImage.get_pixel(image_vertex_2.x, image_vertex_2.z)
+			var image_color_2 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v3.x, v3.z) + colorImage.get_pixel(v4.x, v4.z)) / 3.
 			
 			# Add second triangle to mesh
 			add_triangle(st, image_color_2, v1, v3, v4)

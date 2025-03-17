@@ -202,3 +202,15 @@ func apply_erosion(heightImage: Image, map_size: int) -> void:
 		for x in range(map_size):
 			var h = clamp(height_array[y * map_size + x], 0.0, 1.0)
 			heightImage.set_pixel(x, y, Color(h, 0, 0))
+
+func load(path: String) -> Image:
+	var image := Image.new()
+	if image.load(path) == OK:
+		return image
+	else:
+		print("Failed to load image:", path)
+		return null
+		
+func save(heightImage: Image, path: String):
+	if heightImage:
+		heightImage.save_png(path)
