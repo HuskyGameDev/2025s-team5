@@ -54,5 +54,3 @@ target = NodePath("../PlayerRoot")
 
 [node name="DoubleBarrelUpgrade" parent="." instance=ExtResource("4_3ndvc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.5634, 0.653681, 20.8721)
-
-[connection signal="pickup" from="DoubleBarrelUpgrade" to="PlayerRoot" method="_on_double_barrel_upgrade_pickup"]

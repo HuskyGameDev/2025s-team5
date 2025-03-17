@@ -26,7 +26,7 @@ var BARREL = preload("res://Components/Turret/barrel.tscn")
 		set_barrels()
 		# if Engine.is_editor_hint():
 
-var initial_shot_power = 10
+var initial_shot_power = 20
 
 var shoot_cooldown = 1.0
 
@@ -95,9 +95,10 @@ func _physics_process(delta: float) -> void:
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)
 	$TurretHub.global_rotation = global_rotation * Vector3(0,1,0)
-	print(calculate_turret_angle(position,target_position,initial_shot_power/shell_parameters.mass, -9.8, true))
-	bearing.rotation = rotation * Vector3(1,0,1)
-	look_at(look_position)
+	var best_turret_angle = deg_to_rad(calculate_turret_angle(global_position,target_position,initial_shot_power/shell_parameters.mass, -9.8, false))
+	print(rotation)
+	bearing.rotation.x = best_turret_angle #rotation *  Vector3(1,0,1)
+	#look_at(look_position)
 	
 	#$TurretHub.global_position = global_position
 	#rotation.x = clamp(rotation.x, -0.4, 2)

@@ -2,7 +2,7 @@ extends Resource
 class_name ShellParameter
 
 @export var mass : float = 1.0
-@export var drag : float = 0.1 # Mathematically, cross sectional area of the bullet
+@export var drag : float = 0.0 # Mathematically, cross sectional area of the bullet
 		
 ## Gameplay Variables
 @export var armor_piercing : float = 1.0
