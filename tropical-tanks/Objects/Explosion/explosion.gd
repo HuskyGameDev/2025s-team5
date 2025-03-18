@@ -9,6 +9,8 @@ var explosion_power : int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$AudioStreamPlayer3D.volume_db = -5 + explosion_power
+	$AudioStreamPlayer3D.play(0.0)
 	$ExplosionModels.scale = scale * explosion_power * 2
 	shape_cast.shape.radius = explosion_power / 2
 	
@@ -43,7 +45,7 @@ func _on_timer_timeout() -> void:
 		
 		
 func spawn_child_explosion():
-	var child_explosion_power = explosion_power - 1
+	var child_explosion_power = explosion_power - randi_range(1,3)
 	if child_explosion_power > 0:
 		var child_explosion = EXPLOSION.instantiate()
 		child_explosion.explosion_power = child_explosion_power

@@ -37,7 +37,7 @@ func _ready() -> void:
 func set_barrels() -> void:
 	if !bearing:
 		return
-	var angular_spread_per_split_barrel = .2
+	var angular_spread_per_split_barrel = .1
 	var position_spread_per_split_barrel = .3 / split_barrels
 	var double_barrels_radius = .06 + double_barrels * 0.01
 	

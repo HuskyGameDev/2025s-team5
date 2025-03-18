@@ -69,5 +69,16 @@ func _physics_process(delta: float) -> void:
 	look_at(global_position + move_vector)
 	move_and_slide()
 
+
+
 func death():
-	position = Vector3.ZERO
+	var death_pos = global_position
+	global_position = Vector3(randi_range(-50,50),20,randi_range(-50,50))
+	explode(death_pos)
+
+var EXPLOSION = preload("res://Objects/Explosion/explosion.tscn")
+func explode(explode_position):
+	var explosion = EXPLOSION.instantiate()
+	explosion.position = explode_position
+	explosion.explosion_power = randi_range(4,6)
+	get_tree().root.add_child(explosion)
