@@ -4,6 +4,7 @@
 [ext_resource type="Material" uid="uid://ddc7m2wu05ej3" path="res://Art/Materials/TankMaterial.tres" id="2_o1732"]
 
 [node name="tank" instance=ExtResource("1_k8b07")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="Plane" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 0, -1, 0, 1, 0, 0, 0, 0)

@@ -9,6 +9,8 @@ var explosion_power : int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	$Timer.wait_time = randf_range(0.05,0.1)
+	$Timer.start()
 	$AudioStreamPlayer3D.volume_db = -5 + explosion_power
 	$AudioStreamPlayer3D.play(0.0)
 	$ExplosionModels.scale = scale * explosion_power * 2

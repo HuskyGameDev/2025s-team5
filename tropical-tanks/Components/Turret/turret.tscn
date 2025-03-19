@@ -21,8 +21,8 @@ skeleton = NodePath("../..")
 
 [node name="AimLaser" type="RayCast3D" parent="TurretHub/Bearing"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.13016)
-target_position = Vector3(0, 0, -100)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.299885)
+target_position = Vector3(0, 0, -3)
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

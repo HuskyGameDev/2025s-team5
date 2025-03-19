@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="2_bkc2w"]
 [ext_resource type="Texture2D" uid="uid://cvh2t25q6jq0h" path="res://Art/Images/sea.png" id="3_0unh6"]
 [ext_resource type="Texture2D" uid="uid://bmh56nspmxqck" path="res://Art/Images/TripleShot.svg" id="3_e5jsv"]
-[ext_resource type="Script" uid="uid://dv6jljohwnipd" path="res://Scenes/MainMenu/camera_orbiter.gd" id="3_id83c"]
+[ext_resource type="Script" uid="uid://dbq3cpjiqnjdf" path="res://Scenes/MainMenu/camera_orbiter.gd" id="3_id83c"]
 [ext_resource type="Texture2D" uid="uid://bosppbg8rh2nd" path="res://Art/Images/DoubleShot.svg" id="4_3mej2"]
 [ext_resource type="Texture2D" uid="uid://bnnkxtf7jj6b7" path="res://Art/Images/CanvasBackgroundSandParticles.png" id="5_ihuk2"]
 [ext_resource type="Texture2D" uid="uid://buyvs5rpxo1ah" path="res://Art/Images/TropicalTanks.png" id="9_egttt"]
