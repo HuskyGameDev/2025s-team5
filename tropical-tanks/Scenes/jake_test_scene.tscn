@@ -1,51 +1,75 @@
-[gd_scene load_steps=9 format=3 uid="uid://bl67abvf3dbvy"]
+[gd_scene load_steps=15 format=3 uid="uid://bl67abvf3dbvy"]
 
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_82kpi"]
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_0msfh"]
-[ext_resource type="PackedScene" uid="uid://cffc6hqf0dgah" path="res://Objects/Upgrades/Upgrade.tscn" id="3_a26nt"]
+[ext_resource type="PackedScene" uid="uid://cffc6hqf0dgah" path="res://Objects/Pickups/Pickup.tscn" id="3_a26nt"]
+[ext_resource type="Resource" uid="uid://b3h7etbbo8d0f" path="res://Upgrades/double_barrel.tres" id="5_oel2o"]
+[ext_resource type="Resource" uid="uid://cq47unnw0k30u" path="res://Upgrades/explode.tres" id="5_s4ihi"]
+[ext_resource type="Resource" uid="uid://fa6xnbn1mopn" path="res://Upgrades/bounce.tres" id="6_d6dpr"]
+[ext_resource type="Resource" uid="uid://cg16y5p88jqqr" path="res://Upgrades/split_barrel.tres" id="6_tqg2r"]
+[ext_resource type="Resource" uid="uid://ccuej7go6aw0y" path="res://Upgrades/triple_barrel.tres" id="7_s4ihi"]
+[ext_resource type="Resource" uid="uid://dwx0pgl5r2dgi" path="res://Upgrades/super_split_barrel.tres" id="8_d6dpr"]
+[ext_resource type="Resource" uid="uid://ttnhyrt2k02c" path="res://Upgrades/mega_barrel.tres" id="9_ut3yw"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_enxu1"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_rb057"]
+size = Vector2(10, 10)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j4h0l"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_tdlhe"]
-sky_material = SubResource("ProceduralSkyMaterial_enxu1")
+[sub_resource type="Sky" id="Sky_espsu"]
+sky_material = SubResource("ProceduralSkyMaterial_j4h0l")
 
-[sub_resource type="Environment" id="Environment_f0lbo"]
+[sub_resource type="Environment" id="Environment_7vr7b"]
 background_mode = 2
-sky = SubResource("Sky_tdlhe")
+sky = SubResource("Sky_espsu")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_fdlp1"]
-size = Vector2(10, 10)
+[node name="AreaTropical" type="Node3D"]
 
-[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_l2bx2"]
+[node name="GroundPlane" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+mesh = SubResource("PlaneMesh_rb057")
 
-[node name="TestMainScene" type="Node3D"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="GroundPlane"]
+environment = SubResource("Environment_7vr7b")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_f0lbo")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="GroundPlane"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="GroundPlane" type="MeshInstance3D" parent="."]
-mesh = SubResource("PlaneMesh_fdlp1")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="GroundPlane"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GroundPlane/StaticBody3D"]
-shape = SubResource("WorldBoundaryShape3D_l2bx2")
-
 [node name="Terrain3D" parent="." instance=ExtResource("1_82kpi")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-xsize = 200
-zsize = 200
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_0msfh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.24013, 10.3469, 16.3718)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 8.03493, 15.8098)
 
-[node name="Upgrade" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.2728, 2.23544, 18.8101)
+[node name="DoubleBarrel" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2438, 7.34255, 17.7295)
+upgrade = ExtResource("5_oel2o")
+
+[node name="ExplodePickup" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2438, 7.34255, 15.085)
+upgrade = ExtResource("5_s4ihi")
+
+[node name="BouncePickup" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6629, 7.34255, 15.085)
+upgrade = ExtResource("6_d6dpr")
+
+[node name="SplitBarrel" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2438, 7.48814, 20.2627)
+upgrade = ExtResource("6_tqg2r")
+
+[node name="TripleBarrel" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.18784, 7.3948, 15.2578)
+upgrade = ExtResource("7_s4ihi")
+
+[node name="SuperSplit" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.16625, 7.52013, 17.8228)
+upgrade = ExtResource("8_d6dpr")
+
+[node name="MegaBarrel" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2438, 7.82497, 22.6618)
+upgrade = ExtResource("9_ut3yw")

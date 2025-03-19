@@ -20,7 +20,25 @@ var controls = {
 	
 }
 
-
+func on_upgrade_pickup(U : Upgrade):
+	upgrades.append(U)
+	var turret : Turret = $Turret3
+	turret.split_barrels += U.split_barrel
+	turret.double_barrels += U.double_barrel
+	turret.shell_parameters.armor_piercing += U.armor_piercing
+	turret.shell_parameters.backwardness += U.backwardness
+	turret.shell_parameters.bounces_left += U.bounces_left
+	turret.shell_parameters.bounce_explode += U.bounce_explode
+	turret.shell_parameters.bounce_loss += U.bounce_loss
+	turret.shell_parameters.drag += U.drag
+	turret.shell_parameters.evaporation += U.evaporation
+	turret.shell_parameters.explosion_power += U.explosion_power
+	turret.shell_parameters.flame_effect += U.flame_effect
+	turret.shell_parameters.fuel += U.fuel
+	turret.shell_parameters.fuse_time += U.fuse_time
+	turret.shell_parameters.ice_effect += U.ice_effect
+	turret.shell_parameters.mass += U.mass
+	turret.shell_parameters.thrust_power += U.thrust_power
 
 func _physics_process(delta: float) -> void:
 	ground_raycast.global_position = global_position
@@ -68,7 +86,6 @@ func _physics_process(delta: float) -> void:
 					turret.shoot()
 	look_at(global_position + move_vector)
 	move_and_slide()
-
 
 
 func death():
