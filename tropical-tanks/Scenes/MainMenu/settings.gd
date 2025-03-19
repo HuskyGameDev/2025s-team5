@@ -23,6 +23,7 @@ func _input(event):
 func _on_back_pressed() -> void:
 	queue_free()
 
+
 func _on_option_button_item_selected(index: int) -> void:
 	match index:
 		0:
@@ -33,3 +34,11 @@ func _on_option_button_item_selected(index: int) -> void:
 			pass
 		3:
 			pass
+
+
+func _on_button_mappings_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_h_slider_changed(value: float) -> void:
+	pass # Replace with function body.
