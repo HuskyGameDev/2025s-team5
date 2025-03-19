@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://cffc6hqf0dgah"]
+
+[ext_resource type="Script" uid="uid://b42dntqxyire4" path="res://Objects/Pickups/Pickup.gd" id="1_0l2lu"]
+[ext_resource type="Texture2D" uid="uid://bkxtqxj1te7la" path="res://Art/Images/CrossHairOutOfRange.svg" id="2_ou0ej"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vxc7m"]
+
+[node name="Pickup" type="Node3D"]
+script = ExtResource("1_0l2lu")
+
+[node name="CollectionArea3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollectionArea3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+shape = SubResource("BoxShape3D_vxc7m")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.6, 0, 0, 0, -2.62268e-08, -0.6, 0, 0.6, -2.62268e-08, 0, 0, 0)
+texture = ExtResource("2_ou0ej")
+
+[connection signal="body_entered" from="CollectionArea3D" to="." method="_on_collection_area_3d_body_entered"]
