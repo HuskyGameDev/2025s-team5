@@ -5,11 +5,11 @@ const CRATER = preload("res://Objects/Crater/crater.tscn")
 
 @onready var shape_cast = $ShapeCast3D
 
-var explosion_power : int = 1
+var explosion_power : float = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Timer.wait_time = randf_range(0.05,0.1)
+	$Timer.wait_time = randf_range(0.06,0.12)
 	$Timer.start()
 	$AudioStreamPlayer3D.volume_db = -5 + explosion_power
 	$AudioStreamPlayer3D.play(0.0)
@@ -47,7 +47,7 @@ func _on_timer_timeout() -> void:
 		
 		
 func spawn_child_explosion():
-	var child_explosion_power = explosion_power - randi_range(1,3)
+	var child_explosion_power = explosion_power - randf_range(1,3)
 	if child_explosion_power > 0:
 		var child_explosion = EXPLOSION.instantiate()
 		child_explosion.explosion_power = child_explosion_power
