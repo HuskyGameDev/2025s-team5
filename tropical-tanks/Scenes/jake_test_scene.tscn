@@ -47,15 +47,15 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 8.03493, 15.8098)
 
 [node name="DoubleBarrel" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2438, 7.34255, 17.7295)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2438, 7.30028, 17.7295)
 upgrade = ExtResource("5_oel2o")
 
 [node name="ExplodePickup" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2438, 7.34255, 15.085)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2438, 6.79256, 15.085)
 upgrade = ExtResource("5_s4ihi")
 
 [node name="BouncePickup" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6629, 7.34255, 15.085)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.6629, 6.25923, 15.085)
 upgrade = ExtResource("6_d6dpr")
 
 [node name="SplitBarrel" parent="." instance=ExtResource("3_a26nt")]
@@ -63,13 +63,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2438, 7.48814, 20.2627)
 upgrade = ExtResource("6_tqg2r")
 
 [node name="TripleBarrel" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.18784, 7.3948, 15.2578)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.18784, 6.39488, 15.2578)
 upgrade = ExtResource("7_s4ihi")
 
 [node name="SuperSplit" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.16625, 7.52013, 17.8228)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.16625, 6.94319, 17.8228)
 upgrade = ExtResource("8_d6dpr")
 
 [node name="MegaBarrel" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2438, 7.82497, 22.6618)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.2438, 7.78471, 22.6618)
 upgrade = ExtResource("9_ut3yw")
