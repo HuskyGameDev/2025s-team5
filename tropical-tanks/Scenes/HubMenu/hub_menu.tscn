@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://8f2oqghi887u"]
 
-[ext_resource type="Script" uid="uid://cndrndiub4lyf" path="res://Scenes/HubMenu/hub_menu.gd" id="1_dnwjy"]
+[ext_resource type="Script" uid="uid://b6bhb6l6t4cqr" path="res://Scenes/HubMenu/hub_menu.gd" id="1_dnwjy"]
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/TankChassis/tankChassis.tscn" id="1_tploy"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_nwenx"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="4_xql88"]
