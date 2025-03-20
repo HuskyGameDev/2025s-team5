@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dhqs14owf00eo"]
+[gd_scene load_steps=5 format=3 uid="uid://dhqs14owf00eo"]
 
 [ext_resource type="Script" uid="uid://dchnnr1cryu6o" path="res://Scenes/MainMenu/settings.gd" id="1_r2fek"]
 [ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/menu_theme.tres" id="2_28jca"]
+[ext_resource type="FontFile" uid="uid://bfxv5kdrieq22" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.ttf" id="3_wrsdo"]
+[ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="4_bbwig"]
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -24,46 +26,56 @@ grow_vertical = 2
 layout_mode = 2
 theme = ExtResource("2_28jca")
 
-[node name="Label2" type="Label" parent="MarginContainer/PanelContainer"]
+[node name="Back" type="Button" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 30
-text = "SETTINGS"
-horizontal_alignment = 1
+theme_override_fonts/font = ExtResource("3_wrsdo")
+theme_override_font_sizes/font_size = 15
+text = "X (Esc)"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="Back" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer"]
+[node name="SettingsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-text = "X (Esc)"
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "
+
+SETTINGS
+"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Volume" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+dragging_enabled = false
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Volume"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Volume"
+text = "   Volume"
 
 [node name="Volume" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Volume"]
 layout_mode = 2
+size_flags_vertical = 1
 
 [node name="Resolutions" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+dragging_enabled = false
 
 [node name="Label2" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Resolutions"]
 layout_mode = 2
-size_flags_vertical = 1
-text = "Resolutions"
+size_flags_horizontal = 4
+text = "   Resolutions"
 
 [node name="Resolutions" type="OptionButton" parent="MarginContainer/PanelContainer/VBoxContainer/Resolutions"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 item_count = 3
 popup/item_0/text = "1920x1080"
 popup/item_0/id = 0
@@ -73,14 +85,23 @@ popup/item_2/text = "1280x720"
 popup/item_2/id = 2
 
 [node name="FPS" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+dragging_enabled = false
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer/FPS"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/FPS"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/FPS/HSplitContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
 text = "FPS Limiter"
 
-[node name="OptionButton" type="OptionButton" parent="MarginContainer/PanelContainer/VBoxContainer/FPS"]
+[node name="PickFPS" type="OptionButton" parent="MarginContainer/PanelContainer/VBoxContainer/FPS/HSplitContainer"]
 layout_mode = 2
+size_flags_vertical = 4
+size_flags_stretch_ratio = 1.03
 item_count = 4
 popup/item_0/text = "Unlimited"
 popup/item_0/id = 0
@@ -91,28 +112,73 @@ popup/item_2/id = 2
 popup/item_3/text = "30FPS"
 popup/item_3/id = 3
 
-[node name="Mappings" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+[node name="HSplitContainer2" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer/FPS"]
 layout_mode = 2
+size_flags_horizontal = 8
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Mappings"]
+[node name="Label2" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/FPS/HSplitContainer2"]
+layout_direction = 3
 layout_mode = 2
-text = "Key Mappings"
+size_flags_horizontal = 8
+text = "Hide FPS"
 
-[node name="Button Mappings" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/Mappings"]
+[node name="HideFPS" type="CheckButton" parent="MarginContainer/PanelContainer/VBoxContainer/FPS/HSplitContainer2"]
+layout_direction = 2
 layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="Sensitivity" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+dragging_enabled = false
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Sensitivity"]
 layout_mode = 2
-text = "Sensitivy"
+text = "   Sensitivy"
 
-[node name="HSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Sensitivity"]
+[node name="Sensitivity" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Sensitivity"]
 layout_mode = 2
+size_flags_vertical = 1
+min_value = 1.0
+value = 1.0
 
-[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/Back" to="." method="_on_back_pressed"]
+[node name="Brightness" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+dragging_enabled = false
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Brightness"]
+layout_mode = 2
+text = "   Brightness"
+
+[node name="Brightness" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Brightness"]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Mappings" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+dragging_enabled = false
+
+[node name="Button Mappings" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/Mappings"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_fonts/font = ExtResource("4_bbwig")
+theme_override_font_sizes/font_size = 22
+text = "Key Mappings"
+
+[node name="currentFPS" type="Label" parent="."]
+layout_direction = 3
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[connection signal="pressed" from="MarginContainer/PanelContainer/Back" to="." method="_on_back_pressed"]
 [connection signal="item_selected" from="MarginContainer/PanelContainer/VBoxContainer/Resolutions/Resolutions" to="." method="_on_resolutions_item_selected"]
-[connection signal="item_selected" from="MarginContainer/PanelContainer/VBoxContainer/FPS/OptionButton" to="." method="_on_option_button_item_selected"]
+[connection signal="item_selected" from="MarginContainer/PanelContainer/VBoxContainer/FPS/HSplitContainer/PickFPS" to="." method="_on_option_button_item_selected"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/FPS/HSplitContainer2/HideFPS" to="." method="_on_check_button_pressed"]
+[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/FPS/HSplitContainer2/HideFPS" to="." method="_on_check_button_toggled"]
+[connection signal="changed" from="MarginContainer/PanelContainer/VBoxContainer/Sensitivity/Sensitivity" to="." method="_on_sensitivity_changed"]
+[connection signal="changed" from="MarginContainer/PanelContainer/VBoxContainer/Brightness/Brightness" to="." method="_on_brightness_changed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/Mappings/Button Mappings" to="." method="_on_button_mappings_pressed"]
-[connection signal="changed" from="MarginContainer/PanelContainer/VBoxContainer/Sensitivity/HSlider" to="." method="_on_h_slider_changed"]
