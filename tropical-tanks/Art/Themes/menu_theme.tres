@@ -1,0 +1,16 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://beq3sqokihu4k"]
+
+[ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="1_lhujf"]
+[ext_resource type="Texture2D" uid="uid://bh77umec78x1a" path="res://Art/Images/BackgroundSettings.jpg" id="2_nwaa1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nwaa1"]
+texture = ExtResource("2_nwaa1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m43j8"]
+texture = ExtResource("2_nwaa1")
+
+[resource]
+Label/font_sizes/font_size = 22
+Label/fonts/font = ExtResource("1_lhujf")
+Panel/styles/panel = SubResource("StyleBoxTexture_nwaa1")
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_m43j8")

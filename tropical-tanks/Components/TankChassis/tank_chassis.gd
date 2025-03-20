@@ -1,7 +1,7 @@
 extends CharacterBody3D
 class_name TankChassis
 
-const SPEED = 250.0
+const SPEED = 500.0
 
 var move_vector = Vector3(0,0,-1)
 
@@ -67,9 +67,9 @@ func _physics_process(delta: float) -> void:
 				velocity = velocity.rotated(rotation_axis, -move_vector_angle)
 
 		if controls.get("turn_left"):
-			tank_rotation += SPEED / 180 * delta
+			tank_rotation += 500 / 360 * delta
 		if controls.get("turn_right"):
-			tank_rotation += -SPEED / 180 * delta
+			tank_rotation += -500 / 360 * delta
 	
 		
 		#if move_vector_angle != 0 and velocity != Vector3.ZERO:
@@ -97,5 +97,5 @@ var EXPLOSION = preload("res://Objects/Explosion/explosion.tscn")
 func explode(explode_position):
 	var explosion = EXPLOSION.instantiate()
 	explosion.position = explode_position
-	explosion.explosion_power = randi_range(4,6)
+	explosion.explosion_power = randf_range(6,8)
 	get_tree().root.add_child(explosion)

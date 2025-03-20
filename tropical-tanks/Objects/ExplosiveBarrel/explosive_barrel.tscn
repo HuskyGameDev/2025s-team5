@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://cc62krn8h3ak0"]
+
+[ext_resource type="Script" uid="uid://eglj02lx7r0m" path="res://Components/HealthManager/health_manager.gd" id="1_eftk2"]
+[ext_resource type="Script" uid="uid://cxa1gfo8iq0wa" path="res://Components/HealthManager/Hitbox/hitbox.gd" id="2_jsf3f"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c7qlu"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dxi71"]
+
+[node name="ExplosiveBarrel" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.989262, 0)
+mesh = SubResource("CylinderMesh_c7qlu")
+
+[node name="HealthManager" type="Node3D" parent="."]
+script = ExtResource("1_eftk2")
+health = 1.0
+metadata/_custom_type_script = "uid://eglj02lx7r0m"
+
+[node name="Hitbox" type="Area3D" parent="." node_paths=PackedStringArray("health_manager")]
+script = ExtResource("2_jsf3f")
+health_manager = NodePath("../HealthManager")
+metadata/_custom_type_script = "uid://cxa1gfo8iq0wa"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.990405, 0)
+shape = SubResource("CylinderShape3D_dxi71")
