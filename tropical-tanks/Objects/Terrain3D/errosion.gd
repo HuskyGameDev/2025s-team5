@@ -2,7 +2,7 @@ extends Node
 class_name Erosion
 
 # Parameters (matching Unity defaults)
-@export var seed: int = 0
+@export var erosion_seed: int = 0
 @export var erosion_radius: int = 8
 @export var inertia: float = 0.05
 @export var sediment_capacity_factor: float = 4.0
@@ -25,7 +25,7 @@ var current_map_size = -1
 var rng = RandomNumberGenerator.new()
 
 func _ready():
-	rng.seed = seed
+	rng.erosion_seed = erosion_seed
 
 func initialize_erosion_brush_indices(map_size: int, radius: int) -> void:
 	print("Initializing brush indices...")
@@ -113,8 +113,8 @@ func apply_erosion(heightImage: Image, map_size: int) -> void:
 	# Ensure the erosion brush indices are up-to-date.
 	initialize_erosion_brush_indices(map_size, erosion_radius)
 
-	# Reset the RNG seed for reproducibility.
-	rng.seed = seed
+	# Reset the RNG erosion_seed for reproducibility.
+	rng.erosion_seed = erosion_seed
 
 	# Simulate erosion droplets.
 	for iteration in range(erosion_iterations):

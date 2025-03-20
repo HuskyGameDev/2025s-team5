@@ -2,8 +2,6 @@
 extends Node3D
 class_name Turret
 
-signal change_crosshair(crosshair_index)
-
 @export var target_position : Vector3 = Vector3(0,0,0)
 
 var shell_parameters : ShellParameter = ShellParameter.new()
@@ -77,10 +75,6 @@ var shot_obstructed : bool = false
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return #Do not do this code while in editor
-	#if global_position.distance_to(target_position) < minimum_shot_distance:
-		#shot_obstructed = true
-	#else:
-		#shot_obstructed = false
 	if %AimLaser.is_colliding():
 		shot_obstructed = true
 	else:

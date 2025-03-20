@@ -67,9 +67,9 @@ func _physics_process(delta: float) -> void:
 				velocity = velocity.rotated(rotation_axis, -move_vector_angle)
 
 		if controls.get("turn_left"):
-			tank_rotation += 500 / 360 * delta
+			tank_rotation += 1.3 * delta
 		if controls.get("turn_right"):
-			tank_rotation += -500 / 360 * delta
+			tank_rotation += -1.3 * delta
 	
 		
 		#if move_vector_angle != 0 and velocity != Vector3.ZERO:

@@ -38,8 +38,8 @@ func spawn_plants(
 				
 	
 	for center in centers:
-		var plant_count : int = randi_range(plant_count_range.x, plant_count_range.y)
-		var cluster_radius : float = randf_range(cluster_radius_range.x, cluster_radius_range.y)
+		var plant_count : int = randi_range(int(plant_count_range.x), int(plant_count_range.y))
+		var cluster_radius : float = randf_range(int(cluster_radius_range.x), int(cluster_radius_range.y))
 		var placed_plants = []
 		
 		for i in range(plant_count):
@@ -49,7 +49,7 @@ func spawn_plants(
 			var grid_pos = get_grid_position(pos)
 			
 			# Forest Spawning
-			if is_position_valid(grid_pos) and !is_too_close(grid_pos, placed_plants, min_plant_dist):
+			if is_position_valid(grid_pos) and !is_too_close(grid_pos, placed_plants, min_plant_dist) and randf() < plant_chance:
 				var plant = PLANTS.pick_random()
 				place_plant(plant, grid_pos, true)
 				placed_plants.append(grid_pos)
@@ -110,7 +110,8 @@ func place_plant(scene_pack: PackedScene, grid_pos: Vector2, random_rotation: bo
 	var world_pos = terrain.height_data[grid_pos]
 	var plant = scene_pack.instantiate()
 	plant.position = world_pos 
-	plant.rotation.y = (randf() * TAU) 
+	if random_rotation:
+		plant.rotation.y = (randf() * TAU) 
 	terrain.terrain_mesh.add_child(plant)
 	terrain.occupied_positions[grid_pos] = true
 	

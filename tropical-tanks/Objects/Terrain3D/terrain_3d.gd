@@ -238,8 +238,8 @@ func generate_terrain_mesh() -> void:
 	var mesh = st.commit()
 	terrain_mesh.mesh = mesh
 	terrain_mesh.set_surface_override_material(0, ground_material)
-	terrain_mesh.position.x = -xsize/2
-	terrain_mesh.position.z = -zsize/2
+	terrain_mesh.position.x = -xsize/2.0
+	terrain_mesh.position.z = -zsize/2.0
 	
 
 func generate_snow_mesh():
@@ -267,8 +267,8 @@ func generate_snow_mesh():
 	st.generate_normals()
 	var mesh = st.commit()
 	snow_mesh.mesh = mesh
-	snow_mesh.position.x = -xsize/2
-	snow_mesh.position.z = -zsize/2
+	snow_mesh.position.x = -xsize/2.0
+	snow_mesh.position.z = -zsize/2.0
 
 
 # New helper function to add a single colored triangle

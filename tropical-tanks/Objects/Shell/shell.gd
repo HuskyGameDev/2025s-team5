@@ -127,17 +127,5 @@ func impact(body : Node3D):
 		
 	queue_free()
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	return
-	
-	#if body.is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
-		#explode()
-	#else : # Only bounce if hitting terrain and is able to bounce
-		#if bounces_left > 0:
-			#bounce(cast.get_collision_normal())
-		#else:
-			#explode() # Otherwise, just explode
-
-
 func _on_fuse_timer_timeout() -> void:
 	fuse()
