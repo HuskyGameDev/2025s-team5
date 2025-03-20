@@ -58,5 +58,6 @@ mesh = ExtResource("3_k8f1b")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
+autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

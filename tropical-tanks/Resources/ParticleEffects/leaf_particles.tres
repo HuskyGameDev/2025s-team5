@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Particles" load_steps=3 format=3 uid="uid://cb70so54t0fdo"]
-
-[ext_resource type="PackedScene" uid="uid://pxfmr7r4opq8" path="res://Art/Particles/plant_particles.tscn" id="1_1e8r4"]
-[ext_resource type="Script" uid="uid://boaxavktcqma2" path="res://Resources/ResourceClasses/Particles.gd" id="1_q1rgr"]
-
-[resource]
-script = ExtResource("1_q1rgr")
-PARTICLES = ExtResource("1_1e8r4")
-metadata/_custom_type_script = "uid://boaxavktcqma2"

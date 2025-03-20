@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://dgykyycj35af1" path="res://Objects/Player/player_controller.gd" id="1_ikaho"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_tqbjc"]
 [ext_resource type="PackedScene" uid="uid://cnpjr2qs65c5s" path="res://Components/CameraTopDown/cameraTopDown.tscn" id="3_wp58l"]
-[ext_resource type="PackedScene" uid="uid://cxo7x33hr41go" path="res://Art/Particles/ParticleTest.tscn" id="4_l3euh"]
+[ext_resource type="PackedScene" uid="uid://cxo7x33hr41go" path="res://Art/Effects/ParticleTest.tscn" id="4_l3euh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akj8m"]
 bg_color = Color(0.810977, 0.360784, 0, 0.509804)
@@ -16,7 +16,7 @@ tank = NodePath("Tank")
 [node name="Tank" parent="." instance=ExtResource("1_avp0u")]
 
 [node name="Turret3" parent="Tank" instance=ExtResource("2_tqbjc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49146, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.377569, 0)
 double_barrels = 3
 
 [node name="ParticleTest" parent="Tank" instance=ExtResource("4_l3euh")]

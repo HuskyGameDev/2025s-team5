@@ -6,7 +6,7 @@ class_name ShellParameter
 		
 ## Gameplay Variables
 @export var armor_piercing : float = 1.0
-@export var explosion_power : float = 5.0 
+@export var explosion_power : float = 3.0 
 @export var evaporation : float = 0.0 # Bullet shrink over time
 @export var bounces_left : float = 2.0 
 

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://cg16y5p88jqqr"]
 
 [ext_resource type="Texture2D" uid="uid://bmh56nspmxqck" path="res://Art/Images/TripleShot.svg" id="1_y0ioi"]
-[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="2_ewb36"]
+[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Classes/Upgrade.gd" id="2_ewb36"]
 
 [resource]
 script = ExtResource("2_ewb36")

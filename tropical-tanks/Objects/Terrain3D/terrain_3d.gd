@@ -310,7 +310,6 @@ func place_ground_scatter() -> void:
 	#
 	GSA.spawn_plants(bushes,0.8,flowers,0.3,[],0.0,Vector2(10,15),Vector2(0.0,8.0), min_bush_distance,20, 100, true)
 	#
-	GSA.spawn_plants([preload("res://Objects/ExplosiveBarrel/explosive_barrel.tscn")],1.0,[],0.0,[],0.0,Vector2(1,1),Vector2(4,4),5,10,40,true)
 	#GSA.spawn_plants(flowers,0.5,[],0.0,[],0.0,Vector2(50,100),Vector2(3,5),1.0,10,100,false)
 	#GSA.spawn_plants(enemy,0.1,[],0.0,[],0.0,Vector2(1,1),Vector2(1,1),10,10,50,true)
 	#GSA.spawn_plants(flowers,1.0,[],0.0,[],0.0,Vector2(50,100),Vector2(2,3),1.0,20,50,false)

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://b3h7etbbo8d0f"]
 
-[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="1_2i2sa"]
+[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Classes/Upgrade.gd" id="1_2i2sa"]
 [ext_resource type="Texture2D" uid="uid://bosppbg8rh2nd" path="res://Art/Images/DoubleShot.svg" id="1_ate3i"]
 
 [resource]

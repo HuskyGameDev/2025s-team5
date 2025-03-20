@@ -1,17 +1,17 @@
-[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://ttnhyrt2k02c"]
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://fa6xnbn1mopn"]
 
-[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="1_pjyxc"]
+[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Classes/Upgrade.gd" id="1_w6bti"]
 
 [resource]
-script = ExtResource("1_pjyxc")
-double_barrel = 5
+script = ExtResource("1_w6bti")
+double_barrel = 0
 split_barrel = 0
 mass = 0.0
 drag = 0.0
 armor_piercing = 0.0
 explosion_power = 0.0
 evaporation = 0.0
-bounces_left = 0.0
+bounces_left = 1.0
 bounce_loss = 0.0
 bounce_explode = 0.0
 ice_effect = 0.0

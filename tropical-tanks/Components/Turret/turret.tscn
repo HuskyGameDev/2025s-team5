@@ -11,7 +11,7 @@ size = Vector3(0.5, 0.15, 0.15)
 script = ExtResource("1_p3y8b")
 
 [node name="TurretHub" parent="." instance=ExtResource("2_eg07v")]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 
 [node name="Bearing" type="MeshInstance3D" parent="TurretHub"]
 unique_name_in_owner = true
@@ -21,8 +21,8 @@ skeleton = NodePath("../..")
 
 [node name="AimLaser" type="RayCast3D" parent="TurretHub/Bearing"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.299885)
-target_position = Vector3(0, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.13016)
+target_position = Vector3(0, 0, -100)
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

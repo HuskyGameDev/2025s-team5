@@ -1,11 +1,11 @@
-[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://dwx0pgl5r2dgi"]
+[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://ccuej7go6aw0y"]
 
-[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="1_43x23"]
+[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Classes/Upgrade.gd" id="1_4crfl"]
 
 [resource]
-script = ExtResource("1_43x23")
-double_barrel = 0
-split_barrel = 3
+script = ExtResource("1_4crfl")
+double_barrel = 5
+split_barrel = 0
 mass = 0.0
 drag = 0.0
 armor_piercing = 0.0

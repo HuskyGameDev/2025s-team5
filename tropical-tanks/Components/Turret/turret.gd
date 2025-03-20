@@ -22,7 +22,7 @@ var BARREL = preload("res://Components/Turret/barrel.tscn")
 		set_barrels()
 		# if Engine.is_editor_hint():
 
-var initial_shot_power = 30
+var initial_shot_power = 20
 var shoot_cooldown = 1.0
 
 @onready var bearing = $TurretHub/Bearing
@@ -71,20 +71,12 @@ func set_barrels() -> void:
 		split_barrel_holder.append(double_barrel_holder)
 
 
-
-var minimum_shot_distance : float = 3.0
-var shot_obstructed : bool = false
+var look_position = Vector3.ZERO
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
-		return #Do not do this code while in editor
-	#if global_position.distance_to(target_position) < minimum_shot_distance:
-		#shot_obstructed = true
-	#else:
-		#shot_obstructed = false
-	if %AimLaser.is_colliding():
-		shot_obstructed = true
-	else:
-		shot_obstructed = false
+		return
+	
+	look_position = look_position.move_toward(target_position,delta * 30)
 	
 	look_at(target_position)
 	$TurretHub.global_position = global_position
@@ -140,8 +132,6 @@ func _on_timer_timeout() -> void:
 	
 var i = 0
 func shoot():
-	if shot_obstructed:
-		return
 	if shoot_cooled_down:
 		for split_barrel in split_barrel_holder:
 			split_barrel[i].fire_shell()
