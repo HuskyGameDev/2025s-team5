@@ -11,7 +11,7 @@ extends Node3D
 @export var crosshair_setter : CrosshairSetter
 
 var aim_target_position : Vector3 
-var camera_offset = Vector3(0,10,0)
+var camera_offset = Vector3(0,20,0)
 var ray_length = 200 # How far the mouse detects the ground
 
 func _ready() -> void:

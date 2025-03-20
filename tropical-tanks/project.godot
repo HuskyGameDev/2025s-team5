@@ -23,7 +23,6 @@ EnvironmentScene="*res://Scenes/EnvironmentScene.tscn"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 window/vsync/vsync_mode=0
 
@@ -35,9 +34,9 @@ project/assembly_name="Tropical tanks"
 
 folder_colors={
 "res://Art/": "yellow",
-"res://Classes/": "green",
 "res://Components/": "blue",
 "res://Objects/": "teal",
+"res://Resources/": "green",
 "res://Scenes/": "red"
 }
 

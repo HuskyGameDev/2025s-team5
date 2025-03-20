@@ -11,20 +11,19 @@
 radius = 0.2
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iotof"]
-size = Vector3(1, 0.565918, 1.93127)
+size = Vector3(2, 1.755, 4)
 
 [node name="TankChassis" type="CharacterBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502262, 0)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_bgbpq")
 
 [node name="Collider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.205778, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.238972, 0)
 shape = SubResource("SphereShape3D_ro8yc")
 
 [node name="TankChassisModelParts" parent="." instance=ExtResource("2_eebcv")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.789134, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="TankChassisModelParts"]
 transform = Transform3D(-0.4, -3.49691e-08, 1.52855e-15, 0, -1.74846e-08, -0.4, 3.49691e-08, -0.4, 1.74846e-08, 0, 0, -5.35322)
@@ -40,19 +39,18 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -1.49231, -0.83051, 0)
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 1.56724, -0.83051, 0)
 
 [node name="TankLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.470504, -0.88348)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.07549, -1.88722)
 text = "PLACEHOLDER"
 
 [node name="GroundRaycast" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.574452, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.222787, 0)
 top_level = true
-target_position = Vector3(0, -0.5, 0)
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("4_3tv7r")]
 health_manager = NodePath("../HealthManager")
 
 [node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.076646, -0.0293579)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.915579, -0.0293579)
 shape = SubResource("BoxShape3D_iotof")
 
 [node name="HealthManager" parent="." instance=ExtResource("5_5raij")]
