@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="GroundScatter" load_steps=8 format=3 uid="uid://c82mw1ohcjhpb"]
 
-[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Objects/GroundScatter/ground_scatter.gd" id="1_7tppm"]
-[ext_resource type="PackedScene" uid="uid://c6wmqm3qfl5y0" path="res://Objects/GroundScatter/tall_palm.tscn" id="1_nrtqi"]
-[ext_resource type="PackedScene" uid="uid://jevsa0vwmjhw" path="res://Objects/GroundScatter/mid_palm.tscn" id="2_bl72l"]
-[ext_resource type="PackedScene" uid="uid://bjlcuur6kdajc" path="res://Objects/GroundScatter/short_palm.tscn" id="3_t4m00"]
-[ext_resource type="PackedScene" uid="uid://brhxv04ct77q" path="res://Objects/GroundScatter/fern.tscn" id="5_h05xw"]
-[ext_resource type="PackedScene" uid="uid://btixu88wfmluq" path="res://Objects/GroundScatter/bush.tscn" id="6_oyl22"]
-[ext_resource type="PackedScene" uid="uid://cvqxewvukkcxn" path="res://Objects/GroundScatter/flower.tscn" id="7_d02la"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="1_7tppm"]
+[ext_resource type="PackedScene" uid="uid://c6wmqm3qfl5y0" path="res://Objects/Vegetation/tall_palm.tscn" id="1_nrtqi"]
+[ext_resource type="PackedScene" uid="uid://jevsa0vwmjhw" path="res://Objects/Vegetation/mid_palm.tscn" id="2_bl72l"]
+[ext_resource type="PackedScene" uid="uid://bjlcuur6kdajc" path="res://Objects/Vegetation/short_palm.tscn" id="3_t4m00"]
+[ext_resource type="PackedScene" uid="uid://brhxv04ct77q" path="res://Objects/Vegetation/fern.tscn" id="5_h05xw"]
+[ext_resource type="PackedScene" uid="uid://btixu88wfmluq" path="res://Objects/Vegetation/bush.tscn" id="6_oyl22"]
+[ext_resource type="PackedScene" uid="uid://cvqxewvukkcxn" path="res://Objects/Vegetation/flower.tscn" id="7_d02la"]
 
 [resource]
 script = ExtResource("1_7tppm")

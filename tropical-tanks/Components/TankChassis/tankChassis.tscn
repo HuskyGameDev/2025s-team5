@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://boi17sxf60ef6" path="res://Art/Images/Arrow.svg" id="3_m6eku"]
 [ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="4_3tv7r"]
 [ext_resource type="PackedScene" uid="uid://xtnuh7brto2v" path="res://Components/HealthManager/health_manager.tscn" id="5_5raij"]
-[ext_resource type="PackedScene" uid="uid://c01vtjqhwsafa" path="res://Components/TreadSpawner/trackSpawner.tscn" id="6_14oo1"]
+[ext_resource type="PackedScene" uid="uid://c01vtjqhwsafa" path="res://Components/TrackSpawner/trackSpawner.tscn" id="6_14oo1"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ro8yc"]
 radius = 0.2

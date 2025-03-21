@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bvrvlmhtxxwk"]
-
-[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Objects/GroundScatter/ground_scatter.gd" id="1_hpnga"]
-
-[node name="GroundScatter" type="Node3D"]
-script = ExtResource("1_hpnga")

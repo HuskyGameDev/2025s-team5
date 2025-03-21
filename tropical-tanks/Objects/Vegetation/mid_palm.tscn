@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://jevsa0vwmjhw"]
+
+[ext_resource type="Script" uid="uid://eglj02lx7r0m" path="res://Components/HealthManager/health_manager.gd" id="1_rpv3o"]
+[ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="2_0fk1b"]
+[ext_resource type="PackedScene" uid="uid://c45lckfu4xxjq" path="res://Art/Models/Vegetation/MidTree.blend" id="3_hbndc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0w001"]
+size = Vector3(0.5, 5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y3hur"]
+size = Vector3(0.612854, 2.80905, 0.615761)
+
+[node name="MidPalm" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.51454, 0)
+shape = SubResource("BoxShape3D_0w001")
+
+[node name="HealthManager" type="Node3D" parent="."]
+script = ExtResource("1_rpv3o")
+health = 20.0
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_0fk1b")]
+health_manager = NodePath("../HealthManager")
+
+[node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 1.41412, 0.0172162)
+shape = SubResource("BoxShape3D_y3hur")
+
+[node name="MidTree" parent="." instance=ExtResource("3_hbndc")]

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="GroundScatter" load_steps=3 format=3 uid="uid://8oxg70awgug6"]
 
 [ext_resource type="PackedScene" uid="uid://cc62krn8h3ak0" path="res://Objects/ExplosiveBarrel/explosive_barrel.tscn" id="1_4k05k"]
-[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Objects/GroundScatter/ground_scatter.gd" id="1_efx5m"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="1_efx5m"]
 
 [resource]
 script = ExtResource("1_efx5m")

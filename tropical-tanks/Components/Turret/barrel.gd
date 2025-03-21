@@ -2,7 +2,7 @@ extends Node3D
 class_name Barrel
 
 var turret : Turret
-var SHELL = preload("res://Objects/Shell/shell.tscn")
+var SHELL = preload("res://Components/Shell/shell.tscn")
 
 var shell_spread = 0.01
 

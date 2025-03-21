@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://c01vtjqhwsafa"]
+
+[ext_resource type="Script" uid="uid://bf3lx6khy4ful" path="res://Components/TrackSpawner/track_spawner.gd" id="1_nqmg3"]
+
+[node name="TrackSpawner" type="Node3D"]
+script = ExtResource("1_nqmg3")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
