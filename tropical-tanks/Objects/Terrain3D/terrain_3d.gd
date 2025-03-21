@@ -286,6 +286,7 @@ func add_triangle(surface_tool, color, a, b, c) -> void:
 	surface_tool.add_vertex(c)
 
 
+var occupied_positions = {}
 func place_ground_scatter() -> void:
 	for ground_scatter : GroundScatter in ground_scatters:
 		ground_scatter.spawn(self)
