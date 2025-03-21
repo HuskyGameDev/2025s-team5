@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="GroundScatter" load_steps=8 format=3 uid="uid://c82mw1ohcjhpb"]
+
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Objects/GroundScatter/ground_scatter.gd" id="1_7tppm"]
+[ext_resource type="PackedScene" uid="uid://c6wmqm3qfl5y0" path="res://Objects/GroundScatter/tall_palm.tscn" id="1_nrtqi"]
+[ext_resource type="PackedScene" uid="uid://jevsa0vwmjhw" path="res://Objects/GroundScatter/mid_palm.tscn" id="2_bl72l"]
+[ext_resource type="PackedScene" uid="uid://bjlcuur6kdajc" path="res://Objects/GroundScatter/short_palm.tscn" id="3_t4m00"]
+[ext_resource type="PackedScene" uid="uid://brhxv04ct77q" path="res://Objects/GroundScatter/fern.tscn" id="5_h05xw"]
+[ext_resource type="PackedScene" uid="uid://btixu88wfmluq" path="res://Objects/GroundScatter/bush.tscn" id="6_oyl22"]
+[ext_resource type="PackedScene" uid="uid://cvqxewvukkcxn" path="res://Objects/GroundScatter/flower.tscn" id="7_d02la"]
+
+[resource]
+script = ExtResource("1_7tppm")
+primary_objects = Array[PackedScene]([ExtResource("1_nrtqi"), ExtResource("2_bl72l"), ExtResource("3_t4m00")])
+primary_probability = 0.3
+secondary_objects = Array[PackedScene]([ExtResource("5_h05xw"), ExtResource("6_oyl22")])
+secondary_probability = 0.3
+tertiary_objects = Array[PackedScene]([ExtResource("7_d02la"), ExtResource("5_h05xw")])
+tertiary_probability = 0.1
+spawn_on_grid = false
+amount_of_clusters = 40
+minimum_cluster_spacing = 30.0
+cluster_radius = 15.0
+object_count_range = Vector2i(20, 30)
+minimum_object_spacing = 5.0
+metadata/_custom_type_script = "uid://devstjeflc5ws"

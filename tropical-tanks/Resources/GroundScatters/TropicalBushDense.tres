@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="GroundScatter" load_steps=4 format=3 uid="uid://c658la25pdnso"]
+
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Objects/GroundScatter/ground_scatter.gd" id="1_0r0p8"]
+[ext_resource type="PackedScene" uid="uid://btixu88wfmluq" path="res://Objects/GroundScatter/bush.tscn" id="1_rqkvn"]
+[ext_resource type="PackedScene" uid="uid://brhxv04ct77q" path="res://Objects/GroundScatter/fern.tscn" id="2_o8hnb"]
+
+[resource]
+script = ExtResource("1_0r0p8")
+primary_objects = Array[PackedScene]([ExtResource("1_rqkvn"), ExtResource("2_o8hnb")])
+primary_probability = 1.0
+secondary_objects = Array[PackedScene]([])
+secondary_probability = 0.0
+tertiary_objects = Array[PackedScene]([])
+tertiary_probability = 0.0
+spawn_on_grid = false
+amount_of_clusters = 20
+minimum_cluster_spacing = 40.0
+cluster_radius = 20.0
+object_count_range = Vector2i(70, 120)
+minimum_object_spacing = 3.0
+metadata/_custom_type_script = "uid://devstjeflc5ws"

@@ -44,6 +44,10 @@ const steep_slope_threshold = 1.25  # Height difference for rocky terrain
 const height_blend_factor = 3  # Control how much height influences blending
 @export var slope_blend_factor = 0.5   # Control how much slope influences blending
 
+
+@export_group("Ground Scatter")
+@export var ground_scatters : Array[GroundScatter]
+
 # Decimation parameters: these control how aggressively the grid is decimated.
 const decim_min_step : int = 1
 const decim_max_step : int = 2
@@ -281,36 +285,8 @@ func add_triangle(surface_tool, color, a, b, c) -> void:
 	surface_tool.add_vertex(b)
 	surface_tool.add_vertex(c)
 
-## Configuration
-@export var min_tree_distance: float = 5.0
-@export var min_bush_distance: float = 3.0
-@export var flower_border_width: int = 2
-@export var forest_radius_range: Vector2 = Vector2(20.0, 30.0)
-@export var bush_radius_range: Vector2 = Vector2(15.0,25.0)
-
-# Global variables for tracking positions
-var bush_positions = []
-var occupied_positions = {}  # Dictionary: grid position (Vector2) -> true
-
-
-#var trees = [preload("res://Art/Models/Vegetation/MidTree.blend"), preload("res://Art/Models/Vegetation/ShortPalm.blend"), preload("res://Art/Models/Vegetation/TallPalm.blend")]
-var trees = [preload("res://Objects/GroundScatter/mid_palm.tscn"), preload("res://Objects/GroundScatter/short_palm.tscn"), preload("res://Objects/GroundScatter/tall_palm.tscn")]
-var ferns = [preload("res://Objects/GroundScatter/fern.tscn")]
-var bushes = [preload("res://Objects/GroundScatter/bush.tscn"), preload("res://Objects/GroundScatter/fern.tscn")]
-var flowers = [preload("res://Objects/GroundScatter/flower.tscn")]
-var enemy = [preload("res://Objects/Enemy/enemy.tscn")]
 
 func place_ground_scatter() -> void:
+	for ground_scatter : GroundScatter in ground_scatters:
+		ground_scatter.spawn(self)
 	pass
-	#GSA.spawn_plants(trees, 1.0, ferns, 0.40,[], 0.0, Vector2(100,180),forest_radius_range,min_tree_distance, 50,15, false)
-#
-	GSA.spawn_plants(bushes, 1.0, [], 0.0, [], 0.0, Vector2(70,120),bush_radius_range, min_bush_distance, 40, 20, false)
-	GSA.spawn_plants(bushes, 1.0, [], 0.0, flowers, 0.3, Vector2(70,120),bush_radius_range,  min_bush_distance, 40, 20, false)
-	GSA.spawn_plants(trees, 0.3, ferns, 0.3, flowers, 0.1, Vector2(20,30),Vector2(0,10),min_tree_distance,15,40,true)
-	#
-	GSA.spawn_plants(bushes,0.8,flowers,0.3,[],0.0,Vector2(10,15),Vector2(0.0,8.0), min_bush_distance,20, 100, true)
-	#
-	GSA.spawn_plants([preload("res://Objects/ExplosiveBarrel/explosive_barrel.tscn")],1.0,[],0.0,[],0.0,Vector2(1,1),Vector2(4,4),5,10,40,true)
-	#GSA.spawn_plants(flowers,0.5,[],0.0,[],0.0,Vector2(50,100),Vector2(3,5),1.0,10,100,false)
-	#GSA.spawn_plants(enemy,0.1,[],0.0,[],0.0,Vector2(1,1),Vector2(1,1),10,10,50,true)
-	#GSA.spawn_plants(flowers,1.0,[],0.0,[],0.0,Vector2(50,100),Vector2(2,3),1.0,20,50,false)
