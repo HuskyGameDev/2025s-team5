@@ -5,9 +5,10 @@ class_name HealthManager
 @export var death_effects : Array[Resource]
 
 func take_damage(attack : Attack):
-	health = health - attack.damage
-	if health <= 0:
-		death()
+	if health > 0:
+		health = health - attack.damage
+		if health <= 0:
+			death()
 
 
 
