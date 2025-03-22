@@ -2,22 +2,16 @@
 extends Node3D
 class_name Terrain3D
 
-var GSA = GroundScatteringAlgorithm.new()
+var erosion : Erosion = Erosion.new()
 var rng = RandomNumberGenerator.new()
-@export var color_noise = FastNoiseLite.new()
+var color_noise = FastNoiseLite.new()
 
 # Terrain size
-const xsize = 256
-const zsize = 256
-
-# Material for the terrain mesh
-var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
-
-@onready var terrain_mesh : MeshInstance3D = $TerrainMesh
-@onready var snow_mesh : MeshInstance3D = $SnowMesh
+@export_subgroup("Terrain Size")
+@export var xsize = 256
+@export var zsize = 256
 
 # Heightmap configuration
-@export_category("Test")
 @export_group("Height Maps")
 @export var heightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
 @export var snowHeightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/snow_noise2D.tres")
@@ -30,46 +24,32 @@ var colorImage : Image = Image.new()
 var height_data = {}
 var snow_height_data = {}
 
-# Reference to the erosion module
-var erosion : Erosion
-
-# Terrain color thresholds
-const sand_height = 3  # Height threshold for sand
-const steep_slope_threshold = 1.25  # Height difference for rocky terrain
-@export var max_slope_factor = 1.5  # Factor to control steep slope coloration blending
-@export var grass_color = Color(0.6, 0.9, 0.1, 1)  # Grass green (used for blending)
-@export var sand_color = Color(0.8, 0.7, 0.5, 1)  # Sandy color
-
-# Interpolation blending control parameters
-const height_blend_factor = 3  # Control how much height influences blending
-@export var slope_blend_factor = 0.5   # Control how much slope influences blending
-
 
 @export_group("Ground Scatter")
 @export var ground_scatters : Array[GroundScatter]
 
-# Decimation parameters: these control how aggressively the grid is decimated.
-const decim_min_step : int = 1
-const decim_max_step : int = 2
+# Material for the terrain mesh
+var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 
+@onready var terrain_mesh : MeshInstance3D = $TerrainMesh
+@onready var snow_mesh : MeshInstance3D = $SnowMesh
 func _ready():
 	rng.randomize()
 	color_noise.seed = rng.seed
+	erosion.erosion_seed = rng.seed
 	
-	colorImage.load("res://Art/Images/cat.jpg");
 	# Initialize the height image from the NoiseTexture2D
-	heightImage = heightMap.get_image().duplicate()
+	heightImage = heightMap.get_image()
 	snowHeightImage = snowHeightMap.get_image()
-	# Create an instance of the Erosion class (make sure erosion.gd is in the specified path)
-	erosion = preload("res://Objects/Terrain3D/errosion.gd").new()
+	colorImage.load("res://Art/Images/cat.jpg");
 	
-	var precomputed_erosion_height_map = erosion.load("res://Objects/Terrain3D/HeightMaps/erroded_map.png")
+	var precomputed_erosion_height_map = erosion.load("res://Objects/Terrain3D/HeightMaps/eroded_map.png")
 	if precomputed_erosion_height_map:
 		heightImage = precomputed_erosion_height_map
 	else:
 		erosion.initialize_erosion_brush_indices(xsize + 1, erosion.erosion_radius)
 		erosion.apply_erosion(heightImage, xsize + 1)
-		erosion.save(heightImage, "user://erroded_map.png")
+		erosion.save(heightImage, "res://Objects/Terrain3D/HeightMaps/eroded_map.png")
 	
 	generate_height_data() 	# Generate height data from the height image
 	calculate_colors()		# Calculate the colors
@@ -79,7 +59,6 @@ func _ready():
 	# Final setup: add collision and scatter objects if not in the editor
 	if not Engine.is_editor_hint():
 		terrain_mesh.create_trimesh_collision()
-		GSA.terrain = self
 		place_ground_scatter()
 
 
@@ -102,7 +81,17 @@ func generate_height_data() -> void:
 				(snowHeightImage.get_pixel(x,z).r - 0.5) * 3,
 				z + randf_range(-0.2, 0.0)
 			)
-	
+			
+# Terrain color thresholds
+const sand_height = 3  # Height threshold for sand
+const steep_slope_threshold = 1.25  # Height difference for rocky terrain
+const max_slope_factor = 1.5  # Factor to control steep slope coloration blending
+const grass_color = Color(0.6, 0.9, 0.1, 1)  # Grass green (used for blending)
+const sand_color = Color(0.8, 0.7, 0.5, 1)  # Sandy color
+
+# Interpolation blending control parameters
+const height_blend_factor = 3  # Control how much height influences blending
+const slope_blend_factor = 0.5   # Control how much slope influences blending
 func calculate_colors():
 	colorImage = Image.create(xsize + 1, zsize + 1, false, Image.FORMAT_RGBA8)
 	for x in range(xsize + 1):
@@ -180,6 +169,10 @@ func generate_decimated_indices(max_index: int, min_step: int, max_step: int) ->
 			indices.append(current)
 	return indices
 
+
+# Decimation parameters: these control how aggressively the grid is decimated.
+const decim_min_step : int = 1
+const decim_max_step : int = 2
 func generate_terrain_mesh() -> void:
 	# Generate decimated indices for both axes. This irregular grid will control our lower poly resolution.
 	var decim_x = generate_decimated_indices(xsize, decim_min_step, decim_max_step)
@@ -245,7 +238,17 @@ func generate_terrain_mesh() -> void:
 	terrain_mesh.position.x = -xsize/2.0
 	terrain_mesh.position.z = -zsize/2.0
 	
-
+# New helper function to add a single colored triangle
+func add_triangle(surface_tool, color, a, b, c) -> void:
+	var normal = ((b - a).cross(c - a)).normalized()
+	normal = -normal  # Flip normal if needed
+	surface_tool.set_color(color)
+	surface_tool.set_normal(normal)
+	surface_tool.add_vertex(a)
+	surface_tool.add_vertex(b)
+	surface_tool.add_vertex(c)
+	
+	
 func generate_snow_mesh():
 	var st = SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
@@ -273,17 +276,6 @@ func generate_snow_mesh():
 	snow_mesh.mesh = mesh
 	snow_mesh.position.x = -xsize/2.0
 	snow_mesh.position.z = -zsize/2.0
-
-
-# New helper function to add a single colored triangle
-func add_triangle(surface_tool, color, a, b, c) -> void:
-	var normal = ((b - a).cross(c - a)).normalized()
-	normal = -normal  # Flip normal if needed
-	surface_tool.set_color(color)
-	surface_tool.set_normal(normal)
-	surface_tool.add_vertex(a)
-	surface_tool.add_vertex(b)
-	surface_tool.add_vertex(c)
 
 
 var occupied_positions = {}

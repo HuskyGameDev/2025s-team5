@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cffc6hqf0dgah"]
 
-[ext_resource type="Script" uid="uid://b42dntqxyire4" path="res://Objects/Pickups/Pickup.gd" id="1_0l2lu"]
+[ext_resource type="Script" uid="uid://b42dntqxyire4" path="res://Objects/Pickups/pickup.gd" id="1_0l2lu"]
 [ext_resource type="Texture2D" uid="uid://bkxtqxj1te7la" path="res://Art/Images/CrossHairOutOfRange.svg" id="2_ou0ej"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vxc7m"]

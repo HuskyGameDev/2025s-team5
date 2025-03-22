@@ -43,16 +43,16 @@ directional_shadow_mode = 1
 ground_scatters = Array[ExtResource("2_y65ld")]([ExtResource("3_pt1xw"), ExtResource("4_jv40j"), ExtResource("3_jv40j"), ExtResource("4_s8g7s")])
 
 [node name="EnemyRoot" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4813, 7.51601, 14.5975)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4813, 37.7054, 14.5975)
 target = NodePath("../PlayerRoot")
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_nwsly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 8.03493, 15.8098)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 38.2244, 15.8098)
 
 [node name="EnemyRoot2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14515, 6.02505, -6.9055)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14515, 36.2145, -6.9055)
 target = NodePath("../PlayerRoot")
 
 [node name="EnemyRoot3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.23166, 6.08751, -1.2185)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.23166, 36.2769, -1.2185)
 target = NodePath("../PlayerRoot")

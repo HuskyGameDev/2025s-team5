@@ -1,6 +1,8 @@
 extends Resource
 class_name ShellParameter
 
+
+var gravity : Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_vector") * ProjectSettings.get_setting("physics/3d/default_gravity") * 2
 @export var mass : float = 1.0
 @export var drag : float = 0.001 # Mathematically, cross sectional area of the bullet
 		

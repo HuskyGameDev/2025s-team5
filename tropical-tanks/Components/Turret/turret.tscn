@@ -16,6 +16,7 @@ transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 [node name="Bearing" type="MeshInstance3D" parent="TurretHub"]
 unique_name_in_owner = true
 transform = Transform3D(2.5, 0, 0, 0, 2.5, 0, 0, 0, 2.5, 0, 0, -0.733179)
+layers = 2
 mesh = SubResource("BoxMesh_aqewf")
 skeleton = NodePath("../..")
 

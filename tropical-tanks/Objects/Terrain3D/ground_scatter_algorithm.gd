@@ -3,6 +3,7 @@ class_name GroundScatteringAlgorithm
 
 var terrain : Terrain3D
 func _ready() -> void:
+	push_warning("Ground scattering algorithm is defunct | Use Ground scatter resource instead")
 	terrain = get_parent()
 	assert(terrain, "Terrain must be set")
 

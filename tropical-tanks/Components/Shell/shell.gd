@@ -5,7 +5,6 @@ class_name Shell
 const EXPLOSION = preload("res://Components/Explosion/explosion.tscn")
 
 var velocity : Vector3 = Vector3(0,0,0)
-var gravity : Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_vector") * ProjectSettings.get_setting("physics/3d/default_gravity")
 var power : float = 0 # Total power of the bullet based on speed * mass
 
 @onready var cast = $RayCast3D
@@ -95,7 +94,7 @@ func _physics_process(delta: float) -> void:
 
 	# Integrate position and velocity
 	position += velocity * delta
-	velocity += gravity * delta + get_drag() * delta # Decreases velocity by the drag constant
+	velocity += shell_parameters.gravity * delta + get_drag() * delta # Decreases velocity by the drag constant
 	
 	# Look in direction of travel
 	look_at(position + velocity)
