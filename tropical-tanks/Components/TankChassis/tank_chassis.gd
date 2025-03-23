@@ -88,10 +88,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-#func death():
-	#var death_pos = global_position
-	#global_position = Vector3(randi_range(-50,50),20,randi_range(-50,50))
-	#explode(death_pos)
+func death():
+	var death_pos = global_position
+	global_position = Vector3(randi_range(-50,50),20,randi_range(-50,50))
+	explode(death_pos)
 
 var EXPLOSION = preload("res://Components/Explosion/explosion.tscn")
 func explode(explode_position):

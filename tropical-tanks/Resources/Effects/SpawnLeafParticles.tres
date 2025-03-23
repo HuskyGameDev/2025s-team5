@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="SpawnObject" load_steps=2 format=3 uid="uid://n8ghonpiev85"]
+[gd_resource type="Resource" script_class="SpawnObject" load_steps=3 format=3 uid="uid://n8ghonpiev85"]
 
 [ext_resource type="Script" uid="uid://wcb8lu7g48ww" path="res://Resources/ResourceClasses/SpawnObject.gd" id="1_10hf1"]
+[ext_resource type="PackedScene" uid="uid://pxfmr7r4opq8" path="res://Art/Particles/plant_particles.tscn" id="1_cvhu6"]
 
 [resource]
 script = ExtResource("1_10hf1")
+OBJECT = ExtResource("1_cvhu6")
 metadata/_custom_type_script = "uid://wcb8lu7g48ww"

@@ -20,5 +20,6 @@ func death():
 	var P = get_parent()
 	if P.has_method("death"):
 		P.death()
+		health = 100.0
 	else:
 		get_parent().queue_free()
