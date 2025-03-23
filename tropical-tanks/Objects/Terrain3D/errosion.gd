@@ -1,7 +1,7 @@
-extends Node
+extends Resource
 class_name Erosion
 
-# Parameters (matching Unity defaults)
+# Parameters
 @export var erosion_seed: int = 0
 @export var erosion_radius: int = 8
 @export var inertia: float = 0.05

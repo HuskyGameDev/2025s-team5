@@ -1,7 +1,7 @@
 extends Node3D
 class_name Terrain3D
 
-var erosion : Erosion = Erosion.new()
+@export var erosion : Erosion
 var rng = RandomNumberGenerator.new()
 var color_noise = FastNoiseLite.new()
 
@@ -10,10 +10,23 @@ var color_noise = FastNoiseLite.new()
 @export var xsize = 256
 @export var zsize = 256
 
+@export var decimateTerrain = true
+
+enum terrainColoringOptions {
+	averageTriangle,
+	randomTriangle,
+	averageSquare,
+	randomSquare
+}
+
+@export var terrainColoringModes : terrainColoringOptions = terrainColoringOptions.averageTriangle
+
 # Heightmap configuration
 @export_group("Height Maps")
 @export var heightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
 @export var snowHeightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/snow_noise2D.tres")
+
+@export var precomputed_erosion_height_map = erosion.load("res://Objects/Terrain3D/HeightMaps/eroded_map.png")
 
 var heightImage : Image
 var snowHeightImage : Image
@@ -45,7 +58,10 @@ func _ready():
 	check_erosion()			# Check for erosiong map / do erosion 
 	generate_height_data() 	# Generate height data from the height image
 	calculate_colors()		# Calculate the colors
-	generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
+	
+	if decimateTerrain:
+		generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
+		
 	generate_snow_mesh()	# Generate the snow terrain layer
 	
 	# Final setup: add collision and scatter objects if not in the editor
@@ -54,7 +70,6 @@ func _ready():
 		place_ground_scatter()
 
 func check_erosion() -> void:
-	var precomputed_erosion_height_map = erosion.load("res://Objects/Terrain3D/HeightMaps/eroded_map.png")
 	if precomputed_erosion_height_map:
 		heightImage = precomputed_erosion_height_map
 	else:
@@ -220,14 +235,28 @@ func generate_terrain_mesh() -> void:
 			var v3 = decimated_vertices[i+1][j+1]
 			var v4 = decimated_vertices[i][j+1]
 			
+			var image_color_1 = Color(0, 0, 0)
+			var image_color_2 = Color(0, 0, 0)
 			
-			var image_color_1 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v2.x, v2.z) + colorImage.get_pixel(v3.x, v3.z)) / 3.
-			
+			match terrainColoringModes:
+				terrainColoringOptions.averageTriangle:
+					image_color_1 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v2.x, v2.z) + colorImage.get_pixel(v3.x, v3.z)) / 3.
+					image_color_2 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v3.x, v3.z) + colorImage.get_pixel(v4.x, v4.z)) / 3.
+				terrainColoringOptions.randomTriangle:
+					var randomVertex1 = [v1, v2, v3, v4].pick_random()
+					image_color_1 = (colorImage.get_pixel(randomVertex1.x, randomVertex1.z))
+					var randomVertex2 = [v1, v2, v3, v4].pick_random()
+					image_color_2 = (colorImage.get_pixel(randomVertex2.x, randomVertex2.z))
+				terrainColoringOptions.randomSquare:
+					var randomVertex1 = [v1, v2, v3, v4].pick_random()
+					image_color_1 = (colorImage.get_pixel(randomVertex1.x, randomVertex1.z))
+					image_color_2 = (colorImage.get_pixel(randomVertex1.x, randomVertex1.z))
+				terrainColoringOptions.averageSquare:
+					image_color_1 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v2.x, v2.z) + colorImage.get_pixel(v3.x, v3.z) + colorImage.get_pixel(v4.x, v4.z)) / 4.
+					image_color_2 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v2.x, v2.z) + colorImage.get_pixel(v3.x, v3.z) + colorImage.get_pixel(v4.x, v4.z)) / 4.
+				
+				
 			add_triangle(st, image_color_1, v1, v2, v3)
-			
-			var image_color_2 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v3.x, v3.z) + colorImage.get_pixel(v4.x, v4.z)) / 3.
-			
-			# Add second triangle to mesh
 			add_triangle(st, image_color_2, v1, v3, v4)
 	
 	var mesh = st.commit()

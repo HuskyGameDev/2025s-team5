@@ -1,6 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cdll3cassyhme"]
+[gd_scene load_steps=15 format=3 uid="uid://cdll3cassyhme"]
 
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_3njuy"]
+[ext_resource type="Script" uid="uid://c8cm6xnhmg4l2" path="res://Objects/Terrain3D/errosion.gd" id="2_2s5y5"]
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_nwsly"]
 [ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="2_y65ld"]
 [ext_resource type="PackedScene" uid="uid://dwdirwkk7kcgs" path="res://Objects/Enemy/enemy.tscn" id="3_0tgaw"]
@@ -25,6 +26,23 @@ sky = SubResource("Sky_espsu")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="Resource" id="Resource_fujle"]
+script = ExtResource("2_2s5y5")
+erosion_seed = 0
+erosion_radius = 8
+inertia = 0.05
+sediment_capacity_factor = 4.0
+min_sediment_capacity = 0.01
+erode_speed = 0.3
+deposit_speed = 0.3
+evaporate_speed = 0.01
+gravity = 4.0
+max_droplet_lifetime = 30
+initial_water_volume = 1.0
+initial_speed = 1.0
+erosion_iterations = 20000
+metadata/_custom_type_script = "uid://c8cm6xnhmg4l2"
+
 [node name="AreaTropical" type="Node3D"]
 
 [node name="GroundPlane" type="MeshInstance3D" parent="."]
@@ -40,6 +58,7 @@ shadow_enabled = true
 directional_shadow_mode = 1
 
 [node name="Terrain3D" parent="." instance=ExtResource("1_3njuy")]
+erosion = SubResource("Resource_fujle")
 ground_scatters = Array[ExtResource("2_y65ld")]([ExtResource("3_pt1xw"), ExtResource("4_jv40j"), ExtResource("3_jv40j"), ExtResource("4_s8g7s")])
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_nwsly")]
