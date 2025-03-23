@@ -15,10 +15,13 @@ var controls = {
 
 
 func _physics_process(delta: float) -> void:
-	tank.controls = controls
-	if turrets and target:
-		for turret in turrets:
-			turret.target_position = target.get_child(0).global_position
+	if tank:
+		tank.controls = controls
+		if turrets and target:
+			for turret in turrets:
+				turret.target_position = target.get_child(0).global_position
+	else:
+		queue_free()
 	
 	
 func _on_timer_timeout() -> void:

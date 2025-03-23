@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://eglj02lx7r0m" path="res://Components/HealthManager/health_manager.gd" id="1_3tris"]
 [ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="2_2axni"]
-[ext_resource type="Resource" uid="uid://cb70so54t0fdo" path="res://Resources/ParticleEffects/leaf_particles.tres" id="2_6ypac"]
+[ext_resource type="Resource" uid="uid://n8ghonpiev85" path="res://Resources/Effects/SpawnLeafParticles.tres" id="2_oeq1x"]
 [ext_resource type="PackedScene" uid="uid://d0el5x6evas6p" path="res://Art/Models/Vegetation/BushyPlant.blend" id="3_btwjc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mm7np"]
@@ -13,7 +13,7 @@ size = Vector3(3, 2.59521, 3)
 [node name="HealthManager" type="Node3D" parent="."]
 script = ExtResource("1_3tris")
 health = 2.0
-death_effects = Array[Resource]([ExtResource("2_6ypac")])
+death_effects = Array[Resource]([ExtResource("2_oeq1x")])
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_2axni")]
 collision_layer = 4

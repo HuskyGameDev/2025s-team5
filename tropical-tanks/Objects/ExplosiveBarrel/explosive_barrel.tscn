@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cc62krn8h3ak0"]
+[gd_scene load_steps=6 format=3 uid="uid://cc62krn8h3ak0"]
 
 [ext_resource type="Script" uid="uid://eglj02lx7r0m" path="res://Components/HealthManager/health_manager.gd" id="1_eftk2"]
+[ext_resource type="Resource" uid="uid://ccc8c4bwcs50u" path="res://Resources/Effects/SpawnExplosion.tres" id="2_c7qlu"]
 [ext_resource type="Script" uid="uid://cxa1gfo8iq0wa" path="res://Components/HealthManager/Hitbox/hitbox.gd" id="2_jsf3f"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_c7qlu"]
@@ -16,6 +17,7 @@ mesh = SubResource("CylinderMesh_c7qlu")
 [node name="HealthManager" type="Node3D" parent="."]
 script = ExtResource("1_eftk2")
 health = 1.0
+death_effects = Array[Resource]([ExtResource("2_c7qlu")])
 metadata/_custom_type_script = "uid://eglj02lx7r0m"
 
 [node name="Hitbox" type="Area3D" parent="." node_paths=PackedStringArray("health_manager")]

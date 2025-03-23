@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SpawnObject" load_steps=2 format=3 uid="uid://ccc8c4bwcs50u"]
+
+[ext_resource type="Script" uid="uid://wcb8lu7g48ww" path="res://Resources/ResourceClasses/SpawnObject.gd" id="1_f2p5r"]
+
+[resource]
+script = ExtResource("1_f2p5r")
+metadata/_custom_type_script = "uid://wcb8lu7g48ww"

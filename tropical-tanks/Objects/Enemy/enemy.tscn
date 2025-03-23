@@ -14,9 +14,6 @@ turrets = [NodePath("Tank/Turret3")]
 [node name="Turret3" parent="Tank" instance=ExtResource("2_ck6tt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56567, 0)
 
-[node name="RayCast3D2" type="RayCast3D" parent="Tank"]
-unique_name_in_owner = true
-
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 

@@ -5,7 +5,7 @@ const CRATER = preload("res://Components/Crater/crater.tscn")
 
 @onready var shape_cast = $ShapeCast3D
 
-var explosion_power : float = 1
+@export var explosion_power : float = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

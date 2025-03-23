@@ -1,4 +1,3 @@
-@tool
 extends Node3D
 class_name Terrain3D
 
@@ -41,16 +40,9 @@ func _ready():
 	# Initialize the height image from the NoiseTexture2D
 	heightImage = heightMap.get_image()
 	snowHeightImage = snowHeightMap.get_image()
-	colorImage.load("res://Art/Images/cat.jpg");
+	colorImage.load("res://Art/Images/cat.jpg")
 	
-	var precomputed_erosion_height_map = erosion.load("res://Objects/Terrain3D/HeightMaps/eroded_map.png")
-	if precomputed_erosion_height_map:
-		heightImage = precomputed_erosion_height_map
-	else:
-		erosion.initialize_erosion_brush_indices(xsize + 1, erosion.erosion_radius)
-		erosion.apply_erosion(heightImage, xsize + 1)
-		erosion.save(heightImage, "res://Objects/Terrain3D/HeightMaps/eroded_map.png")
-	
+	check_erosion()			# Check for erosiong map / do erosion 
 	generate_height_data() 	# Generate height data from the height image
 	calculate_colors()		# Calculate the colors
 	generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
@@ -61,7 +53,20 @@ func _ready():
 		terrain_mesh.create_trimesh_collision()
 		place_ground_scatter()
 
+func check_erosion() -> void:
+	var precomputed_erosion_height_map = erosion.load("res://Objects/Terrain3D/HeightMaps/eroded_map.png")
+	if precomputed_erosion_height_map:
+		heightImage = precomputed_erosion_height_map
+	else:
+		erosion.initialize_erosion_brush_indices(xsize + 1, erosion.erosion_radius)
+		erosion.apply_erosion(heightImage, xsize + 1)
+		erosion.save(heightImage, "res://Objects/Terrain3D/HeightMaps/eroded_map.png")
 
+@export_group("Terrain Parameters")
+@export var hill_height : float = 30.0
+@export var water_level : float = 2.5
+@export var snow_coverage : float = 0.5
+@export var snow_depth : float = 3.0
 func generate_height_data() -> void:
 	height_data.clear()
 	snow_height_data.clear()
@@ -70,16 +75,17 @@ func generate_height_data() -> void:
 	for x in range(xsize + 1):
 		for z in range(zsize + 1):
 			var raw_height = heightImage.get_pixel(x, z).r
-			var adjusted_height = raw_height * 30 - 2.5
+			var adjusted_height = raw_height * hill_height - water_level
 			height_data[Vector2(x, z)] = Vector3(
-				x + randf_range(-0.2, 0.0),
+				x + randf_range(-0.2, 0.2),
 				adjusted_height,
-				z + randf_range(-0.2, 0.0)
+				z + randf_range(-0.2, 0.2)
 			)
+			
 			snow_height_data[Vector2(x, z)] = Vector3(
-				x + randf_range(-0.2, 0.0),
-				(snowHeightImage.get_pixel(x,z).r - 0.5) * 3,
-				z + randf_range(-0.2, 0.0)
+				x + randf_range(-0.2, 0.2),
+				(snowHeightImage.get_pixel(x,z).r - 1.0 + snow_coverage)  * snow_depth,
+				z + randf_range(-0.2, 0.2)
 			)
 			
 # Terrain color thresholds
@@ -93,7 +99,8 @@ const sand_color = Color(0.8, 0.7, 0.5, 1)  # Sandy color
 const height_blend_factor = 3  # Control how much height influences blending
 const slope_blend_factor = 0.5   # Control how much slope influences blending
 func calculate_colors():
-	colorImage = Image.create(xsize + 1, zsize + 1, false, Image.FORMAT_RGBA8)
+	colorImage.resize(xsize + 1, zsize + 1)
+	#Image.create(xsize + 1, zsize + 1, false, Image.FORMAT_RGBA8)
 	for x in range(xsize + 1):
 		for z in range(zsize + 1):
 			var adjusted_height = height_data[Vector2(x, z)].y
@@ -154,29 +161,14 @@ func calculate_colors():
 			final_color = final_color * Color(micro_variation, micro_variation, micro_variation)
 			
 			colorImage.set_pixel(x, z, final_color)
-
-# Helper function to generate decimated indices along one axis with some natural variation.
-func generate_decimated_indices(max_index: int, min_step: int, max_step: int) -> Array:
-	var indices = [0]
-	var current = 0
-	while current < max_index:
-		var step = rng.randi_range(min_step, max_step)
-		current += step
-		if current >= max_index:
-			indices.append(max_index)
-			break
-		else:
-			indices.append(current)
-	return indices
-
+	colorImage.save_png("res://Objects/Terrain3D/HeightMaps/color_map.png")
 
 # Decimation parameters: these control how aggressively the grid is decimated.
-const decim_min_step : int = 1
-const decim_max_step : int = 2
+const decimation_step_range : Vector2i = Vector2i(1,2)
 func generate_terrain_mesh() -> void:
-	# Generate decimated indices for both axes. This irregular grid will control our lower poly resolution.
-	var decim_x = generate_decimated_indices(xsize, decim_min_step, decim_max_step)
-	var decim_z = generate_decimated_indices(zsize, decim_min_step, decim_max_step)
+	# Generate decimated indices for both axes. This irregular grid will control the lower poly resolution.
+	var decim_x = generate_decimated_indices(xsize, decimation_step_range)
+	var decim_z = generate_decimated_indices(zsize, decimation_step_range)
 	
 	# Build a 2D array of decimated vertices.
 	# For each cell defined by consecutive indices, average the high-res height data and add a slight jitter.
@@ -217,6 +209,12 @@ func generate_terrain_mesh() -> void:
 	# For each quad in the decimated grid, process two triangles separately with individual colors
 	for i in range(decimated_vertices.size() - 1):
 		for j in range(decimated_vertices[i].size() - 1):
+			var vertices = [
+				decimated_vertices[i][j],
+				decimated_vertices[i+1][j],
+				decimated_vertices[i+1][j+1],
+				decimated_vertices[i][j+1]
+			]
 			var v1 = decimated_vertices[i][j]
 			var v2 = decimated_vertices[i+1][j]
 			var v3 = decimated_vertices[i+1][j+1]
@@ -237,7 +235,24 @@ func generate_terrain_mesh() -> void:
 	terrain_mesh.set_surface_override_material(0, ground_material)
 	terrain_mesh.position.x = -xsize/2.0
 	terrain_mesh.position.z = -zsize/2.0
+
+# Helper function to generate decimated indices along one axis with some natural variation.
+func generate_decimated_indices(max_index: int, decimation_step_range : Vector2i) -> Array:
+	var current_index = 0
+	var indices = [current_index]
 	
+	while current_index < max_index:
+		# Select a number of indices to step
+		var step_indices = rng.randi_range(decimation_step_range.x, decimation_step_range.y)
+		current_index += step_indices # Step that number of indices
+		if current_index >= max_index:
+			indices.append(max_index)
+			break
+		else:
+			indices.append(current_index)
+			
+	return indices
+
 # New helper function to add a single colored triangle
 func add_triangle(surface_tool, color, a, b, c) -> void:
 	var normal = ((b - a).cross(c - a)).normalized()
