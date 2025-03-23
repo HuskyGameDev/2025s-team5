@@ -26,7 +26,7 @@ enum terrainColoringOptions {
 @export var heightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
 @export var snowHeightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/snow_noise2D.tres")
 
-@export var precomputed_erosion_height_map = erosion.load("res://Objects/Terrain3D/HeightMaps/eroded_map.png")
+#@export var precomputed_erosion_height_map = erosion.load("res://Objects/Terrain3D/HeightMaps/eroded_map.png")
 
 var heightImage : Image
 var snowHeightImage : Image
@@ -55,7 +55,7 @@ func _ready():
 	snowHeightImage = snowHeightMap.get_image()
 	colorImage.load("res://Art/Images/cat.jpg")
 	
-	check_erosion()			# Check for erosiong map / do erosion 
+	#check_erosion()			# Check for erosiong map / do erosion 
 	generate_height_data() 	# Generate height data from the height image
 	calculate_colors()		# Calculate the colors
 	
@@ -69,13 +69,13 @@ func _ready():
 		terrain_mesh.create_trimesh_collision()
 		place_ground_scatter()
 
-func check_erosion() -> void:
-	if precomputed_erosion_height_map:
-		heightImage = precomputed_erosion_height_map
-	else:
-		erosion.initialize_erosion_brush_indices(xsize + 1, erosion.erosion_radius)
-		erosion.apply_erosion(heightImage, xsize + 1)
-		erosion.save(heightImage, "res://Objects/Terrain3D/HeightMaps/eroded_map.png")
+# func check_erosion() -> void:
+	#if precomputed_erosion_height_map:
+	#	heightImage = precomputed_erosion_height_map
+	#else:
+	#	erosion.initialize_erosion_brush_indices(xsize + 1, erosion.erosion_radius)
+	#	erosion.apply_erosion(heightImage, xsize + 1)
+	#	erosion.save(heightImage, "res://Objects/Terrain3D/HeightMaps/eroded_map.png")
 
 @export_group("Terrain Parameters")
 @export var hill_height : float = 30.0
