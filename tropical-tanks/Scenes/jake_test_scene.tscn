@@ -7,8 +7,8 @@
 [ext_resource type="Resource" uid="uid://cq47unnw0k30u" path="res://Resources/Upgrades/explode.tres" id="5_s4ihi"]
 [ext_resource type="Resource" uid="uid://fa6xnbn1mopn" path="res://Resources/Upgrades/bounce.tres" id="6_d6dpr"]
 [ext_resource type="Resource" uid="uid://cg16y5p88jqqr" path="res://Resources/Upgrades/split_barrel.tres" id="6_tqg2r"]
-[ext_resource type="Resource" uid="uid://ccuej7go6aw0y" path="res://Resources/Upgrades/triple_barrel.tres" id="7_s4ihi"]
 [ext_resource type="Resource" uid="uid://dwx0pgl5r2dgi" path="res://Resources/Upgrades/super_split_barrel.tres" id="8_d6dpr"]
+[ext_resource type="Script" uid="uid://dsuate4g1j1s6" path="res://Scenes/devmenu.gd" id="8_ut3yw"]
 [ext_resource type="Resource" uid="uid://ttnhyrt2k02c" path="res://Resources/Upgrades/mega_barrel.tres" id="9_ut3yw"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rb057"]
@@ -63,7 +63,7 @@ upgrade = ExtResource("6_tqg2r")
 
 [node name="TripleBarrel" parent="." instance=ExtResource("3_a26nt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.0998, 20.8808, 15.5114)
-upgrade = ExtResource("7_s4ihi")
+script = ExtResource("8_ut3yw")
 
 [node name="SuperSplit" parent="." instance=ExtResource("3_a26nt")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.07821, 21.4291, 18.0764)

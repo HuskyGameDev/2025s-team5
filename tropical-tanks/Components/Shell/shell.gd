@@ -1,7 +1,6 @@
 extends Node3D
 class_name Shell
 
-
 const EXPLOSION = preload("res://Components/Explosion/explosion.tscn")
 
 var velocity : Vector3 = Vector3(0,0,0)
@@ -26,7 +25,6 @@ var power : float = 0 # Total power of the bullet based on speed * mass
 @onready var ice_effect : float = shell_parameters.ice_effect # Amount to freeze
 @onready var flame_effect : float = shell_parameters.ice_effect # Amount to burn
 
-		
 ## Mid Flight Control Variables
 @onready var fuse_time : float = shell_parameters.fuse_time # If fuse 0.2
 @onready var fuel : float = shell_parameters.fuel
@@ -49,7 +47,7 @@ func fuse():
 	queue_free()
 	
 	# TODO: Write code to trigger bullet split upgrades after the fuse upgrade has been unlocked
-	
+
 func bounce(normal_vector : Vector3):
 	# Explode and remove bullet if speed is too low to bounce
 	if(velocity.length() < 5):
@@ -66,7 +64,6 @@ func bounce(normal_vector : Vector3):
 		
 	velocity = velocity.reflect(reflection_plane) * (1.0 - bounce_loss/bounces_left)
 	bounces_left = bounces_left - 1 # Decrement bounce counter
-	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
