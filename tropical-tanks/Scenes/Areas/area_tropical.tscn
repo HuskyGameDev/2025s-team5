@@ -29,6 +29,9 @@ glow_enabled = true
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2s5y5"]
 gradient = SubResource("Gradient_bbnuy")
+width = 256
+height = 256
+use_hdr = true
 fill_from = Vector2(0.277778, 0.217949)
 fill_to = Vector2(0.760684, 0.739316)
 
