@@ -200,22 +200,31 @@ func colors():
 			
 			var slope = calculate_slope(x,z)
 			
-func calculate_slope(x,z):
+func calculate_slope(x, z):
 	var height = height_data[Vector2(x, z)].y
-	var max_slope_diff = 0.0
-	for dx in [-1, 1]:
-		var nx = x + dx
-		if nx >= 0 and nx <= xsize:
-			var neighbor_height = height_data[Vector2(nx, z)].y
-			max_slope_diff = max(max_slope_diff, abs(height - neighbor_height))
-	for dz in [-1, 1]:
-		var nz = z + dz
-		if nz >= 0 and nz <= zsize:
-			var neighbor_height = height_data[Vector2(x, nz)].y
-			max_slope_diff = max(max_slope_diff, abs(height - neighbor_height))
-	return max_slope_diff
+	var dx_slope = 0.0
+	var dz_slope = 0.0
 	
-
+	if x > 0 and x < xsize:
+		var height_left = height_data[Vector2(x - 1, z)].y
+		var height_right = height_data[Vector2(x + 1, z)].y
+		dx_slope = (height_right - height_left) / 2.0
+	elif x == 0:
+		dx_slope = height_data[Vector2(x + 1, z)].y - height
+	elif x == xsize:
+		dx_slope = height - height_data[Vector2(x - 1, z)].y
+	
+	if z > 0 and z < zsize:
+		var height_down = height_data[Vector2(x, z - 1)].y
+		var height_up = height_data[Vector2(x, z + 1)].y
+		dz_slope = (height_up - height_down) / 2.0
+	elif z == 0:
+		dz_slope = height_data[Vector2(x, z + 1)].y - height
+	elif z == zsize:
+		dz_slope = height - height_data[Vector2(x, z - 1)].y
+	
+	return sqrt(dx_slope * dx_slope + dz_slope * dz_slope)
+	
 # Decimation parameters: these control how aggressively the grid is decimated.
 const decimation_step_range : Vector2i = Vector2i(1,2)
 func generate_terrain_mesh() -> void:
