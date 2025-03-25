@@ -2,7 +2,6 @@ extends Control
 
 @onready var fps = $MarginContainer/PanelContainer/VBoxContainer/Top/currentFPS
 
-
 func _process(delta: float) -> void:
 	fps.text = "FPS: " + str(int(Engine.get_frames_per_second()))
 
@@ -15,10 +14,13 @@ func _on_resolutions_item_selected(index: int) -> void:
 	match index:
 		0:
 			DisplayServer.window_set_size(Vector2i(1920, 1080))
+			get_window().move_to_center()
 		1:
 			DisplayServer.window_set_size(Vector2i(1600, 900))
+			get_window().move_to_center()
 		2:
 			DisplayServer.window_set_size(Vector2i(1280, 720))
+			get_window().move_to_center()
 
 
 func _input(event):
@@ -42,9 +44,10 @@ func _on_option_button_item_selected(index: int) -> void:
 		3:
 			Engine.max_fps = 30
 
-
+var MAPPINGS_SCENE = preload("res://Scenes/MainMenu/KeyMappings.tscn")
 func _on_button_mappings_pressed() -> void:
-	pass # Replace with function body.
+	var scene = MAPPINGS_SCENE.instantiate()
+	add_child(scene)
 
 
 func _on_fps_show_toggled(toggled_on: bool) -> void:
