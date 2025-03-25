@@ -25,15 +25,10 @@ sky = SubResource("Sky_espsu")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="Gradient" id="Gradient_bbnuy"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bbnuy"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_2s5y5"]
-gradient = SubResource("Gradient_bbnuy")
-width = 256
-height = 256
-use_hdr = true
-fill_from = Vector2(0.277778, 0.217949)
-fill_to = Vector2(0.760684, 0.739316)
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2s5y5"]
+noise = SubResource("FastNoiseLite_bbnuy")
 
 [node name="AreaTropical" type="Node3D"]
 
@@ -50,7 +45,7 @@ shadow_enabled = true
 directional_shadow_mode = 1
 
 [node name="Terrain3D" parent="." instance=ExtResource("1_3njuy")]
-heightMap = SubResource("GradientTexture2D_2s5y5")
+heightMap = SubResource("NoiseTexture2D_2s5y5")
 ground_scatters = Array[ExtResource("2_y65ld")]([ExtResource("3_pt1xw"), ExtResource("4_jv40j"), ExtResource("3_jv40j"), ExtResource("4_s8g7s")])
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_nwsly")]
