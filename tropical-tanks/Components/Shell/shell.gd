@@ -26,7 +26,8 @@ var power : float = 0 # Total power of the bullet based on speed * mass
 @onready var flame_effect : float = shell_parameters.ice_effect # Amount to burn
 
 ## Mid Flight Control Variables
-@onready var fuse_time : float = shell_parameters.fuse_time # If fuse 0.2
+@onready var fuse_time : float = shell_parameters.fuse_time
+@onready var num_fuse : int = shell_parameters.num_fuse
 @onready var fuel : float = shell_parameters.fuel
 @onready var thrust_power : float = shell_parameters.thrust_power
 @onready var backwardness : float = shell_parameters.backwardness # How backward the shell is
@@ -34,7 +35,7 @@ var power : float = 0 # Total power of the bullet based on speed * mass
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# Start Fuse timer
-	if fuse_time > 0.2:
+	if num_fuse > 0:
 		$FuseTimer.wait_time = fuse_time
 		$FuseTimer.start()
 		
@@ -44,9 +45,9 @@ func _ready() -> void:
 
 func fuse():
 	explode()
+	self.duplicate()
 	queue_free()
 	
-	# TODO: Write code to trigger bullet split upgrades after the fuse upgrade has been unlocked
 
 func bounce(normal_vector : Vector3):
 	# Explode and remove bullet if speed is too low to bounce
@@ -120,8 +121,10 @@ func impact(body : Node3D):
 	# Apply attack to body
 	if body.has_method("take_damage"):
 		body.take_damage(impact_attack)
-		
 	queue_free()
 
 func _on_fuse_timer_timeout() -> void:
 	fuse()
+	if(num_fuse > 0) :
+		num_fuse -= 1
+		$FuseTimer.start()

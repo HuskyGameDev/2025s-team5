@@ -20,7 +20,8 @@ var gravity : Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_
 
 		
 ## Mid Flight Control Variables
-@export var fuse_time : float = 0.0 # If fuse 0.2
+@export var fuse_time : float = 0.0
+@export var num_fuse : int = 0
 @export var fuel : float = 0.0
 @export var thrust_power : float = 1.0
 @export var backwardness : float = 0.0 # How backward the shell is
