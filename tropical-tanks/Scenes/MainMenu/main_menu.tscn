@@ -1,13 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://crptm3tpqf23q"]
+[gd_scene load_steps=15 format=3 uid="uid://crptm3tpqf23q"]
 
 [ext_resource type="Script" uid="uid://dwlo11ont4xx0" path="res://Scenes/MainMenu/main_menu.gd" id="1_behrf"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="2_bkc2w"]
 [ext_resource type="Texture2D" uid="uid://cvh2t25q6jq0h" path="res://Art/Images/sea.png" id="3_0unh6"]
 [ext_resource type="Texture2D" uid="uid://bmh56nspmxqck" path="res://Art/Images/TripleShot.svg" id="3_e5jsv"]
-[ext_resource type="Script" uid="uid://dv6jljohwnipd" path="res://Scenes/MainMenu/camera_orbiter.gd" id="3_id83c"]
+[ext_resource type="Script" uid="uid://dbq3cpjiqnjdf" path="res://Scenes/MainMenu/camera_orbiter.gd" id="3_id83c"]
 [ext_resource type="Texture2D" uid="uid://bosppbg8rh2nd" path="res://Art/Images/DoubleShot.svg" id="4_3mej2"]
 [ext_resource type="Texture2D" uid="uid://bnnkxtf7jj6b7" path="res://Art/Images/CanvasBackgroundSandParticles.png" id="5_ihuk2"]
 [ext_resource type="Texture2D" uid="uid://buyvs5rpxo1ah" path="res://Art/Images/TropicalTanks.png" id="9_egttt"]
+
+[sub_resource type="Gradient" id="Gradient_2r307"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_omq0y"]
+gradient = SubResource("Gradient_2r307")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1736k"]
 size = Vector2(10, 10)
@@ -29,6 +34,7 @@ glow_enabled = true
 script = ExtResource("1_behrf")
 
 [node name="Terrain3D" parent="." instance=ExtResource("2_bkc2w")]
+heightMap = SubResource("GradientTexture2D_omq0y")
 
 [node name="BackgroundSprite" type="Sprite3D" parent="."]
 transform = Transform3D(0.71, 0, 0, 0, -3.10351e-08, -0.71, 0, 0.71, -3.10351e-08, 27.25, 0, 0)
