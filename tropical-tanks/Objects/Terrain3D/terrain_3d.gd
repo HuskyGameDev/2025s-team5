@@ -57,7 +57,7 @@ func _ready():
 	
 	# Initialize the height image from the NoiseTexture2D
 	heightImage = heightMap.get_image()
-	heightImage.resize(xsize+1,zsize+1)
+	heightImage.resize(xsize,zsize)
 	
 
 	colorImage = Image.load_from_file("res://Art/Images/DebugTexture.png")
@@ -69,7 +69,7 @@ func _ready():
 	
 	if doSnow:
 		snowHeightImage = snowHeightMap.get_image()
-	snowHeightImage.resize(xsize+1,zsize+1)
+	snowHeightImage.resize(xsize,zsize)
 	generate_snow_height_data()
 	generate_snow_mesh()
 
@@ -98,8 +98,8 @@ func check_erosion() -> void:
 @export var water_level : float = 2.5
 func generate_terrain_height_data() -> void:
 	height_data.clear()
-	for x in range(xsize + 1):
-		for z in range(zsize + 1):
+	for x in range(xsize):
+		for z in range(zsize):
 			var raw_terrain_height = heightImage.get_pixel(x, z).r
 			var adjusted_terrain_height = raw_terrain_height * hill_height - water_level
 			height_data[Vector2(x, z)] = Vector3(
@@ -112,8 +112,8 @@ func generate_terrain_height_data() -> void:
 @export var snow_depth : float = 3.0
 func generate_snow_height_data() -> void:
 	snow_height_data.clear()
-	for x in range(xsize + 1):
-		for z in range(zsize + 1):
+	for x in range(xsize):
+		for z in range(zsize):
 			var raw_snow_height = snowHeightImage.get_pixel(x,z).r
 			var adjusted_snow_height = (raw_snow_height - 1.0 + snow_coverage)  * snow_depth
 			snow_height_data[Vector2(x, z)] = Vector3(
@@ -133,10 +133,10 @@ const sand_color = Color(0.8, 0.7, 0.5, 1)  # Sandy color
 const height_blend_factor = 3  # Control how much height influences blending
 const slope_blend_factor = 0.5   # Control how much slope influences blending
 func calculate_colors():
-	colorImage.resize(xsize + 1, zsize + 1)
+	colorImage.resize(xsize, zsize)
 	#Image.create(xsize + 1, zsize + 1, false, Image.FORMAT_RGBA8)
-	for x in range(xsize + 1):
-		for z in range(zsize + 1):
+	for x in range(xsize):
+		for z in range(zsize):
 			var adjusted_height = height_data[Vector2(x, z)].y
 			
 			# Calculate maximum slope difference
@@ -185,27 +185,29 @@ func calculate_colors():
 			# Add micro-variations using original height noise
 			var micro_variation = 1.0 + (heightImage.get_pixel(x, z).r - 0.5) * 0.1
 			final_color = final_color * Color(micro_variation, micro_variation, micro_variation)
-			
+
 			colorImage.set_pixel(x, z, final_color)
 			colorImage.set_pixel(x, z, Color(0,adjusted_height / hill_height ,0,1.0))
+			
 	colorImage.save_png("res://Objects/Terrain3D/HeightMaps/color_map.png")
 
 
 
 func colors():
-	Image.create(xsize + 1, zsize + 1, false, Image.FORMAT_RGBA8)
+	Image.create(xsize, zsize, false, Image.FORMAT_RGBA8)
 	for x in range(xsize + 1):
 		for z in range(zsize + 1):
 			var pixel_height = height_data[Vector2(x, z)].y
 			
 			var slope = calculate_slope(x,z)
+			#colorImage.set_pixel(x, z, Color(slope, slope, slope))
 			
 func calculate_slope(x, z):
 	var height = height_data[Vector2(x, z)].y
 	var dx_slope = 0.0
 	var dz_slope = 0.0
 	
-	if x > 0 and x < xsize:
+	if x > 0 and x < xsize - 1:
 		var height_left = height_data[Vector2(x - 1, z)].y
 		var height_right = height_data[Vector2(x + 1, z)].y
 		dx_slope = (height_right - height_left) / 2.0
@@ -214,7 +216,7 @@ func calculate_slope(x, z):
 	elif x == xsize:
 		dx_slope = height - height_data[Vector2(x - 1, z)].y
 	
-	if z > 0 and z < zsize:
+	if z > 0 and z < zsize - 1:
 		var height_down = height_data[Vector2(x, z - 1)].y
 		var height_up = height_data[Vector2(x, z + 1)].y
 		dz_slope = (height_up - height_down) / 2.0
@@ -235,9 +237,9 @@ func generate_terrain_mesh() -> void:
 	# Build a 2D array of decimated vertices.
 	# For each cell defined by consecutive indices, average the high-res height data and add a slight jitter.
 	var decimated_vertices = []
-	for i in range(decim_x.size() - 1):
+	for i in range(decim_x.size() - 2):
 		var row = []
-		for j in range(decim_z.size() - 1):
+		for j in range(decim_z.size() - 2):
 			var x_start = decim_x[i]
 			var x_end = decim_x[i + 1]
 			var z_start = decim_z[j]
