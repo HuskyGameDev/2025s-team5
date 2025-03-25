@@ -12,6 +12,12 @@ var color_noise = FastNoiseLite.new()
 
 @export var decimateTerrain = true
 
+@export_subgroup("Colors")
+@export var terrain_colors : Array[Color] = [Color(Color.GREEN)]
+@export var beach_colors : Array[Color] = [Color(Color.YELLOW)]
+@export var slope_colors : Array[Color] = [Color(Color.BROWN)]
+@export var snowbase_colors : Array[Color] = [Color(Color.BLACK)]
+
 enum terrainColoringOptions {
 	averageTriangle,
 	randomTriangle,
@@ -19,18 +25,16 @@ enum terrainColoringOptions {
 	randomSquare
 }
 
-@export var terrainColoringModes : terrainColoringOptions = terrainColoringOptions.averageTriangle
+@export var terrainColoringMode : terrainColoringOptions = terrainColoringOptions.averageTriangle
 
 # Heightmap configuration
 @export_group("Height Maps")
-@export var heightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
-@export var snowHeightMap : NoiseTexture2D = preload("res://Objects/Terrain3D/snow_noise2D.tres")
-
-#@export var precomputed_erosion_height_map = erosion.load("res://Objects/Terrain3D/HeightMaps/eroded_map.png")
+@export var heightMap : GradientTexture2D #NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
+@export var snowHeightMap : NoiseTexture2D
 
 var heightImage : Image
 var snowHeightImage : Image
-var colorImage : Image = Image.new()
+var colorImage : Image
 
 # This dictionary will store the vertex positions after height adjustments
 var height_data = {}
@@ -46,60 +50,75 @@ var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 @onready var terrain_mesh : MeshInstance3D = $TerrainMesh
 @onready var snow_mesh : MeshInstance3D = $SnowMesh
 func _ready():
+	var doSnow = snowHeightMap
+	
 	rng.randomize()
 	color_noise.seed = rng.seed
-	erosion.erosion_seed = rng.seed
 	
 	# Initialize the height image from the NoiseTexture2D
 	heightImage = heightMap.get_image()
-	snowHeightImage = snowHeightMap.get_image()
-	colorImage.load("res://Art/Images/cat.jpg")
+	heightImage.resize(xsize+1,zsize+1)
 	
-	#check_erosion()			# Check for erosiong map / do erosion 
-	generate_height_data() 	# Generate height data from the height image
+
+	colorImage = Image.load_from_file("res://Art/Images/DebugTexture.png")
+	snowHeightImage = Image.load_from_file("res://Art/Images/DebugTexture.png")
+	
+	if erosion: check_erosion()			# Check for erosiong map / do erosion 
+	
+	generate_terrain_height_data() 	# Generate height data from the height image
+	
+	if doSnow:
+		snowHeightImage = snowHeightMap.get_image()
+	snowHeightImage.resize(xsize+1,zsize+1)
+	generate_snow_height_data()
+	generate_snow_mesh()
+
 	calculate_colors()		# Calculate the colors
-	
-	if decimateTerrain:
-		generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
-		
-	generate_snow_mesh()	# Generate the snow terrain layer
+
+	if decimateTerrain: generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
 	
 	# Final setup: add collision and scatter objects if not in the editor
 	if not Engine.is_editor_hint():
 		terrain_mesh.create_trimesh_collision()
 		place_ground_scatter()
 
-# func check_erosion() -> void:
-	#if precomputed_erosion_height_map:
-	#	heightImage = precomputed_erosion_height_map
-	#else:
-	#	erosion.initialize_erosion_brush_indices(xsize + 1, erosion.erosion_radius)
-	#	erosion.apply_erosion(heightImage, xsize + 1)
-	#	erosion.save(heightImage, "res://Objects/Terrain3D/HeightMaps/eroded_map.png")
+func check_erosion() -> void:
+	erosion.erosion_seed = rng.seed
+	var precomputed_erosion_height_map = erosion.load("res://Objects/Terrain3D/HeightMaps/eroded_map.png")
+	if precomputed_erosion_height_map:
+		heightImage = precomputed_erosion_height_map
+	else:
+		erosion.initialize_erosion_brush_indices(xsize + 1, erosion.erosion_radius)
+		erosion.apply_erosion(heightImage, xsize + 1)
+		erosion.save(heightImage, "res://Objects/Terrain3D/HeightMaps/eroded_map.png")
 
-@export_group("Terrain Parameters")
+@export_group("Height Parameters")
+@export_subgroup("Terrain Parameters")
 @export var hill_height : float = 30.0
 @export var water_level : float = 2.5
-@export var snow_coverage : float = 0.5
-@export var snow_depth : float = 3.0
-func generate_height_data() -> void:
+func generate_terrain_height_data() -> void:
 	height_data.clear()
-	snow_height_data.clear()
-	
-	# First pass: populate height data
 	for x in range(xsize + 1):
 		for z in range(zsize + 1):
-			var raw_height = heightImage.get_pixel(x, z).r
-			var adjusted_height = raw_height * hill_height - water_level
+			var raw_terrain_height = heightImage.get_pixel(x, z).r
+			var adjusted_terrain_height = raw_terrain_height * hill_height - water_level
 			height_data[Vector2(x, z)] = Vector3(
 				x + randf_range(-0.2, 0.2),
-				adjusted_height,
+				adjusted_terrain_height,
 				z + randf_range(-0.2, 0.2)
 			)
-			
+@export_subgroup("Snow Parameters")
+@export var snow_coverage : float = 0.5
+@export var snow_depth : float = 3.0
+func generate_snow_height_data() -> void:
+	snow_height_data.clear()
+	for x in range(xsize + 1):
+		for z in range(zsize + 1):
+			var raw_snow_height = snowHeightImage.get_pixel(x,z).r
+			var adjusted_snow_height = (raw_snow_height - 1.0 + snow_coverage)  * snow_depth
 			snow_height_data[Vector2(x, z)] = Vector3(
 				x + randf_range(-0.2, 0.2),
-				(snowHeightImage.get_pixel(x,z).r - 1.0 + snow_coverage)  * snow_depth,
+				adjusted_snow_height,
 				z + randf_range(-0.2, 0.2)
 			)
 			
@@ -121,21 +140,13 @@ func calculate_colors():
 			var adjusted_height = height_data[Vector2(x, z)].y
 			
 			# Calculate maximum slope difference
-			var max_slope_diff = 0.0
-			for dx in [-1, 1]:
-				var nx = x + dx
-				if nx >= 0 and nx <= xsize:
-					var neighbor_height = height_data[Vector2(nx, z)].y
-					max_slope_diff = max(max_slope_diff, abs(adjusted_height - neighbor_height))
-			for dz in [-1, 1]:
-				var nz = z + dz
-				if nz >= 0 and nz <= zsize:
-					var neighbor_height = height_data[Vector2(x, nz)].y
-					max_slope_diff = max(max_slope_diff, abs(adjusted_height - neighbor_height))
+			var slope = calculate_slope(x,z)
 			
-			# Calculate color components
-			var slope_blend = clamp(max_slope_diff / steep_slope_threshold * max_slope_factor, 0.0, 1.0)
+			# Calculate slope components
+			var slope_blend = clamp(slope / steep_slope_threshold * max_slope_factor, 0.0, 1.0)
+			
 			var height_blend = clamp((adjusted_height - sand_height) / height_blend_factor, 0.0, 1.0)
+			
 			
 			# Base color determination
 			var base_color: Color
@@ -176,7 +187,34 @@ func calculate_colors():
 			final_color = final_color * Color(micro_variation, micro_variation, micro_variation)
 			
 			colorImage.set_pixel(x, z, final_color)
+			colorImage.set_pixel(x, z, Color(0,adjusted_height / hill_height ,0,1.0))
 	colorImage.save_png("res://Objects/Terrain3D/HeightMaps/color_map.png")
+
+
+
+func colors():
+	Image.create(xsize + 1, zsize + 1, false, Image.FORMAT_RGBA8)
+	for x in range(xsize + 1):
+		for z in range(zsize + 1):
+			var pixel_height = height_data[Vector2(x, z)].y
+			
+			var slope = calculate_slope(x,z)
+			
+func calculate_slope(x,z):
+	var height = height_data[Vector2(x, z)].y
+	var max_slope_diff = 0.0
+	for dx in [-1, 1]:
+		var nx = x + dx
+		if nx >= 0 and nx <= xsize:
+			var neighbor_height = height_data[Vector2(nx, z)].y
+			max_slope_diff = max(max_slope_diff, abs(height - neighbor_height))
+	for dz in [-1, 1]:
+		var nz = z + dz
+		if nz >= 0 and nz <= zsize:
+			var neighbor_height = height_data[Vector2(x, nz)].y
+			max_slope_diff = max(max_slope_diff, abs(height - neighbor_height))
+	return max_slope_diff
+	
 
 # Decimation parameters: these control how aggressively the grid is decimated.
 const decimation_step_range : Vector2i = Vector2i(1,2)
@@ -238,7 +276,7 @@ func generate_terrain_mesh() -> void:
 			var image_color_1 = Color(0, 0, 0)
 			var image_color_2 = Color(0, 0, 0)
 			
-			match terrainColoringModes:
+			match terrainColoringMode:
 				terrainColoringOptions.averageTriangle:
 					image_color_1 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v2.x, v2.z) + colorImage.get_pixel(v3.x, v3.z)) / 3.
 					image_color_2 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v3.x, v3.z) + colorImage.get_pixel(v4.x, v4.z)) / 3.
