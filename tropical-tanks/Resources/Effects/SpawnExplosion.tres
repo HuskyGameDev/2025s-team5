@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="SpawnObject" load_steps=2 format=3 uid="uid://ccc8c4bwcs50u"]
+[gd_resource type="Resource" script_class="SpawnExplosion" load_steps=2 format=3 uid="uid://ddgsd2ack8qrs"]
 
-[ext_resource type="Script" uid="uid://wcb8lu7g48ww" path="res://Resources/ResourceClasses/SpawnObject.gd" id="1_f2p5r"]
+[ext_resource type="Script" uid="uid://f0htb2300373" path="res://Resources/ResourceClasses/SpawnExplosion.gd" id="1_f2p5r"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_f2p5r")
-metadata/_custom_type_script = "uid://wcb8lu7g48ww"
+explosion_power = 8.0
+metadata/_custom_type_script = "uid://f0htb2300373"

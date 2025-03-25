@@ -1,4 +1,5 @@
 extends Node3D
+class_name Explosion
 
 const EXPLOSION = preload("res://Components/Explosion/explosion.tscn")
 const CRATER = preload("res://Components/Crater/crater.tscn")
