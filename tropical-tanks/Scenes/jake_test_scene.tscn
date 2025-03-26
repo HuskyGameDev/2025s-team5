@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxe2lilbd1wq5"]
+[gd_scene load_steps=18 format=3 uid="uid://bxe2lilbd1wq5"]
 
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_82kpi"]
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_0msfh"]
@@ -7,8 +7,10 @@
 [ext_resource type="Resource" uid="uid://c82mw1ohcjhpb" path="res://Resources/GroundScatters/TropicalTreesSparse.tres" id="3_s4ihi"]
 [ext_resource type="Resource" uid="uid://8oxg70awgug6" path="res://Resources/GroundScatters/ExplosiveBarrels.tres" id="4_d6dpr"]
 [ext_resource type="Resource" uid="uid://c658la25pdnso" path="res://Resources/GroundScatters/TropicalBushDense.tres" id="5_ut3yw"]
+[ext_resource type="Resource" uid="uid://fa6xnbn1mopn" path="res://Resources/Upgrades/bounce.tres" id="6_d6dpr"]
 [ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="6_hvm4n"]
 [ext_resource type="Resource" uid="uid://4x874xljk5ou" path="res://Resources/Upgrades/fuse.tres" id="9_s4ihi"]
+[ext_resource type="Resource" uid="uid://br0r6vudaj050" path="res://Resources/Upgrades/dupe_shell.tres" id="10_d6dpr"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rb057"]
 size = Vector2(10, 10)
@@ -26,6 +28,12 @@ sky = SubResource("Sky_espsu")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_s4ihi"]
+frequency = 0.006
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_d6dpr"]
+noise = SubResource("FastNoiseLite_s4ihi")
+
 [node name="AreaTropical" type="Node3D"]
 
 [node name="GroundPlane" type="MeshInstance3D" parent="."]
@@ -41,11 +49,28 @@ shadow_enabled = true
 directional_shadow_mode = 1
 
 [node name="Terrain3D" parent="." instance=ExtResource("1_82kpi")]
+heightMap = SubResource("NoiseTexture2D_d6dpr")
 ground_scatters = Array[ExtResource("2_pws4u")]([ExtResource("3_s4ihi"), ExtResource("4_d6dpr"), ExtResource("5_ut3yw"), ExtResource("6_hvm4n")])
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_0msfh")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 38.2244, 15.8098)
 
-[node name="Pickup" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, 0, 20.0388, 13.3397)
+[node name="Fuse1" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, -1.74408, 20.0388, 15.9831)
 upgrade = ExtResource("9_s4ihi")
+
+[node name="Bounce" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, -1.74408, 20.0388, 15.9831)
+upgrade = ExtResource("6_d6dpr")
+
+[node name="Fuse2" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, -1.74408, 20.0388, 15.9831)
+upgrade = ExtResource("9_s4ihi")
+
+[node name="Split1" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, -1.71069, 23.3461, 15.9831)
+upgrade = ExtResource("10_d6dpr")
+
+[node name="Split2" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, -1.71069, 23.3461, 15.9831)
+upgrade = ExtResource("10_d6dpr")

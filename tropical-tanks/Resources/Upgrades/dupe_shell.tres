@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://br0r6vudaj050"]
+
+[ext_resource type="Texture2D" uid="uid://bkxtqxj1te7la" path="res://Art/Images/CrossHairOutOfRange.svg" id="1_luvun"]
+[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="2_7rl2f"]
+
+[resource]
+script = ExtResource("2_7rl2f")
+image = ExtResource("1_luvun")
+double_barrel = 0
+split_barrel = 0
+mass = 0.0
+drag = 0.0
+armor_piercing = 0.0
+explosion_power = 0.0
+evaporation = 0.0
+bounces_left = 0.0
+bounce_loss = 0.0
+bounce_explode = 0.0
+ice_effect = 0.0
+flame_effect = 0.0
+num_split = 1
+fuse_time = 0.0
+num_fuse = 0
+fuel = 0.0
+thrust_power = 0.0
+backwardness = 0.0
+metadata/_custom_type_script = "uid://ddav0isbkjqxj"

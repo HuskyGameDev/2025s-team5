@@ -18,9 +18,11 @@ var gravity : Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_
 @export var ice_effect : float = 0.0 # Amount to freeze
 @export var flame_effect : float = 0.0 # Amount to burn
 
+@export var num_split : int = 0
+
 		
 ## Mid Flight Control Variables
-@export var fuse_time : float = 0.0
+@export var fuse_time : float = 0.5
 @export var num_fuse : int = 0
 @export var fuel : float = 0.0
 @export var thrust_power : float = 1.0

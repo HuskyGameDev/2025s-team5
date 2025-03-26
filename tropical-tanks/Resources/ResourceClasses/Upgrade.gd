@@ -23,6 +23,8 @@ class_name Upgrade
 # Amount to burn
 @export var flame_effect : float = 0
 
+@export var num_split : int = 0
+
 ## Mid Flight Control Variables
 @export var fuse_time : float = 0.2
 @export var num_fuse : int = 0
