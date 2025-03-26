@@ -29,7 +29,7 @@ enum terrainColoringOptions {
 
 # Heightmap configuration
 @export_group("Height Maps")
-@export var heightMap : GradientTexture2D #NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
+@export var heightMap : NoiseTexture2D #NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
 @export var snowHeightMap : NoiseTexture2D
 
 var heightImage : Image
@@ -187,7 +187,7 @@ func calculate_colors():
 			final_color = final_color * Color(micro_variation, micro_variation, micro_variation)
 
 			colorImage.set_pixel(x, z, final_color)
-			colorImage.set_pixel(x, z, Color(0,adjusted_height / hill_height ,0,1.0))
+			colorImage.set_pixel(x, z, Color(slope,slope ,slope,1.0))
 			
 	colorImage.save_png("res://Objects/Terrain3D/HeightMaps/color_map.png")
 

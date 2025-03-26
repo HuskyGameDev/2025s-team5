@@ -1,15 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://bl67abvf3dbvy"]
+[gd_scene load_steps=14 format=3 uid="uid://bxe2lilbd1wq5"]
 
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_82kpi"]
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_0msfh"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="2_pws4u"]
 [ext_resource type="PackedScene" uid="uid://cffc6hqf0dgah" path="res://Objects/Pickups/Pickup.tscn" id="3_a26nt"]
-[ext_resource type="Resource" uid="uid://b3h7etbbo8d0f" path="res://Resources/Upgrades/double_barrel.tres" id="5_oel2o"]
-[ext_resource type="Resource" uid="uid://cq47unnw0k30u" path="res://Resources/Upgrades/explode.tres" id="5_s4ihi"]
-[ext_resource type="Resource" uid="uid://fa6xnbn1mopn" path="res://Resources/Upgrades/bounce.tres" id="6_d6dpr"]
-[ext_resource type="Resource" uid="uid://cg16y5p88jqqr" path="res://Resources/Upgrades/split_barrel.tres" id="6_tqg2r"]
-[ext_resource type="Resource" uid="uid://dwx0pgl5r2dgi" path="res://Resources/Upgrades/super_split_barrel.tres" id="8_d6dpr"]
-[ext_resource type="Script" uid="uid://dsuate4g1j1s6" path="res://Scenes/devmenu.gd" id="8_ut3yw"]
-[ext_resource type="Resource" uid="uid://ttnhyrt2k02c" path="res://Resources/Upgrades/mega_barrel.tres" id="9_ut3yw"]
+[ext_resource type="Resource" uid="uid://c82mw1ohcjhpb" path="res://Resources/GroundScatters/TropicalTreesSparse.tres" id="3_s4ihi"]
+[ext_resource type="Resource" uid="uid://8oxg70awgug6" path="res://Resources/GroundScatters/ExplosiveBarrels.tres" id="4_d6dpr"]
+[ext_resource type="Resource" uid="uid://c658la25pdnso" path="res://Resources/GroundScatters/TropicalBushDense.tres" id="5_ut3yw"]
+[ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="6_hvm4n"]
+[ext_resource type="Resource" uid="uid://4x874xljk5ou" path="res://Resources/Upgrades/fuse.tres" id="9_s4ihi"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rb057"]
 size = Vector2(10, 10)
@@ -39,36 +38,14 @@ environment = SubResource("Environment_7vr7b")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="GroundPlane"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
+directional_shadow_mode = 1
 
 [node name="Terrain3D" parent="." instance=ExtResource("1_82kpi")]
+ground_scatters = Array[ExtResource("2_pws4u")]([ExtResource("3_s4ihi"), ExtResource("4_d6dpr"), ExtResource("5_ut3yw"), ExtResource("6_hvm4n")])
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_0msfh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 21.5338, 15.8098)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 38.2244, 15.8098)
 
-[node name="DoubleBarrel" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.15576, 21.7862, 17.9831)
-upgrade = ExtResource("5_oel2o")
-
-[node name="ExplodePickup" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.15576, 21.2784, 15.3386)
-upgrade = ExtResource("5_s4ihi")
-
-[node name="BouncePickup" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5749, 20.7451, 15.3386)
-upgrade = ExtResource("6_d6dpr")
-
-[node name="SplitBarrel" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.15576, 21.974, 20.5163)
-upgrade = ExtResource("6_tqg2r")
-
-[node name="TripleBarrel" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.0998, 20.8808, 15.5114)
-script = ExtResource("8_ut3yw")
-
-[node name="SuperSplit" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.07821, 21.4291, 18.0764)
-upgrade = ExtResource("8_d6dpr")
-
-[node name="MegaBarrel" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.15576, 22.2706, 22.9154)
-upgrade = ExtResource("9_ut3yw")
+[node name="Pickup" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, 0, 20.0388, 13.3397)
+upgrade = ExtResource("9_s4ihi")

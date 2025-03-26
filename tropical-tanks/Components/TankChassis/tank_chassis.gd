@@ -39,6 +39,7 @@ func on_upgrade_pickup(U : Upgrade):
 	turret.shell_parameters.ice_effect += U.ice_effect
 	turret.shell_parameters.mass += U.mass
 	turret.shell_parameters.thrust_power += U.thrust_power
+	turret.shell_parameters.can_fuse = U.can_fuse
 
 func _physics_process(delta: float) -> void:
 	ground_raycast.global_position = global_position

@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://bnnkxtf7jj6b7" path="res://Art/Images/CanvasBackgroundSandParticles.png" id="5_ihuk2"]
 [ext_resource type="Texture2D" uid="uid://buyvs5rpxo1ah" path="res://Art/Images/TropicalTanks.png" id="9_egttt"]
 
-[sub_resource type="Gradient" id="Gradient_2r307"]
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2r307"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_omq0y"]
-gradient = SubResource("Gradient_2r307")
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_omq0y"]
+noise = SubResource("FastNoiseLite_2r307")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1736k"]
 size = Vector2(10, 10)
@@ -34,7 +34,7 @@ glow_enabled = true
 script = ExtResource("1_behrf")
 
 [node name="Terrain3D" parent="." instance=ExtResource("2_bkc2w")]
-heightMap = SubResource("GradientTexture2D_omq0y")
+heightMap = SubResource("NoiseTexture2D_omq0y")
 
 [node name="BackgroundSprite" type="Sprite3D" parent="."]
 transform = Transform3D(0.71, 0, 0, 0, -3.10351e-08, -0.71, 0, 0.71, -3.10351e-08, 27.25, 0, 0)

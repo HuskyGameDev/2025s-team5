@@ -24,7 +24,8 @@ class_name Upgrade
 @export var flame_effect : float = 0
 
 ## Mid Flight Control Variables
-@export var fuse_time : float = 0
+@export var fuse_time : float = 0.2
+@export var num_fuse : int = 0
 @export var fuel : float = 0
 @export var thrust_power : float = 0
 # How backward the shell is
