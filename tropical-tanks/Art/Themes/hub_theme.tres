@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://bvaapjna3qw4o"]
+
+[ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="1_3uhfm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7u3a1"]
+bg_color = Color(0.192157, 0.45098, 0.372549, 1)
+border_width_left = 5
+border_width_top = 10
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.192157, 0.45098, 0.372549, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3uhfm"]
+content_margin_left = 25.0
+content_margin_top = 25.0
+content_margin_right = 25.0
+content_margin_bottom = 25.0
+
+[resource]
+Button/font_sizes/font_size = 20
+Button/fonts/font = ExtResource("1_3uhfm")
+Button/styles/normal = SubResource("StyleBoxFlat_7u3a1")
+Label/font_sizes/font_size = 20
+Label/fonts/font = ExtResource("1_3uhfm")
+PanelContainer/styles/panel = SubResource("StyleBoxEmpty_3uhfm")
