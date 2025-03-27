@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cwqg03gbbdhik"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 977.0
+offset_top = 234.0
+offset_right = -18.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 284.0
+offset_bottom = 464.0
+
+[node name="VSplitContainer" type="VSplitContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VSplitContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_vertical = 0
+text = "AREAS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VSplitContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VSplitContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TropicalArea" type="HSplitContainer" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea"]
+layout_mode = 2
+text = "This is the default tropical area of the game."

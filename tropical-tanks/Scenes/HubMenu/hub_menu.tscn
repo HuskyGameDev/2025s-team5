@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://8f2oqghi887u"]
 
-[ext_resource type="Script" uid="uid://b6bhb6l6t4cqr" path="res://Scenes/HubMenu/hub_menu.gd" id="1_dnwjy"]
+[ext_resource type="Script" uid="uid://cndrndiub4lyf" path="res://Scenes/HubMenu/hub_menu.gd" id="1_dnwjy"]
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/TankChassis/tankChassis.tscn" id="1_tploy"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_nwenx"]
 [ext_resource type="Theme" uid="uid://bvaapjna3qw4o" path="res://Art/Themes/hub_theme.tres" id="4_hbvwv"]
@@ -28,9 +28,9 @@ sky = SubResource("Sky_7yxsr")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hbvwv"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6buhv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hbvwv"]
 
 [node name="HubMenu" type="Node3D"]
 script = ExtResource("1_dnwjy")
@@ -81,58 +81,6 @@ grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("4_hbvwv")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer"]
-layout_mode = 2
-
-[node name="DayNight" type="Button" parent="CanvasLayer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 8
-theme_override_styles/normal = SubResource("StyleBoxEmpty_hbvwv")
-
-[node name="Gamemode" type="VSplitContainer" parent="CanvasLayer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-dragging_enabled = false
-
-[node name="GamemodeSelect" type="Button" parent="CanvasLayer/PanelContainer/HBoxContainer/Gamemode"]
-layout_mode = 2
-size_flags_vertical = 0
-text = "GAMEMODE"
-
-[node name="CurrentGamemode" type="VSplitContainer" parent="CanvasLayer/PanelContainer/HBoxContainer/Gamemode"]
-layout_mode = 2
-dragging_enabled = false
-
-[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/HBoxContainer/Gamemode/CurrentGamemode"]
-layout_mode = 2
-text = "Current:"
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer/Gamemode/CurrentGamemode"]
-layout_mode = 2
-
-[node name="AreaBox" type="VSplitContainer" parent="CanvasLayer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 10
-dragging_enabled = false
-
-[node name="AreaSelect" type="Button" parent="CanvasLayer/PanelContainer/HBoxContainer/AreaBox"]
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-text = "SELECT AREA"
-
-[node name="CurrentArea" type="VSplitContainer" parent="CanvasLayer/PanelContainer/HBoxContainer/AreaBox"]
-layout_mode = 2
-dragging_enabled = false
-
-[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/HBoxContainer/AreaBox/CurrentArea"]
-layout_mode = 2
-size_flags_vertical = 0
-text = "Current:"
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer/HBoxContainer/AreaBox/CurrentArea"]
-layout_mode = 2
-
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/PanelContainer"]
 layout_mode = 2
 
@@ -143,6 +91,54 @@ theme_override_fonts/font = ExtResource("5_44aak")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxEmpty_6buhv")
 text = "START"
+
+[node name="DayNight" type="Button" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxEmpty_hbvwv")
+
+[node name="Gamemode" type="VSplitContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+dragging_enabled = false
+
+[node name="GamemodeSelect" type="Button" parent="CanvasLayer/PanelContainer/Gamemode"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "GAMEMODE"
+
+[node name="CurrentGamemode" type="VSplitContainer" parent="CanvasLayer/PanelContainer/Gamemode"]
+layout_mode = 2
+dragging_enabled = false
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/Gamemode/CurrentGamemode"]
+layout_mode = 2
+text = "Current:"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer/Gamemode/CurrentGamemode"]
+layout_mode = 2
+
+[node name="AreaBox" type="VSplitContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+dragging_enabled = false
+
+[node name="CurrentArea" type="VSplitContainer" parent="CanvasLayer/PanelContainer/AreaBox"]
+layout_mode = 2
+dragging_enabled = false
+
+[node name="AreaSelect" type="Button" parent="CanvasLayer/PanelContainer/AreaBox/CurrentArea"]
+layout_mode = 2
+text = "Select Area"
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/AreaBox/CurrentArea"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Current:"
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer/AreaBox/CurrentArea"]
+layout_mode = 2
 
 [node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
 offset_right = 1280.0
@@ -190,3 +186,4 @@ offset_bottom = 23.0
 text = "Tropical Tanks Alpha"
 
 [connection signal="pressed" from="CanvasLayer/PanelContainer/CenterContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/AreaBox/CurrentArea/AreaSelect" to="." method="_on_area_select_pressed"]
