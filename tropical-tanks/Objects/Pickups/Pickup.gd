@@ -1,6 +1,14 @@
+@tool
 extends Node3D
 
-@export var upgrade : Upgrade
+@export var upgrade : Upgrade :
+	set(value):
+		upgrade = value
+		if upgrade:
+			$Sprite3D.texture = upgrade.image
+		else: 
+			$Sprite3D.texture = load("res://Art/Images/CrossHairOutOfRange.svg")
+
 
 func _ready() :
 	if upgrade.image:

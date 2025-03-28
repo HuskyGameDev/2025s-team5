@@ -1,8 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://drmovv0sm6tee"]
+[gd_scene load_steps=15 format=3 uid="uid://drmovv0sm6tee"]
 
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="1_j7jj7"]
 [ext_resource type="Material" uid="uid://bvjp8o4wnqyvw" path="res://Art/Materials/MetalMaterial.tres" id="1_pe5y8"]
 [ext_resource type="PackedScene" uid="uid://cc62krn8h3ak0" path="res://Objects/ExplosiveBarrel/explosive_barrel.tscn" id="3_rnelm"]
+[ext_resource type="PackedScene" uid="uid://cffc6hqf0dgah" path="res://Objects/Pickups/Pickup.tscn" id="4_kcogb"]
+[ext_resource type="Resource" uid="uid://muyyw3hbkop7" path="res://Resources/Upgrades/add_shot_power.tres" id="5_ry4kd"]
+[ext_resource type="Resource" uid="uid://fa6xnbn1mopn" path="res://Resources/Upgrades/add_bounce.tres" id="6_o3wxv"]
+[ext_resource type="Resource" uid="uid://b3h7etbbo8d0f" path="res://Resources/Upgrades/double_barrel.tres" id="6_ry4kd"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pe5y8"]
 size = Vector2(40, 40)
@@ -118,3 +122,39 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.93885, 0.010738, 24.7744)
 
 [node name="ExplosiveBarrel9" parent="." instance=ExtResource("3_rnelm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.5014, 0.010738, 6.17815)
+
+[node name="Pickup" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0776138, 0, -30.67)
+upgrade = ExtResource("5_ry4kd")
+
+[node name="Pickup2" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.801308, 0, -36.2877)
+upgrade = ExtResource("5_ry4kd")
+
+[node name="Pickup3" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.45967, 0, -31.1137)
+upgrade = ExtResource("6_o3wxv")
+
+[node name="Pickup4" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5659, 0, -34.1142)
+upgrade = ExtResource("5_ry4kd")
+
+[node name="Pickup5" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.36639, 0, -29.7456)
+upgrade = ExtResource("5_ry4kd")
+
+[node name="Pickup6" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.84872, 0, -37.5883)
+upgrade = ExtResource("5_ry4kd")
+
+[node name="Pickup7" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.21535, 0, -41.6968)
+upgrade = ExtResource("5_ry4kd")
+
+[node name="Pickup8" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3385, 0, -41.1453)
+upgrade = ExtResource("6_ry4kd")
+
+[node name="Pickup9" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.02163, 0, -41.5371)
+upgrade = ExtResource("6_ry4kd")
