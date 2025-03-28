@@ -52,7 +52,6 @@ var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 @onready var snow_mesh : MeshInstance3D = $SnowMesh
 func _ready():
 	await get_tree().process_frame
-	var doSnow = snowHeightMap
 	
 	rng.randomize()
 	color_noise.seed = rng.seed
@@ -64,14 +63,13 @@ func _ready():
 	
 
 	colorImage = Image.load_from_file("res://Art/Images/DebugTexture.png")
-	snowHeightImage = Image.load_from_file("res://Art/Images/DebugTexture.png")
+	snowHeightImage = Image.create_empty(xsize,zsize,false,Image.Format.FORMAT_RGBA8)
 	
 	if erosion: check_erosion()			# Check for erosiong map / do erosion 
 	
 	generate_terrain_height_data() 	# Generate height data from the height image
 	
-	if doSnow:
-		snowHeightImage = snowHeightMap.get_image()
+	if snowHeightMap: snowHeightImage = snowHeightMap.get_image()
 	snowHeightImage.resize(xsize,zsize)
 	generate_snow_height_data()
 	generate_snow_mesh()
@@ -189,10 +187,10 @@ func calculate_colors():
 			var micro_variation = 1.0 + (heightImage.get_pixel(x, z).r - 0.5) * 0.1
 			final_color = final_color * Color(micro_variation, micro_variation, micro_variation)
 
-			#colorImage.set_pixel(x, z, final_color)
+			colorImage.set_pixel(x, z, final_color)
 			#colorImage.set_pixel(x, z, Color(1-slope,1-slope ,1-slope,1.0))
 			
-	colorImage.save_png("res://Objects/Terrain3D/HeightMaps/color_map.png")
+	#colorImage.save_png("res://Objects/Terrain3D/HeightMaps/color_map.png")
 
 
 
@@ -231,7 +229,7 @@ func calculate_slope(x, z):
 	return sqrt(dx_slope * dx_slope + dz_slope * dz_slope)
 	
 # Decimation parameters: these control how aggressively the grid is decimated.
-const decimation_step_range : Vector2i = Vector2i(1,2)
+const decimation_step_range : Vector2i = Vector2i(1,3)
 func generate_terrain_mesh() -> void:
 	# Generate decimated indices for both axes. This irregular grid will control the lower poly resolution.
 	var decim_x = generate_decimated_indices(xsize, decimation_step_range)
