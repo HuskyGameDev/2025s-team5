@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://6mmhgkmoq6oa"]
+[gd_scene load_steps=10 format=3 uid="uid://6mmhgkmoq6oa"]
 
 [ext_resource type="Script" uid="uid://c3hmkj8xky03r" path="res://Components/TankChassis/tank_chassis.gd" id="1_bgbpq"]
 [ext_resource type="PackedScene" uid="uid://8bgogrhf5gis" path="res://Art/Models/tankChassisModelParts.tscn" id="2_eebcv"]
@@ -7,44 +7,48 @@
 [ext_resource type="PackedScene" uid="uid://xtnuh7brto2v" path="res://Components/HealthManager/health_manager.tscn" id="5_5raij"]
 [ext_resource type="PackedScene" uid="uid://c01vtjqhwsafa" path="res://Components/TrackSpawner/trackSpawner.tscn" id="6_14oo1"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_ro8yc"]
-radius = 0.2
+[sub_resource type="BoxShape3D" id="BoxShape3D_b1pfd"]
+size = Vector3(1, 0.636719, 2.83459)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2gr0x"]
+size = Vector3(1, 0.5, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iotof"]
 size = Vector3(2, 1.755, 4)
 
 [node name="TankChassis" type="CharacterBody3D"]
-collision_layer = 3
+collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_bgbpq")
 
 [node name="Collider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.238972, 0)
-shape = SubResource("SphereShape3D_ro8yc")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.656399, 0.0569458)
+shape = SubResource("BoxShape3D_b1pfd")
 
 [node name="TankChassisModelParts" parent="." instance=ExtResource("2_eebcv")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.789134, 0)
 
 [node name="Sprite3D" type="Sprite3D" parent="TankChassisModelParts"]
 transform = Transform3D(-0.4, -3.49691e-08, 1.52855e-15, 0, -1.74846e-08, -0.4, 3.49691e-08, -0.4, 1.74846e-08, 0, 0, -5.35322)
+layers = 2
 texture = ExtResource("3_m6eku")
 
 [node name="TreadSpawners" type="Node3D" parent="TankChassisModelParts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.618881, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0806212, 0)
 
 [node name="TreadSpawner" parent="TankChassisModelParts/TreadSpawners" instance=ExtResource("6_14oo1")]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, -1.49231, -0.83051, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49231, -0.83051, 0)
 
 [node name="TreadSpawner2" parent="TankChassisModelParts/TreadSpawners" instance=ExtResource("6_14oo1")]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 1.56724, -0.83051, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.56724, -0.83051, 0)
 
 [node name="TankLabel" type="Label3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.07549, -1.88722)
 text = "PLACEHOLDER"
 
-[node name="GroundRaycast" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.222787, 0)
-top_level = true
+[node name="GroundCast" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08683, 0)
+shape = SubResource("BoxShape3D_2gr0x")
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("4_3tv7r")]
 health_manager = NodePath("../HealthManager")

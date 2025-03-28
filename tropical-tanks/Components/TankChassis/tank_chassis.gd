@@ -8,7 +8,7 @@ var move_vector = Vector3(0,0,-1)
 @export var tank_rotation : float = 0.0
 @export var upgrades : Array[Upgrade] = []
 
-@onready var ground_raycast = $GroundRaycast
+@onready var ground_cast : ShapeCast3D  = $GroundCast
 @onready var tank_chassis = $TankChassisModelParts
 
 var controls = {
@@ -42,22 +42,20 @@ func on_upgrade_pickup(U : Upgrade):
 	turret.shell_parameters.num_fuse += U.num_fuse
 
 func _physics_process(delta: float) -> void:
-	ground_raycast.global_position = global_position
 	# Add the gravity.
 	
 	var move_normal = Vector3(0,1,0)
 	move_vector = Vector3(0,0,-1).rotated(move_normal,tank_rotation)
 	
-	if ground_raycast.is_colliding():
+	if ground_cast.is_colliding():
 		velocity = Vector3.ZERO #velocity.move_toward(Vector3.ZERO,delta * 25)
 	
 
-		#position += ground_raycast.get_collision_point() - ground_raycast.global_position - ground_raycast.target_position
+		#position += ground_cast.get_collision_point() - ground_cast.global_position - ground_cast.target_position
 		
-		print("On_ground")
 		
-		var rotation_axis = (move_normal.cross(ground_raycast.get_collision_normal())).normalized()
-		var move_vector_angle = move_normal.angle_to(ground_raycast.get_collision_normal())
+		var rotation_axis = (move_normal.cross(ground_cast.get_collision_normal(0))).normalized()
+		var move_vector_angle = move_normal.angle_to(ground_cast.get_collision_normal(0))
 		
 		if controls.get("forward"):
 			velocity = (delta * SPEED * move_vector)

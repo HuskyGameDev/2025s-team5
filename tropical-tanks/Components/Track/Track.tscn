@@ -7,6 +7,6 @@
 script = ExtResource("1_wsgim")
 
 [node name="Decal" type="Decal" parent="."]
-size = Vector3(0.3, 0.3, 1.4)
+size = Vector3(0.6, 0.6, 2.5)
 texture_albedo = ExtResource("1_4sgch")
 modulate = Color(0.685236, 0.361341, 1.92523e-07, 1)

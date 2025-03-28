@@ -10,5 +10,6 @@ wait_time = 0.2
 autostart = true
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, -4, 0)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
