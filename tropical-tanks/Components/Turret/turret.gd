@@ -83,50 +83,192 @@ func _physics_process(delta: float) -> void:
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)
 	$TurretHub.global_rotation = global_rotation * Vector3(0,1,0)
-	var best_turret_angle = deg_to_rad(calculate_turret_angle($TurretHub/Bearing/AimCalculateLocation.global_position,target_position,initial_shot_power/shell_parameters.mass, shell_parameters.drag, shell_parameters.gravity.y, false))
+	var best_turret_angle = (calculate_turret_angle($TurretHub/Bearing/AimCalculateLocation.global_position,target_position,initial_shot_power/shell_parameters.mass, shell_parameters.drag, shell_parameters.gravity.y, false))
+	print(best_turret_angle)
 	bearing.rotation.x = best_turret_angle
 
+const THRESHOLD: float = 0.0001
+const MAX_ANGLE: float = PI/2.0
+const DEFAULT_ANGLE: float = PI/4.0
 
 func calculate_turret_angle(
 	turret_position: Vector3,
 	target_position: Vector3,
-	shell_initial_velocity: float,
-	drag : float,
-	gravity_acceleration: float = -9.8,
-	mortar_angle: bool = false) -> float:
-	# Calculate horizontal distance (d) and height difference (h)
-	var d = Vector2(turret_position.x, turret_position.z).distance_to(Vector2(target_position.x, target_position.z))
-	var h = target_position.y - turret_position.y
-	var g = -gravity_acceleration  # Convert to positive gravity value
+	shell_velocity: float,
+	drag: float,
+	gravity: float = -9.81,
+	mortar_mode: bool = false) -> float:
 	
-	# Check for invalid projectile parameters
-	var discriminant = (
-		shell_initial_velocity * shell_initial_velocity *
-		(shell_initial_velocity * shell_initial_velocity - 2 * g * h) -
-		d * d * g * g
-	)
-	# Return 45 degrees if path is impossible
-	if discriminant < 0:
-		return 45.0
+	# Calculate target parameters
+	var horizontal_dist: float = Vector2(turret_position.x, turret_position.z).distance_to(
+		Vector2(target_position.x, target_position.z))
+	var height_diff: float = target_position.y - turret_position.y
+	var g: float = -gravity
+	var solutions: Array = []
 	
-	# Calculate common terms
-	var sqrt_term = sqrt(discriminant)
-	var denominator = d * d + h * h
+	if height_diff < 0.0:
+		# Use w(x) equation with two solution branches
+		var domain = calculate_w_domain(drag, shell_velocity, g, height_diff)
+		var lower_bound = domain[0]
+		var upper_bound = domain[1]
+		
+		if is_inf(lower_bound) or is_inf(upper_bound):
+			print("No valid domain for w(x)")
+		else:
+			var x_max = find_vertex(drag, shell_velocity, g, height_diff, lower_bound, upper_bound)
+			
+			if is_inf(x_max):
+				print("No vertex found")
+			else:
+				print("Found vertex at: ", x_max)
+				# Search both branches
+				var left_solution = solve_newton(
+					func(x: float): return w(x, drag, shell_velocity, g, height_diff) - horizontal_dist,
+					lerp(lower_bound, x_max, 0.5),
+					lower_bound,
+					x_max
+				)
+				if not is_inf(left_solution):
+					solutions.append(left_solution)
+					print("Left branch solution: ", left_solution)
+				
+				var right_solution = solve_newton(
+					func(x: float): return w(x, drag, shell_velocity, g, height_diff) - horizontal_dist,
+					lerp(x_max, upper_bound, 0.5),
+					x_max,
+					upper_bound
+				)
+				if not is_inf(right_solution):
+					solutions.append(right_solution)
+					print("Right branch solution: ", right_solution)
+	else:
+		# Use f(x) equation
+		var lower_bound = calculate_f_domain(drag, shell_velocity, g, height_diff)
+		if is_inf(lower_bound):
+			print("No valid f(x) domain")
+		else:
+			var solution = solve_newton(
+				func(x: float): return f_new(x, drag, shell_velocity, g, height_diff) - horizontal_dist,
+				lower_bound + 0.001,
+				lower_bound,
+				MAX_ANGLE
+			)
+			if not is_inf(solution):
+				solutions.append(solution)
+				print("f(x) solution: ", solution)
 	
-	# Calculate corrective factor components
-	var corrective_factor = (d * d * (-g/sqrt_term - g/(shell_initial_velocity * shell_initial_velocity)) / denominator - (2 * d * d * h * (sqrt_term/(shell_initial_velocity * shell_initial_velocity) - (g * h)/(shell_initial_velocity * shell_initial_velocity) + 1)) / (denominator * denominator))
+	# Select best solution
+	if solutions.is_empty():
+		print("No solutions found, using default angle")
+		return DEFAULT_ANGLE
+	
+	solutions.sort()
+	print("All valid solutions: ", solutions)
+	
+	if mortar_mode:
+		return solutions[-1]  # Highest angle
+	return solutions[0]  # Lowest angle
 
-	# Calculate intermediate terms for angles
-	var c1 = (d * d * (1 - (g * h) / (shell_initial_velocity * shell_initial_velocity)) / denominator )
-	var c2 = (d * d * sqrt_term) / (shell_initial_velocity * shell_initial_velocity * denominator)
+#region Core Calculation Functions --------------------------------------------
+func solve_newton(f: Callable, x0: float, lower: float, upper: float) -> float:
+	var x: float = clampf(x0, lower, upper)
+	var dx: float = 1e-6
+	var max_iter: int = 50
 	
-	# Calculate both possible angles
-	var a1 = acos(sqrt((c1 - c2) / 2.0)) * 180 / PI
-	var a2 = -sign(corrective_factor) * acos(sqrt((c1 + c2) / 2.0)) * 180 / PI
+	for i in max_iter:
+		var fx: float = f.call(x)
+		var fp: float = (f.call(x + dx) - f.call(x - dx)) / (2.0 * dx)
+		
+		if absf(fx) < THRESHOLD:
+			return x
+		if absf(fp) < 1e-12:
+			break
+			
+		x -= fx / fp
+		x = clampf(x, lower, upper)
 	
-	# Return selected angle based on mortar flag
-	# If mortar_angle is true, select the higher angle, otherwise lower angle.
-	return a1 if mortar_angle else a2
+	return -INF
+
+func find_vertex(d_r: float, p_w: float, g: float, h: float, lower: float, upper: float) -> float:
+	# Newton's method to find where w'(x) = 0
+	var x: float = (lower + upper) * 0.5
+	var dx: float = 1e-6
+	var max_iter: int = 50
+	
+	for i in max_iter:
+		var grad: float = w_prime(x, d_r, p_w, g, h, dx)
+		var grad_plus: float = w_prime(x + dx, d_r, p_w, g, h, dx)
+		var grad_minus: float = w_prime(x - dx, d_r, p_w, g, h, dx)
+		var grad_prime: float = (grad_plus - grad_minus) / (2.0 * dx)
+		
+		if absf(grad) < THRESHOLD:
+			return x
+		if absf(grad_prime) < 1e-12:
+			break
+			
+		x -= grad / grad_prime
+		x = clampf(x, lower, upper)
+	
+	# Fallback to gradient ascent
+	var lr: float = 0.001
+	for j in 1000:
+		var current_grad: float = w_prime(x, d_r, p_w, g, h, dx)
+		if absf(current_grad) < THRESHOLD:
+			return x
+		x += lr * current_grad
+		x = clampf(x, lower, upper)
+	
+	return -INF
+
+#region Physics Equations -----------------------------------------------------
+func calculate_w_domain(d_r: float, p_w: float, g: float, h: float) -> Array:
+	if h < 0.0:
+		return [-PI/2.0, PI/2.0]
+	else:
+		var arg = sqrt(2.0 * g * (exp(h * d_r) - 1.0)) / (p_w * sqrt(d_r))
+		if arg > 1.0:
+			return [-INF, -INF]
+		return [asin(arg), PI/2.0]
+
+func calculate_f_domain(d_r: float, p_w: float, g: float, h: float) -> float:
+	var numerator = sqrt(2.0 * g * (exp(h * d_r) - 1.0))
+	var denominator = p_w * sqrt(d_r)
+	var arg = numerator / denominator
+	return asin(arg) if arg <= 1.0 else -INF
+
+func w(x: float, d_r: float, p_w: float, g: float, h: float) -> float:
+	var t = T(x, d_r, p_w, g)
+	var s = S(x, d_r, p_w, g, h, t)
+	var inner = 1.0 + (d_r * 0.5) * p_w * cos(x) * (t + s)
+	return (2.0 / d_r) * log(inner) if inner > 0.0 else -INF
+
+func w_prime(x: float, d_r: float, p_w: float, g: float, h: float, dx: float = 1e-6) -> float:
+	return (w(x + dx, d_r, p_w, g, h) - w(x - dx, d_r, p_w, g, h)) / (2.0 * dx)
+
+func T(x: float, d_r: float, p_w: float, g: float) -> float:
+	var denom = sqrt(g * d_r * 0.5)
+	var arg = p_w * sin(x) * sqrt(d_r / (2.0 * g))
+	return atan(arg) / denom
+
+func S(x: float, d_r: float, p_w: float, g: float, h: float, t: float) -> float:
+	var arg = atan(p_w * sin(x) * sqrt(d_r / (2.0 * g)))
+	var num = cos(arg - t * sqrt(g * d_r * 0.5))
+	var den = cos(arg) * exp(h * d_r * 0.5)
+	if is_equal_approx(den, 0.0): return -INF
+	var a = num / den
+	if a < 1.0: return -INF
+	return sqrt(2.0 / (g * d_r)) * acosh(a)
+
+func f_new(x: float, d_r: float, p_w: float, g: float, h: float) -> float:
+	var sqrt_term = sqrt(d_r / (2.0 * g))
+	var term1 = atan(p_w * sin(x) * sqrt_term)
+	var cos_term = cos(term1) * exp(h * d_r * 0.5)
+	if cos_term < -1.0 or cos_term > 1.0: return -INF
+	var term2 = acos(cos_term)
+	var inner = 1.0 + p_w * cos(x) * sqrt_term * (term1 - term2)
+	if inner <= 0.0: return -INF
+	return (2.0 / d_r) * log(inner)
+#endregion
 
 var shoot_cooled_down = true
 func _on_timer_timeout() -> void:
