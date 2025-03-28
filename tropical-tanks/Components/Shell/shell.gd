@@ -61,7 +61,7 @@ func _physics_process(delta: float) -> void:
 		for i in cast.get_collision_count():
 		
 			var collision_vector = cast.get_collision_point(i) - cast.global_position
-			if (collision_vector.length() - velocity.length() * delta) <= 0:
+			if (collision_vector.length() - velocity.length() * delta) <= .1:
 				
 				#position += collision_vector
 				
