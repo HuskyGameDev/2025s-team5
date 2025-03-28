@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://cq47unnw0k30u"]
+
+[ext_resource type="Texture2D" uid="uid://ftgxwb0jtklu" path="res://Art/Images/ExplosionUpgrade.svg" id="1_i1tyw"]
+[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="1_tl7ds"]
+
+[resource]
+script = ExtResource("1_tl7ds")
+image = ExtResource("1_i1tyw")
+double_barrel = 0
+split_barrel = 0
+mass = 0.0
+drag = 0.0
+armor_piercing = 0.0
+explosion_power = 1.0
+evaporation = 0.0
+bounces_left = 0.0
+bounce_loss = 0.0
+bounce_explode = 0.0
+ice_effect = 0.0
+flame_effect = 0.0
+num_split = 0
+fuse_time = 0.0
+num_fuse = 0
+fuel = 0.0
+thrust_power = 0.0
+backwardness = 0.0
+metadata/_custom_type_script = "uid://ddav0isbkjqxj"

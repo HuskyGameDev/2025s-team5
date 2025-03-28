@@ -83,8 +83,8 @@ func _physics_process(delta: float) -> void:
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)
 	$TurretHub.global_rotation = global_rotation * Vector3(0,1,0)
-	var best_turret_angle = (calculate_turret_angle($TurretHub/Bearing/AimCalculateLocation.global_position,target_position,initial_shot_power/shell_parameters.mass, shell_parameters.drag, shell_parameters.gravity.y, false))
-	print(best_turret_angle)
+	var best_turret_angle = move_toward(bearing.rotation.x,calculate_turret_angle($TurretHub/Bearing/AimCalculateLocation.global_position,target_position,initial_shot_power/shell_parameters.mass, shell_parameters.drag, shell_parameters.gravity.y, false),4 * delta)
+	#print(best_turret_angle)
 	bearing.rotation.x = best_turret_angle
 
 const THRESHOLD: float = 0.0001
@@ -113,14 +113,16 @@ func calculate_turret_angle(
 		var upper_bound = domain[1]
 		
 		if is_inf(lower_bound) or is_inf(upper_bound):
-			print("No valid domain for w(x)")
+			#print("No valid domain for w(x)")
+			pass
 		else:
 			var x_max = find_vertex(drag, shell_velocity, g, height_diff, lower_bound, upper_bound)
 			
 			if is_inf(x_max):
-				print("No vertex found")
+				#print("No vertex found")
+				pass
 			else:
-				print("Found vertex at: ", x_max)
+				#print("Found vertex at: ", x_max)
 				# Search both branches
 				var left_solution = solve_newton(
 					func(x: float): return w(x, drag, shell_velocity, g, height_diff) - horizontal_dist,
@@ -130,7 +132,7 @@ func calculate_turret_angle(
 				)
 				if not is_inf(left_solution):
 					solutions.append(left_solution)
-					print("Left branch solution: ", left_solution)
+					#print("Left branch solution: ", left_solution)
 				
 				var right_solution = solve_newton(
 					func(x: float): return w(x, drag, shell_velocity, g, height_diff) - horizontal_dist,
@@ -140,12 +142,13 @@ func calculate_turret_angle(
 				)
 				if not is_inf(right_solution):
 					solutions.append(right_solution)
-					print("Right branch solution: ", right_solution)
+					#print("Right branch solution: ", right_solution)
 	else:
 		# Use f(x) equation
 		var lower_bound = calculate_f_domain(drag, shell_velocity, g, height_diff)
 		if is_inf(lower_bound):
-			print("No valid f(x) domain")
+			#print("No valid f(x) domain")
+			pass
 		else:
 			var solution = solve_newton(
 				func(x: float): return f_new(x, drag, shell_velocity, g, height_diff) - horizontal_dist,
@@ -155,15 +158,16 @@ func calculate_turret_angle(
 			)
 			if not is_inf(solution):
 				solutions.append(solution)
-				print("f(x) solution: ", solution)
+				#print("f(x) solution: ", solution)
+				pass
 	
 	# Select best solution
 	if solutions.is_empty():
-		print("No solutions found, using default angle")
+		#print("No solutions found, using default angle")
 		return DEFAULT_ANGLE
 	
 	solutions.sort()
-	print("All valid solutions: ", solutions)
+	#print("All valid solutions: ", solutions)
 	
 	if mortar_mode:
 		return solutions[-1]  # Highest angle
@@ -219,7 +223,7 @@ func find_vertex(d_r: float, p_w: float, g: float, h: float, lower: float, upper
 		x = clampf(x, lower, upper)
 	
 	return -INF
-
+#endregion
 #region Physics Equations -----------------------------------------------------
 func calculate_w_domain(d_r: float, p_w: float, g: float, h: float) -> Array:
 	if h < 0.0:

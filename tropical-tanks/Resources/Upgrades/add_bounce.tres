@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="Upgrade" load_steps=2 format=3 uid="uid://fa6xnbn1mopn"]
+[gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://fa6xnbn1mopn"]
 
 [ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="1_w6bti"]
+[ext_resource type="Texture2D" uid="uid://bofqf7cli8ui8" path="res://Art/Images/BouncingShot.svg" id="1_y2uyq"]
 
 [resource]
 script = ExtResource("1_w6bti")
+image = ExtResource("1_y2uyq")
 double_barrel = 0
 split_barrel = 0
 mass = 0.0
@@ -16,7 +18,9 @@ bounce_loss = 0.0
 bounce_explode = 0.0
 ice_effect = 0.0
 flame_effect = 0.0
+num_split = 0
 fuse_time = 0.0
+num_fuse = 0
 fuel = 0.0
 thrust_power = 0.0
 backwardness = 0.0

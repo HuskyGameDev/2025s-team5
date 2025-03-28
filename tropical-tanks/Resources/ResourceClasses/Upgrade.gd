@@ -3,8 +3,11 @@ class_name Upgrade
 
 @export var image : CompressedTexture2D
 
+
 @export var double_barrel : int = 0
 @export var split_barrel : int = 0
+@export var initial_shot_power : int = 0
+
 @export var mass : float = 0
 # Mathematically, cross sectional area of the bullet
 @export var drag : float = 0

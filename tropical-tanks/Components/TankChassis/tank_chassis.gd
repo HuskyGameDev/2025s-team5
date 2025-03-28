@@ -23,6 +23,7 @@ var move_vector = Vector3(0,0,-1)
 func on_upgrade_pickup(U : Upgrade):
 	upgrades.append(U)
 	var turret : Turret = $Turret3
+	turret.initial_shot_power += U.initial_shot_power
 	turret.split_barrels += U.split_barrel
 	turret.double_barrels += U.double_barrel
 	turret.shell_parameters.armor_piercing += U.armor_piercing
