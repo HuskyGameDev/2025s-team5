@@ -1,3 +1,4 @@
+@tool
 extends Node3D
 class_name Terrain3D
 
@@ -25,16 +26,16 @@ enum terrainColoringOptions {
 	randomSquare
 }
 
-@export var terrainColoringMode : terrainColoringOptions = terrainColoringOptions.averageTriangle
+@export var terrainColoringMode : terrainColoringOptions = terrainColoringOptions.randomTriangle
 
 # Heightmap configuration
 @export_group("Height Maps")
 @export var heightMap : NoiseTexture2D #NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
 @export var snowHeightMap : NoiseTexture2D
 
-var heightImage : Image
-var snowHeightImage : Image
-var colorImage : Image
+@onready var heightImage : Image
+@onready var snowHeightImage : Image
+@onready var colorImage : Image
 
 # This dictionary will store the vertex positions after height adjustments
 var height_data = {}
@@ -50,12 +51,14 @@ var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 @onready var terrain_mesh : MeshInstance3D = $TerrainMesh
 @onready var snow_mesh : MeshInstance3D = $SnowMesh
 func _ready():
+	await get_tree().process_frame
 	var doSnow = snowHeightMap
 	
 	rng.randomize()
 	color_noise.seed = rng.seed
 	
 	# Initialize the height image from the NoiseTexture2D
+	print(heightMap)
 	heightImage = heightMap.get_image()
 	heightImage.resize(xsize,zsize)
 	
@@ -186,8 +189,8 @@ func calculate_colors():
 			var micro_variation = 1.0 + (heightImage.get_pixel(x, z).r - 0.5) * 0.1
 			final_color = final_color * Color(micro_variation, micro_variation, micro_variation)
 
-			colorImage.set_pixel(x, z, final_color)
-			colorImage.set_pixel(x, z, Color(slope,slope ,slope,1.0))
+			#colorImage.set_pixel(x, z, final_color)
+			#colorImage.set_pixel(x, z, Color(1-slope,1-slope ,1-slope,1.0))
 			
 	colorImage.save_png("res://Objects/Terrain3D/HeightMaps/color_map.png")
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cdll3cassyhme"]
+[gd_scene load_steps=17 format=3 uid="uid://cdll3cassyhme"]
 
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_3njuy"]
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_nwsly"]
@@ -26,9 +26,16 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_bbnuy"]
+frequency = 0.002
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2s5y5"]
 noise = SubResource("FastNoiseLite_bbnuy")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2s5y5"]
+frequency = 0.0001
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_fujle"]
+noise = SubResource("FastNoiseLite_2s5y5")
 
 [node name="AreaTropical" type="Node3D"]
 
@@ -46,19 +53,20 @@ directional_shadow_mode = 1
 
 [node name="Terrain3D" parent="." instance=ExtResource("1_3njuy")]
 heightMap = SubResource("NoiseTexture2D_2s5y5")
+snowHeightMap = SubResource("NoiseTexture2D_fujle")
 ground_scatters = Array[ExtResource("2_y65ld")]([ExtResource("3_pt1xw"), ExtResource("4_jv40j"), ExtResource("3_jv40j"), ExtResource("4_s8g7s")])
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_nwsly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 38.2244, 15.8098)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 23.4191, 15.8098)
 
 [node name="EnemyRoot" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4813, 37.7054, 14.5975)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4813, 22.9001, 14.5975)
 target = NodePath("../PlayerRoot")
 
 [node name="EnemyRoot2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14515, 36.2145, -6.9055)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14515, 21.4092, -6.9055)
 target = NodePath("../PlayerRoot")
 
 [node name="EnemyRoot3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.23166, 36.2769, -1.2185)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.23166, 21.4716, -1.2185)
 target = NodePath("../PlayerRoot")

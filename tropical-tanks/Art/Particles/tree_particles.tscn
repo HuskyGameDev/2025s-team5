@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://lxwgxgbuif6d"]
+
+[ext_resource type="Material" uid="uid://vosxiwtx6cs2" path="res://Art/Materials/Vegetation/wood_material.tres" id="1_w0snn"]
+[ext_resource type="Script" uid="uid://g38nt7sknp6w" path="res://Art/Particles/one_shot_particles.gd" id="2_h156g"]
+
+[sub_resource type="Curve" id="Curve_gbyie"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.758684, 0.152365), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pl0vw"]
+width = 40
+curve = SubResource("Curve_gbyie")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pl0vw"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 180.0
+radial_velocity_min = 7.99998
+radial_velocity_max = 9.99998
+radial_velocity_curve = SubResource("CurveTexture_pl0vw")
+damping_min = 4.102
+damping_max = 8.376
+
+[sub_resource type="BoxMesh" id="BoxMesh_takdi"]
+material = ExtResource("1_w0snn")
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="TreeParticles" type="GPUParticles3D"]
+layers = 2
+emitting = false
+one_shot = true
+explosiveness = 0.92
+randomness = 0.5
+process_material = SubResource("ParticleProcessMaterial_pl0vw")
+draw_pass_1 = SubResource("BoxMesh_takdi")
+script = ExtResource("2_h156g")
