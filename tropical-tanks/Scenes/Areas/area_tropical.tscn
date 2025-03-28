@@ -46,9 +46,11 @@ shadow_enabled = true
 directional_shadow_mode = 1
 
 [node name="Terrain3D" parent="." instance=ExtResource("1_3njuy")]
-heightMap = SubResource("NoiseTexture2D_2s5y5")
-ground_scatters = Array[ExtResource("2_y65ld")]([ExtResource("3_pt1xw"), ExtResource("4_jv40j"), ExtResource("3_jv40j"), ExtResource("4_s8g7s")])
 hill_height = 15.0
+heightMap = SubResource("NoiseTexture2D_2s5y5")
+decimation_step_range = Vector2i(1, 2)
+terrainColoringMode = 1
+ground_scatters = Array[ExtResource("2_y65ld")]([ExtResource("3_pt1xw"), ExtResource("4_jv40j"), ExtResource("3_jv40j"), ExtResource("4_s8g7s")])
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_nwsly")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 23.4191, 15.8098)

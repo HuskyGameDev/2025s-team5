@@ -2,37 +2,51 @@
 extends Node3D
 class_name Terrain3D
 
-@export var erosion : Erosion
 var rng = RandomNumberGenerator.new()
 var color_noise = FastNoiseLite.new()
 
 # Terrain size
-@export_subgroup("Terrain Size")
-@export var xsize = 256
-@export var zsize = 256
 
-@export var decimateTerrain = true
 
-@export_subgroup("Colors")
+# Heightmap configuration
+@export_group("Size")
+@export var xsize = 256 ## X Size of terrain3D in vertices.
+@export var zsize = 256 ## Z Size of terrain3D in vertices.
+@export_group("Terrain Parameters")
+@export var hill_height : float = 30.0 ## The height to stretch hills vertically.
+@export var water_level : float = 2.5 ## The height to shift terrain down and fill with water.
+@export var heightMap : NoiseTexture2D ## The height map to be used when generating terrain.
+@export_subgroup("Decimation")
+@export var decimateTerrain = true ## If [code]true[/code] the terrain will be decimated based on the decimation step.
+@export var decimation_step_range : Vector2i = Vector2i(1,3) ## A range to randomly pick how many indices to step over each decimation step
+@export_subgroup("Erosion")
+@export var erosion : Erosion ## The erosion module. Leave empty for no erosion.
+@export_group("Snow Parameters")
+@export var snow_coverage : float = 0.5 ## The percent of the map to be covered in snow
+@export var snow_depth : float = 3.0 ## The depth of the deepest snow
+@export var snowHeightMap : NoiseTexture2D ## The heightmap for snow generation
+
+@export_category("Color")
+@export_group("Color Settings")
+@export var terrainColoringMode : terrainColoringOptions = terrainColoringOptions.randomTriangle
+@export_group("Colors")
 @export var terrain_colors : Array[Color] = [Color(Color.GREEN)]
 @export var beach_colors : Array[Color] = [Color(Color.YELLOW)]
 @export var slope_colors : Array[Color] = [Color(Color.BROWN)]
 @export var snowbase_colors : Array[Color] = [Color(Color.BLACK)]
-
 enum terrainColoringOptions {
-	averageTriangle,
-	randomTriangle,
-	averageSquare,
-	randomSquare
+	averageTriangle, ## Averages the coloring per triangle
+	randomTriangle, ## Picks a random vertex of a triangle color to use
+	averageSquare, ## Average the coloring per square 
+	randomSquare ## Pickes a random vertex of a square color to use
 }
 
-@export var terrainColoringMode : terrainColoringOptions = terrainColoringOptions.randomTriangle
+@export_category("Ground Scatter")
+@export_group("Ground Scatter")
+@export var ground_scatters : Array[GroundScatter] ## The objects placed on the terrain. Ordered first to last from top to bottom.
 
-# Heightmap configuration
-@export_group("Height Maps")
-@export var heightMap : NoiseTexture2D #NoiseTexture2D = preload("res://Objects/Terrain3D/terrain_noise2D.tres")
-@export var snowHeightMap : NoiseTexture2D
-
+@onready var terrain_mesh : MeshInstance3D = $TerrainMesh
+@onready var snow_mesh : MeshInstance3D = $SnowMesh
 @onready var heightImage : Image
 @onready var snowHeightImage : Image
 @onready var colorImage : Image
@@ -41,15 +55,9 @@ enum terrainColoringOptions {
 var height_data = {}
 var snow_height_data = {}
 
-
-@export_group("Ground Scatter")
-@export var ground_scatters : Array[GroundScatter]
-
 # Material for the terrain mesh
 var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 
-@onready var terrain_mesh : MeshInstance3D = $TerrainMesh
-@onready var snow_mesh : MeshInstance3D = $SnowMesh
 func _ready():
 	await get_tree().process_frame
 	
@@ -57,25 +65,18 @@ func _ready():
 	color_noise.seed = rng.seed
 	
 	# Initialize the height image from the NoiseTexture2D
-	print(heightMap)
 	heightImage = heightMap.get_image()
 	heightImage.resize(xsize,zsize)
-	
-
-	colorImage = Image.load_from_file("res://Art/Images/DebugTexture.png")
 	snowHeightImage = Image.create_empty(xsize,zsize,false,Image.Format.FORMAT_RGBA8)
+	colorImage = Image.load_from_file("res://Art/Images/DebugTexture.png")
 	
-	if erosion: check_erosion()			# Check for erosiong map / do erosion 
-	
+	if erosion: check_erosion()		# Check for erosiong map / do erosion 
 	generate_terrain_height_data() 	# Generate height data from the height image
-	
 	if snowHeightMap: snowHeightImage = snowHeightMap.get_image()
 	snowHeightImage.resize(xsize,zsize)
 	generate_snow_height_data()
 	generate_snow_mesh()
-
 	calculate_colors()		# Calculate the colors
-
 	if decimateTerrain: generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
 	
 	# Final setup: add collision and scatter objects if not in the editor
@@ -93,12 +94,12 @@ func check_erosion() -> void:
 		erosion.apply_erosion(heightImage, xsize + 1)
 		erosion.save(heightImage, "res://Objects/Terrain3D/HeightMaps/eroded_map.png")
 
-@export_group("Height Parameters")
-@export_subgroup("Terrain Parameters")
-@export var hill_height : float = 30.0
-@export var water_level : float = 2.5
 func generate_terrain_height_data() -> void:
 	height_data.clear()
+	if water_level > 0:
+		$WaterMesh.show()
+	else:
+		$WaterMesh.hide()
 	for x in range(xsize):
 		for z in range(zsize):
 			var raw_terrain_height = heightImage.get_pixel(x, z).r
@@ -108,9 +109,7 @@ func generate_terrain_height_data() -> void:
 				adjusted_terrain_height,
 				z + randf_range(-0.2, 0.2)
 			)
-@export_subgroup("Snow Parameters")
-@export var snow_coverage : float = 0.5
-@export var snow_depth : float = 3.0
+
 func generate_snow_height_data() -> void:
 	snow_height_data.clear()
 	for x in range(xsize):
@@ -228,8 +227,6 @@ func calculate_slope(x, z):
 	
 	return sqrt(dx_slope * dx_slope + dz_slope * dz_slope)
 	
-# Decimation parameters: these control how aggressively the grid is decimated.
-const decimation_step_range : Vector2i = Vector2i(1,3)
 func generate_terrain_mesh() -> void:
 	# Generate decimated indices for both axes. This irregular grid will control the lower poly resolution.
 	var decim_x = generate_decimated_indices(xsize, decimation_step_range)
