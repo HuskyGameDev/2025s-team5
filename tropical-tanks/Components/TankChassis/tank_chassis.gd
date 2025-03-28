@@ -54,6 +54,7 @@ func _physics_process(delta: float) -> void:
 
 		#position += ground_raycast.get_collision_point() - ground_raycast.global_position - ground_raycast.target_position
 		
+		print("On_ground")
 		
 		var rotation_axis = (move_normal.cross(ground_raycast.get_collision_normal())).normalized()
 		var move_vector_angle = move_normal.angle_to(ground_raycast.get_collision_normal())
