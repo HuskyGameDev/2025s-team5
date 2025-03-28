@@ -7,3 +7,4 @@ var attack_position : Vector3
 var armor_piercing : float = 0.0
 var flame_effect : float = 0.0
 var ice_effect : float = 0.0
+var water_depth : float = 0.0

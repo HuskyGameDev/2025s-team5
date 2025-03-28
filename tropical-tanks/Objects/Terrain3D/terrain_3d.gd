@@ -15,6 +15,7 @@ var color_noise = FastNoiseLite.new()
 @export_group("Terrain Parameters")
 @export var hill_height : float = 30.0 ## The height to stretch hills vertically.
 @export var water_level : float = 2.5 ## The height to shift terrain down and fill with water.
+@export var water_shallow_depth : float = 0.0 ## The max depth that is safe for a body. Bodies deeper than this value will take damage.
 @export var heightMap : NoiseTexture2D ## The height map to be used when generating terrain.
 @export_subgroup("Decimation")
 @export var decimateTerrain = true ## If [code]true[/code] the terrain will be decimated based on the decimation step.
@@ -47,6 +48,7 @@ enum terrainColoringOptions {
 
 @onready var terrain_mesh : MeshInstance3D = $TerrainMesh
 @onready var snow_mesh : MeshInstance3D = $SnowMesh
+@onready var water_mesh : WaterMesh = $WaterMesh
 @onready var heightImage : Image
 @onready var snowHeightImage : Image
 @onready var colorImage : Image
@@ -82,6 +84,7 @@ func _ready():
 	# Final setup: add collision and scatter objects if not in the editor
 	if not Engine.is_editor_hint():
 		terrain_mesh.create_trimesh_collision()
+		water_mesh.shallow_depth = water_shallow_depth
 		place_ground_scatter()
 
 func check_erosion() -> void:
@@ -97,9 +100,9 @@ func check_erosion() -> void:
 func generate_terrain_height_data() -> void:
 	height_data.clear()
 	if water_level > 0:
-		$WaterMesh.show()
+		water_mesh.show()
 	else:
-		$WaterMesh.hide()
+		water_mesh.hide()
 	for x in range(xsize):
 		for z in range(zsize):
 			var raw_terrain_height = heightImage.get_pixel(x, z).r

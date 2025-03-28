@@ -1,0 +1,58 @@
+[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://bcywpwqkxmhhb"]
+
+[ext_resource type="Shader" uid="uid://1op4yv623wby" path="res://Art/Materials/waterShader.gdshader" id="1_dms13"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_tliu7"]
+noise_type = 0
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_twwlj"]
+seamless = true
+as_normal_map = true
+bump_strength = 3.0
+noise = SubResource("FastNoiseLite_tliu7")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4wdin"]
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1wo10"]
+seamless = true
+as_normal_map = true
+bump_strength = 2.0
+noise = SubResource("FastNoiseLite_4wdin")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_qiol2"]
+noise_type = 0
+frequency = 0.0061
+fractal_type = 2
+fractal_octaves = 1
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_u4m1s"]
+invert = true
+seamless = true
+seamless_blend_skirt = 0.525
+noise = SubResource("FastNoiseLite_qiol2")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_dms13")
+shader_parameter/albedo = Color(0, 0, 0, 1)
+shader_parameter/albedo2 = Color(0.57763, 0.876259, 1, 1)
+shader_parameter/metallic = 0.242
+shader_parameter/roughness = 0.02
+shader_parameter/wave = SubResource("NoiseTexture2D_u4m1s")
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_twwlj")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_1wo10")
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_direction2 = Vector2(0, 1)
+shader_parameter/time_scale = 0.005
+shader_parameter/noise_scale = 36.585
+shader_parameter/height_scale = 0.15
+shader_parameter/color_deep = Color(3.7542e-05, 0.681741, 0.963178, 1)
+shader_parameter/color_shallow = Color(1, 1, 1, 1)
+shader_parameter/beers_law = 0.085
+shader_parameter/depth_offset = -2.175
+shader_parameter/edge_scale = 0.85
+shader_parameter/near = 1.0
+shader_parameter/far = 1000.0
+shader_parameter/edge_color = Color(0.938901, 0.97616, 1, 1)
