@@ -1,15 +1,13 @@
 extends CharacterBody3D
 class_name TankChassis
 
-const SPEED = 500.0
-
-var move_vector = Vector3(0,0,-1)
-
+@export var SPEED = 500.0
 @export var tank_rotation : float = 0.0
 @export var upgrades : Array[Upgrade] = []
 
 @onready var ground_cast : ShapeCast3D  = $GroundCast
 @onready var tank_chassis = $TankChassisModelParts
+@onready var health_manager = $HealthManager
 
 var controls = {
 	"forward" = false,
@@ -19,6 +17,8 @@ var controls = {
 	"shoot" = false,
 	
 }
+
+var move_vector = Vector3(0,0,-1)
 
 func on_upgrade_pickup(U : Upgrade):
 	upgrades.append(U)
@@ -87,7 +87,9 @@ func _physics_process(delta: float) -> void:
 	look_at(global_position + move_vector)
 	move_and_slide()
 
-
+func take_damage(attack : Attack):
+	health_manager.take_damage(attack)
+	
 func death():
 	var death_pos = global_position
 	global_position = Vector3(randi_range(-50,50),20,randi_range(-50,50))

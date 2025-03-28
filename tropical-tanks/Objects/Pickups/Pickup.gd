@@ -5,6 +5,10 @@ extends Node3D
 func _ready() :
 	if upgrade.image:
 		$Sprite3D.texture = upgrade.image
+		
+	# Waits a frame before becoming pick-up-able
+	await get_tree().process_frame
+	$CollectionArea3D.monitoring = true
 
 # Passed when an object enters the collection area
 func _on_collection_area_3d_body_entered(body: Node3D) -> void:

@@ -30,10 +30,13 @@ target_node = NodePath("../Tank")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="LabelHealth" type="Label" parent="CanvasLayer"]
-offset_left = 2.0
-offset_top = 579.0
-offset_right = 62.0
-offset_bottom = 602.0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -66.0
+offset_right = 60.0
+offset_bottom = -43.0
+grow_vertical = 0
 text = "Health: "
 
 [node name="Label2" type="Label" parent="CanvasLayer"]

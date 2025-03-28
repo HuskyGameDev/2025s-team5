@@ -34,6 +34,7 @@ glow_enabled = true
 script = ExtResource("1_behrf")
 
 [node name="Terrain3D" parent="." instance=ExtResource("2_bkc2w")]
+water_shallow_depth = null
 heightMap = SubResource("NoiseTexture2D_omq0y")
 
 [node name="BackgroundSprite" type="Sprite3D" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://6mmhgkmoq6oa"]
+[gd_scene load_steps=14 format=3 uid="uid://6mmhgkmoq6oa"]
 
 [ext_resource type="Script" uid="uid://c3hmkj8xky03r" path="res://Components/TankChassis/tank_chassis.gd" id="1_bgbpq"]
 [ext_resource type="PackedScene" uid="uid://8bgogrhf5gis" path="res://Art/Models/tankChassisModelParts.tscn" id="2_eebcv"]
@@ -6,6 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="4_3tv7r"]
 [ext_resource type="PackedScene" uid="uid://xtnuh7brto2v" path="res://Components/HealthManager/health_manager.tscn" id="5_5raij"]
 [ext_resource type="PackedScene" uid="uid://c01vtjqhwsafa" path="res://Components/TrackSpawner/trackSpawner.tscn" id="6_14oo1"]
+[ext_resource type="Script" uid="uid://dys1tg1mmx6tj" path="res://Resources/ResourceClasses/SpawnPickup.gd" id="7_hmcte"]
+[ext_resource type="Script" uid="uid://d2gy6jwxlqodv" path="res://Resources/ResourceClasses/UpgradeDropPool.gd" id="8_iqbee"]
+[ext_resource type="Resource" uid="uid://x50377gvax73" path="res://Resources/UpgradePools/basic_upgrades.tres" id="9_nin6y"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b1pfd"]
 size = Vector3(1, 0.636719, 2.83459)
@@ -15,6 +18,12 @@ size = Vector3(1, 0.5, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iotof"]
 size = Vector3(2, 1.755, 4)
+
+[sub_resource type="Resource" id="Resource_j2ctu"]
+script = ExtResource("7_hmcte")
+offset = Vector3(0, 0, 0)
+upgrade_pools = Array[ExtResource("8_iqbee")]([ExtResource("9_nin6y")])
+metadata/_custom_type_script = "uid://dys1tg1mmx6tj"
 
 [node name="TankChassis" type="CharacterBody3D"]
 collision_layer = 2
@@ -58,3 +67,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.915579, -0.0293579)
 shape = SubResource("BoxShape3D_iotof")
 
 [node name="HealthManager" parent="." instance=ExtResource("5_5raij")]
+max_health = 500.0
+death_effects = Array[Resource]([SubResource("Resource_j2ctu")])

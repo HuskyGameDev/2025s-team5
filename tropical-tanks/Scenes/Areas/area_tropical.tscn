@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cdll3cassyhme"]
+[gd_scene load_steps=16 format=3 uid="uid://cdll3cassyhme"]
 
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_3njuy"]
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="2_nwsly"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://c82mw1ohcjhpb" path="res://Resources/GroundScatters/TropicalTreesSparse.tres" id="3_pt1xw"]
 [ext_resource type="Resource" uid="uid://8oxg70awgug6" path="res://Resources/GroundScatters/ExplosiveBarrels.tres" id="4_jv40j"]
 [ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="4_s8g7s"]
+[ext_resource type="PackedScene" uid="uid://dgbqx36xfou6s" path="res://Objects/Debuggers/debug_stick.tscn" id="9_2s5y5"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rb057"]
 size = Vector2(10, 10)
@@ -47,6 +48,7 @@ directional_shadow_mode = 1
 
 [node name="Terrain3D" parent="." instance=ExtResource("1_3njuy")]
 hill_height = 15.0
+water_shallow_depth = 1.0
 heightMap = SubResource("NoiseTexture2D_2s5y5")
 decimation_step_range = Vector2i(1, 2)
 ground_scatters = Array[ExtResource("2_y65ld")]([ExtResource("3_pt1xw"), ExtResource("4_jv40j"), ExtResource("3_jv40j"), ExtResource("4_s8g7s")])
@@ -65,3 +67,6 @@ target = NodePath("../PlayerRoot")
 [node name="EnemyRoot3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("3_0tgaw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.23166, 21.4716, -1.2185)
 target = NodePath("../PlayerRoot")
+
+[node name="DebugStick" parent="." instance=ExtResource("9_2s5y5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.5502, -0.478383, -10.1979)

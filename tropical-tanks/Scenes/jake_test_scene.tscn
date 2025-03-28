@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://c82mw1ohcjhpb" path="res://Resources/GroundScatters/TropicalTreesSparse.tres" id="3_s4ihi"]
 [ext_resource type="Resource" uid="uid://8oxg70awgug6" path="res://Resources/GroundScatters/ExplosiveBarrels.tres" id="4_d6dpr"]
 [ext_resource type="Resource" uid="uid://c658la25pdnso" path="res://Resources/GroundScatters/TropicalBushDense.tres" id="5_ut3yw"]
-[ext_resource type="Resource" uid="uid://fa6xnbn1mopn" path="res://Resources/Upgrades/bounce.tres" id="6_d6dpr"]
+[ext_resource type="Resource" uid="uid://fa6xnbn1mopn" path="res://Resources/Upgrades/add_bounce.tres" id="6_d6dpr"]
 [ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="6_hvm4n"]
 [ext_resource type="Resource" uid="uid://4x874xljk5ou" path="res://Resources/Upgrades/fuse.tres" id="9_s4ihi"]
 [ext_resource type="Resource" uid="uid://br0r6vudaj050" path="res://Resources/Upgrades/dupe_shell.tres" id="10_d6dpr"]
