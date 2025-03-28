@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cndrndiub4lyf" path="res://Scenes/HubMenu/hub_menu.gd" id="1_dnwjy"]
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/TankChassis/tankChassis.tscn" id="1_tploy"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_nwenx"]
-[ext_resource type="Theme" uid="uid://bvaapjna3qw4o" path="res://Art/Themes/hub_theme.tres" id="4_hbvwv"]
+[ext_resource type="Theme" uid="uid://dvhloa1jal3q2" path="res://Art/Themes/hub_theme.tres" id="4_hbvwv"]
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="5_44aak"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tjabw"]
