@@ -290,9 +290,9 @@ func generate_terrain_mesh() -> void:
 					image_color_1 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v2.x, v2.z) + colorImage.get_pixel(v3.x, v3.z)) / 3.
 					image_color_2 = (colorImage.get_pixel(v1.x, v1.z) + colorImage.get_pixel(v3.x, v3.z) + colorImage.get_pixel(v4.x, v4.z)) / 3.
 				terrainColoringOptions.randomTriangle:
-					var randomVertex1 = [v1, v2, v3, v4].pick_random()
+					var randomVertex1 = [v1, v2, v3].pick_random()
 					image_color_1 = (colorImage.get_pixel(randomVertex1.x, randomVertex1.z))
-					var randomVertex2 = [v1, v2, v3, v4].pick_random()
+					var randomVertex2 = [v1, v3, v4].pick_random()
 					image_color_2 = (colorImage.get_pixel(randomVertex2.x, randomVertex2.z))
 				terrainColoringOptions.randomSquare:
 					var randomVertex1 = [v1, v2, v3, v4].pick_random()
