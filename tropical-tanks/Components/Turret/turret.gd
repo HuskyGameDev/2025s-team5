@@ -19,7 +19,7 @@ var BARREL = preload("res://Components/Turret/barrel.tscn")
 		set_barrels()
 		# if Engine.is_editor_hint():
 
-var initial_shot_power = 17
+var initial_shot_power = 20
 var shoot_cooldown = 1.0
 
 @onready var bearing = $TurretHub/Bearing
@@ -83,7 +83,7 @@ func _physics_process(delta: float) -> void:
 	$TurretHub.global_position = global_position
 	rotation.x = clamp(rotation.x, -0.4, 2)
 	$TurretHub.global_rotation = global_rotation * Vector3(0,1,0)
-	var best_turret_angle = deg_to_rad(calculate_turret_angle(global_position,target_position,initial_shot_power/shell_parameters.mass, shell_parameters.gravity.y, false))
+	var best_turret_angle = deg_to_rad(calculate_turret_angle($TurretHub/Bearing/AimCalculateLocation.global_position,target_position,initial_shot_power/shell_parameters.mass, shell_parameters.drag, shell_parameters.gravity.y, false))
 	bearing.rotation.x = best_turret_angle
 
 
@@ -91,6 +91,7 @@ func calculate_turret_angle(
 	turret_position: Vector3,
 	target_position: Vector3,
 	shell_initial_velocity: float,
+	drag : float,
 	gravity_acceleration: float = -9.8,
 	mortar_angle: bool = false) -> float:
 	# Calculate horizontal distance (d) and height difference (h)
