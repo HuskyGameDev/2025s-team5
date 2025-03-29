@@ -7,10 +7,11 @@ const SHELL = preload("res://Components/Shell/shell.tscn")
 var velocity : Vector3 = Vector3(0,0,0)
 var power : float = 0 # Total power of the bullet based on speed * mass
 
-@onready var cast : ShapeCast3D = $ShapeCast3D
+@onready var shape_cast : ShapeCast3D = $ShapeCast3D
+@onready var ray_cast: RayCast3D = $RayCast3D
+
 
 @export var shell_parameters : ShellParameter
-
 @onready var sp : ShellParameter = shell_parameters
 
 # Called when the node enters the scene tree for the first time.
@@ -56,27 +57,8 @@ func bounce(normal_vector : Vector3):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	# Ray Cast collisions
-	if cast.is_colliding():
-		power = velocity.length() * sp.mass
-		for i in cast.get_collision_count():
-		
-			var collision_vector = cast.get_collision_point(i) - cast.global_position
-			if (collision_vector.length() - velocity.length()) <= 0:
-				
-				#position += collision_vector
-				
-				var body = cast.get_collider(i)
-				if body and body:
-					if body.get_parent().is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
-						explode()
-						impact(body)
-						print("hit enemy")
-					else : # Only bounce if hitting terrain and is able to bounce
-						if sp.bounces_left >= 1:
-							bounce(cast.get_collision_normal(i))
-						else:
-							explode() # Otherwise, just explode
-							impact(body)
+	ray_cast.target_position = velocity.length() * delta * Vector3(0,0,-1)
+	check_collisions()
 
 	# Integrate position and velocity
 	position += velocity * delta
@@ -84,6 +66,34 @@ func _physics_process(delta: float) -> void:
 	
 	# Look in direction of travel
 	look_at(position + velocity)
+
+func check_collisions():
+	
+	if ray_cast.is_colliding():
+		var collision_point = ray_cast.get_collision_point()
+		var cast_global_positon = ray_cast.global_position
+		
+		
+		power = velocity.length() * sp.mass
+	
+		var collision_vector = collision_point - cast_global_positon
+		print((collision_vector.length()))
+		if (collision_vector.length()) <= 1.0:
+			
+			#position += collision_vector
+			
+			var body = ray_cast.get_collider()
+			if body:
+				if body.get_parent().is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
+					explode()
+					impact(body)
+					print("hit enemy")
+				else : # Only bounce if hitting terrain and is able to bounce
+					if sp.bounces_left >= 1:
+						bounce(ray_cast.get_collision_normal())
+					else:
+						explode() # Otherwise, just explode
+						impact(body)
 
 func get_drag() -> Vector3:
 	return -(velocity*velocity.length()) * sp.drag * 0.5 # Returns a drag vector to factor in to velocity

@@ -6,7 +6,7 @@
 size = Vector3(0.2, 0.6, 0.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_okp7v"]
-size = Vector3(0.5, 0.5, 0.5)
+size = Vector3(0.1, 0.1, 0.5)
 
 [node name="Shell" type="Node3D"]
 script = ExtResource("1_f5510")
@@ -17,7 +17,6 @@ layers = 2
 mesh = SubResource("PrismMesh_h46kv")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0201612)
 target_position = Vector3(0, 0, -2)
 collision_mask = 3
 collide_with_areas = true
@@ -26,7 +25,7 @@ collide_with_areas = true
 shape = SubResource("BoxShape3D_okp7v")
 target_position = Vector3(0, 0, -1)
 margin = 1.0
-collision_mask = 7
+collision_mask = 6
 
 [node name="FuseTimer" type="Timer" parent="."]
 one_shot = true

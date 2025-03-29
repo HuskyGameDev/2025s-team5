@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4ui8j2t8glw0"]
+[gd_scene load_steps=6 format=3 uid="uid://c4ui8j2t8glw0"]
 
 [ext_resource type="Script" uid="uid://ca4g8ipel5xlq" path="res://Components/Turret/turret.gd" id="1_p3y8b"]
 [ext_resource type="PackedScene" uid="uid://do3q1y3fmiwh" path="res://Art/Models/turretHubModelParts.tscn" id="2_eg07v"]
@@ -6,6 +6,8 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_aqewf"]
 size = Vector3(0.5, 0.15, 0.15)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q7jdv"]
 
 [node name="Turret" type="Node3D"]
 script = ExtResource("1_p3y8b")
@@ -27,6 +29,10 @@ target_position = Vector3(0, 0, -3)
 
 [node name="AimCalculateLocation" type="Marker3D" parent="TurretHub/Bearing"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.953983)
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="TurretHub/Bearing"]
+shape = SubResource("BoxShape3D_q7jdv")
+target_position = Vector3(0, 0, -5)
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
