@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
 			if move_vector_angle != 0 and velocity != Vector3.ZERO:
 				velocity = velocity.rotated(rotation_axis,move_vector_angle)
 		if controls.get("backward"):
-			velocity = (delta * -SPEED * move_vector).rotated(rotation_axis.normalized(),move_vector_angle)
+			velocity = (delta * -SPEED * move_vector) #.rotated(rotation_axis.normalized(),move_vector_angle)
 			if move_vector_angle != 0 and velocity != Vector3.ZERO:
 				velocity = velocity.rotated(rotation_axis, -move_vector_angle)
 
