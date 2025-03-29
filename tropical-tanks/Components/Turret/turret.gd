@@ -69,7 +69,7 @@ func set_barrels() -> void:
 @onready var basic_turret_angle_solver : BasicTurretAngleSolver = BasicTurretAngleSolver.new()
 var minimum_shot_distance : float = 6.0
 var shot_obstructed : bool = false
-@export var use_drag_solver : bool = true ## Uses drag solver if [code]true[/code]
+@export var use_drag_solver : bool = false ## Uses drag solver if [code]true[/code]
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return #Do not do this code while in editor
@@ -89,9 +89,9 @@ func _physics_process(delta: float) -> void:
 		best_turret_angle = drag_turret_angle_solver.calculate_turret_angle($TurretHub/Bearing/AimCalculateLocation.global_position,target_position, initial_shot_velocity, shell_parameters.drag, shell_parameters.gravity.y, false)
 	else:
 		best_turret_angle = basic_turret_angle_solver.calculate_turret_angle($TurretHub/Bearing/AimCalculateLocation.global_position,target_position, initial_shot_velocity, shell_parameters.gravity.y, false)
-	print(best_turret_angle)
+	#print(best_turret_angle)
 	
-	var current_turret_angle = move_toward(bearing.rotation.x,best_turret_angle, delta)
+	var current_turret_angle = move_toward(bearing.rotation.x,best_turret_angle, 10*delta)
 	bearing.rotation.x = current_turret_angle
 
 
