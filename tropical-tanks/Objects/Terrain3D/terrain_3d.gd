@@ -79,7 +79,7 @@ func _ready():
 	generate_snow_height_data()
 	generate_snow_mesh()
 	calculate_colors()		# Calculate the colors
-	if decimateTerrain: generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
+	generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
 	
 	# Final setup: add collision and scatter objects if not in the editor
 	if not Engine.is_editor_hint():

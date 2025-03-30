@@ -16,7 +16,7 @@ var gravity : Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_
 @export var bounce_explode : float = 0.0
 
 @export var ice_effect : float = 0.0 # Amount to freeze
-@export var flame_effect : float = 0.0 # Amount to burn
+@export var flame_effect : float = 100.0 # Amount to burn
 
 @export var num_split : int = 0
 

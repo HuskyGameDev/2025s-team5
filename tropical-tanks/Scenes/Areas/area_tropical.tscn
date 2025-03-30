@@ -50,7 +50,8 @@ directional_shadow_mode = 1
 hill_height = 15.0
 water_shallow_depth = 1.0
 heightMap = SubResource("NoiseTexture2D_2s5y5")
-decimation_step_range = Vector2i(1, 2)
+decimateTerrain = false
+terrainColoringMode = 0
 ground_scatters = Array[ExtResource("2_y65ld")]([ExtResource("3_pt1xw"), ExtResource("4_jv40j"), ExtResource("3_jv40j"), ExtResource("4_s8g7s")])
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_nwsly")]

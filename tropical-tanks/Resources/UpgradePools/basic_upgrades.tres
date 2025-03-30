@@ -10,5 +10,5 @@
 
 [resource]
 script = ExtResource("1_0cw36")
-upgrade_drop_pool = Array[ExtResource("2_a4d15")]([ExtResource("3_4jo0j"), ExtResource("4_bmokk"), ExtResource("5_aark6"), ExtResource("6_bmokk"), ExtResource("7_aark6"), ExtResource("7_aark6")])
+upgrade_drop_pool = Array[ExtResource("2_a4d15")]([ExtResource("3_4jo0j"), ExtResource("4_bmokk"), ExtResource("4_bmokk"), ExtResource("5_aark6"), ExtResource("6_bmokk"), ExtResource("7_aark6"), ExtResource("7_aark6")])
 metadata/_custom_type_script = "uid://d2gy6jwxlqodv"

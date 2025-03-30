@@ -118,6 +118,7 @@ func impact(body : Node3D):
 	impact_attack.damage = velocity.length() * sp.mass  # Set attack damage to the momentum of the shell #Momentum = Velocity * Mass
 	impact_attack.armor_piercing = sp.armor_piercing
 	impact_attack.ice_effect = sp.ice_effect
+	impact_attack.flame_effect = sp.flame_effect * sp.mass
 	
 	
 	# Apply attack to body

@@ -67,5 +67,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.915579, -0.0293579)
 shape = SubResource("BoxShape3D_iotof")
 
 [node name="HealthManager" parent="." instance=ExtResource("5_5raij")]
-max_health = 500.0
+max_health = 200.0
 death_effects = Array[Resource]([SubResource("Resource_j2ctu")])

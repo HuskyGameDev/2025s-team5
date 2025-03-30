@@ -1,0 +1,94 @@
+[gd_scene load_steps=11 format=3 uid="uid://grljdpkble54"]
+
+[ext_resource type="Script" uid="uid://dbtxju5cxub28" path="res://Art/Particles/fire_particles.gd" id="1_dhuxo"]
+[ext_resource type="Texture2D" uid="uid://srtik2qc17pc" path="res://Art/Images/Fire!!!!!.svg" id="1_j3nmm"]
+[ext_resource type="Material" uid="uid://82mk0t74y6fa" path="res://Art/Materials/FireMaterial.tres" id="2_c2evd"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_c2evd"]
+lifetime_randomness = 0.28
+emission_shape = 1
+emission_sphere_radius = 1.0
+inherit_velocity_ratio = 0.102
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = 1.99998
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -1.0
+linear_accel_max = 0.999998
+scale_min = 0.5
+turbulence_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oujfi"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = ExtResource("1_j3nmm")
+billboard_keep_scale = true
+grow = true
+proximity_fade_distance = 3.75
+
+[sub_resource type="QuadMesh" id="QuadMesh_dhuxo"]
+material = SubResource("StandardMaterial3D_oujfi")
+size = Vector2(0.5, 0.5)
+orientation = 1
+
+[sub_resource type="Curve" id="Curve_dhuxo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_b4px2"]
+curve = SubResource("Curve_dhuxo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_38abt"]
+direction = Vector3(0, 1, 0)
+spread = 90.0
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+gravity = Vector3(0, 1, 0)
+tangential_accel_min = -10.0
+tangential_accel_max = 10.0
+damping_max = 2.0
+scale_min = 0.1
+scale_over_velocity_min = 10.0
+scale_over_velocity_max = 10.0
+turbulence_enabled = true
+turbulence_noise_strength = 0.5
+turbulence_influence_over_life = SubResource("CurveTexture_b4px2")
+sub_emitter_mode = 1
+sub_emitter_frequency = 5.0
+sub_emitter_keep_velocity = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ysq3v"]
+material = ExtResource("2_c2evd")
+size = Vector3(0.3, 0.3, 0.3)
+
+[node name="FireParticles" type="Node3D"]
+script = ExtResource("1_dhuxo")
+
+[node name="FireParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78026, 0)
+visible = false
+amount = 10
+explosiveness = 0.05
+fixed_fps = 2
+fract_delta = false
+trail_lifetime = 0.64
+process_material = SubResource("ParticleProcessMaterial_c2evd")
+draw_pass_1 = SubResource("QuadMesh_dhuxo")
+
+[node name="FireParticles2" type="GPUParticles3D" parent="."]
+layers = 2
+amount = 100
+amount_ratio = 0.4777
+speed_scale = 0.8
+explosiveness = 0.24
+randomness = 0.14
+process_material = SubResource("ParticleProcessMaterial_38abt")
+draw_pass_1 = SubResource("BoxMesh_ysq3v")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 1.4576, 0)
+visible = false
+layers = 2
+billboard = 1
+texture = ExtResource("1_j3nmm")

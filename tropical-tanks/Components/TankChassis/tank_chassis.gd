@@ -95,6 +95,7 @@ func death():
 	var death_pos = global_position
 	global_position = Vector3(randi_range(-50,50),20,randi_range(-50,50))
 	explode(death_pos)
+	health_manager.death_effects[0].trigger_effect(self)
 
 var EXPLOSION = preload("res://Components/Explosion/explosion.tscn")
 func explode(explode_position):
