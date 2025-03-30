@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dvhloa1jal3q2"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dvhloa1jal3q2"]
 
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="1_3uhfm"]
+[ext_resource type="FontFile" uid="uid://cn087n704vg06" path="res://Art/Fonts/FreeGodotFontpack/fonts/montreal/Montreal-Regular.ttf" id="2_7u3a1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7u3a1"]
 bg_color = Color(0.192157, 0.45098, 0.372549, 1)
@@ -16,6 +17,14 @@ content_margin_top = 25.0
 content_margin_right = 25.0
 content_margin_bottom = 25.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ld8ju"]
+bg_color = Color(0.0470588, 0.164706, 0.247059, 0.717647)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 2
+border_color = Color(0.0470588, 0.164706, 0.247059, 0.717647)
+
 [resource]
 Button/font_sizes/font_size = 20
 Button/fonts/font = ExtResource("1_3uhfm")
@@ -23,3 +32,5 @@ Button/styles/normal = SubResource("StyleBoxFlat_7u3a1")
 Label/font_sizes/font_size = 20
 Label/fonts/font = ExtResource("1_3uhfm")
 PanelContainer/styles/panel = SubResource("StyleBoxEmpty_3uhfm")
+RichTextLabel/fonts/normal_font = ExtResource("2_7u3a1")
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_ld8ju")

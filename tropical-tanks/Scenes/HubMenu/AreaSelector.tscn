@@ -1,4 +1,17 @@
-[gd_scene format=3 uid="uid://cwqg03gbbdhik"]
+[gd_scene load_steps=8 format=3 uid="uid://cwqg03gbbdhik"]
+
+[ext_resource type="Script" uid="uid://blj16va5qalod" path="res://Scenes/HubMenu/area_selector.gd" id="1_54dst"]
+[ext_resource type="Texture2D" uid="uid://c5krjamyqpgxa" path="res://Art/Images/tropicalareaplaceholder.png" id="1_r7vtc"]
+[ext_resource type="Theme" uid="uid://dvhloa1jal3q2" path="res://Art/Themes/hub_theme.tres" id="2_ti6f2"]
+[ext_resource type="Texture2D" uid="uid://bfmcqabe4fnwl" path="res://Art/Images/pressedtropicalareaplaceholder.png" id="4_spv06"]
+[ext_resource type="Texture2D" uid="uid://g8gjnyfl4yji" path="res://Art/Images/hoveredtropicalareaplaceholder.png" id="5_hi2dt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43jrp"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+bg_color = Color(0.430217, 0.671148, 0.412687, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ti6f2"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -11,19 +24,40 @@ offset_right = -18.0
 offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_54dst")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_right = 284.0
 offset_bottom = 464.0
+theme = ExtResource("2_ti6f2")
+theme_override_styles/panel = SubResource("StyleBoxFlat_43jrp")
 
 [node name="VSplitContainer" type="VSplitContainer" parent="PanelContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer/VSplitContainer"]
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/VSplitContainer"]
+layout_mode = 2
+
+[node name="ExitButton" type="Button" parent="PanelContainer/VSplitContainer/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.367788, 0.300217, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ti6f2")
+text = "X"
+
+[node name="Label" type="Label" parent="PanelContainer/VSplitContainer/HSplitContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 14
+theme_override_font_sizes/font_size = 28
 text = "AREAS"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -41,9 +75,82 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="TextureButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea"]
+[node name="TropicalButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("1_r7vtc")
+texture_pressed = ExtResource("4_spv06")
+texture_hover = ExtResource("5_hi2dt")
+stretch_mode = 0
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea"]
 layout_mode = 2
 text = "This is the default tropical area of the game."
+
+[node name="TropicalArea2" type="HSplitContainer" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("1_r7vtc")
+stretch_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea2"]
+layout_mode = 2
+text = "placeholder"
+
+[node name="TropicalArea3" type="HSplitContainer" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("1_r7vtc")
+stretch_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea3"]
+layout_mode = 2
+text = "placeholder"
+
+[node name="TropicalArea4" type="HSplitContainer" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea4"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("1_r7vtc")
+stretch_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea4"]
+layout_mode = 2
+text = "placeholder"
+
+[node name="TropicalArea5" type="HSplitContainer" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea5"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("1_r7vtc")
+stretch_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea5"]
+layout_mode = 2
+text = "placeholder"
+
+[connection signal="pressed" from="PanelContainer/VSplitContainer/HSplitContainer/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea/TropicalButton" to="." method="_on_tropical_button_pressed"]
