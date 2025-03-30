@@ -63,14 +63,14 @@ upgrade = ExtResource("9_s4ihi")
 transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, -1.74408, 20.0388, 15.9831)
 upgrade = ExtResource("6_d6dpr")
 
-[node name="Fuse2" parent="." instance=ExtResource("3_a26nt")]
-transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, -1.74408, 20.0388, 15.9831)
-upgrade = ExtResource("9_s4ihi")
-
 [node name="Split1" parent="." instance=ExtResource("3_a26nt")]
 transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, -1.71069, 23.3461, 15.9831)
 upgrade = ExtResource("10_d6dpr")
 
 [node name="Split2" parent="." instance=ExtResource("3_a26nt")]
+transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, -1.71069, 23.3461, 15.9831)
+upgrade = ExtResource("10_d6dpr")
+
+[node name="Split3" parent="." instance=ExtResource("3_a26nt")]
 transform = Transform3D(0.998146, 0, -0.0608569, 0, 1, 0, 0.0608569, 0, 0.998146, -1.71069, 23.3461, 15.9831)
 upgrade = ExtResource("10_d6dpr")

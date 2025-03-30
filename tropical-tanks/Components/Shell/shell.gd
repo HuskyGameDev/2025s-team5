@@ -25,14 +25,13 @@ func _ready() -> void:
 	if int(sp.backwardness) % 2 == 1:
 		$TempMesh.rotation.y = deg_to_rad(180)
 
-func split(index):
-	
+func split():
 	spawn_shell()
 
 func spawn_shell():
 	var shell : Shell = SHELL.instantiate()
 	shell.shell_parameters = sp.duplicate()
-	shell.velocity = velocity * .5
+	shell.velocity = velocity * 2
 	shell.rotation = global_rotation
 	shell.position = global_position
 	get_tree().root.add_child(shell)
@@ -52,7 +51,10 @@ func bounce(normal_vector : Vector3):
 		explode()
 		
 	velocity = velocity.reflect(reflection_plane) * (1.0 - sp.bounce_loss/sp.bounces_left)
-	sp.bounces_left = sp.bounces_left - 1 # Decrement bounce counter
+	sp.bounces_left -= 1 # Decrement bounce counter
+	if sp.num_split > 0:
+		split()
+		sp.num_split -= 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
@@ -132,6 +134,8 @@ func _on_fuse_timer_timeout() -> void:
 	if(sp.num_fuse > 0):
 		$FuseTimer.start()
 	else :
-		for i in sp.num_split:
-			sp.num_split = 0
-			split(i)
+		#for i in sp.num_split:
+			#sp.num_split = 0
+			#split()
+		split()
+		sp.num_split -= 1
