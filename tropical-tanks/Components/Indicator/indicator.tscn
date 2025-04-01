@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmlqkqrg30kif"]
+
+[ext_resource type="Script" uid="uid://be5o77wkacu7t" path="res://Components/Indicator/indicator.gd" id="1_ads1p"]
+
+[node name="Indicator" type="Node3D"]
+script = ExtResource("1_ads1p")
+
+[node name="Label3D" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+layers = 4
+billboard = 1
+no_depth_test = true
+text = "null"
+font_size = 64
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

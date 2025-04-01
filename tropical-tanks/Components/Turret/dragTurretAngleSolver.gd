@@ -1,17 +1,60 @@
 extends Node
 class_name DragTurretAngleSolver
 
+var angles = []
+func calculate_angles() -> void:
+	var start = -20.0
+	var end = 90.0
+	var step = 0.01
+	while start <= end:
+		angles.append(start)
+		start += step
+	#print(angles)
+	
+	
+func calculate_turret_angle(
+	turret_position: Vector3,
+	target_position: Vector3,
+	shell_velocity: float,
+	drag: float,
+	mass: float,
+	gravity: float = -9.81,
+	mortar_mode: bool = false) -> float:
+	
+	if angles.size() == 0:
+		calculate_angles()
+	
+	var horizontal_distance = abs(target_position.x - turret_position.x)
+	var vertical_distance = target_position.y - turret_position.y
+	#print("Horizontal:", horizontal_distance)
+	#print("Vertical:", vertical_distance)
+	var best_angle = 45.0
+	var errors = []
+	for angle in angles:
+		var theta = rad_to_deg(angle)
+		var y = ((drag * shell_velocity * sin(theta) + (mass * gravity)) / (drag * shell_velocity * cos(theta))) * horizontal_distance + ((mass * mass * gravity) / (drag * drag)) * log(1 - (drag * horizontal_distance)/ (mass * shell_velocity * cos(theta)))
+		errors.append(abs(vertical_distance - y))
+	best_angle = angles[errors.find(errors.min())]
+	
+	#print(errors.min())
+	return deg_to_rad(best_angle)
+
 const THRESHOLD: float = 0.0001
 const MAX_ANGLE: float = PI/2.0
 const DEFAULT_ANGLE: float = PI/4.0
 
-func calculate_turret_angle(
+func calculate_turret_angleCaden(
 	turret_position: Vector3,
 	target_position: Vector3,
 	shell_velocity: float,
 	drag: float,
 	gravity: float = -9.81,
 	mortar_mode: bool = false) -> float:
+	
+	
+	
+	
+	
 	
 	var horizontal_dist: float = Vector2(turret_position.x, turret_position.z).distance_to(
 		Vector2(target_position.x, target_position.z))

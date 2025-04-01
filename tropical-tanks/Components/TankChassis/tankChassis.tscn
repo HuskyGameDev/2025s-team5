@@ -69,3 +69,4 @@ shape = SubResource("BoxShape3D_iotof")
 [node name="HealthManager" parent="." instance=ExtResource("5_5raij")]
 max_health = 200.0
 death_effects = Array[Resource]([SubResource("Resource_j2ctu")])
+indicators = true

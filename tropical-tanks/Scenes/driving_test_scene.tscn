@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://drmovv0sm6tee"]
+[gd_scene load_steps=16 format=3 uid="uid://drmovv0sm6tee"]
 
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="1_j7jj7"]
 [ext_resource type="Material" uid="uid://bvjp8o4wnqyvw" path="res://Art/Materials/MetalMaterial.tres" id="1_pe5y8"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://muyyw3hbkop7" path="res://Resources/Upgrades/add_shot_power.tres" id="5_ry4kd"]
 [ext_resource type="Resource" uid="uid://fa6xnbn1mopn" path="res://Resources/Upgrades/add_bounce.tres" id="6_o3wxv"]
 [ext_resource type="Resource" uid="uid://b3h7etbbo8d0f" path="res://Resources/Upgrades/double_barrel.tres" id="6_ry4kd"]
+[ext_resource type="PackedScene" uid="uid://cmlqkqrg30kif" path="res://Components/Indicator/indicator.tscn" id="8_3jn3n"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pe5y8"]
 size = Vector2(40, 40)
@@ -158,3 +159,6 @@ upgrade = ExtResource("6_ry4kd")
 [node name="Pickup9" parent="." instance=ExtResource("4_kcogb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.02163, 0, -41.5371)
 upgrade = ExtResource("6_ry4kd")
+
+[node name="Indicator" parent="." instance=ExtResource("8_3jn3n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.18945, 0.140066, -4.79217)

@@ -26,7 +26,9 @@ mesh = SubResource("CylinderMesh_c7qlu")
 
 [node name="HealthManager" type="Node3D" parent="."]
 script = ExtResource("1_eftk2")
+max_health = 10.0
 death_effects = Array[Resource]([SubResource("Resource_dxi71")])
+indicators = true
 metadata/_custom_type_script = "uid://eglj02lx7r0m"
 
 [node name="Hitbox" type="Area3D" parent="." node_paths=PackedStringArray("health_manager")]
