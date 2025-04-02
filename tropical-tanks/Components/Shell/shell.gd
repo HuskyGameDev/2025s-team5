@@ -140,3 +140,7 @@ func _on_fuse_timer_timeout() -> void:
 			#split()
 		split()
 		sp.num_split -= 1
+
+
+func _on_life_timer_timeout() -> void:
+	queue_free()

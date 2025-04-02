@@ -15,16 +15,24 @@ var INDICATOR = preload("res://Components/Indicator/indicator.tscn")
 var fire_level : float = 0
 var fire_speed : float = 0.1
 
+var water_depth : float = 0
+
+var hitboxes : Array[Hitbox] = []
+
+var water_damage_timer : Timer
 @onready var health = max_health
+func _ready() -> void:
+	if take_water_damage:
+		water_damage_timer = Timer.new()
+		water_damage_timer.one_shot = true
+		add_child(water_damage_timer)
+
 func take_damage(attack : Attack):
 	if health > 0:
 		if attack.damage > 0:
 			if indicators: spawn_indicator(attack.damage, Color(0.9,0.1,0.1))
 			
 			health = health - attack.damage
-		if take_water_damage and attack.water_depth > 0:
-			health = health - attack.water_depth
-			if indicators: spawn_indicator(attack.water_depth, Color(0.1,0.1,0.6))
 		#fire_level += attack.flame_effect
 		
 		check_health()
@@ -43,6 +51,9 @@ func spawn_indicator(value, color : Color):
 
 func _physics_process(delta: float) -> void:
 	pass
+	
+	
+	
 	#if take_fire_damage and fire_level > 0 and health > 0:
 		#do_fire_damage(delta)
 		#fire_particles.set_level( clampf(fire_level/40,0.0,1.0) )
@@ -60,7 +71,19 @@ func do_fire_damage(delta: float):
 			fire_level = 0
 	check_health()
 		
-		
+func do_water_damage():
+	water_damage_timer.start()
+	water_depth = 0
+	for hitbox : Hitbox in hitboxes:
+		if hitbox.water_depth > water_depth:
+			water_depth = hitbox.water_depth
+	
+	var water_depth_damage = water_depth * 10
+	if water_depth_damage >= 1:
+		health = health - water_depth_damage
+		if indicators: spawn_indicator(water_depth_damage, Color(0.1,0.1,0.6))
+			
+	check_health()
 	
 
 func death():

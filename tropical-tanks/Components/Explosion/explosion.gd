@@ -10,7 +10,7 @@ const CRATER = preload("res://Components/Crater/crater.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	$Timer.wait_time = randf_range(0.06,0.12)
+	$Timer.wait_time = randf_range(0.05,0.1)
 	$Timer.start()
 	$AudioStreamPlayer3D.volume_db = -5 + explosion_power
 	$AudioStreamPlayer3D.play(0.0)
@@ -44,8 +44,9 @@ func _ready() -> void:
 func _on_timer_timeout() -> void:
 	if explosion_power > 6:
 		spawn_child_explosion()
-	for i in randi_range(0,1):
-		spawn_child_explosion()
+	if explosion_power < 6:
+		for i in randi_range(0,1):
+			spawn_child_explosion()
 	queue_free()
 	
 		
