@@ -1,15 +1,18 @@
-[gd_scene load_steps=15 format=3 uid="uid://crptm3tpqf23q"]
+[gd_scene load_steps=17 format=3 uid="uid://crptm3tpqf23q"]
 
 [ext_resource type="Script" uid="uid://dwlo11ont4xx0" path="res://Scenes/MainMenu/main_menu.gd" id="1_behrf"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="2_bkc2w"]
 [ext_resource type="Texture2D" uid="uid://cvh2t25q6jq0h" path="res://Art/Images/sea.png" id="3_0unh6"]
-[ext_resource type="Texture2D" uid="uid://bmh56nspmxqck" path="res://Art/Images/TripleShot.svg" id="3_e5jsv"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="3_agesy"]
 [ext_resource type="Script" uid="uid://dv6jljohwnipd" path="res://Scenes/MainMenu/camera_orbiter.gd" id="3_id83c"]
-[ext_resource type="Texture2D" uid="uid://bosppbg8rh2nd" path="res://Art/Images/DoubleShot.svg" id="4_3mej2"]
+[ext_resource type="Resource" uid="uid://c6qqbt8n1spbd" path="res://Resources/GroundScatters/TropicalForest.tres" id="4_mdp32"]
 [ext_resource type="Texture2D" uid="uid://bnnkxtf7jj6b7" path="res://Art/Images/CanvasBackgroundSandParticles.png" id="5_ihuk2"]
+[ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="5_rlg4b"]
+[ext_resource type="Theme" uid="uid://dvhloa1jal3q2" path="res://Art/Themes/hub_theme.tres" id="6_n5jej"]
 [ext_resource type="Texture2D" uid="uid://buyvs5rpxo1ah" path="res://Art/Images/TropicalTanks.png" id="9_egttt"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_2r307"]
+frequency = 0.005
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_omq0y"]
 noise = SubResource("FastNoiseLite_2r307")
@@ -34,7 +37,11 @@ glow_enabled = true
 script = ExtResource("1_behrf")
 
 [node name="Terrain3D" parent="." instance=ExtResource("2_bkc2w")]
+hill_height = 15.0
+water_level = 4.0
 heightMap = SubResource("NoiseTexture2D_omq0y")
+terrainColoringMode = 0
+ground_scatters = Array[ExtResource("3_agesy")]([ExtResource("4_mdp32"), ExtResource("5_rlg4b")])
 
 [node name="BackgroundSprite" type="Sprite3D" parent="."]
 transform = Transform3D(0.71, 0, 0, 0, -3.10351e-08, -0.71, 0, 0.71, -3.10351e-08, 27.25, 0, 0)
@@ -73,25 +80,32 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+theme = ExtResource("6_n5jej")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="StartButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "Start"
 
 [node name="SettingsButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "Settings"
 
 [node name="HowToPlayButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "How To Play"
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/outline_size = 10
 text = "Quit"
 
 [node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer"]
@@ -119,22 +133,6 @@ offset_top = -8.0
 offset_right = 8.0
 grow_vertical = 0
 text = "Credits"
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
-offset_left = 772.0
-offset_top = 395.0
-offset_right = 861.0
-offset_bottom = 484.0
-texture = ExtResource("4_3mej2")
-expand_mode = 1
-
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
-offset_left = 890.0
-offset_top = 395.0
-offset_right = 979.0
-offset_bottom = 484.0
-texture = ExtResource("3_e5jsv")
-expand_mode = 1
 
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

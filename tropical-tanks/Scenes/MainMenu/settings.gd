@@ -5,9 +5,11 @@ extends Control
 func _process(delta: float) -> void:
 	fps.text = "FPS: " + str(int(Engine.get_frames_per_second()))
 
+func _ready() -> void:
+	$MarginContainer/PanelContainer/VBoxContainer/Volume/Volume.value = AudioServer.get_bus_volume_db(0)+80
 
 func _on_volume_value_changed(value: float) -> void:
-	AudioServer.set_bus_volume_db(0, value)
+	AudioServer.set_bus_volume_db(0, value-80)
 	
 
 func _on_resolutions_item_selected(index: int) -> void:

@@ -93,7 +93,7 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 0
 
-[node name="TextureButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea2"]
+[node name="DrivingTest" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -154,3 +154,4 @@ text = "placeholder"
 
 [connection signal="pressed" from="PanelContainer/VSplitContainer/HSplitContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea/TropicalButton" to="." method="_on_tropical_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea2/DrivingTest" to="." method="_on_driving_test_pressed"]

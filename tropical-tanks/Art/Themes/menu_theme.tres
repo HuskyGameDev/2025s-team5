@@ -13,7 +13,7 @@ content_margin_right = 25.0
 content_margin_bottom = 25.0
 texture = ExtResource("2_nwaa1")
 region_rect = Rect2(0, 0, 1920, 1080)
-modulate_color = Color(1, 1, 1, 0.686275)
+modulate_color = Color(0, 0.694173, 0.817118, 0.627451)
 
 [resource]
 Label/font_sizes/font_size = 22
