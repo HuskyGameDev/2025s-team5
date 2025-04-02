@@ -6,7 +6,7 @@ class_name Upgrade
 
 @export var double_barrel : int = 0
 @export var split_barrel : int = 0
-@export var initial_shot_power : int = 0
+@export var initial_shot_power : float = 0
 
 @export var mass : float = 0
 # Mathematically, cross sectional area of the bullet
@@ -29,7 +29,7 @@ class_name Upgrade
 @export var num_split : int = 0
 
 ## Mid Flight Control Variables
-@export var fuse_time : float = 0.2
+@export var fuse_time : float = 0
 @export var num_fuse : int = 0
 @export var fuel : float = 0
 @export var thrust_power : float = 0

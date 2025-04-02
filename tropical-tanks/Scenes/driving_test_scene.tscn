@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://drmovv0sm6tee"]
+[gd_scene load_steps=22 format=3 uid="uid://drmovv0sm6tee"]
 
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="1_j7jj7"]
 [ext_resource type="Material" uid="uid://bvjp8o4wnqyvw" path="res://Art/Materials/MetalMaterial.tres" id="1_pe5y8"]
@@ -8,6 +8,11 @@
 [ext_resource type="Resource" uid="uid://fa6xnbn1mopn" path="res://Resources/Upgrades/add_bounce.tres" id="6_o3wxv"]
 [ext_resource type="Resource" uid="uid://b3h7etbbo8d0f" path="res://Resources/Upgrades/double_barrel.tres" id="6_ry4kd"]
 [ext_resource type="PackedScene" uid="uid://cmlqkqrg30kif" path="res://Components/Indicator/indicator.tscn" id="8_3jn3n"]
+[ext_resource type="Resource" uid="uid://blbyd64hdvem0" path="res://Resources/Upgrades/add_shell_mass.tres" id="8_imjqj"]
+[ext_resource type="PackedScene" uid="uid://dwdirwkk7kcgs" path="res://Objects/Enemy/enemy.tscn" id="9_5dwy6"]
+[ext_resource type="Texture2D" uid="uid://ftgxwb0jtklu" path="res://Art/Images/ExplosionUpgrade.svg" id="9_n7kt3"]
+[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="10_cxfjv"]
+[ext_resource type="PackedScene" uid="uid://b1e4t0aobyfcn" path="res://Objects/Dummy/Dummy.tscn" id="13_cxfjv"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pe5y8"]
 size = Vector2(40, 40)
@@ -30,6 +35,30 @@ glow_enabled = true
 [sub_resource type="BoxMesh" id="BoxMesh_ry4kd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_o3wxv"]
+
+[sub_resource type="Resource" id="Resource_wpim8"]
+script = ExtResource("10_cxfjv")
+image = ExtResource("9_n7kt3")
+double_barrel = 0
+split_barrel = 0
+initial_shot_power = 0.0
+mass = 0.0
+drag = 0.0
+armor_piercing = 0.0
+explosion_power = 10.0
+evaporation = 0.0
+bounces_left = 0.0
+bounce_loss = 0.0
+bounce_explode = 0.0
+ice_effect = 0.0
+flame_effect = 0.0
+num_split = 0
+fuse_time = 0.0
+num_fuse = 0
+fuel = 0.0
+thrust_power = 0.0
+backwardness = 0.0
+metadata/_custom_type_script = "uid://ddav0isbkjqxj"
 
 [node name="DrivingTestScene" type="Node3D"]
 
@@ -127,38 +156,107 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.5014, 0.010738, 6.17815)
 [node name="Pickup" parent="." instance=ExtResource("4_kcogb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0776138, 0, -30.67)
 upgrade = ExtResource("5_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
 
 [node name="Pickup2" parent="." instance=ExtResource("4_kcogb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.801308, 0, -36.2877)
 upgrade = ExtResource("5_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
 
 [node name="Pickup3" parent="." instance=ExtResource("4_kcogb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.45967, 0, -31.1137)
 upgrade = ExtResource("6_o3wxv")
+rarity_color = Color(0, 0.5, 0, 1)
 
 [node name="Pickup4" parent="." instance=ExtResource("4_kcogb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.5659, 0, -34.1142)
 upgrade = ExtResource("5_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
 
 [node name="Pickup5" parent="." instance=ExtResource("4_kcogb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.36639, 0, -29.7456)
 upgrade = ExtResource("5_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
 
 [node name="Pickup6" parent="." instance=ExtResource("4_kcogb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.84872, 0, -37.5883)
 upgrade = ExtResource("5_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
 
 [node name="Pickup7" parent="." instance=ExtResource("4_kcogb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.21535, 0, -41.6968)
 upgrade = ExtResource("5_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
 
 [node name="Pickup8" parent="." instance=ExtResource("4_kcogb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3385, 0, -41.1453)
 upgrade = ExtResource("6_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
 
 [node name="Pickup9" parent="." instance=ExtResource("4_kcogb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.02163, 0, -41.5371)
 upgrade = ExtResource("6_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
+
+[node name="Pickup10" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0801, 0, -34.7169)
+upgrade = ExtResource("6_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
+
+[node name="Pickup11" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.7537, 0, -28.4843)
+upgrade = ExtResource("6_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
+
+[node name="Pickup12" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3337, 0, -28.886)
+upgrade = ExtResource("6_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
+
+[node name="Pickup13" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.6151, 0, -21.7921)
+upgrade = ExtResource("6_ry4kd")
+rarity_color = Color(0, 0.5, 0, 1)
+
+[node name="Pickup14" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.59387, 0, -22.0808)
+upgrade = ExtResource("8_imjqj")
+rarity_color = Color(0, 0.5, 0, 1)
+
+[node name="Pickup15" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.4212, 0, -9.65476)
+upgrade = ExtResource("8_imjqj")
+rarity_color = Color(0, 0.5, 0, 1)
+
+[node name="Pickup16" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.4212, 0, -4.65476)
+upgrade = ExtResource("8_imjqj")
+rarity_color = Color(0, 0.5, 0, 1)
+
+[node name="Pickup17" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2941, 0, -15.9468)
+upgrade = ExtResource("8_imjqj")
+rarity_color = Color(0, 0.5, 0, 1)
+
+[node name="Pickup18" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.12535, 0, -23.3327)
+upgrade = ExtResource("8_imjqj")
+rarity_color = Color(0, 0.5, 0, 1)
+
+[node name="Pickup19" parent="." instance=ExtResource("4_kcogb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.4447, 0, -2.14509)
+upgrade = SubResource("Resource_wpim8")
+rarity_color = Color(0.372549, 0.588235, 0.611765, 1)
 
 [node name="Indicator" parent="." instance=ExtResource("8_3jn3n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.18945, 0.140066, -4.79217)
+
+[node name="EnemyRoot2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("9_5dwy6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4644, 0, -5.13329)
+target = NodePath("../PlayerRoot")
+
+[node name="Dummy" parent="." instance=ExtResource("13_cxfjv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.01948, 0.025137, -10.3775)
+
+[node name="Dummy2" parent="." instance=ExtResource("13_cxfjv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.19633, 0.025137, -12.2995)

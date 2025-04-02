@@ -9,6 +9,8 @@ class_name TankChassis
 @onready var tank_chassis = $TankChassisModelParts
 @onready var health_manager = $HealthManager
 
+var view_range = 20
+
 var controls = {
 	"forward" = false,
 	"backward" = false,
@@ -41,6 +43,8 @@ func on_upgrade_pickup(U : Upgrade):
 	turret.shell_parameters.mass += U.mass
 	turret.shell_parameters.thrust_power += U.thrust_power
 	turret.shell_parameters.num_fuse += U.num_fuse
+	
+	view_range = turret.initial_shot_power/turret.shell_parameters.mass
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

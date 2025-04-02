@@ -15,15 +15,16 @@ var INDICATOR = preload("res://Components/Indicator/indicator.tscn")
 var fire_level : float = 0
 var fire_speed : float = 0.1
 
-var health = max_health
+@onready var health = max_health
 func take_damage(attack : Attack):
 	if health > 0:
-		if indicators: spawn_indicator(attack.damage, Color(0.9,0.1,0.1))
-		
-		health = health - attack.damage
-		if take_water_damage:
+		if attack.damage > 0:
+			if indicators: spawn_indicator(attack.damage, Color(0.9,0.1,0.1))
+			
+			health = health - attack.damage
+		if take_water_damage and attack.water_depth > 0:
 			health = health - attack.water_depth
-			if indicators: spawn_indicator(attack.water_depth, Color(0.1,0.5,0.1))
+			if indicators: spawn_indicator(attack.water_depth, Color(0.1,0.1,0.6))
 		#fire_level += attack.flame_effect
 		
 		check_health()

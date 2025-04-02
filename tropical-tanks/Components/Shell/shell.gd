@@ -16,6 +16,7 @@ var power : float = 0 # Total power of the bullet based on speed * mass
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	scale = Vector3.ONE * pow(sp.mass,0.3333)
 	# Start Fuse timer
 	if sp.num_fuse > 0:
 		$FuseTimer.wait_time = sp.fuse_time
@@ -105,7 +106,7 @@ func explode():
 	print(sp.num_fuse)
 	var explosion = EXPLOSION.instantiate()
 	explosion.position = global_position
-	explosion.explosion_power = sp.explosion_power
+	explosion.explosion_power = sp.explosion_power * sp.mass 
 	get_tree().root.add_child(explosion)
 	#if(sp.num_split > 0):
 		#sp.num_split -= 1

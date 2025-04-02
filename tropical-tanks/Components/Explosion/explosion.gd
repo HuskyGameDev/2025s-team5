@@ -27,21 +27,24 @@ func _ready() -> void:
 	get_tree().root.add_child(crater)
 	crater.global_position = global_position
 	
-	shape_cast.force_shapecast_update()
-	for collision in shape_cast.collision_result:
-		var body = collision["collider"]
-		if body.has_method("take_damage"):
-			var explosion_attack : Attack = Attack.new()
-			
-			explosion_attack.attack_position = position
-			explosion_attack.damage = (explosion_power * explosion_power * explosion_power + 1) 
-			
-			body.take_damage(explosion_attack)
+	if explosion_power > 1.0:
+		shape_cast.force_shapecast_update()
+		for collision in shape_cast.collision_result:
+			var body = collision["collider"]
+			if body.has_method("take_damage"):
+				var explosion_attack : Attack = Attack.new()
+				
+				explosion_attack.attack_position = position
+				explosion_attack.damage = (explosion_power * explosion_power + 1) 
+				
+				body.take_damage(explosion_attack)
 	
 	
 # Animation 
 func _on_timer_timeout() -> void:
-	for i in randi_range(0,2):
+	if explosion_power > 6:
+		spawn_child_explosion()
+	for i in randi_range(0,1):
 		spawn_child_explosion()
 	queue_free()
 	
@@ -49,9 +52,9 @@ func _on_timer_timeout() -> void:
 		
 func spawn_child_explosion():
 	var child_explosion_power = explosion_power - randf_range(1,3)
-	if child_explosion_power > 0:
+	if child_explosion_power > 1:
 		var child_explosion = EXPLOSION.instantiate()
 		child_explosion.explosion_power = child_explosion_power
-		child_explosion.position = position + explosion_power * (Vector3(randf(),randf(),randf()) - Vector3.ONE * 0.5)
+		child_explosion.position = position + sqrt(explosion_power) * (Vector3(randf(),randf(),randf()) - Vector3.ONE * 0.5)
 		get_tree().root.add_child(child_explosion)
 		

@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1e4t0aobyfcn"]
+
+[ext_resource type="Material" uid="uid://bvjp8o4wnqyvw" path="res://Art/Materials/MetalMaterial.tres" id="1_0q5u1"]
+[ext_resource type="Script" uid="uid://eglj02lx7r0m" path="res://Components/HealthManager/health_manager.gd" id="1_ihi3e"]
+[ext_resource type="Script" uid="uid://cxa1gfo8iq0wa" path="res://Components/HealthManager/Hitbox/hitbox.gd" id="2_0q5u1"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fqq7p"]
+radius = 1.0
+height = 3.0
+radial_segments = 5
+rings = 5
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_8dbc1"]
+radius = 1.0
+height = 3.0
+
+[node name="Dummy" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+layers = 2
+material_override = ExtResource("1_0q5u1")
+mesh = SubResource("CapsuleMesh_fqq7p")
+
+[node name="HealthManager" type="Node3D" parent="."]
+script = ExtResource("1_ihi3e")
+max_health = 100000.0
+indicators = true
+metadata/_custom_type_script = "uid://eglj02lx7r0m"
+
+[node name="Hitbox" type="Area3D" parent="." node_paths=PackedStringArray("health_manager")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+script = ExtResource("2_0q5u1")
+health_manager = NodePath("../HealthManager")
+metadata/_custom_type_script = "uid://cxa1gfo8iq0wa"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("CapsuleShape3D_8dbc1")

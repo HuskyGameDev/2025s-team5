@@ -19,7 +19,7 @@ var BARREL = preload("res://Components/Turret/barrel.tscn")
 		set_barrels()
 		# if Engine.is_editor_hint():
 
-var initial_shot_power = 20
+var initial_shot_power : float = 20.0
 var shoot_cooldown = 1.0
 
 @onready var bearing = $TurretHub/Bearing

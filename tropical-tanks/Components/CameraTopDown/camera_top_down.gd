@@ -12,12 +12,14 @@ extends Node3D
 
 var aim_target_position : Vector3 
 var camera_offset = Vector3(0,20,0)
+
 var ray_length = 200 # How far the mouse detects the ground
 
 func _ready() -> void:
 	assert(turrets.size() > 0, "Camera controller has no turrets to control") # ADD TURRETS TO THE CAMERA IN INSPECTOR
 
 func _physics_process(delta: float) -> void:
+	camera_offset = Vector3(0,1,0) * target_node.view_range
 	if target_node:
 		position = target_node.position
 	# Use a raycast from mouse to find where the mouse is intersecting the scene.

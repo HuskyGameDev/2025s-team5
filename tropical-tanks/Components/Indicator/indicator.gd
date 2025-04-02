@@ -2,7 +2,7 @@ extends Node3D
 class_name Indicator
 
 @export var text : String = "EMPTY"
-@export var color : Color = Color(0.9,0.1,0.1)
+@export var color : Color # = Color(0.9,0.1,0.1)
 
 var velocity : Vector3 = Vector3(0,3,0)
 
