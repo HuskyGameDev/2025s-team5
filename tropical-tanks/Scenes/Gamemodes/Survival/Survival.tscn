@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://dm1am5vnd01oj"]
+
+[ext_resource type="Script" uid="uid://dtlreqhgumn77" path="res://Scenes/Gamemodes/Survival/Survival.gd" id="1_6ova7"]
+
+[node name="Survival" type="Node3D"]
+script = ExtResource("1_6ova7")
+
+[node name="WaveTimer" type="Timer" parent="."]
+wait_time = 10.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -42.5
+offset_right = 42.5
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "Wave: "
+
+[node name="WaveNumber" type="Label" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+text = "test"
+
+[connection signal="timeout" from="WaveTimer" to="." method="_on_wave_timer_timeout"]

@@ -98,17 +98,18 @@ func check_collisions(delta_velocity):
 
 	if shape_cast.is_colliding():
 		var area = shape_cast.get_collider(0)
-		if !parent_body.health_manager.hitboxes.has(area) and area:
-			if area.get_parent().is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
-				explode()
-				impact(area)
-				print("hit enemy")
-			else : # Only bounce if hitting terrain and is able to bounce
-				if sp.bounces_left >= 1:
-					bounce(ray_cast.get_collision_normal())
-				else:
-					explode() # Otherwise, just explode
+		if parent_body:
+			if !parent_body.health_manager.hitboxes.has(area):
+				if area.get_parent().is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
+					explode()
 					impact(area)
+					print("hit enemy")
+				else : # Only bounce if hitting terrain and is able to bounce
+					if sp.bounces_left >= 1:
+						bounce(ray_cast.get_collision_normal())
+					else:
+						explode() # Otherwise, just explode
+						impact(area)
 
 func get_drag() -> Vector3:
 	return -(velocity*velocity.length()) * sp.drag * 0.5 # Returns a drag vector to factor in to velocity

@@ -1,24 +1,24 @@
 extends Node3D
 
-enum gamemodes {
+enum gamemode_types {
 	EndlessSurvival, 
 	TeamDeathmatch, 
 	Creative,
 	}
 
-@export var gamemode_type : gamemodes = gamemodes.EndlessSurvival
+var gamemodes = {
+	gamemode_types.EndlessSurvival : preload("res://Scenes/Gamemodes/Survival/Survival.tscn"),
+	
+}
+
+@export var gamemode_type : gamemode_types = gamemode_types.EndlessSurvival
 
 var gamemode : Gamemode
 
 func _ready() -> void:
-	match gamemode_type:
-		gamemodes.EndlessSurvival:
-			gamemode = SurvivalGamemode.new()
-		gamemodes.TeamDeathmatch:
-			pass
-		gamemodes.Creative:
-			pass
-	assert(gamemode, "Selected gamemode is not implemented")
+	if !gamemodes.has(gamemode_type):
+		push_warning("Selected gamemode is not implemented!")
+	gamemode = gamemodes[gamemode_type].instantiate()
 	add_child(gamemode)
 	
 	

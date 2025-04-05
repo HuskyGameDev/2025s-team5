@@ -1,0 +1,17 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://yjst52pny7y7"]
+
+[ext_resource type="Texture2D" uid="uid://mbia017vwtsw" path="res://Components/Track/Tread.png" id="1_5gr0g"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_25jn5"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_6t2wh"]
+noise = SubResource("FastNoiseLite_25jn5")
+
+[resource]
+resource_local_to_scene = true
+albedo_color = Color(0.317179, 0.192911, 0.0754868, 1)
+albedo_texture = ExtResource("1_5gr0g")
+heightmap_scale = 7.404
+heightmap_texture = SubResource("NoiseTexture2D_6t2wh")
+grow = true
+grow_amount = 0.1

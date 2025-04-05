@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=3 uid="uid://cc5o3twyp1s01"]
+[gd_scene load_steps=4 format=3 uid="uid://cc5o3twyp1s01"]
 
-[ext_resource type="Texture2D" uid="uid://mbia017vwtsw" path="res://Components/Track/Tread.png" id="1_4sgch"]
-[ext_resource type="Script" uid="uid://d0hgaggiw7ihe" path="res://Components/Crater/crater.gd" id="1_wsgim"]
+[ext_resource type="Script" uid="uid://c7jtle0ahjrse" path="res://Components/Track/track.gd" id="1_25jn5"]
+[ext_resource type="Material" uid="uid://yjst52pny7y7" path="res://Components/Track/TrackMaterial.tres" id="2_25jn5"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_6t2wh"]
+size = Vector2(0.5, 2)
+orientation = 1
 
 [node name="Track" type="Node3D"]
-script = ExtResource("1_wsgim")
+script = ExtResource("1_25jn5")
 
-[node name="Decal" type="Decal" parent="."]
-size = Vector3(0.6, 0.6, 2.5)
-texture_albedo = ExtResource("1_4sgch")
-modulate = Color(0.685236, 0.361341, 1.92523e-07, 1)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_6t2wh")
+surface_material_override/0 = ExtResource("2_25jn5")

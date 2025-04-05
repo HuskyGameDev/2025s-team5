@@ -6,6 +6,7 @@
 [resource]
 script = ExtResource("1_tl7ds")
 image = ExtResource("1_i1tyw")
+rarity_color = Color(0, 0, 0, 1)
 double_barrel = 0
 split_barrel = 0
 initial_shot_power = 0.0

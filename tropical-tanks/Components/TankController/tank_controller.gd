@@ -6,6 +6,10 @@ class_name TankController
 @export var target : Node3D
 @export var targeting_accuracy : float = 0.5
 
+
+@onready var terrain_checker: RayCast3D = $TerrainChecker
+
+
 var controls = {
 	"forward" = false,
 	"backward" = false,
@@ -48,7 +52,17 @@ func _physics_process(delta: float) -> void:
 			controls["turn_right"] = false
 			controls["turn_left"] = false
 			controls["forward"] = true
-
+			
+	if terrain_checker.is_colliding():
+		controls["backward"] = false
+		if terrain_checker.get_collision_point().y < 0:
+			controls["forward"] = false
+			controls["turn_left"] = true
+	else:
+		controls["forward"] = false
+		controls["backward"] = true
+		controls["turn_right"] = true
+	
 func get_distance_to_target() -> float:
 	var distance_to_target = tank.global_position.distance_to(target.global_position)
 	return distance_to_target
@@ -93,4 +107,3 @@ func _on_timer_timeout() -> void:
 			print(player_tank)
 			target = player_tank
 				
-		

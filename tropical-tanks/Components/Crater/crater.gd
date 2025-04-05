@@ -9,6 +9,7 @@ func _ready() -> void:
 	#decal.sorting_use_aabb_center = false
 	decal.sorting_offset = randi()
 	pass
+	
 
 
 

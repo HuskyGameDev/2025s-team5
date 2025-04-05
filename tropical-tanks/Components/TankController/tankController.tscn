@@ -8,4 +8,8 @@ script = ExtResource("1_2shn5")
 [node name="Timer" type="Timer" parent="."]
 autostart = true
 
+[node name="TerrainChecker" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, -7)
+target_position = Vector3(0, -20, 0)
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

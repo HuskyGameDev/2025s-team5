@@ -73,12 +73,12 @@ func _physics_process(delta: float) -> void:
 	move_vector = Vector3(0,0,-1).rotated(move_normal,tank_rotation)
 	
 	if damage_cast.is_colliding():
-		var fall_attack : Attack = Attack.new()
-		fall_attack.damage = velocity.length()
+		var collision_attack : Attack = Attack.new()
+		collision_attack.damage = velocity.length() + 1
 		for i in damage_cast.collision_result.size():
 			var collider = damage_cast.get_collider(i)
 			if collider is Hitbox:
-				collider.take_damage(fall_attack)
+				collider.take_damage(collision_attack)
 	
 	if ground_cast.is_colliding():
 		

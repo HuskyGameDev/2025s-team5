@@ -86,6 +86,13 @@ func _ready():
 	# Final setup: add collision and scatter objects if not in the editor
 	if not Engine.is_editor_hint():
 		terrain_mesh.create_trimesh_collision()
+		$BoundingWalls/StaticBody3D/negZ.position.z = -zsize/2
+		$BoundingWalls/StaticBody3D/posZ.position.z = zsize/2
+		$BoundingWalls/StaticBody3D/negX.position.x = -xsize/2
+		$BoundingWalls/StaticBody3D/posX.position.x = xsize/2
+		
+		
+		
 		water_mesh.shallow_depth = water_shallow_depth
 		place_ground_scatter()
 
