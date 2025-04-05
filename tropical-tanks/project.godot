@@ -16,6 +16,11 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=60
 config/icon="res://Art/Images/TropicalTanksIcon.png"
 
+[autoload]
+
+TANKS="*res://Classes/TANKS.gd"
+SIGNALBUS="*res://Classes/SIGNALBUS.gd"
+
 [display]
 
 window/size/viewport_width=1280
@@ -30,15 +35,19 @@ project/assembly_name="Tropical tanks"
 
 folder_colors={
 "res://Art/": "yellow",
+"res://Classes/": "orange",
 "res://Components/": "blue",
 "res://Objects/": "teal",
 "res://Resources/": "green",
-"res://Scenes/": "red"
+"res://Scenes/": "red",
+"res://Scenes/Areas/": "pink",
+"res://Scenes/Gamemodes/": "orange"
 }
 
 [global_group]
 
 Enemy="Enemy tank object."
+Player=""
 
 [input]
 
@@ -84,6 +93,9 @@ scroll_down={
 3d_render/layer_1="Ground"
 3d_render/layer_2="Tanks"
 3d_render/layer_3="Explosions"
+3d_physics/layer_1="Ground"
+3d_physics/layer_2="Vehicles"
+3d_physics/layer_3="Plants"
 
 [rendering]
 

@@ -9,6 +9,7 @@ script = ExtResource("1_eh0l1")
 
 [node name="Decal" type="Decal" parent="."]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00540161, 0)
 size = Vector3(1, 1, 1)
 texture_albedo = ExtResource("1_kva30")
 texture_normal = ExtResource("2_itaym")

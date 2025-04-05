@@ -29,11 +29,16 @@ script = ExtResource("1_fpfk5")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = SubResource("AudioStreamRandomizer_qplp0")
 
+[node name="CraterCast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0479447, 0)
+target_position = Vector3(0, -3, 0)
+
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 shape = SubResource("SphereShape3D_1b34y")
 target_position = Vector3(0, 0, 0)
 collision_mask = 7
 collide_with_areas = true
+collide_with_bodies = false
 
 [node name="ExplosionModels" type="Node3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0.1, 0)

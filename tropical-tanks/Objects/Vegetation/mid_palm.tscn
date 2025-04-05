@@ -25,10 +25,10 @@ metadata/_custom_type_script = "uid://wcb8lu7g48ww"
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_c6wpa"]
 height = 7.3042
-radius = 0.869141
+radius = 0.423828
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_uyk26"]
-size = Vector3(2.33765, 1.3446, 2.59253)
+size = Vector3(2.33765, 0.494003, 2.41345)
 
 [node name="MidPalm" type="Node3D"]
 
@@ -41,10 +41,11 @@ shape = SubResource("BoxShape3D_0w001")
 
 [node name="HealthManager" type="Node3D" parent="."]
 script = ExtResource("1_rpv3o")
-health = 20.0
+max_health = 200.0
 death_effects = Array[Resource]([SubResource("Resource_gk14q"), SubResource("Resource_6p58v")])
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_0fk1b")]
+collision_layer = 4
 health_manager = NodePath("../HealthManager")
 
 [node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]
@@ -54,11 +55,12 @@ shape = SubResource("CylinderShape3D_c6wpa")
 [node name="MidTree" parent="." instance=ExtResource("3_hbndc")]
 
 [node name="Hitbox2" type="Area3D" parent="." node_paths=PackedStringArray("health_manager")]
-collision_layer = 2
+collision_layer = 4
+collision_mask = 0
 script = ExtResource("7_8smat")
 health_manager = NodePath("../HealthManager")
 metadata/_custom_type_script = "uid://cxa1gfo8iq0wa"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.297816, 7.37517, 0.18614)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.297816, 7.60082, 0.296624)
 shape = SubResource("BoxShape3D_uyk26")

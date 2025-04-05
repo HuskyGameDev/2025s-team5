@@ -31,16 +31,16 @@ radius = 0.30957
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_4s66v"]
 height = 7.32642
-radius = 0.631836
+radius = 0.330078
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1d2kw"]
-size = Vector3(2, 2, 2)
+size = Vector3(2, 1.25793, 2)
 
 [node name="TallPalm" type="Node3D"]
 
 [node name="HealthManager" type="Node3D" parent="."]
 script = ExtResource("1_iutl0")
-health = 20.0
+max_health = 250.0
 death_effects = Array[Resource]([SubResource("Resource_ypc7t"), SubResource("Resource_c1ib8"), SubResource("Resource_8cgs7")])
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
@@ -52,6 +52,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.79274, 0)
 shape = SubResource("CylinderShape3D_1d2kw")
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_7wstt")]
+collision_layer = 4
 health_manager = NodePath("../HealthManager")
 
 [node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]
@@ -59,10 +60,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 3.67146, 0.017216
 shape = SubResource("CylinderShape3D_4s66v")
 
 [node name="Hitbox2" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_7wstt")]
+collision_layer = 4
 health_manager = NodePath("../HealthManager")
 
 [node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 8.23378, 0.0172162)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 7.9521, 0.0172162)
 shape = SubResource("BoxShape3D_1d2kw")
 
 [node name="TallPalm" parent="." instance=ExtResource("3_ti6aw")]

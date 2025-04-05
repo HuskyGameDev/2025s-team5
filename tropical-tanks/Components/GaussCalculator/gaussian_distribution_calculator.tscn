@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://w3aqrbecbivs"]
+
+[ext_resource type="Script" uid="uid://cax40fp48rewe" path="res://Components/GaussCalculator/gaussian_distribution_calculator.gd" id="1_kig17"]
+
+[node name="GaussianDistributionCalculator" type="Node3D"]
+script = ExtResource("1_kig17")

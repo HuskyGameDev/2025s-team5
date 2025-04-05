@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://drmovv0sm6tee"]
+[gd_scene load_steps=21 format=3 uid="uid://drmovv0sm6tee"]
 
 [ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="1_j7jj7"]
 [ext_resource type="Material" uid="uid://bvjp8o4wnqyvw" path="res://Art/Materials/MetalMaterial.tres" id="1_pe5y8"]
@@ -9,7 +9,6 @@
 [ext_resource type="Resource" uid="uid://b3h7etbbo8d0f" path="res://Resources/Upgrades/double_barrel.tres" id="6_ry4kd"]
 [ext_resource type="PackedScene" uid="uid://cmlqkqrg30kif" path="res://Components/Indicator/indicator.tscn" id="8_3jn3n"]
 [ext_resource type="Resource" uid="uid://blbyd64hdvem0" path="res://Resources/Upgrades/add_shell_mass.tres" id="8_imjqj"]
-[ext_resource type="PackedScene" uid="uid://dwdirwkk7kcgs" path="res://Objects/Enemy/enemy.tscn" id="9_5dwy6"]
 [ext_resource type="Texture2D" uid="uid://ftgxwb0jtklu" path="res://Art/Images/ExplosionUpgrade.svg" id="9_n7kt3"]
 [ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="10_cxfjv"]
 [ext_resource type="PackedScene" uid="uid://b1e4t0aobyfcn" path="res://Objects/Dummy/Dummy.tscn" id="13_cxfjv"]
@@ -39,6 +38,7 @@ glow_enabled = true
 [sub_resource type="Resource" id="Resource_wpim8"]
 script = ExtResource("10_cxfjv")
 image = ExtResource("9_n7kt3")
+rarity_color = Color(0, 0, 0, 1)
 double_barrel = 0
 split_barrel = 0
 initial_shot_power = 0.0
@@ -140,6 +140,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6565, 0.010738, -26.0253)
 
 [node name="ExplosiveBarrel5" parent="." instance=ExtResource("3_rnelm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.6341, 0.010738, -19.8685)
+
+[node name="ExplosiveBarrel10" parent="." instance=ExtResource("3_rnelm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.6341, 0.010738, -16.4672)
+
+[node name="ExplosiveBarrel11" parent="." instance=ExtResource("3_rnelm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.6341, 0.010738, -12.9632)
+
+[node name="ExplosiveBarrel12" parent="." instance=ExtResource("3_rnelm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.6341, 0.010738, -9.52127)
+
+[node name="ExplosiveBarrel13" parent="." instance=ExtResource("3_rnelm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.6341, 0.010738, -5.82958)
+
+[node name="ExplosiveBarrel14" parent="." instance=ExtResource("3_rnelm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.6341, 0.010738, -2.72102)
+
+[node name="ExplosiveBarrel15" parent="." instance=ExtResource("3_rnelm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.6341, 0.010738, 0.667582)
 
 [node name="ExplosiveBarrel6" parent="." instance=ExtResource("3_rnelm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.6939, 0.010738, -23.3936)
@@ -250,10 +268,6 @@ rarity_color = Color(0.372549, 0.588235, 0.611765, 1)
 
 [node name="Indicator" parent="." instance=ExtResource("8_3jn3n")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.18945, 0.140066, -4.79217)
-
-[node name="EnemyRoot2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("9_5dwy6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.4644, 0, -5.13329)
-target = NodePath("../PlayerRoot")
 
 [node name="Dummy" parent="." instance=ExtResource("13_cxfjv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.01948, 0.025137, -10.3775)

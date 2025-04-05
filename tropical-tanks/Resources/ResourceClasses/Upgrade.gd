@@ -2,7 +2,7 @@ extends Resource
 class_name Upgrade
 
 @export var image : CompressedTexture2D
-
+@export var rarity_color : Color
 
 @export var double_barrel : int = 0
 @export var split_barrel : int = 0

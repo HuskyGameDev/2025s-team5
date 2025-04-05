@@ -6,14 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://mvpmjygq223s" path="res://Art/Models/Vegetation/Fern.blend" id="3_whjoh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mm7np"]
-size = Vector3(3, 2.34229, 3)
+size = Vector3(1.5, 2.342, 1.5)
 
 [node name="Fern" type="Node3D"]
 
 [node name="HealthManager" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000274658, 0, 0.0095017)
 script = ExtResource("1_62sw8")
-health = 2.0
 death_effects = Array[Resource]([ExtResource("2_kgt87")])
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_y2ljg")]

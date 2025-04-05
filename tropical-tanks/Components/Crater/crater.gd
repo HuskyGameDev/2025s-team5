@@ -2,10 +2,13 @@ extends Node3D
 
 @onready var decal : Decal  = $Decal
 
+const img = preload("res://Components/Crater/CraterNoiseTexture2D.tres")
+const img2 = preload("res://Components/Crater/GaussianDistribution.png")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	decal.sorting_use_aabb_center = false
+	#decal.sorting_use_aabb_center = false
 	decal.sorting_offset = randi()
+	pass
 
 
 

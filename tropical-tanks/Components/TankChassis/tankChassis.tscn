@@ -2,33 +2,36 @@
 
 [ext_resource type="Script" uid="uid://c3hmkj8xky03r" path="res://Components/TankChassis/tank_chassis.gd" id="1_bgbpq"]
 [ext_resource type="PackedScene" uid="uid://8bgogrhf5gis" path="res://Art/Models/tankChassisModelParts.tscn" id="2_eebcv"]
+[ext_resource type="Script" uid="uid://cgappd0ppmjb1" path="res://Components/TankChassis/turret_mount.gd" id="2_hmcte"]
 [ext_resource type="Texture2D" uid="uid://boi17sxf60ef6" path="res://Art/Images/Arrow.svg" id="3_m6eku"]
 [ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="4_3tv7r"]
 [ext_resource type="PackedScene" uid="uid://xtnuh7brto2v" path="res://Components/HealthManager/health_manager.tscn" id="5_5raij"]
+[ext_resource type="Shape3D" uid="uid://cvhukjelf7t3y" path="res://Components/TankChassis/tankChassisCollisionShape.tres" id="5_83u42"]
 [ext_resource type="PackedScene" uid="uid://c01vtjqhwsafa" path="res://Components/TrackSpawner/trackSpawner.tscn" id="6_14oo1"]
-[ext_resource type="Script" uid="uid://dys1tg1mmx6tj" path="res://Resources/ResourceClasses/SpawnPickup.gd" id="7_hmcte"]
-[ext_resource type="Script" uid="uid://d2gy6jwxlqodv" path="res://Resources/ResourceClasses/UpgradeDropPool.gd" id="8_iqbee"]
-[ext_resource type="Resource" uid="uid://x50377gvax73" path="res://Resources/UpgradePools/basic_upgrades.tres" id="9_nin6y"]
+[ext_resource type="Script" uid="uid://f0htb2300373" path="res://Resources/ResourceClasses/SpawnExplosion.gd" id="7_2gr0x"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b1pfd"]
 size = Vector3(1, 0.636719, 2.83459)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2gr0x"]
-size = Vector3(1, 0.5, 3)
+[sub_resource type="BoxShape3D" id="BoxShape3D_83u42"]
+size = Vector3(1.865, 1, 4.26)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iotof"]
 size = Vector3(2, 1.755, 4)
 
-[sub_resource type="Resource" id="Resource_j2ctu"]
-script = ExtResource("7_hmcte")
-offset = Vector3(0, 0, 0)
-upgrade_pools = Array[ExtResource("8_iqbee")]([ExtResource("9_nin6y")])
-metadata/_custom_type_script = "uid://dys1tg1mmx6tj"
+[sub_resource type="Resource" id="Resource_83u42"]
+script = ExtResource("7_2gr0x")
+explosion_power = Vector2(5, 8)
+metadata/_custom_type_script = "uid://f0htb2300373"
 
 [node name="TankChassis" type="CharacterBody3D"]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_bgbpq")
+
+[node name="TurretMount" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56988, 0)
+script = ExtResource("2_hmcte")
 
 [node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.656399, 0.0569458)
@@ -57,7 +60,14 @@ text = "PLACEHOLDER"
 
 [node name="GroundCast" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08683, 0)
-shape = SubResource("BoxShape3D_2gr0x")
+shape = ExtResource("5_83u42")
+
+[node name="DamageCast" type="ShapeCast3D" parent="."]
+shape = SubResource("BoxShape3D_83u42")
+target_position = Vector3(0, 0, 0)
+collision_mask = 4
+collide_with_areas = true
+collide_with_bodies = false
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("4_3tv7r")]
 health_manager = NodePath("../HealthManager")
@@ -68,6 +78,6 @@ shape = SubResource("BoxShape3D_iotof")
 
 [node name="HealthManager" parent="." instance=ExtResource("5_5raij")]
 max_health = 50.0
-death_effects = Array[Resource]([SubResource("Resource_j2ctu")])
+death_effects = Array[Resource]([SubResource("Resource_83u42")])
 take_water_damage = true
 indicators = true

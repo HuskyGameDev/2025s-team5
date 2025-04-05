@@ -1,18 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwdirwkk7kcgs"]
+[gd_scene load_steps=3 format=3 uid="uid://dwdirwkk7kcgs"]
 
-[ext_resource type="Script" uid="uid://c5s8vboqw4eoo" path="res://Components/TankController/tankController.gd" id="1_gxatg"]
+[ext_resource type="Script" uid="uid://c5s8vboqw4eoo" path="res://Components/TankController/tank_controller.gd" id="1_gxatg"]
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/TankChassis/tankChassis.tscn" id="1_umy6l"]
-[ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_ck6tt"]
 
 [node name="EnemyRoot" type="Node3D" node_paths=PackedStringArray("tank", "turrets") groups=["Enemy"]]
 script = ExtResource("1_gxatg")
 tank = NodePath("Tank")
-turrets = [NodePath("Tank/Turret3")]
+turrets = [NodePath("")]
 
 [node name="Tank" parent="." groups=["Enemy"] instance=ExtResource("1_umy6l")]
-
-[node name="Turret3" parent="Tank" instance=ExtResource("2_ck6tt")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.56567, 0)
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

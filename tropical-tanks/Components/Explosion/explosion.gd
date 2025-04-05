@@ -5,9 +5,11 @@ const EXPLOSION = preload("res://Components/Explosion/explosion.tscn")
 const CRATER = preload("res://Components/Crater/crater.tscn")
 
 @onready var shape_cast = $ShapeCast3D
+@onready var crater_cast: RayCast3D = $CraterCast
 
 @export var explosion_power : float = 1
 
+var is_child = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$Timer.wait_time = randf_range(0.05,0.1)
@@ -20,13 +22,14 @@ func _ready() -> void:
 	
 	for child : MeshInstance3D in $ExplosionModels.get_children():
 		child.rotation = Vector3(randf(),randf(),randf())
-		
-	var crater = CRATER.instantiate()
-	crater.rotation.y = deg_to_rad(randi_range(1,360))
-	crater.scale = crater.scale * explosion_power 
-	get_tree().root.add_child(crater)
-	crater.global_position = global_position
 	
+	if !is_child:
+		spawn_crater()
+	else:
+		if randf() > (1.0 / explosion_power):
+			spawn_crater()
+	
+	await get_tree().physics_frame
 	if explosion_power > 1.0:
 		shape_cast.force_shapecast_update()
 		for collision in shape_cast.collision_result:
@@ -49,13 +52,21 @@ func _on_timer_timeout() -> void:
 			spawn_child_explosion()
 	queue_free()
 	
-		
-		
+func spawn_crater():
+	crater_cast.force_raycast_update()
+	if crater_cast.is_colliding():
+		var crater = CRATER.instantiate()
+		#crater.rotation.y = randf() * 2 * PI
+		crater.scale = crater.scale * explosion_power 
+		get_tree().root.add_child(crater)
+		crater.global_position = crater_cast.get_collision_point()
+	
 func spawn_child_explosion():
 	var child_explosion_power = explosion_power - randf_range(1,3)
 	if child_explosion_power > 1:
 		var child_explosion = EXPLOSION.instantiate()
+		child_explosion.is_child = true
 		child_explosion.explosion_power = child_explosion_power
-		child_explosion.position = position + sqrt(explosion_power) * (Vector3(randf(),randf(),randf()) - Vector3.ONE * 0.5)
+		child_explosion.position = position + 2 * sqrt(explosion_power) * (Vector3(randf_range(-0.5,0.5),randf_range(0,0.5),randf_range(-0.5,0.5)))
 		get_tree().root.add_child(child_explosion)
 		

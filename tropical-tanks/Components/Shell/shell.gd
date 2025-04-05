@@ -4,6 +4,8 @@ class_name Shell
 const EXPLOSION = preload("res://Components/Explosion/explosion.tscn")
 const SHELL = preload("res://Components/Shell/shell.tscn")
 
+var parent_body : Node3D
+
 var velocity : Vector3 = Vector3(0,0,0)
 var power : float = 0 # Total power of the bullet based on speed * mass
 
@@ -17,6 +19,7 @@ var power : float = 0 # Total power of the bullet based on speed * mass
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	scale = Vector3.ONE * pow(sp.mass,0.3333)
+	print(scale)
 	# Start Fuse timer
 	if sp.num_fuse > 0:
 		$FuseTimer.wait_time = sp.fuse_time
@@ -58,10 +61,13 @@ func bounce(normal_vector : Vector3):
 		sp.num_split -= 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _physics_process(delta: float) -> void:
 	# Ray Cast collisions
-	ray_cast.target_position = velocity.length() * delta * Vector3(0,0,-1)
-	check_collisions()
+	var inst_speed_vector =  velocity.length() * delta * Vector3(0,0,-1) ## Instantaneous speed of the shell
+	ray_cast.target_position = inst_speed_vector
+	shape_cast.target_position = inst_speed_vector
+	check_collisions(inst_speed_vector)
 
 	# Integrate position and velocity
 	position += velocity * delta
@@ -70,7 +76,7 @@ func _physics_process(delta: float) -> void:
 	# Look in direction of travel
 	look_at(position + velocity)
 
-func check_collisions():
+func check_collisions(delta_velocity):
 	
 	if ray_cast.is_colliding():
 		var collision_point = ray_cast.get_collision_point()
@@ -84,19 +90,25 @@ func check_collisions():
 		if (collision_vector.length()) <= 1.0:
 			
 			#position += collision_vector
-			
-			var body = ray_cast.get_collider()
-			if body:
-				if body.get_parent().is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
-					explode()
-					impact(body)
-					print("hit enemy")
-				else : # Only bounce if hitting terrain and is able to bounce
-					if sp.bounces_left >= 1:
-						bounce(ray_cast.get_collision_normal())
-					else:
-						explode() # Otherwise, just explode
-						impact(body)
+			if sp.bounces_left >= 1:
+				bounce(ray_cast.get_collision_normal())
+			else:
+				explode()
+				queue_free()
+
+	if shape_cast.is_colliding():
+		var area = shape_cast.get_collider(0)
+		if !parent_body.health_manager.hitboxes.has(area) and area:
+			if area.get_parent().is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
+				explode()
+				impact(area)
+				print("hit enemy")
+			else : # Only bounce if hitting terrain and is able to bounce
+				if sp.bounces_left >= 1:
+					bounce(ray_cast.get_collision_normal())
+				else:
+					explode() # Otherwise, just explode
+					impact(area)
 
 func get_drag() -> Vector3:
 	return -(velocity*velocity.length()) * sp.drag * 0.5 # Returns a drag vector to factor in to velocity

@@ -1,0 +1,13 @@
+[gd_resource type="Image" script_class="CraterTexture" load_steps=4 format=3 uid="uid://dahjc04j3ibw2"]
+
+[ext_resource type="Script" uid="uid://dtykh0kpeg0dw" path="res://Components/Crater/CraterTexture.gd" id="1_hp0tc"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hp0tc"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i2n7h"]
+noise = SubResource("FastNoiseLite_hp0tc")
+
+[resource]
+script = ExtResource("1_hp0tc")
+texture = SubResource("NoiseTexture2D_i2n7h")
+metadata/_custom_type_script = "uid://dtykh0kpeg0dw"

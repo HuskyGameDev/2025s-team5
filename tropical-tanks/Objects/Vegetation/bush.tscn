@@ -6,13 +6,12 @@
 [ext_resource type="PackedScene" uid="uid://d0el5x6evas6p" path="res://Art/Models/Vegetation/BushyPlant.blend" id="3_btwjc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mm7np"]
-size = Vector3(3, 2.59521, 3)
+size = Vector3(1.5, 1.865, 1.5)
 
 [node name="Bush" type="Node3D"]
 
 [node name="HealthManager" type="Node3D" parent="."]
 script = ExtResource("1_3tris")
-health = 2.0
 death_effects = Array[Resource]([ExtResource("2_oeq1x")])
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_2axni")]

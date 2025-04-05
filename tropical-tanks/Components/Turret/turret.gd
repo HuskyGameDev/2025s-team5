@@ -22,6 +22,7 @@ var BARREL = preload("res://Components/Turret/barrel.tscn")
 var initial_shot_power : float = 20.0
 var shoot_cooldown = 1.0
 
+@onready var turret_hub = $TurretHub
 @onready var bearing = $TurretHub/Bearing
 @onready var aim_laser = %AimLaser
 
@@ -86,7 +87,7 @@ func _physics_process(delta: float) -> void:
 	var initial_shot_velocity = initial_shot_power/shell_parameters.mass
 	var best_turret_angle = 0
 	if use_drag_solver:
-		best_turret_angle = drag_turret_angle_solver.calculate_turret_angle(global_position,target_position, initial_shot_velocity, shell_parameters.drag, shell_parameters.mass, shell_parameters.gravity.y, false)
+		best_turret_angle = drag_turret_angle_solver.calculate_turret_angle(turret_hub.global_position,target_position, initial_shot_velocity, shell_parameters.drag, shell_parameters.mass, shell_parameters.gravity.y, false)
 	else:
 		best_turret_angle = basic_turret_angle_solver.calculate_turret_angle($TurretHub/Bearing/AimCalculateLocation.global_position,target_position, initial_shot_velocity, shell_parameters.gravity.y, false)
 	#print(best_turret_angle)

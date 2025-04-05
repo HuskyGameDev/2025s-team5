@@ -44,6 +44,7 @@ enum terrainColoringOptions {
 
 @export_category("Ground Scatter")
 @export_group("Ground Scatter")
+@export var editor_show_ground_scatter : bool = false
 @export var ground_scatters : Array[GroundScatter] ## The objects placed on the terrain. Ordered first to last from top to bottom.
 
 @onready var terrain_mesh : MeshInstance3D = $TerrainMesh
@@ -70,7 +71,7 @@ func _ready():
 	heightImage = heightMap.get_image()
 	heightImage.resize(xsize,zsize)
 	snowHeightImage = Image.create_empty(xsize,zsize,false,Image.Format.FORMAT_RGBA8)
-	colorImage = Image.load_from_file("res://Art/Images/DebugTexture.png")
+	colorImage = preload("res://Art/Images/DebugTexture.png").get_image()
 	
 	if erosion: check_erosion()		# Check for erosiong map / do erosion 
 	generate_terrain_height_data() 	# Generate height data from the height image
@@ -81,6 +82,7 @@ func _ready():
 	calculate_colors()		# Calculate the colors
 	generate_terrain_mesh()	# Generate the decimated low-poly terrain mesh
 	
+	place_ground_scatter()
 	# Final setup: add collision and scatter objects if not in the editor
 	if not Engine.is_editor_hint():
 		terrain_mesh.create_trimesh_collision()

@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://y2k1ks6td7b5"]
+[gd_scene load_steps=12 format=3 uid="uid://y2k1ks6td7b5"]
 
-[ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_b3ug3"]
-[ext_resource type="PackedScene" uid="uid://dwdirwkk7kcgs" path="res://Objects/Enemy/enemy.tscn" id="2_jswgy"]
-[ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="3_1ctys"]
+[ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_kmi1o"]
+[ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="3_ag688"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rb057"]
 size = Vector2(10, 10)
@@ -61,26 +60,15 @@ environment = SubResource("Environment_7vr7b")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Terrain3D" parent="." instance=ExtResource("1_b3ug3")]
+[node name="Terrain3D" parent="." instance=ExtResource("1_kmi1o")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 xsize = 200
 zsize = 200
 heightMap = SubResource("NoiseTexture2D_w2g7d")
+editor_show_ground_scatter = false
 
-[node name="EnemyRoot" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_jswgy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.7714, 5.18664, 35.6813)
-target = NodePath("../PlayerRoot")
-
-[node name="PlayerRoot" parent="." instance=ExtResource("3_1ctys")]
+[node name="PlayerRoot" parent="." instance=ExtResource("3_ag688")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.807, 6.66492, 31.6718)
-
-[node name="EnemyRoot2" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_jswgy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 45.3577, 6.02505, 26.7979)
-target = NodePath("../PlayerRoot")
-
-[node name="EnemyRoot3" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_jswgy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.9809, 6.08751, 32.4849)
-target = NodePath("../PlayerRoot")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, 30, 0, 0, 0, 10, 14.5149, 14.0723, 17.6353)

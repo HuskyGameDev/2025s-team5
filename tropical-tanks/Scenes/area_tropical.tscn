@@ -1,0 +1,60 @@
+[gd_scene load_steps=15 format=3 uid="uid://cdll3cassyhme"]
+
+[ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_43yyj"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="2_itrrw"]
+[ext_resource type="Resource" uid="uid://c82mw1ohcjhpb" path="res://Resources/GroundScatters/TropicalTreesSparse.tres" id="3_kbg3p"]
+[ext_resource type="Resource" uid="uid://8oxg70awgug6" path="res://Resources/GroundScatters/ExplosiveBarrels.tres" id="4_v2r4j"]
+[ext_resource type="Resource" uid="uid://c658la25pdnso" path="res://Resources/GroundScatters/TropicalBushDense.tres" id="5_qbcf6"]
+[ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="6_yu4kf"]
+[ext_resource type="PackedScene" uid="uid://3oknlbv35lld" path="res://Objects/Player/player.tscn" id="7_cn72y"]
+[ext_resource type="PackedScene" uid="uid://dgbqx36xfou6s" path="res://Objects/Debuggers/debug_stick.tscn" id="9_ludki"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rb057"]
+size = Vector2(10, 10)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j4h0l"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_43yyj"]
+sky_material = SubResource("ProceduralSkyMaterial_j4h0l")
+
+[sub_resource type="Environment" id="Environment_7vr7b"]
+background_mode = 2
+sky = SubResource("Sky_43yyj")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bbnuy"]
+frequency = 0.0045
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2s5y5"]
+noise = SubResource("FastNoiseLite_bbnuy")
+
+[node name="AreaTropical" type="Node3D"]
+
+[node name="GroundPlane" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+mesh = SubResource("PlaneMesh_rb057")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="GroundPlane"]
+environment = SubResource("Environment_7vr7b")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="GroundPlane"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+directional_shadow_mode = 1
+
+[node name="Terrain3D" parent="." instance=ExtResource("1_43yyj")]
+hill_height = 15.0
+water_shallow_depth = 1.0
+heightMap = SubResource("NoiseTexture2D_2s5y5")
+decimateTerrain = false
+terrainColoringMode = 0
+ground_scatters = Array[ExtResource("2_itrrw")]([ExtResource("3_kbg3p"), ExtResource("4_v2r4j"), ExtResource("5_qbcf6"), ExtResource("6_yu4kf")])
+
+[node name="PlayerRoot" parent="." instance=ExtResource("7_cn72y")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.40556, 23.4191, 15.8098)
+
+[node name="DebugStick" parent="." instance=ExtResource("9_ludki")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -42.5502, -0.478383, -10.1979)

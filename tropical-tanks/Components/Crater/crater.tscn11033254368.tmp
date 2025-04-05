@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=3 uid="uid://cmy8wgluaej20"]
+
+[ext_resource type="Script" uid="uid://d0hgaggiw7ihe" path="res://Components/Crater/crater.gd" id="1_eh0l1"]
+[ext_resource type="Texture2D" uid="uid://cygh27vjdxru4" path="res://Art/Images/CraterPlaceholderNormalMap.png" id="2_itaym"]
+[ext_resource type="Script" uid="uid://dtykh0kpeg0dw" path="res://Components/Crater/CraterTexture.gd" id="2_qessn"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ecllj"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dqu4o"]
+noise = SubResource("FastNoiseLite_ecllj")
+
+[sub_resource type="ImageTexture" id="ImageTexture_p3wfl"]
+script = ExtResource("2_qessn")
+texture = SubResource("NoiseTexture2D_dqu4o")
+metadata/_custom_type_script = "uid://dtykh0kpeg0dw"
+
+[node name="Crater" type="Node3D"]
+script = ExtResource("1_eh0l1")
+
+[node name="Decal" type="Decal" parent="."]
+unique_name_in_owner = true
+size = Vector3(1, 1, 1)
+texture_albedo = SubResource("ImageTexture_p3wfl")
+texture_normal = ExtResource("2_itaym")
+cull_mask = 1048569

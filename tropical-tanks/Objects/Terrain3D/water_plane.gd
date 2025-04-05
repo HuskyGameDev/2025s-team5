@@ -12,14 +12,14 @@ var wet_bodies : Array[Hitbox] = []
 func _ready() -> void:
 	$Area3D.position.y = -shallow_depth
 
-
 func _physics_process(delta: float) -> void:
-	for wet_body : Hitbox in wet_bodies:
-		if wet_body:
+	for i in wet_bodies.size():
+		if wet_bodies[i]:
+			var wet_body : Hitbox = wet_bodies[i]
 			wet_body.water_depth = global_position.y - wet_body.global_position.y
 		else:
-			wet_bodies.erase(wet_body)
-
+			wet_bodies.remove_at(i)
+			return
 
 func _on_area_3d_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
 	if area is Hitbox:

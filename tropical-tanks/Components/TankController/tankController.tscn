@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bnqy4inc3l26i"]
 
-[ext_resource type="Script" uid="uid://c5s8vboqw4eoo" path="res://Components/TankController/tankController.gd" id="1_2shn5"]
+[ext_resource type="Script" uid="uid://c5s8vboqw4eoo" path="res://Components/TankController/tank_controller.gd" id="1_2shn5"]
 
 [node name="TankController" type="Node3D"]
 script = ExtResource("1_2shn5")

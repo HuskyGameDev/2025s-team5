@@ -92,8 +92,6 @@ func death():
 			death_effect.trigger_effect(self)
 	
 	var P = get_parent()
-	if P.has_method("death"):
-		P.death()
-		health = max_health
-	else:
-		get_parent().queue_free()
+	if P.has_method("on_death"):
+		P.on_death()
+	get_parent().queue_free()

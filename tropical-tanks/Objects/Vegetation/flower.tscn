@@ -5,19 +5,19 @@
 [ext_resource type="PackedScene" uid="uid://ol1vp0hlrsc7" path="res://Art/Models/Vegetation/Flower.blend" id="3_3qxdn"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mm7np"]
+size = Vector3(1, 0.672974, 1)
 
 [node name="flower" type="Node3D"]
 
 [node name="HealthManager" type="Node3D" parent="."]
 script = ExtResource("1_vmn0f")
-health = 1.0
 
 [node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_2emhe")]
 collision_layer = 4
 health_manager = NodePath("../HealthManager")
 
 [node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 0.502453, 0.0172162)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 0.33894, 0.0172162)
 shape = SubResource("BoxShape3D_mm7np")
 
 [node name="Flower" parent="." instance=ExtResource("3_3qxdn")]
