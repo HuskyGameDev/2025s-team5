@@ -5,13 +5,12 @@ const VERSION = "alpha 1"
 var levels = [
 "res://Scenes/MainMenu/main_menu.tscn",
 "res://Scenes/HubMenu/hub_menu.tscn",
-"res://Scenes/area_tropical.tscn",
-"res://Scenes/area_rio.tscn",
 "res://Scenes/mat_test_scene.tscn",
 "res://Scenes/maxL_test_scene.tscn",
 "res://Scenes/jake_test_scene.tscn",
 "res://Scenes/driving_test_scene.tscn",
 "res://Scenes/Areas/Tropical_Area.tscn",
+"res://Scenes/Areas/Desert_Area.tscn",
 ]
 
 

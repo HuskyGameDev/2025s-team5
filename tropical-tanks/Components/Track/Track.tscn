@@ -1,15 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc5o3twyp1s01"]
+[gd_scene load_steps=3 format=3 uid="uid://cc5o3twyp1s01"]
 
 [ext_resource type="Script" uid="uid://c7jtle0ahjrse" path="res://Components/Track/track.gd" id="1_25jn5"]
-[ext_resource type="Material" uid="uid://yjst52pny7y7" path="res://Components/Track/TrackMaterial.tres" id="2_25jn5"]
-
-[sub_resource type="QuadMesh" id="QuadMesh_6t2wh"]
-size = Vector2(0.5, 2)
-orientation = 1
+[ext_resource type="Texture2D" uid="uid://mbia017vwtsw" path="res://Components/Track/Tread.png" id="3_6t2wh"]
 
 [node name="Track" type="Node3D"]
 script = ExtResource("1_25jn5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("QuadMesh_6t2wh")
-surface_material_override/0 = ExtResource("2_25jn5")
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1, 0, 0, 0, 5, 0, 0.1, 0)
+axis = 1
+shaded = true
+double_sided = false
+render_priority = -1
+texture = ExtResource("3_6t2wh")

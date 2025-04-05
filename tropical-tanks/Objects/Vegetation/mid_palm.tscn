@@ -57,6 +57,7 @@ shape = SubResource("CylinderShape3D_c6wpa")
 [node name="Hitbox2" type="Area3D" parent="." node_paths=PackedStringArray("health_manager")]
 collision_layer = 4
 collision_mask = 0
+monitoring = false
 script = ExtResource("7_8smat")
 health_manager = NodePath("../HealthManager")
 metadata/_custom_type_script = "uid://cxa1gfo8iq0wa"

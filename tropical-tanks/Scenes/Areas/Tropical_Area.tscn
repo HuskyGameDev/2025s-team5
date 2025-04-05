@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw1fjemcs6y66"]
+[gd_scene load_steps=10 format=3 uid="uid://dw1fjemcs6y66"]
 
 [ext_resource type="Script" uid="uid://7bejvb7cqqal" path="res://Scenes/Areas/level_manager.gd" id="1_detiw"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="2_foldt"]
 [ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="3_lpbmg"]
 [ext_resource type="Resource" uid="uid://c82mw1ohcjhpb" path="res://Resources/GroundScatters/TropicalTreesSparse.tres" id="4_yp2ai"]
+[ext_resource type="Resource" uid="uid://8oxg70awgug6" path="res://Resources/GroundScatters/ExplosiveBarrels.tres" id="5_htc78"]
+[ext_resource type="Resource" uid="uid://c658la25pdnso" path="res://Resources/GroundScatters/TropicalBushDense.tres" id="6_xhw3n"]
+[ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="7_jqptp"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_foldt"]
 frequency = 0.0026
@@ -22,4 +25,4 @@ heightMap = SubResource("NoiseTexture2D_2ex3r")
 decimation_step_range = Vector2i(1, 2)
 terrainColoringMode = 0
 editor_show_ground_scatter = true
-ground_scatters = Array[ExtResource("3_lpbmg")]([ExtResource("4_yp2ai")])
+ground_scatters = Array[ExtResource("3_lpbmg")]([ExtResource("4_yp2ai"), ExtResource("5_htc78"), ExtResource("6_xhw3n"), ExtResource("7_jqptp")])

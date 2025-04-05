@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cffc6hqf0dgah"]
+[gd_scene load_steps=8 format=3 uid="uid://cffc6hqf0dgah"]
 
 [ext_resource type="Script" uid="uid://b42dntqxyire4" path="res://Objects/Pickups/Pickup.gd" id="1_0l2lu"]
 [ext_resource type="Texture2D" uid="uid://bkxtqxj1te7la" path="res://Art/Images/CrossHairOutOfRange.svg" id="2_ou0ej"]
@@ -6,9 +6,47 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vxc7m"]
 
+[sub_resource type="Animation" id="Animation_yujan"]
+resource_name = "Pickup_Animation"
+length = 4.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_1qs3p"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite3D2:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o1lr1"]
+_data = {
+&"Pickup_Animation": SubResource("Animation_yujan"),
+&"RESET": SubResource("Animation_1qs3p")
+}
+
 [node name="Pickup" type="Node3D"]
 script = ExtResource("1_0l2lu")
-rarity_color = null
 
 [node name="CollectionArea3D" type="Area3D" parent="."]
 collision_layer = 0
@@ -21,14 +59,20 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 shape = SubResource("BoxShape3D_vxc7m")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(0.6, 0, 0, 0, -2.62268e-08, 0.6, 0, -0.6, -2.62268e-08, 0, 1.48845, 0)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.78381, 0)
 layers = 2
+axis = 1
 texture = ExtResource("2_ou0ej")
 
 [node name="Sprite3D2" type="Sprite3D" parent="."]
-transform = Transform3D(0.6, 0, 0, 0, -2.62268e-08, 0.6, 0, -0.6, -2.62268e-08, 0, 1.19481, 0)
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.19481, 0)
 layers = 2
-modulate = Color(0, 0.540633, 9.62615e-08, 1)
+axis = 1
 texture = ExtResource("3_yujan")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o1lr1")
+}
 
 [connection signal="body_entered" from="CollectionArea3D" to="." method="_on_collection_area_3d_body_entered"]

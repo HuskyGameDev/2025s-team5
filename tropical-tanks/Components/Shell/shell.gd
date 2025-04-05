@@ -98,8 +98,9 @@ func check_collisions(delta_velocity):
 
 	if shape_cast.is_colliding():
 		var area = shape_cast.get_collider(0)
-		if parent_body:
+		if parent_body and area:
 			if !parent_body.health_manager.hitboxes.has(area):
+				position += delta_velocity
 				if area.get_parent().is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
 					explode()
 					impact(area)

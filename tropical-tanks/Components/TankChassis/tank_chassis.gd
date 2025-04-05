@@ -14,6 +14,7 @@ class_name TankChassis
 
 var turrets_count : int = 1
 @onready var turret_mounts : Array[TurretMount] = [$TurretMount]
+@onready var team_marker: Sprite3D = $TeamMarker
 
 
 var view_range = 20
@@ -32,6 +33,17 @@ func _ready() -> void:
 	for i in turrets_count:
 		if i < turret_mounts.size():
 			turret_mounts[i].has_turret = true
+			
+			
+	set_team_markers()
+	
+func set_team_markers():
+	if is_in_group("Player"):
+		team_marker.modulate = Color.CADET_BLUE
+		$Sprite3D.modulate = Color.CADET_BLUE
+	if is_in_group("Enemy"):
+		team_marker.hide()
+		$Sprite3D.modulate = Color.DARK_RED
 
 func get_turrets() -> Array[Turret]:
 	var turrets : Array[Turret] = []
@@ -74,7 +86,7 @@ func _physics_process(delta: float) -> void:
 	
 	if damage_cast.is_colliding():
 		var collision_attack : Attack = Attack.new()
-		collision_attack.damage = velocity.length() + 1
+		collision_attack.damage = 5
 		for i in damage_cast.collision_result.size():
 			var collider = damage_cast.get_collider(i)
 			if collider is Hitbox:

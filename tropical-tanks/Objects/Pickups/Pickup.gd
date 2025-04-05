@@ -11,10 +11,7 @@ class_name Pickup
 		else: 
 			$Sprite3D.texture = load("res://Art/Images/CrossHairOutOfRange.svg")
 
-@export var rarity_color : Color = Color(0,0.5,0):
-	set(value):
-		rarity_color = value
-		$Sprite3D2.modulate = rarity_color
+@export var rarity_color : Color = Color(0.2,0.5,0.2)
 
 func _ready() :
 	if upgrade.image:

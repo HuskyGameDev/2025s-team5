@@ -1,15 +1,18 @@
 extends Node
-
-func _ready() -> void:
-	pass
 	
+@onready var sprite_3d: Sprite3D = $Sprite3D
 
 var life_time : float = 0
 var max_life_time : float = 30.0
+var track_color : Color = Color(.4,.3,0)
+
+func _ready() -> void:
+	sprite_3d.modulate = track_color
 
 func _process(delta: float) -> void:
-	#var material : StandardMaterial3D = $MeshInstance3D.get_surface_override_material(0)
-	#material.albedo_color = Color(0,1-life_time/max_life_time,0)
+	
+	var modulation = 1-life_time/max_life_time
+	sprite_3d.modulate.a = modulation
 	life_time += delta
 	
 	if life_time >= max_life_time:

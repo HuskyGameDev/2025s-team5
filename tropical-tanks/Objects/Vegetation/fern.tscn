@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://mvpmjygq223s" path="res://Art/Models/Vegetation/Fern.blend" id="3_whjoh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mm7np"]
-size = Vector3(1.5, 2.342, 1.5)
+size = Vector3(3, 2.342, 3)
 
 [node name="Fern" type="Node3D"]
 
@@ -20,7 +20,7 @@ collision_layer = 4
 health_manager = NodePath("../HealthManager")
 
 [node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 0.742977, 0.0172162)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 1.30489, 0.0172162)
 shape = SubResource("BoxShape3D_mm7np")
 
 [node name="Fern" parent="." instance=ExtResource("3_whjoh")]

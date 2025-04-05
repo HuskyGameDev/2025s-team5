@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d0el5x6evas6p" path="res://Art/Models/Vegetation/BushyPlant.blend" id="3_btwjc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_mm7np"]
-size = Vector3(1.5, 1.865, 1.5)
+size = Vector3(3, 1.865, 3)
 
 [node name="Bush" type="Node3D"]
 
@@ -19,7 +19,7 @@ collision_layer = 4
 health_manager = NodePath("../HealthManager")
 
 [node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 0.616513, 0.0172162)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 1.02609, 0.0172162)
 shape = SubResource("BoxShape3D_mm7np")
 
 [node name="BushyPlant" parent="." instance=ExtResource("3_btwjc")]
