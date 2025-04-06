@@ -7,7 +7,7 @@
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
-albedo_color = Color(0.32176, 0.394139, 0.162728, 1)
+albedo_color = Color(0.1575, 0.4725, 0.0875, 1)
 albedo_texture = ExtResource("1_p7bdl")
 normal_enabled = true
 normal_scale = -10.56

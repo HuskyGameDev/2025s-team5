@@ -60,7 +60,7 @@ func spawn_indicator(value, color : Color):
 		#fire_particles.stop()
 
 func do_fire_damage(delta: float):
-	print(fire_level)
+	#print(fire_level)
 	var percent_health = health/max_health # The percent health
 	var fire_damage = fire_level * fire_level * fire_speed * delta
 	health -= fire_damage

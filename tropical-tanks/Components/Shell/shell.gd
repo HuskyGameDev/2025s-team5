@@ -19,7 +19,6 @@ var power : float = 0 # Total power of the bullet based on speed * mass
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	scale = Vector3.ONE * pow(sp.mass,0.3333)
-	print(scale)
 	# Start Fuse timer
 	if sp.num_fuse > 0:
 		$FuseTimer.wait_time = sp.fuse_time
@@ -86,7 +85,6 @@ func check_collisions(delta_velocity):
 		power = velocity.length() * sp.mass
 	
 		var collision_vector = collision_point - cast_global_positon
-		print((collision_vector.length()))
 		if (collision_vector.length()) <= 1.0:
 			
 			#position += collision_vector
@@ -104,7 +102,6 @@ func check_collisions(delta_velocity):
 				if area.get_parent().is_in_group("Enemy"): # Explode and bounce if the collision is with an enemy object and is able to bounce
 					explode()
 					impact(area)
-					print("hit enemy")
 				else : # Only bounce if hitting terrain and is able to bounce
 					if sp.bounces_left >= 1:
 						bounce(ray_cast.get_collision_normal())
@@ -117,7 +114,6 @@ func get_drag() -> Vector3:
 
 ## Explode
 func explode():
-	print(sp.num_fuse)
 	var explosion = EXPLOSION.instantiate()
 	explosion.position = global_position
 	explosion.explosion_power = sp.explosion_power * sp.mass 

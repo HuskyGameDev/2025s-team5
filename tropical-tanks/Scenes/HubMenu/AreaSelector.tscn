@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwqg03gbbdhik"]
+[gd_scene load_steps=9 format=3 uid="uid://cwqg03gbbdhik"]
 
 [ext_resource type="Script" uid="uid://blj16va5qalod" path="res://Scenes/HubMenu/area_selector.gd" id="1_54dst"]
-[ext_resource type="Texture2D" uid="uid://c5krjamyqpgxa" path="res://Art/Images/tropicalareaplaceholder.png" id="1_r7vtc"]
 [ext_resource type="Theme" uid="uid://dvhloa1jal3q2" path="res://Art/Themes/hub_theme.tres" id="2_ti6f2"]
-[ext_resource type="Texture2D" uid="uid://bfmcqabe4fnwl" path="res://Art/Images/pressedtropicalareaplaceholder.png" id="4_spv06"]
-[ext_resource type="Texture2D" uid="uid://g8gjnyfl4yji" path="res://Art/Images/hoveredtropicalareaplaceholder.png" id="5_hi2dt"]
+[ext_resource type="PackedScene" uid="uid://bckkvwb8kxlca" path="res://Scenes/HubMenu/AreaButton.tscn" id="3_0uhd3"]
+[ext_resource type="Texture2D" uid="uid://dcfnyr04pw7hj" path="res://Art/Images/TropicalTanksIcon.png" id="4_spv06"]
+[ext_resource type="PackedScene" uid="uid://dw1fjemcs6y66" path="res://Scenes/Areas/Tropical_Area.tscn" id="5_hi2dt"]
+[ext_resource type="PackedScene" uid="uid://ujsfdvaaagwx" path="res://Scenes/Areas/Desert_Area.tscn" id="6_spv06"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43jrp"]
 content_margin_left = 10.0
@@ -70,88 +71,18 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TropicalArea" type="HSplitContainer" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+[node name="TropicalArea" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
 layout_mode = 2
-size_flags_vertical = 0
-
-[node name="TropicalButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("1_r7vtc")
-texture_pressed = ExtResource("4_spv06")
-texture_hover = ExtResource("5_hi2dt")
-stretch_mode = 0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea"]
-layout_mode = 2
+icon = ExtResource("4_spv06")
+area = ExtResource("5_hi2dt")
 text = "This is the default tropical area of the game."
 
-[node name="TropicalArea2" type="HSplitContainer" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
+[node name="DesertArea" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
 layout_mode = 2
-size_flags_vertical = 0
-
-[node name="DrivingTest" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea2"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("1_r7vtc")
-stretch_mode = 0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea2"]
-layout_mode = 2
-text = "placeholder"
-
-[node name="TropicalArea3" type="HSplitContainer" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="TextureButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea3"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("1_r7vtc")
-stretch_mode = 0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea3"]
-layout_mode = 2
-text = "placeholder"
-
-[node name="TropicalArea4" type="HSplitContainer" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="TextureButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea4"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("1_r7vtc")
-stretch_mode = 0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea4"]
-layout_mode = 2
-text = "placeholder"
-
-[node name="TropicalArea5" type="HSplitContainer" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="TextureButton" type="TextureButton" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea5"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("1_r7vtc")
-stretch_mode = 0
-
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea5"]
-layout_mode = 2
-text = "placeholder"
+icon = ExtResource("4_spv06")
+area = ExtResource("6_spv06")
+text = "A mysterious desert populated by a sparse collection of military bases."
 
 [connection signal="pressed" from="PanelContainer/VSplitContainer/HSplitContainer/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="pressed" from="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea/TropicalButton" to="." method="_on_tropical_button_pressed"]
-[connection signal="pressed" from="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea2/DrivingTest" to="." method="_on_driving_test_pressed"]
+[connection signal="area_button_pressed" from="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea" to="." method="_on_tropical_area_area_button_pressed"]
+[connection signal="area_button_pressed" from="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/DesertArea" to="." method="_on_tropical_area_area_button_pressed"]

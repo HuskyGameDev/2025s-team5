@@ -30,8 +30,6 @@ func _ready() -> void:
 			
 	if tank:
 		turrets = tank.get_turrets()
-		print(turrets)
-	print(tank.global_position)
 var targeting = false
 func _physics_process(_delta: float) -> void:
 	if tank:
@@ -43,8 +41,6 @@ func _physics_process(_delta: float) -> void:
 		queue_free()
 	
 	if target and targeting == true:
-		#print(tank.global_transform.basis.z)
-		#print(rad_to_deg(angle))
 		if angle_to_target > targeting_accuracy:
 			controls["turn_right"] = false
 			controls["turn_left"] = true

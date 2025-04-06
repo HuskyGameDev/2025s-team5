@@ -185,7 +185,7 @@ func calculate_colors():
 			
 			# Base color determination
 			var base_color: Color
-			if adjusted_height < sand_height:
+			if adjusted_height < sand_height * colorNoise.get_pixel(x,z).r:
 				base_color = sand_color
 			else:
 				# Generate green variations using noise
@@ -227,7 +227,7 @@ func calculate_colors():
 	average_color = average_color / (terrain_colors.size() + 1)
 	average_color = average_color * 0.7
 	average_color.a = 1.0
-	CRATER_MATERIAL.albedo_color = average_color
+	CRATER_MATERIAL.albedo_color = Color(0.45, 0.35, 0.25)
 
 func colors():
 	Image.create(xsize, zsize, false, Image.FORMAT_RGBA8)

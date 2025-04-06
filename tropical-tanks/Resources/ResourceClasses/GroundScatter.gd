@@ -45,8 +45,6 @@ func spawn(T : Terrain3D):
 			
 	else: # Get random centers on map
 		centers = poisson_disk_sampling(minimum_cluster_spacing,amount_of_clusters)
-	
-	print(centers.size())
 				
 	
 	for center in centers:
@@ -113,7 +111,6 @@ func poisson_disk_sampling(min_spacing : float, count : int) -> Array:
 		if valid:
 			points.append(new_point)
 		attempts += 1
-	print(attempts)
 	return points
 	
 	

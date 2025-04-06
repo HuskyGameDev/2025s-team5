@@ -87,7 +87,6 @@ func _physics_process(delta: float) -> void:
 	var initial_shot_velocity = initial_shot_power/shell_parameters.mass
 
 	var best_turret_angle = basic_turret_angle_solver.calculate_turret_angle($TurretHub/Bearing/AimCalculateLocation.global_position,target_position, initial_shot_velocity, shell_parameters.gravity.y, false)
-	#print(best_turret_angle)
 	
 	var current_turret_angle = move_toward(bearing.rotation.x,best_turret_angle, delta)
 	bearing.rotation.x = current_turret_angle

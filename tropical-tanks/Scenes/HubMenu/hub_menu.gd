@@ -1,11 +1,11 @@
 extends Node3D
 
-var area = "res://Scenes/Areas/area_tropical.tscn"
+var area 
 # Called when the node enters the scene tree for the first time.
 @onready var canvasLayer = $CanvasLayer
 
 func _on_start_button_pressed() -> void:
-	get_tree().change_scene_to_file(area)
+	get_tree().change_scene_to_packed(area)
 
 
 var AREASELECTOR_SCENE = preload("res://Scenes/HubMenu/AreaSelector.tscn")
