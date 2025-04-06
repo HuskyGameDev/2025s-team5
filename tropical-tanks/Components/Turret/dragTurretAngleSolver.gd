@@ -35,7 +35,8 @@ func calculate_turret_angle(
 		var y = ((drag * shell_velocity * sin(theta) + (mass * gravity)) / (drag * shell_velocity * cos(theta))) * horizontal_distance + ((mass * mass * gravity) / (drag * drag)) * log(1 - (drag * horizontal_distance)/ (mass * shell_velocity * cos(theta)))
 		errors.append(abs(vertical_distance - y))
 	best_angle = angles[errors.find(errors.min())]
-	
+	if mortar_mode:
+		best_angle = angles[errors.find(errors.max())]
 	#print(errors.min())
 	return deg_to_rad(best_angle)
 

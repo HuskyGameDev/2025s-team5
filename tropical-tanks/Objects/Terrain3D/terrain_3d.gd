@@ -3,12 +3,12 @@ extends Node3D
 class_name Terrain3D
 
 var rng = RandomNumberGenerator.new()
-var color_noise = FastNoiseLite.new()
 
 # Terrain size
 
 
 # Heightmap configuration
+@export var debug_screen : bool = false
 @export_group("Size")
 @export var xsize = 256 ## X Size of terrain3D in vertices.
 @export var zsize = 256 ## Z Size of terrain3D in vertices.
@@ -16,7 +16,7 @@ var color_noise = FastNoiseLite.new()
 @export var hill_height : float = 30.0 ## The height to stretch hills vertically.
 @export var water_level : float = 2.5 ## The height to shift terrain down and fill with water.
 @export var water_shallow_depth : float = 0.0 ## The max depth that is safe for a body. Bodies deeper than this value will take damage.
-@export var heightMap : NoiseTexture2D ## The height map to be used when generating terrain.
+@export var heightMap : FastNoiseLite ## The height map to be used when generating terrain.
 @export_subgroup("Decimation")
 @export var decimateTerrain = true ## If [code]true[/code] the terrain will be decimated based on the decimation step.
 @export var decimation_step_range : Vector2i = Vector2i(1,3) ## A range to randomly pick how many indices to step over each decimation step
@@ -25,10 +25,11 @@ var color_noise = FastNoiseLite.new()
 @export_group("Snow Parameters")
 @export var snow_coverage : float = 0.5 ## The percent of the map to be covered in snow
 @export var snow_depth : float = 3.0 ## The depth of the deepest snow
-@export var snowHeightMap : NoiseTexture2D ## The heightmap for snow generation
+@export var snowHeightMap : FastNoiseLite ## The heightmap for snow generation
 
 @export_category("Color")
 @export_group("Color Settings")
+@export var color_noise : FastNoiseLite
 @export var terrainColoringMode : terrainColoringOptions = terrainColoringOptions.randomTriangle
 @export_group("Colors")
 @export var terrain_colors : Array[Color] = [Color(Color.GREEN)]
@@ -50,10 +51,10 @@ enum terrainColoringOptions {
 @onready var terrain_mesh : MeshInstance3D = $TerrainMesh
 @onready var snow_mesh : MeshInstance3D = $SnowMesh
 @onready var water_mesh : WaterMesh = $WaterMesh
-@onready var heightImage : Image
-@onready var snowHeightImage : Image
-@onready var colorImage : Image
 
+@onready var heightImage : Image = heightMap.get_image(xsize,zsize)
+@onready var snowHeightImage : Image = snowHeightMap.get_image(xsize,zsize)
+@onready var colorImage : Image = Image.create_empty(xsize,zsize,false,Image.FORMAT_RGB8)
 # This dictionary will store the vertex positions after height adjustments
 var height_data = {}
 var snow_height_data = {}
@@ -62,21 +63,21 @@ var snow_height_data = {}
 var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 
 func _ready():
+	if debug_screen:
+		$DebugScreen.show()
+	else:
+		$DebugScreen.hide()
+		
 	await get_tree().process_frame
 	
 	rng.randomize()
 	color_noise.seed = rng.seed
-	
-	# Initialize the height image from the NoiseTexture2D
-	heightImage = heightMap.get_image()
-	heightImage.resize(xsize,zsize)
-	snowHeightImage = Image.create_empty(xsize,zsize,false,Image.Format.FORMAT_RGBA8)
-	colorImage = preload("res://Art/Images/DebugTexture.png").get_image()
-	
+		
 	if erosion: check_erosion()		# Check for erosiong map / do erosion 
 	generate_terrain_height_data() 	# Generate height data from the height image
-	if snowHeightMap: snowHeightImage = snowHeightMap.get_image()
-	snowHeightImage.resize(xsize,zsize)
+	if snow_coverage <= 0: snow_mesh.hide()
+
+	
 	generate_snow_height_data()
 	generate_snow_mesh()
 	calculate_colors()		# Calculate the colors
@@ -86,12 +87,14 @@ func _ready():
 	# Final setup: add collision and scatter objects if not in the editor
 	if not Engine.is_editor_hint():
 		terrain_mesh.create_trimesh_collision()
-		$BoundingWalls/StaticBody3D/negZ.position.z = -zsize/2
-		$BoundingWalls/StaticBody3D/posZ.position.z = zsize/2
-		$BoundingWalls/StaticBody3D/negX.position.x = -xsize/2
-		$BoundingWalls/StaticBody3D/posX.position.x = xsize/2
-		
-		
+		@warning_ignore("integer_division")
+		$BoundingWalls/StaticBody3D/negZ.position.z = -zsize/2 + 1
+		@warning_ignore("integer_division")
+		$BoundingWalls/StaticBody3D/posZ.position.z = zsize/2 - 1
+		@warning_ignore("integer_division")
+		$BoundingWalls/StaticBody3D/negX.position.x = -xsize/2 + 1
+		@warning_ignore("integer_division")
+		$BoundingWalls/StaticBody3D/posX.position.x = xsize/2 - 1
 		
 		water_mesh.shallow_depth = water_shallow_depth
 		place_ground_scatter()
@@ -135,17 +138,27 @@ func generate_snow_height_data() -> void:
 			)
 			
 # Terrain color thresholds
-const sand_height = 3  # Height threshold for sand
+var sand_height = water_level  # Height threshold for sand
 const steep_slope_threshold = 1.25  # Height difference for rocky terrain
 const max_slope_factor = 1.5  # Factor to control steep slope coloration blending
-const grass_color = Color(0.6, 0.9, 0.1, 1)  # Grass green (used for blending)
 const sand_color = Color(0.8, 0.7, 0.5, 1)  # Sandy color
 
 # Interpolation blending control parameters
 const height_blend_factor = 3  # Control how much height influences blending
 const slope_blend_factor = 0.5   # Control how much slope influences blending
+
+				# Define green palette
+var greens = [
+	Color(0.35, 0.55, 0.2),   # Dark forest green
+	Color(0.45, 0.7, 0.25),    # Vibrant lime
+	Color(0.6, 0.85, 0.3),     # Bright chartreuse
+	Color(0.5, 0.65, 0.25)     # Olive green
+	]
+
 func calculate_colors():
-	colorImage.resize(xsize, zsize)
+	colorImage = Image.create(xsize,zsize,false,Image.FORMAT_RGB8)
+	var colorNoise = color_noise.get_image(xsize,zsize)
+	var slopeImage = Image.create(xsize,zsize,false,Image.FORMAT_RGB8)
 	#Image.create(xsize + 1, zsize + 1, false, Image.FORMAT_RGBA8)
 	for x in range(xsize):
 		for z in range(zsize):
@@ -153,12 +166,11 @@ func calculate_colors():
 			
 			# Calculate maximum slope difference
 			var slope = calculate_slope(x,z)
-			
+			slopeImage.set_pixel(x,z, Color.WHITE * slope)
 			# Calculate slope components
 			var slope_blend = clamp(slope / steep_slope_threshold * max_slope_factor, 0.0, 1.0)
 			
 			var height_blend = clamp((adjusted_height - sand_height) / height_blend_factor, 0.0, 1.0)
-			
 			
 			# Base color determination
 			var base_color: Color
@@ -166,22 +178,15 @@ func calculate_colors():
 				base_color = sand_color
 			else:
 				# Generate green variations using noise
-				var noise_value = color_noise.get_noise_2d(x * 2, z * 2)
-				noise_value = (noise_value + 1.0) / 2.0  # Normalize to 0-1
-				
-				# Define green palette
-				var greens = [
-					Color(0.35, 0.55, 0.2),   # Dark forest green
-					Color(0.45, 0.7, 0.25),    # Vibrant lime
-					Color(0.6, 0.85, 0.3),     # Bright chartreuse
-					Color(0.5, 0.65, 0.25)     # Olive green
-				]
+				var noise_value = colorNoise.get_pixel(x,z).r
+			
 				
 				# Select and blend greens based on noise
-				var green_index = clamp(int(noise_value * greens.size()), 0, greens.size() - 1)
-				var next_green = greens[clamp(green_index + 1, 0, greens.size() - 1)]
-				var green_blend = (noise_value * greens.size()) - green_index
-				base_color = greens[green_index].lerp(next_green, green_blend)
+				var color_index = int(noise_value * terrain_colors.size()) % terrain_colors.size()
+				var next_color = terrain_colors[(color_index + 1) % terrain_colors.size()]
+				var terrain_color_blend = (noise_value * terrain_colors.size()) - color_index
+				base_color = terrain_colors[color_index].lerp(next_color, terrain_color_blend)
+	
 				
 				# Add subtle yellow variation
 				if noise_value > 0.7:
@@ -201,15 +206,15 @@ func calculate_colors():
 			colorImage.set_pixel(x, z, final_color)
 			#colorImage.set_pixel(x, z, Color(1-slope,1-slope ,1-slope,1.0))
 			
-	#colorImage.save_png("res://Objects/Terrain3D/HeightMaps/color_map.png")
-
-
+	%SlopeImage.texture = ImageTexture.create_from_image(slopeImage)
+	%ColorImage.texture = ImageTexture.create_from_image(colorImage)
+	
 
 func colors():
 	Image.create(xsize, zsize, false, Image.FORMAT_RGBA8)
 	for x in range(xsize + 1):
 		for z in range(zsize + 1):
-			var pixel_height = height_data[Vector2(x, z)].y
+			var pixel_height = heightImage.get_pixel(x,z)
 			
 			var slope = calculate_slope(x,z)
 			#colorImage.set_pixel(x, z, Color(slope, slope, slope))
@@ -283,12 +288,12 @@ func generate_terrain_mesh() -> void:
 	# For each quad in the decimated grid, process two triangles separately with individual colors
 	for i in range(decimated_vertices.size() - 1):
 		for j in range(decimated_vertices[i].size() - 1):
-			var vertices = [
-				decimated_vertices[i][j],
-				decimated_vertices[i+1][j],
-				decimated_vertices[i+1][j+1],
-				decimated_vertices[i][j+1]
-			]
+			#var vertices = [
+				#decimated_vertices[i][j],
+				#decimated_vertices[i+1][j],
+				#decimated_vertices[i+1][j+1],
+				#decimated_vertices[i][j+1]
+			#]
 			var v1 = decimated_vertices[i][j]
 			var v2 = decimated_vertices[i+1][j]
 			var v3 = decimated_vertices[i+1][j+1]

@@ -1,16 +1,20 @@
 extends Node3D
 
 var TRACK = preload("res://Components/Track/Track.tscn")
+@onready var track_cast : RayCast3D = $RayCast3D
 
 func _on_timer_timeout() -> void:
-	if $RayCast3D.is_colliding():
-		var track : Node3D = TRACK.instantiate()
+	if track_cast.is_colliding():
+		var track : Track = TRACK.instantiate()
 		track.rotation = global_rotation
-		track.position = $RayCast3D.get_collision_point()
+		track.position = track_cast.get_collision_point()
+		
+		track.terrain = track_cast.get_collider().get_parent().get_parent()
 		get_tree().root.add_child(track)
 		
-		var floor_normal = $RayCast3D.get_collision_normal()
+		var floor_normal = track_cast.get_collision_normal()
 		track.basis.y = floor_normal
 		track.basis.x = -track.basis.z.cross(floor_normal)
 		track.basis = track.basis.orthonormalized()
+
 		

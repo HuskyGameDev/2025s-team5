@@ -5,12 +5,15 @@ class_name GroundScatter
 
 @export var primary_objects : Array[PackedScene] 
 @export_range(0.0,1.0,0.01) var primary_probability : float = 1.0
+@export var primary_scale_randomness : float = 0.0
 
 @export var secondary_objects : Array[PackedScene]
 @export_range(0.0,1.0,0.01) var secondary_probability : float = 1.0
+@export var secondary_scale_randomness : float = 0.0
 
 @export var tertiary_objects : Array[PackedScene]
 @export_range(0.0,1.0,0.01) var tertiary_probability : float = 1.0
+@export var tertiary_scale_randomness : float = 0.0
 
 @export_group("Placement Parameters")
 @export var spawn_on_grid : bool = false
@@ -59,7 +62,7 @@ func spawn(T : Terrain3D):
 			# Forest Spawning
 			if is_position_valid(grid_pos) and !is_too_close(grid_pos, placed_primary_objects, minimum_object_spacing) and randf() < primary_probability:
 				var object = primary_objects.pick_random()
-				place_object(object, grid_pos, true)
+				place_object(object, grid_pos, true, primary_scale_randomness)
 				placed_primary_objects.append(grid_pos)
 				
 				# secondary_object spawning
@@ -114,7 +117,7 @@ func poisson_disk_sampling(min_spacing : float, count : int) -> Array:
 	return points
 	
 	
-func place_object(scene_pack: PackedScene, grid_pos: Vector2, random_rotation: bool) -> void:
+func place_object(scene_pack: PackedScene, grid_pos: Vector2, random_rotation: bool, scale_randomness : float = 0.0) -> void:
 	var world_pos = terrain.height_data[grid_pos]
 	var object = scene_pack.instantiate()
 	object.position = world_pos 
@@ -122,6 +125,9 @@ func place_object(scene_pack: PackedScene, grid_pos: Vector2, random_rotation: b
 		object.rotation.y = (randf() * TAU) 
 	terrain.terrain_mesh.add_child(object)
 	terrain.occupied_positions[grid_pos] = true
+	if scale_randomness != 0:
+		var object_scale_factor = randf_range(1 - scale_randomness, 1 + scale_randomness)
+		object.scale = object.scale * object_scale_factor
 	
 func get_grid_position(pos: Vector2) -> Vector2:
 	return Vector2(clamp(roundi(pos.x), 0, terrain.xsize), clamp(roundi(pos.y), 0, terrain.zsize))

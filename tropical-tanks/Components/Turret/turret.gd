@@ -54,6 +54,7 @@ func set_barrels() -> void:
 			#barrel.position.x += - double_barrels_radius * double_barrels + double_barrels_radius * (w + 0.5) * 2
 			
 			if double_barrels > 1:
+				@warning_ignore("integer_division")
 				var angle = deg_to_rad(360/double_barrels)
 				var two_barrel_shift = int(double_barrels == 2) * deg_to_rad(90)
 				barrel.position += Vector3(0,double_barrels_radius,0).rotated(Vector3(0,0,1), angle * (i_double_barrel) + two_barrel_shift)
@@ -66,11 +67,10 @@ func set_barrels() -> void:
 		split_barrel_holder.append(double_barrel_holder)
 
 
-@onready var drag_turret_angle_solver : DragTurretAngleSolver = DragTurretAngleSolver.new()
+
 @onready var basic_turret_angle_solver : BasicTurretAngleSolver = BasicTurretAngleSolver.new()
 var minimum_shot_distance : float = 6.0
 var shot_obstructed : bool = false
-@export var use_drag_solver : bool = false ## Uses drag solver if [code]true[/code]
 func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return #Do not do this code while in editor
@@ -85,11 +85,8 @@ func _physics_process(delta: float) -> void:
 	$TurretHub.global_rotation = global_rotation * Vector3(0,1,0)
 	
 	var initial_shot_velocity = initial_shot_power/shell_parameters.mass
-	var best_turret_angle = 0
-	if use_drag_solver:
-		best_turret_angle = drag_turret_angle_solver.calculate_turret_angle(turret_hub.global_position,target_position, initial_shot_velocity, shell_parameters.drag, shell_parameters.mass, shell_parameters.gravity.y, false)
-	else:
-		best_turret_angle = basic_turret_angle_solver.calculate_turret_angle($TurretHub/Bearing/AimCalculateLocation.global_position,target_position, initial_shot_velocity, shell_parameters.gravity.y, false)
+
+	var best_turret_angle = basic_turret_angle_solver.calculate_turret_angle($TurretHub/Bearing/AimCalculateLocation.global_position,target_position, initial_shot_velocity, shell_parameters.gravity.y, false)
 	#print(best_turret_angle)
 	
 	var current_turret_angle = move_toward(bearing.rotation.x,best_turret_angle, delta)

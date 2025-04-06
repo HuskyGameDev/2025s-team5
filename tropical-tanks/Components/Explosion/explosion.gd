@@ -57,9 +57,16 @@ func spawn_crater():
 	if crater_cast.is_colliding():
 		var crater = CRATER.instantiate()
 		#crater.rotation.y = randf() * 2 * PI
-		crater.scale = crater.scale * explosion_power 
+		var floor_normal = crater_cast.get_collision_normal()
+		crater.terrain = crater_cast.get_collider().get_parent().get_parent()
 		get_tree().root.add_child(crater)
+		crater.basis.y = floor_normal
+		crater.basis.x = -crater.basis.z.cross(floor_normal)
+		crater.basis = crater.basis.orthonormalized()
+		
+		crater.scale = crater.scale * explosion_power 
 		crater.global_position = crater_cast.get_collision_point()
+		
 	
 func spawn_child_explosion():
 	var child_explosion_power = explosion_power - randf_range(1,3)

@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="GroundScatter" load_steps=3 format=3 uid="uid://b86p5w8k331dj"]
+
+[ext_resource type="PackedScene" uid="uid://qsjkr51td1sp" path="res://Objects/Vegetation/Desert/desert_tree.tscn" id="1_1gtgo"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="1_kvavj"]
+
+[resource]
+script = ExtResource("1_kvavj")
+primary_objects = Array[PackedScene]([ExtResource("1_1gtgo")])
+primary_probability = 1.0
+primary_scale_randomness = 0.4
+secondary_objects = Array[PackedScene]([])
+secondary_probability = 1.0
+secondary_scale_randomness = 0.0
+tertiary_objects = Array[PackedScene]([])
+tertiary_probability = 1.0
+tertiary_scale_randomness = 0.0
+spawn_on_grid = false
+amount_of_clusters = 20
+minimum_cluster_spacing = 30.0
+cluster_radius = 7.0
+object_count_range = Vector2i(1, 3)
+minimum_object_spacing = 5.0
+metadata/_custom_type_script = "uid://devstjeflc5ws"

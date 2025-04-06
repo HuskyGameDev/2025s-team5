@@ -8,7 +8,7 @@ var gravity : Vector3 = ProjectSettings.get_setting("physics/3d/default_gravity_
 		
 ## Gameplay Variables
 @export var armor_piercing : float = 0.0
-@export var explosion_power : float = 1.0
+@export var explosion_power : float = 2.0
 @export var evaporation : float = 0.0 # Bullet shrink over time
 @export var bounces_left : float = 0.0
 

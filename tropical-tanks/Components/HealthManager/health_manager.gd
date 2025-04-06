@@ -49,11 +49,8 @@ func spawn_indicator(value, color : Color):
 	get_tree().root.add_child(indicator)
 	indicator.global_position = global_position + (Vector3(spread_distance,0,0).rotated(Vector3(0,1,0),randf() * 2*PI) * randf())
 
-func _physics_process(delta: float) -> void:
-	pass
-	
-	
-	
+#func _physics_process(delta: float) -> void:
+	#pass
 	#if take_fire_damage and fire_level > 0 and health > 0:
 		#do_fire_damage(delta)
 		#fire_particles.set_level( clampf(fire_level/40,0.0,1.0) )

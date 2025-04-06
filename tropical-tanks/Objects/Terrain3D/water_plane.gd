@@ -12,7 +12,16 @@ var wet_bodies : Array[Hitbox] = []
 func _ready() -> void:
 	$Area3D.position.y = -shallow_depth
 
-func _physics_process(delta: float) -> void:
+func _on_area_3d_area_shape_entered(_area_rid: RID, area: Area3D, _area_shape_index: int, _local_shape_index: int) -> void:
+	if area is Hitbox:
+		wet_bodies.append(area)
+
+func _on_area_3d_area_shape_exited(_area_rid: RID, area: Area3D, _area_shape_index: int, _local_shape_index: int) -> void:
+	if area is Hitbox:
+		area.water_depth = 0
+
+
+func _on_water_timer_timeout() -> void:
 	for i in wet_bodies.size():
 		if wet_bodies[i]:
 			var wet_body : Hitbox = wet_bodies[i]
@@ -20,11 +29,3 @@ func _physics_process(delta: float) -> void:
 		else:
 			wet_bodies.remove_at(i)
 			return
-
-func _on_area_3d_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
-	if area is Hitbox:
-		wet_bodies.append(area)
-
-func _on_area_3d_area_shape_exited(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int) -> void:
-	if area is Hitbox:
-		area.water_depth = 0

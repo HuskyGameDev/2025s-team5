@@ -55,9 +55,10 @@ func spawn_pickup(pos : Vector3):
 
 	
 func next_wave():
-	wave += 1
 	wave_timer.start()
-	
+	if enemies.size() > wave / 2 + 1:
+		return
+	wave += 1
 	$CanvasLayer/PanelContainer/HBoxContainer/WaveNumber.text = str(wave)
 	
 	var extra = 0

@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://qsjkr51td1sp"]
+
+[ext_resource type="Script" uid="uid://eglj02lx7r0m" path="res://Components/HealthManager/health_manager.gd" id="1_6hed8"]
+[ext_resource type="PackedScene" uid="uid://lxwgxgbuif6d" path="res://Art/Particles/tree_particles.tscn" id="2_hic55"]
+[ext_resource type="Script" uid="uid://wcb8lu7g48ww" path="res://Resources/ResourceClasses/SpawnObject.gd" id="3_i5erb"]
+[ext_resource type="PackedScene" uid="uid://pxfmr7r4opq8" path="res://Art/Particles/plant_particles.tscn" id="4_agux8"]
+[ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="5_2n1qc"]
+[ext_resource type="PackedScene" uid="uid://d2s6k7avrntxb" path="res://Art/Models/Vegetation/JoshuaTree.blend" id="6_nmhno"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gqyw2"]
+size = Vector3(0.932407, 4.42557, 0.88356)
+
+[sub_resource type="Resource" id="Resource_gk14q"]
+script = ExtResource("3_i5erb")
+OBJECT = ExtResource("2_hic55")
+offset = Vector3(0, 4, 0)
+metadata/_custom_type_script = "uid://wcb8lu7g48ww"
+
+[sub_resource type="Resource" id="Resource_6p58v"]
+script = ExtResource("3_i5erb")
+OBJECT = ExtResource("4_agux8")
+offset = Vector3(0, 8, 0)
+metadata/_custom_type_script = "uid://wcb8lu7g48ww"
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ocu2c"]
+height = 5.66968
+radius = 0.593262
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_aeb72"]
+radius = 1.23493
+
+[node name="DesertTree" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0585911, 2.22732, -0.0369034)
+shape = SubResource("BoxShape3D_gqyw2")
+
+[node name="HealthManager" type="Node3D" parent="."]
+script = ExtResource("1_6hed8")
+max_health = 250.0
+death_effects = Array[Resource]([SubResource("Resource_gk14q"), SubResource("Resource_6p58v")])
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("5_2n1qc")]
+collision_layer = 4
+health_manager = NodePath("../HealthManager")
+
+[node name="HitboxCollider" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0221252, 2.85325, 0.0172162)
+shape = SubResource("CylinderShape3D_ocu2c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8614, 6.86146, -0.138088)
+shape = SubResource("SphereShape3D_aeb72")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.87371, 7.25052, 2.3486)
+shape = SubResource("SphereShape3D_aeb72")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.64283, 7.28358, -1.57802)
+shape = SubResource("SphereShape3D_aeb72")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.01096, 6.96797, -1.87575)
+shape = SubResource("SphereShape3D_aeb72")
+
+[node name="JoshuaTree" parent="." instance=ExtResource("6_nmhno")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)

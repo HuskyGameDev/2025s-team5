@@ -29,7 +29,7 @@ func _ready() -> void:
 		print(turrets)
 	print(tank.global_position)
 var targeting = false
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if tank:
 		tank.controls = controls
 		if turrets and target:
@@ -74,6 +74,9 @@ func get_angle_to_target() -> float:
 func _on_timer_timeout() -> void:
 	if (randf() < 0.2):
 		controls["forward"] = true
+		controls["backward"] = false
+	if (randf() < 0.1):
+		controls["forward"] = false
 	match(randi_range(1, 3)):
 		1:
 			controls["turn_right"] = false
@@ -88,7 +91,7 @@ func _on_timer_timeout() -> void:
 	if target:
 		print("")
 		var distance = get_distance_to_target()
-		if (randf() < 0.3) and distance < 30:
+		if (randf() < 0.3) and distance < 20:
 			controls["shoot"] = true
 		else:
 			controls["shoot"] = false

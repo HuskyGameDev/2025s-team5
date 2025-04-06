@@ -55,7 +55,7 @@ func _physics_process(delta: float) -> void:
 	
 	
 	
-func shake(force):
+func shake(_force):
 	pass
 
 

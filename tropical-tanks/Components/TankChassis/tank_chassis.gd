@@ -16,8 +16,8 @@ var turrets_count : int = 1
 @onready var turret_mounts : Array[TurretMount] = [$TurretMount]
 @onready var team_marker: Sprite3D = $TeamMarker
 
-
-var view_range = 20
+var base_view_range = 10
+var view_range = 20 + base_view_range
 
 var controls = {
 	"forward" = false,
@@ -53,6 +53,7 @@ func get_turrets() -> Array[Turret]:
 	return turrets
 
 func on_upgrade_pickup(U : Upgrade):
+	health_manager.health = health_manager.max_health
 	upgrades.append(U)
 	for turret  in get_turrets():
 		turret.initial_shot_power += U.initial_shot_power
@@ -74,7 +75,7 @@ func on_upgrade_pickup(U : Upgrade):
 		turret.shell_parameters.thrust_power += U.thrust_power
 		turret.shell_parameters.num_fuse += U.num_fuse
 	
-		view_range = turret.initial_shot_power/turret.shell_parameters.mass
+		view_range = turret.initial_shot_power/turret.shell_parameters.mass + base_view_range
 
 
 var move_vector = Vector3(0,0,-1)

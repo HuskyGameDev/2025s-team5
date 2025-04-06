@@ -8,7 +8,7 @@ func _ready() -> void:
 	health_manager.hitboxes.append(self)
 	assert(health_manager, "ERROR: health_manager must be set in hitbox inspector.")
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if water_depth > 0:
 		if health_manager.water_damage_timer.is_stopped():
 			health_manager.do_water_damage()

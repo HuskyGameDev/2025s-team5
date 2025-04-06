@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4ui8j2t8glw0"]
+[gd_scene load_steps=5 format=3 uid="uid://c4ui8j2t8glw0"]
 
 [ext_resource type="Script" uid="uid://ca4g8ipel5xlq" path="res://Components/Turret/turret.gd" id="1_p3y8b"]
 [ext_resource type="PackedScene" uid="uid://do3q1y3fmiwh" path="res://Art/Models/turretHubModelParts.tscn" id="2_eg07v"]
-[ext_resource type="PackedScene" uid="uid://d1lq821ro2ajm" path="res://Components/CrosshairSetter/crosshair_setter.tscn" id="3_5c1ct"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_aqewf"]
 size = Vector3(0.5, 0.15, 0.15)
@@ -36,7 +35,5 @@ target_position = Vector3(0, 0, -5)
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
-
-[node name="CrosshairSetter" parent="." instance=ExtResource("3_5c1ct")]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

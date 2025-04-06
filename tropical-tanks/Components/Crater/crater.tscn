@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://cmy8wgluaej20"]
 
 [ext_resource type="Script" uid="uid://d0hgaggiw7ihe" path="res://Components/Crater/crater.gd" id="1_eh0l1"]
-[ext_resource type="Texture2D" uid="uid://degot5yg7wb0t" path="res://Art/Images/CraterPlaceholder.png" id="1_kva30"]
-[ext_resource type="Texture2D" uid="uid://cygh27vjdxru4" path="res://Art/Images/CraterPlaceholderNormalMap.png" id="2_itaym"]
+[ext_resource type="Material" uid="uid://blw5sv4arm6xw" path="res://Components/Crater/crater_material.tres" id="4_p3wfl"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_fcs4p"]
+orientation = 1
 
 [node name="Crater" type="Node3D"]
 script = ExtResource("1_eh0l1")
 
-[node name="Decal" type="Decal" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00540161, 0)
-size = Vector3(1, 1, 1)
-texture_albedo = ExtResource("1_kva30")
-texture_normal = ExtResource("2_itaym")
-cull_mask = 1048569
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0402282, 0)
+mesh = SubResource("QuadMesh_fcs4p")
+surface_material_override/0 = ExtResource("4_p3wfl")

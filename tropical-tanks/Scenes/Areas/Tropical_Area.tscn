@@ -8,21 +8,26 @@
 [ext_resource type="Resource" uid="uid://c658la25pdnso" path="res://Resources/GroundScatters/TropicalBushDense.tres" id="6_xhw3n"]
 [ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="7_jqptp"]
 
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_foldt"]
-frequency = 0.0026
-fractal_type = 3
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_xhw3n"]
+frequency = 0.0036
+fractal_type = 2
+fractal_octaves = 6
+fractal_weighted_strength = 0.37
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2ex3r"]
-noise = SubResource("FastNoiseLite_foldt")
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_htc78"]
+seed = 511347627
 
 [node name="TropicalArea" type="Node3D"]
 script = ExtResource("1_detiw")
 
 [node name="Terrain3D" parent="." instance=ExtResource("2_foldt")]
 hill_height = 15.0
-water_level = 5.0
-heightMap = SubResource("NoiseTexture2D_2ex3r")
+water_level = 4.0
+water_shallow_depth = 1.0
+heightMap = SubResource("FastNoiseLite_xhw3n")
 decimation_step_range = Vector2i(1, 2)
+snow_coverage = 0.0
+color_noise = SubResource("FastNoiseLite_htc78")
 terrainColoringMode = 0
 editor_show_ground_scatter = true
 ground_scatters = Array[ExtResource("3_lpbmg")]([ExtResource("4_yp2ai"), ExtResource("5_htc78"), ExtResource("6_xhw3n"), ExtResource("7_jqptp")])
