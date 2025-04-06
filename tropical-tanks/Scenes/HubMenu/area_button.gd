@@ -1,8 +1,7 @@
-@tool
-extends HSplitContainer
+extends HBoxContainer
 signal area_button_pressed(area)
 
-@export var icon : Texture
+@export var icon : Texture = preload("res://Art/Images/DebugTexture.png")
 @export var area : PackedScene
 
 @export_multiline var text : String

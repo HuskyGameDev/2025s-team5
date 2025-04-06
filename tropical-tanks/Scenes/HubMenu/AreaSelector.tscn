@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://cwqg03gbbdhik"]
+[gd_scene load_steps=8 format=3 uid="uid://cwqg03gbbdhik"]
 
 [ext_resource type="Script" uid="uid://blj16va5qalod" path="res://Scenes/HubMenu/area_selector.gd" id="1_54dst"]
 [ext_resource type="Theme" uid="uid://dvhloa1jal3q2" path="res://Art/Themes/hub_theme.tres" id="2_ti6f2"]
 [ext_resource type="PackedScene" uid="uid://bckkvwb8kxlca" path="res://Scenes/HubMenu/AreaButton.tscn" id="3_0uhd3"]
 [ext_resource type="Texture2D" uid="uid://dcfnyr04pw7hj" path="res://Art/Images/TropicalTanksIcon.png" id="4_spv06"]
-[ext_resource type="PackedScene" uid="uid://dw1fjemcs6y66" path="res://Scenes/Areas/Tropical_Area.tscn" id="5_hi2dt"]
-[ext_resource type="PackedScene" uid="uid://ujsfdvaaagwx" path="res://Scenes/Areas/Desert_Area.tscn" id="6_spv06"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43jrp"]
 content_margin_left = 10.0
@@ -13,6 +11,9 @@ content_margin_top = 5.0
 bg_color = Color(0.430217, 0.671148, 0.412687, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ti6f2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0uhd3"]
+bg_color = Color(0.6, 0.74902, 0.6, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -36,6 +37,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_43jrp")
 
 [node name="VSplitContainer" type="VSplitContainer" parent="PanelContainer"]
 layout_mode = 2
+dragging_enabled = false
 
 [node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/VSplitContainer"]
 layout_mode = 2
@@ -63,26 +65,38 @@ text = "AREAS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VSplitContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VSplitContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0uhd3")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VSplitContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VSplitContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="TropicalArea" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
+[node name="TropicalArea" parent="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
 layout_mode = 2
 icon = ExtResource("4_spv06")
-area = ExtResource("5_hi2dt")
-text = "This is the default tropical area of the game."
+text = "tEST ETSTTSTTTWDASd"
 
-[node name="DesertArea" parent="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
+[node name="DesertArea" parent="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
 layout_mode = 2
-icon = ExtResource("4_spv06")
-area = ExtResource("6_spv06")
-text = "A mysterious desert populated by a sparse collection of military bases."
+
+[node name="DesertArea2" parent="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
+layout_mode = 2
+
+[node name="DesertArea3" parent="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
+layout_mode = 2
+
+[node name="DesertArea4" parent="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
+layout_mode = 2
 
 [connection signal="pressed" from="PanelContainer/VSplitContainer/HSplitContainer/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="area_button_pressed" from="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/TropicalArea" to="." method="_on_tropical_area_area_button_pressed"]
-[connection signal="area_button_pressed" from="PanelContainer/VSplitContainer/ScrollContainer/VBoxContainer/DesertArea" to="." method="_on_tropical_area_area_button_pressed"]
+[connection signal="area_button_pressed" from="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer/TropicalArea" to="." method="_on_tropical_area_area_button_pressed"]
+[connection signal="area_button_pressed" from="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer/DesertArea" to="." method="_on_tropical_area_area_button_pressed"]
+[connection signal="area_button_pressed" from="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer/DesertArea2" to="." method="_on_tropical_area_area_button_pressed"]
+[connection signal="area_button_pressed" from="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer/DesertArea3" to="." method="_on_tropical_area_area_button_pressed"]
+[connection signal="area_button_pressed" from="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer/DesertArea4" to="." method="_on_tropical_area_area_button_pressed"]
