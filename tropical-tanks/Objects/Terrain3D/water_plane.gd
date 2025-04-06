@@ -13,6 +13,7 @@ func _ready() -> void:
 	$Area3D.position.y = -shallow_depth
 
 func _on_area_3d_area_shape_entered(_area_rid: RID, area: Area3D, _area_shape_index: int, _local_shape_index: int) -> void:
+	print("POOL")
 	if area is Hitbox:
 		wet_bodies.append(area)
 

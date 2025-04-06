@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 	
 	var modulation = 1-life_time/max_life_time
 	sprite_3d.modulate.a = modulation
-	life_time += delta
+	life_time += delta * GLOBAL.aging_factor
 	
 	if life_time >= max_life_time:
 		queue_free()

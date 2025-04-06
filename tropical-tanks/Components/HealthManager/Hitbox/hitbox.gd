@@ -3,6 +3,7 @@ class_name Hitbox
 
 @export var health_manager : HealthManager 
 var water_depth = 0
+var fire : Fire
 
 func _ready() -> void:
 	health_manager.hitboxes.append(self)

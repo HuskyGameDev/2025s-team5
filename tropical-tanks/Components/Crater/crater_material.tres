@@ -4,11 +4,10 @@
 [ext_resource type="Texture2D" uid="uid://lmutbets8ggg" path="res://Art/Images/crater_normal.png" id="2_copkn"]
 
 [resource]
-resource_local_to_scene = true
 transparency = 2
 alpha_scissor_threshold = 0.5
 alpha_antialiasing_mode = 0
-albedo_color = Color(0.343691, 0.202676, 0.0386404, 1)
+albedo_color = Color(0.32176, 0.394139, 0.162728, 1)
 albedo_texture = ExtResource("1_p7bdl")
 normal_enabled = true
 normal_scale = -10.56

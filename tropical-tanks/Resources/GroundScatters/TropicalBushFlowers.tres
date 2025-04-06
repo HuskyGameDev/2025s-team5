@@ -8,15 +8,18 @@
 [resource]
 script = ExtResource("1_e0gpv")
 primary_objects = Array[PackedScene]([ExtResource("1_7yeaw"), ExtResource("2_i2mb4")])
-primary_probability = 1.0
+primary_probability = 0.8
+primary_scale_randomness = 0.0
 secondary_objects = Array[PackedScene]([])
 secondary_probability = 1.0
+secondary_scale_randomness = 0.0
 tertiary_objects = Array[PackedScene]([ExtResource("4_twmrp")])
 tertiary_probability = 0.4
+tertiary_scale_randomness = 0.0
 spawn_on_grid = false
 amount_of_clusters = 20
 minimum_cluster_spacing = 40.0
 cluster_radius = 20.0
 object_count_range = Vector2i(70, 120)
-minimum_object_spacing = 3.0
+minimum_object_spacing = 5.0
 metadata/_custom_type_script = "uid://devstjeflc5ws"

@@ -6,7 +6,9 @@ class_name HealthManager
 @export var take_water_damage : bool = false
 
 @export var take_fire_damage : bool = true
-@export var fire_resistance : float = 0.5
+
+@export var flammability : float = 0.5
+@export var fire_resistance : float = 0.0
 
 @export var indicators : bool = false ## If [code]true[/code], spawn indicators upon damage.
 

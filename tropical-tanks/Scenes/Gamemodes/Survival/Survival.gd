@@ -16,7 +16,15 @@ func _ready() -> void:
 	
 	spawn_player()
 	next_wave()
-	
+	wave = 10
+	next_wave()
+	next_wave()
+	next_wave()
+	next_wave()
+	next_wave()
+	next_wave()
+	next_wave()
+	next_wave()
 func spawn_player():
 	var player = PLAYER.instantiate()
 	player.position = Vector3(0,30,0)
@@ -28,6 +36,7 @@ func spawn_enemy():
 	tank.position = pos
 	get_tree().root.add_child(tank)
 	enemies.append(tank)
+	GLOBAL.aging_factor = exp(enemies.size()/5)
 	
 	
 

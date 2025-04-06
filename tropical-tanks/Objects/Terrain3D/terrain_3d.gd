@@ -52,8 +52,8 @@ enum terrainColoringOptions {
 @onready var snow_mesh : MeshInstance3D = $SnowMesh
 @onready var water_mesh : WaterMesh = $WaterMesh
 
-@onready var heightImage : Image = heightMap.get_image(xsize,zsize)
-@onready var snowHeightImage : Image = snowHeightMap.get_image(xsize,zsize)
+@onready var heightImage : Image 
+@onready var snowHeightImage : Image 
 @onready var colorImage : Image = Image.create_empty(xsize,zsize,false,Image.FORMAT_RGB8)
 # This dictionary will store the vertex positions after height adjustments
 var height_data = {}
@@ -61,8 +61,19 @@ var snow_height_data = {}
 
 # Material for the terrain mesh
 var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
+var CRATER_MATERIAL = preload("res://Components/Crater/crater_material.tres")
+
+
 
 func _ready():
+	heightMap.seed = randi()
+	snowHeightMap.seed = randi()
+	
+	
+	
+	heightImage = heightMap.get_image(xsize,zsize)
+	snowHeightImage = snowHeightMap.get_image(xsize,zsize)
+	
 	if debug_screen:
 		$DebugScreen.show()
 	else:
@@ -209,6 +220,14 @@ func calculate_colors():
 	%SlopeImage.texture = ImageTexture.create_from_image(slopeImage)
 	%ColorImage.texture = ImageTexture.create_from_image(colorImage)
 	
+	var average_color = Color(0,0,0)
+	for color in terrain_colors:
+		average_color += color
+	average_color += Color(0.45, 0.35, 0.25)
+	average_color = average_color / (terrain_colors.size() + 1)
+	average_color = average_color * 0.7
+	average_color.a = 1.0
+	CRATER_MATERIAL.albedo_color = average_color
 
 func colors():
 	Image.create(xsize, zsize, false, Image.FORMAT_RGBA8)

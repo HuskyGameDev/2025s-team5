@@ -7,10 +7,13 @@
 script = ExtResource("1_efx5m")
 primary_objects = Array[PackedScene]([ExtResource("1_4k05k")])
 primary_probability = 0.5
+primary_scale_randomness = 0.0
 secondary_objects = Array[PackedScene]([])
 secondary_probability = 1.0
+secondary_scale_randomness = 0.0
 tertiary_objects = Array[PackedScene]([])
 tertiary_probability = 1.0
+tertiary_scale_randomness = 0.0
 spawn_on_grid = false
 amount_of_clusters = 30
 minimum_cluster_spacing = 3.0

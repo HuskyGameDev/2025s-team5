@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8u18apjh14cn"]
+
+[ext_resource type="Texture2D" uid="uid://colwongxi0fgr" path="res://Components/Fire/BlendedBurnScar.tres" id="1_w8ebf"]
+
+[node name="BurnScar" type="Decal"]
+texture_albedo = ExtResource("1_w8ebf")

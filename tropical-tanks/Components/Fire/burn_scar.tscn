@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8u18apjh14cn"]
+
+[ext_resource type="Texture2D" path="res://Art/Images/Blends/FireScar1.tres" id="1_w8ebf"]
+[ext_resource type="Script" uid="uid://bhlml5laofnqh" path="res://Components/Fire/burn_scar.gd" id="2_g34yq"]
+
+[node name="BurnScar" type="Decal"]
+layers = 5
+texture_albedo = ExtResource("1_w8ebf")
+script = ExtResource("2_g34yq")

@@ -13,13 +13,14 @@ config_version=5
 config/name="Tropical tanks"
 run/main_scene="res://Scenes/devmenu.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
-run/max_fps=60
+run/max_fps=120
 config/icon="res://Art/Images/TropicalTanksIcon.png"
 
 [autoload]
 
 TANKS="*res://Classes/TANKS.gd"
 SIGNALBUS="*res://Classes/SIGNALBUS.gd"
+GLOBAL="*res://Classes/GLOBAL.gd"
 
 [display]
 

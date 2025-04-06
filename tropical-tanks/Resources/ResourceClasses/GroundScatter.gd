@@ -138,7 +138,7 @@ func is_position_valid(grid_pos: Vector2) -> bool:
 		return false
 	var h = terrain.height_data[grid_pos].y
 	var slope = calculate_slope(grid_pos)
-	if slope < terrain.steep_slope_threshold and h > terrain.sand_height:
+	if slope < terrain.steep_slope_threshold and h > terrain.sand_height + 1:
 		valid = true
 		
 	if terrain.snow_height_data[grid_pos].y > 0:

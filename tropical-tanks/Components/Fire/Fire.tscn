@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dakoa8dgng7k1"]
+
+[ext_resource type="Script" uid="uid://b0f33a1e3t1w3" path="res://Components/Fire/fire.gd" id="1_g4c3x"]
+[ext_resource type="PackedScene" uid="uid://grljdpkble54" path="res://Art/Particles/fire_particles.tscn" id="2_pe8v1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_y1ndl"]
+resource_local_to_scene = true
+radius = 2.5
+
+[node name="Fire" type="Area3D"]
+collision_layer = 0
+collision_mask = 6
+monitorable = false
+script = ExtResource("1_g4c3x")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_y1ndl")
+
+[node name="FireParticles" parent="." instance=ExtResource("2_pe8v1")]
+
+[node name="FireTimer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

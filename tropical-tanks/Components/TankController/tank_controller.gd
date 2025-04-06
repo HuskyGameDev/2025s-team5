@@ -9,6 +9,10 @@ class_name TankController
 
 @onready var terrain_checker: RayCast3D = $TerrainChecker
 
+var angle_to_target : float
+var distance_to_target : float
+
+var water_nearby = false
 
 var controls = {
 	"forward" = false,
@@ -40,12 +44,11 @@ func _physics_process(_delta: float) -> void:
 	
 	if target and targeting == true:
 		#print(tank.global_transform.basis.z)
-		var angle = get_angle_to_target()
 		#print(rad_to_deg(angle))
-		if angle > targeting_accuracy:
+		if angle_to_target > targeting_accuracy:
 			controls["turn_right"] = false
 			controls["turn_left"] = true
-		elif angle < -targeting_accuracy:
+		elif angle_to_target < -targeting_accuracy:
 			controls["turn_right"] = true
 			controls["turn_left"] = false
 		else:
@@ -56,8 +59,18 @@ func _physics_process(_delta: float) -> void:
 	if terrain_checker.is_colliding():
 		controls["backward"] = false
 		if terrain_checker.get_collision_point().y < 0:
+			water_nearby = true
 			controls["forward"] = false
 			controls["turn_left"] = true
+			controls["turn_right"] = false
+		elif water_nearby:
+			controls["forward"] = true
+			water_nearby = false
+		if global_position.y < 0:
+			controls["forward"] = true
+			controls["turn_left"] = false
+			controls["turn_right"] = false
+			
 	else:
 		controls["forward"] = false
 		controls["backward"] = true
@@ -89,24 +102,21 @@ func _on_timer_timeout() -> void:
 			controls["turn_left"] = false
 	
 	if target:
-		print("")
-		var distance = get_distance_to_target()
-		if (randf() < 0.3) and distance < 20:
+		angle_to_target = get_angle_to_target()
+		distance_to_target = get_distance_to_target()
+		if (randf() < 0.8) and distance_to_target < 20:
 			controls["shoot"] = true
 		else:
 			controls["shoot"] = false
 
-		if distance > 30:
+		if distance_to_target > 30:
 			targeting = true
 		else: 
 			targeting = false
-		
+	else:
+		controls["shoot"] = false
 	if !target:
-		print("Retargeting")
 		if get_tree().get_nodes_in_group("Player"):
-
-			print("Retargeting2")
 			var player_tank = get_tree().get_nodes_in_group("Player").pick_random()
-			print(player_tank)
 			target = player_tank
 				
