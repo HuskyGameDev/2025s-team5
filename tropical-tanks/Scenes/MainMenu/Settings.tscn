@@ -5,6 +5,8 @@
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="4_wrsdo"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1w7rt"]
+content_margin_left = 50.0
+content_margin_right = 50.0
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -33,8 +35,14 @@ grow_vertical = 2
 layout_mode = 2
 theme = ExtResource("2_28jca")
 
-[node name="Label2" type="Label" parent="MarginContainer/PanelContainer"]
-custom_minimum_size = Vector2(0, 150)
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1w7rt")
+
+[node name="Label2" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
@@ -46,31 +54,21 @@ text = "
 SETTINGS"
 horizontal_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="Top" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+[node name="Top" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer"]
 custom_minimum_size = Vector2(0, 130)
 layout_mode = 2
 dragging_enabled = false
 
-[node name="Back" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/Top"]
+[node name="Back" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/Top"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 10
-theme_override_fonts/font = ExtResource("4_wrsdo")
-theme_override_font_sizes/font_size = 14
-theme_override_styles/normal = SubResource("StyleBoxEmpty_1w7rt")
-text = "X (ESC)"
+text = "X"
 
-[node name="currentFPS" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Top"]
+[node name="currentFPS" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/Top"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("4_wrsdo")
-theme_override_font_sizes/font_size = 14
 
 [node name="Volume" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
@@ -182,7 +180,7 @@ theme_override_fonts/font = ExtResource("4_wrsdo")
 theme_override_font_sizes/font_size = 22
 text = "Key Mappings"
 
-[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/Top/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/Top/Back" to="." method="_on_back_pressed"]
 [connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Volume/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="item_selected" from="MarginContainer/PanelContainer/VBoxContainer/Resolutions/HSplitContainer/Resolutions" to="." method="_on_resolutions_item_selected"]
 [connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/Resolutions/HSplitContainer2/Fullscreen" to="." method="_on_fullscreen_toggled"]

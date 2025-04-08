@@ -28,6 +28,8 @@ func _on_start_button_pressed() -> void:
 
 var SETTINGS_SCENE = preload("res://Scenes/MainMenu/Settings.tscn")
 func _on_settings_button_pressed() -> void:
+	$CanvasLayer/CenterContainer/PanelContainer/VBoxContainer.hide()
+	$CanvasLayer/CenterContainer2.hide()
 	var scene = SETTINGS_SCENE.instantiate()
 	canvasLayer.add_child(scene)
 	

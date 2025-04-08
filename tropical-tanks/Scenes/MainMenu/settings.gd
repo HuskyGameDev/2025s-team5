@@ -1,6 +1,6 @@
 extends Control
 
-@onready var fps = $MarginContainer/PanelContainer/VBoxContainer/Top/currentFPS
+@onready var fps = $MarginContainer/PanelContainer/VBoxContainer/PanelContainer/Top/currentFPS
 
 func _process(delta: float) -> void:
 	fps.text = "FPS: " + str(int(Engine.get_frames_per_second()))
@@ -28,10 +28,14 @@ func _on_resolutions_item_selected(index: int) -> void:
 func _input(event):
 	if event is InputEventKey:
 		if event.pressed and event.keycode == KEY_ESCAPE:
+			get_parent().get_child(0).get_child(0).get_child(0).show()
+			get_parent().get_child(1).show()
 			queue_free()
 
 
 func _on_back_pressed() -> void:
+	get_parent().get_child(0).get_child(0).get_child(0).show()
+	get_parent().get_child(1).show()
 	queue_free()
 
 
