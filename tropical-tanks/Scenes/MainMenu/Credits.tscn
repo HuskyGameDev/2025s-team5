@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwpcqfe1jao4c"]
+
+[ext_resource type="Script" uid="uid://dkky7qwohf5w8" path="res://Scenes/MainMenu/credits.gd" id="1_07mc5"]
+[ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="1_f814o"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_07mc5"]
+content_margin_left = 50.0
+content_margin_right = 50.0
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_07mc5")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -250.0
+offset_right = 450.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+layout_mode = 2
+theme = ExtResource("1_f814o")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_07mc5")
+
+[node name="Label2" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "
+CREDITS"
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "X"
+
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/PanelContainer/Back" to="." method="_on_back_pressed"]

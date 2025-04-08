@@ -50,10 +50,11 @@ func _on_option_button_item_selected(index: int) -> void:
 		3:
 			Engine.max_fps = 30
 
-var MAPPINGS_SCENE = preload("res://Scenes/MainMenu/KeyMappings.tscn")
-func _on_button_mappings_pressed() -> void:
-	var scene = MAPPINGS_SCENE.instantiate()
-	add_child(scene)
+# Mappings implementation
+# var MAPPINGS_SCENE = preload("res://Scenes/MainMenu/KeyMappings.tscn")
+# func _on_button_mappings_pressed() -> void:
+	# var scene = MAPPINGS_SCENE.instantiate()
+	# add_child(scene)
 
 
 func _on_fps_show_toggled(toggled_on: bool) -> void:

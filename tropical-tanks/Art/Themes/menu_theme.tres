@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://beq3sqokihu4k"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://beq3sqokihu4k"]
 
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="1_lhujf"]
 [ext_resource type="Texture2D" uid="uid://b8cq0trmjl0jv" path="res://Art/Images/SettingsCheckButtonToggled.png" id="2_cmlgs"]
@@ -53,6 +53,22 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y0044"]
+content_margin_left = 25.0
+content_margin_top = 15.0
+content_margin_right = 25.0
+content_margin_bottom = 10.0
+bg_color = Color(0.972549, 0.717647, 0.521569, 1)
+border_width_left = 5
+border_width_bottom = 5
+border_color = Color(0.547102, 0.422481, 0.249198, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_color = Color(0.372549, 0.278431, 0.239216, 1)
+shadow_size = 5
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m43j8"]
 content_margin_left = 40.0
 content_margin_top = 30.0
@@ -70,6 +86,7 @@ Button/styles/normal = SubResource("StyleBoxFlat_cjd84")
 Button/styles/pressed = SubResource("StyleBoxFlat_2ojiq")
 CheckButton/icons/checked = ExtResource("2_cmlgs")
 CheckButton/icons/unchecked = ExtResource("3_2ojiq")
+CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_y0044")
 Label/constants/outline_size = 20
 Label/font_sizes/font_size = 22
 Label/fonts/font = ExtResource("1_lhujf")

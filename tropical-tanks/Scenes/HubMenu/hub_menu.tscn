@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://8f2oqghi887u"]
+[gd_scene load_steps=16 format=3 uid="uid://8f2oqghi887u"]
 
 [ext_resource type="Script" uid="uid://cndrndiub4lyf" path="res://Scenes/HubMenu/hub_menu.gd" id="1_dnwjy"]
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/TankChassis/tankChassis.tscn" id="1_tploy"]
 [ext_resource type="PackedScene" uid="uid://c4ui8j2t8glw0" path="res://Components/Turret/turret.tscn" id="2_nwenx"]
 [ext_resource type="Theme" uid="uid://dvhloa1jal3q2" path="res://Art/Themes/hub_theme.tres" id="4_hbvwv"]
+[ext_resource type="Texture2D" uid="uid://xewbikt21kax" path="res://Art/Images/TropicalBanner.png" id="5_6buhv"]
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="5_44aak"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_tjabw"]
@@ -27,6 +28,10 @@ background_mode = 2
 sky = SubResource("Sky_7yxsr")
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rmkoe"]
+texture = ExtResource("5_6buhv")
+region_rect = Rect2(0, 124.205, 1280, 381.949)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6buhv"]
 
@@ -80,6 +85,7 @@ offset_top = -203.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("4_hbvwv")
+theme_override_styles/panel = SubResource("StyleBoxTexture_rmkoe")
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/PanelContainer"]
 layout_mode = 2
@@ -132,7 +138,7 @@ dragging_enabled = false
 layout_mode = 2
 text = "Select Area"
 
-[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/AreaBox/CurrentArea"]
+[node name="CurrentArea" type="Label" parent="CanvasLayer/PanelContainer/AreaBox/CurrentArea"]
 layout_mode = 2
 size_flags_vertical = 0
 text = "Current:"

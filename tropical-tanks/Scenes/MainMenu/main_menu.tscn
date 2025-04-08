@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://crptm3tpqf23q"]
+[gd_scene load_steps=24 format=3 uid="uid://crptm3tpqf23q"]
 
 [ext_resource type="Script" uid="uid://dwlo11ont4xx0" path="res://Scenes/MainMenu/main_menu.gd" id="1_behrf"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="2_bkc2w"]
@@ -13,6 +13,7 @@
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="9_w5buf"]
 [ext_resource type="Texture2D" uid="uid://ddsuf0ur4ndh5" path="res://Art/Images/MenuButtonNormal.png" id="10_w5buf"]
 [ext_resource type="Texture2D" uid="uid://o1obpb7svgjd" path="res://Art/Images/MenuButtonPressedSprite5.png" id="11_6c6cs"]
+[ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="14_6c6cs"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1736k"]
 size = Vector2(10, 10)
@@ -150,11 +151,16 @@ stretch_mode = 5
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -8.0
-offset_right = 8.0
+offset_top = -41.0
+offset_right = 125.0
 grow_vertical = 0
+theme = ExtResource("14_6c6cs")
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 15
 text = "Credits"
 
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/HowToPlayButton" to="." method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CreditsButton" to="." method="_on_credits_button_pressed"]

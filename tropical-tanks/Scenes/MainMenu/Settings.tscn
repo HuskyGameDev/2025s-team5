@@ -50,7 +50,6 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 30
 text = "
-
 SETTINGS"
 horizontal_alignment = 1
 
@@ -168,6 +167,7 @@ text = "Hide FPS:"
 layout_mode = 2
 
 [node name="Mappings" type="HSplitContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 dragging_enabled = false
