@@ -1,11 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://tjjc1wb78g4q"]
+[gd_scene load_steps=3 format=3 uid="uid://tjjc1wb78g4q"]
 
 [ext_resource type="Script" uid="uid://bhffxqms73j6l" path="res://Objects/Crosshair/crosshair.gd" id="1_4y0r3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_4y0r3"]
 
 [node name="Crosshair" type="Node3D"]
 script = ExtResource("1_4y0r3")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, -100, 0)
 collide_with_areas = true
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_4y0r3")
