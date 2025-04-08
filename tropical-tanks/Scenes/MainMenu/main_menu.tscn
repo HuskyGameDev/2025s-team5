@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://crptm3tpqf23q"]
+[gd_scene load_steps=23 format=3 uid="uid://crptm3tpqf23q"]
 
 [ext_resource type="Script" uid="uid://dwlo11ont4xx0" path="res://Scenes/MainMenu/main_menu.gd" id="1_behrf"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="2_bkc2w"]
@@ -8,14 +8,11 @@
 [ext_resource type="Resource" uid="uid://c6qqbt8n1spbd" path="res://Resources/GroundScatters/TropicalForest.tres" id="4_mdp32"]
 [ext_resource type="Texture2D" uid="uid://bnnkxtf7jj6b7" path="res://Art/Images/CanvasBackgroundSandParticles.png" id="5_ihuk2"]
 [ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="5_rlg4b"]
-[ext_resource type="Theme" uid="uid://dvhloa1jal3q2" path="res://Art/Themes/hub_theme.tres" id="6_n5jej"]
 [ext_resource type="Texture2D" uid="uid://buyvs5rpxo1ah" path="res://Art/Images/TropicalTanks.png" id="9_egttt"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_2r307"]
-frequency = 0.005
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_omq0y"]
-noise = SubResource("FastNoiseLite_2r307")
+[ext_resource type="Texture2D" uid="uid://cnwd7csppqgr7" path="res://Art/Images/MenuButtonHover.png" id="9_rlg4b"]
+[ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="9_w5buf"]
+[ext_resource type="Texture2D" uid="uid://ddsuf0ur4ndh5" path="res://Art/Images/MenuButtonNormal.png" id="10_w5buf"]
+[ext_resource type="Texture2D" uid="uid://o1obpb7svgjd" path="res://Art/Images/MenuButtonPressedSprite5.png" id="11_6c6cs"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1736k"]
 size = Vector2(10, 10)
@@ -33,13 +30,41 @@ sky = SubResource("Sky_o6tuq")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fo6ee"]
+content_margin_top = 15.0
+content_margin_bottom = 10.0
+texture = ExtResource("9_rlg4b")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nqd6t"]
+content_margin_top = 15.0
+content_margin_bottom = 10.0
+texture = ExtResource("10_w5buf")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_43m2q"]
+texture = ExtResource("11_6c6cs")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5buf"]
+bg_color = Color(0.913725, 0.839216, 0.713726, 0.160784)
+
+[sub_resource type="Theme" id="Theme_os7au"]
+Button/colors/font_color = Color(0.897382, 0.878404, 0.782954, 1)
+Button/colors/font_hover_color = Color(0.983002, 0.773148, 0.555284, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 0)
+Button/constants/outline_size = 10
+Button/font_sizes/font_size = 20
+Button/fonts/font = ExtResource("9_w5buf")
+Button/styles/hover = SubResource("StyleBoxTexture_fo6ee")
+Button/styles/normal = SubResource("StyleBoxTexture_nqd6t")
+Button/styles/pressed = SubResource("StyleBoxTexture_43m2q")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_w5buf")
+
 [node name="MainMenu" type="Node3D"]
 script = ExtResource("1_behrf")
 
 [node name="Terrain3D" parent="." instance=ExtResource("2_bkc2w")]
+debug_screen = false
 hill_height = 15.0
 water_level = 4.0
-heightMap = SubResource("NoiseTexture2D_omq0y")
 terrainColoringMode = 0
 ground_scatters = Array[ExtResource("3_agesy")]([ExtResource("4_mdp32"), ExtResource("5_rlg4b")])
 
@@ -82,7 +107,7 @@ grow_vertical = 2
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/CenterContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme = ExtResource("6_n5jej")
+theme = SubResource("Theme_os7au")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CenterContainer/PanelContainer"]
 custom_minimum_size = Vector2(100, 0)
@@ -90,22 +115,18 @@ layout_mode = 2
 
 [node name="StartButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/outline_size = 10
 text = "Start"
 
 [node name="SettingsButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/outline_size = 10
 text = "Settings"
 
 [node name="HowToPlayButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/outline_size = 10
 text = "How To Play"
 
 [node name="QuitButton" type="Button" parent="CanvasLayer/CenterContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/outline_size = 10
 text = "Quit"
 
 [node name="CenterContainer2" type="CenterContainer" parent="CanvasLayer"]

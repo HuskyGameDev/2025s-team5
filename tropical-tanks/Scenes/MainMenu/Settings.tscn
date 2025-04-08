@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhqs14owf00eo"]
+[gd_scene load_steps=5 format=3 uid="uid://dhqs14owf00eo"]
 
 [ext_resource type="Script" uid="uid://dchnnr1cryu6o" path="res://Scenes/MainMenu/settings.gd" id="1_r2fek"]
 [ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="2_28jca"]
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="4_wrsdo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1w7rt"]
 
 [node name="Settings" type="Control"]
 layout_mode = 3
@@ -56,8 +58,11 @@ dragging_enabled = false
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("4_wrsdo")
 theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxEmpty_1w7rt")
 text = "X (ESC)"
 
 [node name="currentFPS" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Top"]

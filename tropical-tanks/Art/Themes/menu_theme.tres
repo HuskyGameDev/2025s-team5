@@ -1,21 +1,21 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://beq3sqokihu4k"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://beq3sqokihu4k"]
 
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="1_lhujf"]
 [ext_resource type="Texture2D" uid="uid://bh77umec78x1a" path="res://Art/Images/BackgroundSettings.jpg" id="2_nwaa1"]
+[ext_resource type="Texture2D" uid="uid://dm24wu2mcd3xa" path="res://Art/Images/SettingsPanel.png" id="3_cjd84"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nwaa1"]
 texture = ExtResource("2_nwaa1")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m43j8"]
-content_margin_left = 25.0
-content_margin_top = 25.0
-content_margin_right = 25.0
-content_margin_bottom = 25.0
-texture = ExtResource("2_nwaa1")
-region_rect = Rect2(0, 0, 1920, 1080)
-modulate_color = Color(0, 0.694173, 0.817118, 0.627451)
+content_margin_left = 40.0
+content_margin_top = 30.0
+content_margin_right = 40.0
+content_margin_bottom = 30.0
+texture = ExtResource("3_cjd84")
 
 [resource]
+Label/constants/outline_size = 20
 Label/font_sizes/font_size = 22
 Label/fonts/font = ExtResource("1_lhujf")
 Panel/styles/panel = SubResource("StyleBoxTexture_nwaa1")

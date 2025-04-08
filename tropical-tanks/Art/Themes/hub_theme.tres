@@ -1,8 +1,7 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dvhloa1jal3q2"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dvhloa1jal3q2"]
 
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="1_3uhfm"]
 [ext_resource type="FontFile" uid="uid://cn087n704vg06" path="res://Art/Fonts/FreeGodotFontpack/fonts/montreal/Montreal-Regular.ttf" id="2_7u3a1"]
-[ext_resource type="Texture2D" uid="uid://b77tb1urv4p54" path="res://Art/Images/buttonbackground3.png" id="2_ld8ju"]
 
 [sub_resource type="FontVariation" id="FontVariation_7u3a1"]
 base_font = ExtResource("1_3uhfm")
@@ -10,8 +9,10 @@ spacing_glyph = 3
 spacing_top = 10
 spacing_bottom = 5
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sgd3t"]
-texture = ExtResource("2_ld8ju")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7u3a1"]
+content_margin_left = 5.0
+content_margin_right = 5.0
+bg_color = Color(0.355397, 0.58101, 0.369954, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_3uhfm"]
 content_margin_left = 25.0
@@ -30,7 +31,7 @@ border_color = Color(0.0470588, 0.164706, 0.247059, 0.717647)
 [resource]
 Button/font_sizes/font_size = 20
 Button/fonts/font = SubResource("FontVariation_7u3a1")
-Button/styles/normal = SubResource("StyleBoxTexture_sgd3t")
+Button/styles/normal = SubResource("StyleBoxFlat_7u3a1")
 Label/font_sizes/font_size = 20
 Label/fonts/font = ExtResource("1_3uhfm")
 PanelContainer/styles/panel = SubResource("StyleBoxEmpty_3uhfm")
