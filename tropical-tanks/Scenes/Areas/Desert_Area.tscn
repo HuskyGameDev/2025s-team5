@@ -8,10 +8,11 @@
 [ext_resource type="Resource" uid="uid://b3h7etbbo8d0f" path="res://Resources/Upgrades/double_barrel.tres" id="6_l27uu"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_armvt"]
-seed = -793695686
+seed = -2113736657
 
 [node name="DesertArea" type="Node3D"]
 script = ExtResource("1_armvt")
+area_name = "Desert"
 
 [node name="Terrain3D" parent="." instance=ExtResource("2_txa00")]
 debug_screen = false

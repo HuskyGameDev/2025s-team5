@@ -11,6 +11,8 @@ var gamemodes = {
 	
 }
 
+@export var area_name : String = "Unnamed Area"
+@export var area_panel_background : Texture = preload("res://Art/Images/TropicalBanner.png")
 @export var gamemode_type : gamemode_types = gamemode_types.EndlessSurvival
 
 var gamemode : Gamemode

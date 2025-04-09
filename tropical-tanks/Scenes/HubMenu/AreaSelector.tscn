@@ -1,9 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwqg03gbbdhik"]
+[gd_scene load_steps=12 format=3 uid="uid://cwqg03gbbdhik"]
 
 [ext_resource type="Script" uid="uid://blj16va5qalod" path="res://Scenes/HubMenu/area_selector.gd" id="1_54dst"]
 [ext_resource type="Theme" uid="uid://dvhloa1jal3q2" path="res://Art/Themes/hub_theme.tres" id="2_ti6f2"]
 [ext_resource type="PackedScene" uid="uid://bckkvwb8kxlca" path="res://Scenes/HubMenu/AreaButton.tscn" id="3_0uhd3"]
 [ext_resource type="Texture2D" uid="uid://dcfnyr04pw7hj" path="res://Art/Images/TropicalTanksIcon.png" id="4_spv06"]
+[ext_resource type="PackedScene" uid="uid://dw1fjemcs6y66" path="res://Scenes/Areas/Tropical_Area.tscn" id="5_43jrp"]
+[ext_resource type="Texture2D" uid="uid://bq8yea2uyd0jd" path="res://Art/Images/buttonbackground1.png" id="5_spv06"]
+[ext_resource type="Texture2D" uid="uid://ca7tm8b83f0sl" path="res://Art/Images/DebugTexture.png" id="5_ti6f2"]
+[ext_resource type="PackedScene" uid="uid://ujsfdvaaagwx" path="res://Scenes/Areas/Desert_Area.tscn" id="8_i26ce"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_43jrp"]
 content_margin_left = 10.0
@@ -41,6 +45,7 @@ dragging_enabled = false
 
 [node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/VSplitContainer"]
 layout_mode = 2
+dragging_enabled = false
 
 [node name="ExitButton" type="Button" parent="PanelContainer/VSplitContainer/HSplitContainer"]
 layout_mode = 2
@@ -79,20 +84,29 @@ size_flags_vertical = 3
 
 [node name="TropicalArea" parent="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
 layout_mode = 2
+area_name = "Tropical"
 icon = ExtResource("4_spv06")
+area = ExtResource("5_43jrp")
 text = "tEST ETSTTSTTTWDASd"
 
 [node name="DesertArea" parent="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
 layout_mode = 2
+area_name = "Desert"
+area_panel_background = ExtResource("5_spv06")
+icon = ExtResource("5_ti6f2")
+area = ExtResource("8_i26ce")
 
 [node name="DesertArea2" parent="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
 layout_mode = 2
+icon = ExtResource("5_ti6f2")
 
 [node name="DesertArea3" parent="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
 layout_mode = 2
+icon = ExtResource("5_ti6f2")
 
 [node name="DesertArea4" parent="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_0uhd3")]
 layout_mode = 2
+icon = ExtResource("5_ti6f2")
 
 [connection signal="pressed" from="PanelContainer/VSplitContainer/HSplitContainer/ExitButton" to="." method="_on_exit_button_pressed"]
 [connection signal="area_button_pressed" from="PanelContainer/VSplitContainer/PanelContainer/ScrollContainer/VBoxContainer/TropicalArea" to="." method="_on_tropical_area_area_button_pressed"]

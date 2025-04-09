@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://8f2oqghi887u"]
+[gd_scene load_steps=15 format=3 uid="uid://8f2oqghi887u"]
 
 [ext_resource type="Script" uid="uid://cndrndiub4lyf" path="res://Scenes/HubMenu/hub_menu.gd" id="1_dnwjy"]
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/TankChassis/tankChassis.tscn" id="1_tploy"]
@@ -28,10 +28,6 @@ background_mode = 2
 sky = SubResource("Sky_7yxsr")
 tonemap_mode = 2
 glow_enabled = true
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rmkoe"]
-texture = ExtResource("5_6buhv")
-region_rect = Rect2(0, 124.205, 1280, 381.949)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6buhv"]
 
@@ -76,6 +72,18 @@ target_position = Vector3(4, 1, 3)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="PanelBackground" type="TextureRect" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -206.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+texture = ExtResource("5_6buhv")
+expand_mode = 1
+
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
 anchors_preset = 12
 anchor_top = 1.0
@@ -85,7 +93,6 @@ offset_top = -203.0
 grow_horizontal = 2
 grow_vertical = 0
 theme = ExtResource("4_hbvwv")
-theme_override_styles/panel = SubResource("StyleBoxTexture_rmkoe")
 
 [node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/PanelContainer"]
 layout_mode = 2
@@ -138,10 +145,10 @@ dragging_enabled = false
 layout_mode = 2
 text = "Select Area"
 
-[node name="CurrentArea" type="Label" parent="CanvasLayer/PanelContainer/AreaBox/CurrentArea"]
+[node name="CurrentAreaLabel" type="Label" parent="CanvasLayer/PanelContainer/AreaBox/CurrentArea"]
 layout_mode = 2
 size_flags_vertical = 0
-text = "Current:"
+text = "Current: Tropical"
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer/AreaBox/CurrentArea"]
 layout_mode = 2
@@ -159,7 +166,7 @@ dragging_enabled = false
 [node name="Button" type="Button" parent="CanvasLayer/PanelContainer2/HSplitContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-text = "ESC X"
+text = "X"
 
 [node name="Button2" type="Button" parent="CanvasLayer/PanelContainer2/HSplitContainer"]
 layout_mode = 2
