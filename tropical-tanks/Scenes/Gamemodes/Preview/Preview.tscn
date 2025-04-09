@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bh40lgw56tda0"]
+
+[ext_resource type="Script" uid="uid://bvjhdmtb85vqj" path="res://Scenes/Gamemodes/Preview/Preview.gd" id="1_q1g1o"]
+
+[node name="Preview" type="Node3D"]
+script = ExtResource("1_q1g1o")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 40, 0)
+current = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

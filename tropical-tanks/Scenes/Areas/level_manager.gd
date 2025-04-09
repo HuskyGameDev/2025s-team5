@@ -4,11 +4,12 @@ enum gamemode_types {
 	EndlessSurvival, 
 	TeamDeathmatch, 
 	Creative,
+	Preview,
 	}
 
 var gamemodes = {
 	gamemode_types.EndlessSurvival : preload("res://Scenes/Gamemodes/Survival/Survival.tscn"),
-	
+	gamemode_types.Preview : preload("res://Scenes/Gamemodes/Preview/Preview.tscn"),
 }
 
 @export var area_name : String = "Unnamed Area"

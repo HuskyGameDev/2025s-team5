@@ -80,6 +80,7 @@ func _ready():
 		$DebugScreen.hide()
 		
 	await get_tree().process_frame
+	$LoadingScreen.hide()
 	
 	rng.randomize()
 	color_noise.seed = rng.seed

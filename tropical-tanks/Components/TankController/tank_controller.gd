@@ -115,4 +115,7 @@ func _on_timer_timeout() -> void:
 		if get_tree().get_nodes_in_group("Player"):
 			var player_tank = get_tree().get_nodes_in_group("Player").pick_random()
 			target = player_tank
-				
+		else:
+			var enemy_tank = get_tree().get_nodes_in_group("Enemy").pick_random()
+			if enemy_tank != tank:
+				target = enemy_tank

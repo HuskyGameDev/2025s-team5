@@ -11,10 +11,13 @@
 script = ExtResource("1_23swm")
 primary_objects = Array[PackedScene]([ExtResource("1_qfyrv"), ExtResource("2_ck1j1"), ExtResource("3_1pmsg")])
 primary_probability = 1.0
+primary_scale_randomness = 0.0
 secondary_objects = Array[PackedScene]([ExtResource("5_1pmsg"), ExtResource("6_e0euv")])
 secondary_probability = 0.5
+secondary_scale_randomness = 0.0
 tertiary_objects = Array[PackedScene]([])
 tertiary_probability = 1.0
+tertiary_scale_randomness = 0.0
 spawn_on_grid = false
 amount_of_clusters = 15
 minimum_cluster_spacing = 50.0
