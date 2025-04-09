@@ -43,6 +43,9 @@ shadow_enabled = true
 directional_shadow_mode = 1
 
 [node name="Terrain3D" parent="." instance=ExtResource("1_82kpi")]
+debug_screen = false
+terrainColoringMode = 0
+terrain_colors = Array[Color]([Color(0.612041, 0.87574, 0.953057, 1)])
 ground_scatters = Array[ExtResource("2_pws4u")]([ExtResource("3_s4ihi"), ExtResource("4_d6dpr"), ExtResource("5_ut3yw"), ExtResource("6_hvm4n")])
 
 [node name="PlayerRoot" parent="." instance=ExtResource("2_0msfh")]

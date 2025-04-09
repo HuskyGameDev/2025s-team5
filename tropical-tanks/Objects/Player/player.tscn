@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://3oknlbv35lld"]
+[gd_scene load_steps=6 format=3 uid="uid://3oknlbv35lld"]
 
 [ext_resource type="PackedScene" uid="uid://6mmhgkmoq6oa" path="res://Components/TankChassis/tankChassis.tscn" id="1_avp0u"]
 [ext_resource type="Script" uid="uid://dgykyycj35af1" path="res://Objects/Player/player_controller.gd" id="1_ikaho"]
+[ext_resource type="PackedScene" uid="uid://tjjc1wb78g4q" path="res://Objects/Crosshair/crosshair.tscn" id="2_o1rty"]
 [ext_resource type="PackedScene" uid="uid://cnpjr2qs65c5s" path="res://Components/CameraTopDown/cameraTopDown.tscn" id="3_wp58l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akj8m"]
@@ -69,3 +70,6 @@ grow_vertical = 0
 [node name="ProgressBar" type="ProgressBar" parent="CanvasLayer/PanelContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+
+[node name="Crosshair" parent="." node_paths=PackedStringArray("camera") instance=ExtResource("2_o1rty")]
+camera = NodePath("../CameraRoot")

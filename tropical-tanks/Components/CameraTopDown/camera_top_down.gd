@@ -1,4 +1,5 @@
 extends Node3D
+class_name TopdownCamera
 
 @export var follow_speed : float = 2.0
 @export var mouse_weight : float = 0.01
@@ -6,6 +7,8 @@ extends Node3D
 var turrets : Array[Turret]
 
 @export var target_node : Node3D
+
+@export var mouse_mode = false
 
 @onready var camera = %Camera3D
 @export var crosshair_setter : CrosshairSetter
@@ -26,7 +29,8 @@ func _physics_process(delta: float) -> void:
 		camera_offset = Vector3(0,1,0) * target_node.view_range
 		position = target_node.position
 	# Use a raycast from mouse to find where the mouse is intersecting the scene.
-	aim_target_position = raycast_from_mouse(get_viewport().get_mouse_position(),1)["position"]
+	if(mouse_mode):
+		aim_target_position = raycast_from_mouse(get_viewport().get_mouse_position(),1)["position"]
 			
 	if turrets:
 		for turret in turrets:

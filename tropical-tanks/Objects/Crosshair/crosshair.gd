@@ -1,5 +1,9 @@
 extends Node3D
 
+@export var camera : TopdownCamera
+
+@export var local_aiming : bool = true
+
 # Initialize the raycast
 @onready var ray = $RayCast3D
 
@@ -7,35 +11,39 @@ extends Node3D
 @onready var visual : MeshInstance3D = $MeshInstance3D
 
 # Default white reticle: you are aiming at and can hit the ground here
-var reticle : CompressedTexture2D = preload("res://Art/Images/CrossHairALLWHITE.svg")
+#var reticle : CompressedTexture2D = preload("res://Art/Images/CrossHairALLWHITE.svg")
 # Red reticle: aiming at an enemy
-var enemy_aim : CompressedTexture2D = preload("res://Art/Images/CrossHairOutOfRange.svg")
+#var enemy_aim : CompressedTexture2D = preload("res://Art/Images/CrossHairOutOfRange.svg")
 
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:
 	# Load 
-	visual.texture = reticle
+	#visual.texture = reticle
+	pass
 
 # Called every frame. 'delta' is the time elapsed between each frame
 func _physics_process(delta: float) -> void:
+	if(local_aiming and camera.target_node):
+		global_position = camera.target_node.global_position
 	if(ray.is_colliding()):
 		visual.global_position = ray.get_collision_point()
-	if(targeting):
-		visual.texture = enemy_aim
-	else:
-		visual.texture = reticle
+		camera.aim_target_position = ray.get_collision_point()
+	#if(targeting):
+		#visual.texture = enemy_aim
+	#else:
+		#visual.texture = reticle
 	
 	if Input.is_action_pressed("3d_crosshair_up"):
-		position += Vector3(5, 0, 0)
+		ray.position += Vector3(0, 0, -0.2)
 		
 	if Input.is_action_pressed("3d_crosshair_left"):
-		position += Vector3(0, 0, -5)
+		ray.position += Vector3(-0.2, 0, 0)
 		
 	if Input.is_action_pressed("3d_crosshair_down"):
-		position += Vector3(-5, 0, 0)
+		ray.position += Vector3(0, 0, 0.2)
 		
 	if Input.is_action_pressed("3d_crosshair_right"):
-		position += Vector3(0, 0, 5)
+		ray.position += Vector3(0.2, 0, 0)
 
 # Is the reticle hovering over an enemy
 func targeting() -> bool :
