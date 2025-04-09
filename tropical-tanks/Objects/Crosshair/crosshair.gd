@@ -8,7 +8,7 @@ extends Node3D
 @onready var ray = $RayCast3D
 
 # Mesh to show on the ground where the RayCast3D intersects the ground
-@onready var visual : MeshInstance3D = $MeshInstance3D
+@onready var visual : MeshInstance3D = $Node3D/MeshInstance3D
 
 # Default white reticle: you are aiming at and can hit the ground here
 #var reticle : CompressedTexture2D = preload("res://Art/Images/CrossHairALLWHITE.svg")
