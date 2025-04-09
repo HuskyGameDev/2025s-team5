@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dwlo11ont4xx0" path="res://Scenes/MainMenu/main_menu.gd" id="1_behrf"]
 [ext_resource type="PackedScene" uid="uid://dw1fjemcs6y66" path="res://Scenes/Areas/Tropical_Area.tscn" id="2_omq0y"]
-[ext_resource type="Script" uid="uid://dbq3cpjiqnjdf" path="res://Scenes/MainMenu/camera_orbiter.gd" id="3_id83c"]
+[ext_resource type="Script" uid="uid://dv6jljohwnipd" path="res://Scenes/MainMenu/camera_orbiter.gd" id="3_id83c"]
+[ext_resource type="Texture2D" uid="uid://im4lxsdl0imv" path="res://Art/Images/MenuButtonPressedSprite1.png" id="7_omq0y"]
 [ext_resource type="Texture2D" uid="uid://buyvs5rpxo1ah" path="res://Art/Images/TropicalTanks.png" id="9_egttt"]
 [ext_resource type="Texture2D" uid="uid://cnwd7csppqgr7" path="res://Art/Images/MenuButtonHover.png" id="9_rlg4b"]
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="9_w5buf"]
 [ext_resource type="Texture2D" uid="uid://ddsuf0ur4ndh5" path="res://Art/Images/MenuButtonNormal.png" id="10_w5buf"]
-[ext_resource type="Texture2D" uid="uid://o1obpb7svgjd" path="res://Art/Images/MenuButtonPressedSprite5.png" id="11_6c6cs"]
 [ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="14_6c6cs"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fo6ee"]
@@ -20,8 +20,12 @@ content_margin_top = 15.0
 content_margin_bottom = 10.0
 texture = ExtResource("10_w5buf")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_43m2q"]
-texture = ExtResource("11_6c6cs")
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_agesy"]
+content_margin_left = 25.0
+content_margin_top = 15.0
+content_margin_right = 25.0
+content_margin_bottom = 10.0
+texture = ExtResource("7_omq0y")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w5buf"]
 bg_color = Color(0.913725, 0.839216, 0.713726, 0.160784)
@@ -29,13 +33,13 @@ bg_color = Color(0.913725, 0.839216, 0.713726, 0.160784)
 [sub_resource type="Theme" id="Theme_os7au"]
 Button/colors/font_color = Color(0.897382, 0.878404, 0.782954, 1)
 Button/colors/font_hover_color = Color(0.983002, 0.773148, 0.555284, 1)
-Button/colors/font_pressed_color = Color(1, 1, 1, 0)
+Button/colors/font_pressed_color = Color(0.303707, 0.174446, 0.0235585, 1)
 Button/constants/outline_size = 15
 Button/font_sizes/font_size = 20
 Button/fonts/font = ExtResource("9_w5buf")
 Button/styles/hover = SubResource("StyleBoxTexture_fo6ee")
 Button/styles/normal = SubResource("StyleBoxTexture_nqd6t")
-Button/styles/pressed = SubResource("StyleBoxTexture_43m2q")
+Button/styles/pressed = SubResource("StyleBoxTexture_agesy")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_w5buf")
 
 [node name="MainMenu" type="Node3D"]
