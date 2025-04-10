@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://beq3sqokihu4k"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://beq3sqokihu4k"]
 
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="1_lhujf"]
 [ext_resource type="Texture2D" uid="uid://b8cq0trmjl0jv" path="res://Art/Images/SettingsCheckButtonToggled.png" id="2_cmlgs"]
@@ -69,12 +69,25 @@ corner_radius_bottom_left = 10
 shadow_color = Color(0.372549, 0.278431, 0.239216, 1)
 shadow_size = 5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aahfe"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_m43j8"]
-content_margin_left = 40.0
-content_margin_top = 30.0
-content_margin_right = 40.0
-content_margin_bottom = 30.0
 texture = ExtResource("3_cjd84")
+expand_margin_left = 80.0
+expand_margin_top = 30.0
+expand_margin_right = 80.0
+expand_margin_bottom = 30.0
+axis_stretch_vertical = 2
 
 [resource]
 Button/colors/font_pressed_color = Color(0.984819, 0.613539, 0.350913, 1)
@@ -90,4 +103,6 @@ CheckButton/styles/hover_pressed = SubResource("StyleBoxFlat_y0044")
 Label/constants/outline_size = 20
 Label/font_sizes/font_size = 22
 Label/fonts/font = ExtResource("1_lhujf")
+Panel/styles/panel = SubResource("StyleBoxFlat_aahfe")
 PanelContainer/styles/panel = SubResource("StyleBoxTexture_m43j8")
+VBoxContainer/constants/separation = 10

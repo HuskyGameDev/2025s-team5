@@ -3,16 +3,13 @@ class_name TopdownCamera
 
 @export var follow_speed : float = 2.0
 @export var mouse_weight : float = 0.01
-
-var turrets : Array[Turret]
-
 @export var target_node : Node3D
-
-@export var mouse_mode = false
+@export var mouse_mode = false ## To aim with the mouse instead of keys
 
 @onready var camera = %Camera3D
 @export var crosshair_setter : CrosshairSetter
 
+var turrets : Array[Turret]
 var aim_target_position : Vector3 
 var camera_offset = Vector3(0,20,0)
 

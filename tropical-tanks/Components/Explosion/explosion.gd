@@ -55,16 +55,17 @@ func _on_timer_timeout() -> void:
 func spawn_crater():
 	crater_cast.force_raycast_update()
 	if crater_cast.is_colliding():
-		var crater = CRATER.instantiate()
+		var crater : Crater = CRATER.instantiate()
 		#crater.rotation.y = randf() * 2 * PI
 		var floor_normal = crater_cast.get_collision_normal()
-		crater.terrain = crater_cast.get_collider().get_parent().get_parent()
-		get_tree().root.add_child(crater)
+		var terrain = crater_cast.get_collider().get_parent().get_parent()
+		crater.terrain = terrain
+		terrain.add_child(crater)
 		crater.basis.y = floor_normal
 		crater.basis.x = -crater.basis.z.cross(floor_normal)
 		crater.basis = crater.basis.orthonormalized()
 		
-		crater.scale = crater.scale * explosion_power 
+		crater.mesh_instance_3d.scale = crater.scale * explosion_power 
 		crater.global_position = crater_cast.get_collision_point()
 		
 	

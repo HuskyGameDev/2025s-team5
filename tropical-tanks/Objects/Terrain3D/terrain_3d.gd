@@ -66,6 +66,7 @@ var CRATER_MATERIAL = preload("res://Components/Crater/crater_material.tres")
 
 
 func _ready():
+	$LoadingScreen.show()
 	heightMap.seed = randi()
 	snowHeightMap.seed = randi()
 	
@@ -88,6 +89,7 @@ func _ready():
 	if erosion: check_erosion()		# Check for erosiong map / do erosion 
 	generate_terrain_height_data() 	# Generate height data from the height image
 	if snow_coverage <= 0: snow_mesh.hide()
+	else: snow_mesh.show()
 
 	
 	generate_snow_height_data()

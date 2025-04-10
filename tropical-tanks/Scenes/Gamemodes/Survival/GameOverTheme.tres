@@ -1,0 +1,57 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://c3onmm00qpthy"]
+
+[ext_resource type="FontFile" uid="uid://bfxv5kdrieq22" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.ttf" id="1_mju3f"]
+[ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="2_vt4dj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mju3f"]
+bg_color = Color(0.806658, 0.555092, 0.331706, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 2
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ywpm3"]
+bg_color = Color(0.787438, 0.537792, 0.315101, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 2
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vt4dj"]
+bg_color = Color(0.529243, 0.343225, 0.172765, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 2
+shadow_offset = Vector2(0, 4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dr1s8"]
+bg_color = Color(0.696325, 0.396039, 0.330777, 1)
+
+[resource]
+Button/constants/outline_size = 10
+Button/font_sizes/font_size = 16
+Button/fonts/font = ExtResource("1_mju3f")
+Button/styles/hover = SubResource("StyleBoxFlat_mju3f")
+Button/styles/normal = SubResource("StyleBoxFlat_ywpm3")
+Button/styles/pressed = SubResource("StyleBoxFlat_vt4dj")
+Label/constants/outline_size = 10
+Label/fonts/font = ExtResource("2_vt4dj")
+Panel/styles/panel = SubResource("StyleBoxFlat_dr1s8")

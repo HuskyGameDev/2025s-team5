@@ -1,0 +1,45 @@
+[gd_scene load_steps=8 format=3 uid="uid://covg2uq48bvrt"]
+
+[ext_resource type="PackedScene" uid="uid://bkb4jwgwpkqwv" path="res://Art/Models/Vegetation/PineTree.blend" id="1_y4k3i"]
+[ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="2_dbqgo"]
+[ext_resource type="PackedScene" uid="uid://xtnuh7brto2v" path="res://Components/HealthManager/health_manager.tscn" id="3_b3flv"]
+[ext_resource type="Resource" uid="uid://n8ghonpiev85" path="res://Resources/Effects/SpawnLeafParticles.tres" id="4_dbqgo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ow1vf"]
+size = Vector3(2.16492, 2.84393, 1.86279)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dai6w"]
+size = Vector3(0.356934, 3.13028, 0.348145)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cgnwh"]
+height = 6.41125
+radius = 0.802734
+
+[node name="PineTree" type="Node3D"]
+
+[node name="PineTree" parent="." instance=ExtResource("1_y4k3i")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0.0427022, 0, 0)
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_dbqgo")]
+collision_layer = 6
+health_manager = NodePath("../HealthManager")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0340075, 4.53785, -0.0642149)
+shape = SubResource("BoxShape3D_ow1vf")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0179187, 1.44362, -0.0319824)
+shape = SubResource("BoxShape3D_dai6w")
+
+[node name="HealthManager" parent="." instance=ExtResource("3_b3flv")]
+max_health = 1000.0
+death_effects = Array[Resource]([ExtResource("4_dbqgo")])
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.1073, 0)
+shape = SubResource("CylinderShape3D_cgnwh")

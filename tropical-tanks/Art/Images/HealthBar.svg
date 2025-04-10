@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="512"
+   height="512"
+   viewBox="0 0 512 512"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="HealthBar.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="1.671875"
+     inkscape:cx="256"
+     inkscape:cy="256.29907"
+     inkscape:window-width="1920"
+     inkscape:window-height="1200"
+     inkscape:window-x="192"
+     inkscape:window-y="192"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#9acd32;stroke-width:24"
+       id="rect1"
+       width="447.40186"
+       height="512"
+       x="0"
+       y="0" />
+    <path
+       style="fill:#9acd32;stroke-width:24"
+       d="M 457.57009,0 512,43.065421 462.95327,84.934579 512,126.80374 l -43.66355,37.08411 44.26168,39.47663 -44.85981,37.68225 44.26168,46.6542 -40.07477,43.06543 41.86916,38.8785 -40.6729,43.66355 41.27103,46.05608 L 457.57009,512 H 274.54206 L 273.94393,0 Z"
+       id="path1"
+       sodipodi:nodetypes="cccccccccccccccc" />
+  </g>
+</svg>

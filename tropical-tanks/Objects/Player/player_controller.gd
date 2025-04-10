@@ -2,7 +2,7 @@ extends Node
 
 @export var tank : TankChassis
 
-@onready var progress_bar: ProgressBar = $CanvasLayer/PanelContainer/ProgressBar
+@onready var progress_bar: ProgressBar = $CanvasLayer/Control/PanelContainer/ProgressBar
 
 
 var controls = {

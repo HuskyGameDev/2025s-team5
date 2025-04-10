@@ -11,10 +11,13 @@ config_version=5
 [application]
 
 config/name="Tropical tanks"
-run/main_scene="res://Scenes/devmenu.tscn"
+config/description="A game about tanks!"
+config/version="0.1"
+run/main_scene="uid://crptm3tpqf23q"
 config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=120
-config/icon="res://Art/Images/TropicalTanksIcon.png"
+boot_splash/image="uid://cmmxxgkfsc4as"
+config/icon="uid://q88hah6fily"
 
 [autoload]
 
@@ -43,7 +46,8 @@ folder_colors={
 "res://Resources/": "green",
 "res://Scenes/": "red",
 "res://Scenes/Areas/": "pink",
-"res://Scenes/Gamemodes/": "orange"
+"res://Scenes/Gamemodes/": "orange",
+"res://Scenes/TestScenes/": "gray"
 }
 
 [global_group]

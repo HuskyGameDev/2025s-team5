@@ -1,0 +1,187 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhqs14owf00eo"]
+
+[ext_resource type="Script" uid="uid://dchnnr1cryu6o" path="res://Scenes/Menus/SettingsMenu/settings_menu.gd" id="1_snb8l"]
+[ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="2_qjwoi"]
+[ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="3_lq4h6"]
+
+[node name="Settings" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_snb8l")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -250.0
+offset_right = 450.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_qjwoi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="TitleContainer" type="Control" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 140)
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/TitleContainer"]
+layout_mode = 2
+offset_left = 354.0
+offset_right = 545.0
+offset_bottom = 63.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "
+SETTINGS"
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="PanelContainer/VBoxContainer/TitleContainer"]
+layout_mode = 2
+offset_left = 50.0
+offset_right = 118.0
+offset_bottom = 48.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "X"
+
+[node name="FPSLabel" type="Label" parent="PanelContainer/VBoxContainer/TitleContainer"]
+layout_mode = 2
+offset_left = 849.0
+offset_right = 850.0
+offset_bottom = 23.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Volume" type="HSplitContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+dragging_enabled = false
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Volume"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "    Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="PanelContainer/VBoxContainer/Volume"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 1
+
+[node name="Resolutions" type="HSplitContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+dragging_enabled = false
+
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/VBoxContainer/Resolutions"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+dragging_enabled = false
+
+[node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/Resolutions/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Resolutions"
+
+[node name="Resolutions" type="OptionButton" parent="PanelContainer/VBoxContainer/Resolutions/HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+popup/item_0/text = "1920x1080"
+popup/item_0/id = 0
+popup/item_1/text = "1600x900"
+popup/item_1/id = 1
+popup/item_2/text = "1280x720"
+popup/item_2/id = 2
+
+[node name="HSplitContainer2" type="HSplitContainer" parent="PanelContainer/VBoxContainer/Resolutions"]
+layout_mode = 2
+size_flags_horizontal = 4
+dragging_enabled = false
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/Resolutions/HSplitContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Fullscreen:"
+
+[node name="Fullscreen" type="CheckButton" parent="PanelContainer/VBoxContainer/Resolutions/HSplitContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FPS" type="HSplitContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+dragging_enabled = false
+
+[node name="HSplitContainer" type="HSplitContainer" parent="PanelContainer/VBoxContainer/FPS"]
+layout_mode = 2
+dragging_enabled = false
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/FPS/HSplitContainer"]
+layout_mode = 2
+text = "FPS Limiter"
+
+[node name="FpsPicker" type="OptionButton" parent="PanelContainer/VBoxContainer/FPS/HSplitContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+item_count = 4
+popup/item_0/text = "Unlimited"
+popup/item_0/id = 0
+popup/item_1/text = "144FPS"
+popup/item_1/id = 1
+popup/item_2/text = "60FPS"
+popup/item_2/id = 2
+popup/item_3/text = "30FPS"
+popup/item_3/id = 3
+
+[node name="HSplitContainer2" type="HSplitContainer" parent="PanelContainer/VBoxContainer/FPS"]
+layout_mode = 2
+dragging_enabled = false
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/FPS/HSplitContainer2"]
+layout_mode = 2
+text = "Hide FPS:"
+
+[node name="FpsShow" type="CheckButton" parent="PanelContainer/VBoxContainer/FPS/HSplitContainer2"]
+layout_mode = 2
+
+[node name="Mappings" type="HSplitContainer" parent="PanelContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+dragging_enabled = false
+
+[node name="Button Mappings" type="Button" parent="PanelContainer/VBoxContainer/Mappings"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("3_lq4h6")
+theme_override_font_sizes/font_size = 22
+text = "Key Mappings"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/TitleContainer/Back" to="." method="_on_back_pressed"]
+[connection signal="value_changed" from="PanelContainer/VBoxContainer/Volume/VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="value_changed" from="PanelContainer/VBoxContainer/Volume/VolumeSlider" to="." method="_on_volume_value_changed"]
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/Resolutions/HSplitContainer/Resolutions" to="." method="_on_resolutions_item_selected"]
+[connection signal="toggled" from="PanelContainer/VBoxContainer/Resolutions/HSplitContainer2/Fullscreen" to="." method="_on_fullscreen_toggled"]
+[connection signal="item_selected" from="PanelContainer/VBoxContainer/FPS/HSplitContainer/FpsPicker" to="." method="_on_option_button_item_selected"]
+[connection signal="toggled" from="PanelContainer/VBoxContainer/FPS/HSplitContainer2/FpsShow" to="." method="_on_fps_show_toggled"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Mappings/Button Mappings" to="." method="_on_button_mappings_pressed"]

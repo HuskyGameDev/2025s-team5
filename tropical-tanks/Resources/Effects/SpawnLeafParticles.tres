@@ -6,4 +6,5 @@
 [resource]
 script = ExtResource("1_10hf1")
 OBJECT = ExtResource("1_cvhu6")
+offset = Vector3(0, 2, 0)
 metadata/_custom_type_script = "uid://wcb8lu7g48ww"

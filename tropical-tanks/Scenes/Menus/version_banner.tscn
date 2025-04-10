@@ -1,0 +1,24 @@
+[gd_scene load_steps=2 format=3 uid="uid://ds8sj6g2cmvho"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_akj8m"]
+bg_color = Color(0.810977, 0.360784, 0, 0.509804)
+
+[node name="VersionBanner" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 0)
+offset_left = -53.0
+offset_top = 122.0
+offset_right = 197.0
+offset_bottom = 172.0
+rotation = -0.727151
+theme_override_styles/panel = SubResource("StyleBoxFlat_akj8m")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="TextLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "ALPHA BUILD"
+horizontal_alignment = 1
+vertical_alignment = 1

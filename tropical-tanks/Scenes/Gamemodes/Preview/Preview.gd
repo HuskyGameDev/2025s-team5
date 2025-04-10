@@ -26,7 +26,8 @@ func spawn_enemy():
 	var tank = TANKS.create_mob_tank()
 	var pos = Vector3(randi_range(-50,50),40,randi_range(-50,50))
 	tank.position = pos
-	get_tree().root.add_child(tank)
+	print(get_tree().root.get_child(0))
+	get_parent().add_child(tank)
 	enemies.append(tank)
 	GLOBAL.aging_factor = exp(enemies.size()/5)
 

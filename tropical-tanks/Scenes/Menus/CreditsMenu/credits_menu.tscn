@@ -1,0 +1,249 @@
+[gd_scene load_steps=6 format=3 uid="uid://bwpcqfe1jao4c"]
+
+[ext_resource type="Script" uid="uid://dkky7qwohf5w8" path="res://Scenes/Menus/CreditsMenu/credits_menu.gd" id="1_yqe7g"]
+[ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="2_qc2ky"]
+[ext_resource type="Texture2D" uid="uid://buyvs5rpxo1ah" path="res://Art/Images/TropicalTanks.png" id="3_gjhwf"]
+[ext_resource type="Theme" uid="uid://jgems5n4omh2" path="res://Scenes/Menus/CreditsMenu/CreditsTheme.tres" id="3_mg3ie"]
+[ext_resource type="Texture2D" uid="uid://cy1gybfk7rsy7" path="res://Art/Images/header-logo.svg" id="4_8drul"]
+
+[node name="Credits" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_yqe7g")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(700, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -20.0
+offset_right = 300.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_qc2ky")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Spacer" type="Control" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(600, 500)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme = ExtResource("3_mg3ie")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("3_gjhwf")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Gameplay" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "
+Gameplay"
+horizontal_alignment = 1
+
+[node name="Project Manager" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Role" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Project Manager"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Project Manager"
+horizontal_alignment = 2
+
+[node name="spacer" type="Control" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Project Manager"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Names" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Project Manager"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Max Laskaris"
+
+[node name="Programmers" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Role" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Programmers"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Programmers"
+horizontal_alignment = 2
+
+[node name="spacer" type="Control" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Programmers"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Names" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Programmers"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Jake Rundle
+Mat Carvalho Valverde
+Caeden Kidd
+Max Laskaris"
+
+[node name="Art Label" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "
+Art"
+horizontal_alignment = 1
+
+[node name="2D artists" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Role" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/2D artists"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "2D Vector Artist"
+horizontal_alignment = 2
+
+[node name="spacer" type="Control" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/2D artists"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Names" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/2D artists"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Cassie Chang"
+
+[node name="3D Modeler" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Role" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/3D Modeler"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Lead 3D Modeler"
+horizontal_alignment = 2
+
+[node name="spacer" type="Control" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/3D Modeler"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Names" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/3D Modeler"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Caeden Kidd"
+
+[node name="Concept" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Role" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Concept"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Concepting + Menus"
+horizontal_alignment = 2
+
+[node name="spacer" type="Control" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Concept"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Names" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Concept"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Max Laskaris
+Mat Carvalho Valverde"
+
+[node name="Special Thanks" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "
+Special Thanks"
+horizontal_alignment = 1
+
+[node name="Play Testers" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Role" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Play Testers"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Play Testers"
+horizontal_alignment = 2
+
+[node name="spacer" type="Control" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Play Testers"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Names" type="Label" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/Play Testers"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Albex Killips
+Caleb Briggs"
+
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("4_8drul")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="PanelContainer" type="Control" parent="PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Label2" type="Label" parent="PanelContainer/PanelContainer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.5
+offset_right = 56.5
+offset_bottom = 21.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "
+CREDITS:"
+horizontal_alignment = 1
+
+[node name="Back" type="Button" parent="PanelContainer/PanelContainer"]
+layout_mode = 2
+offset_left = 50.0
+offset_right = 118.0
+offset_bottom = 48.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "X"
+
+[connection signal="pressed" from="PanelContainer/PanelContainer/Back" to="." method="_on_back_pressed"]

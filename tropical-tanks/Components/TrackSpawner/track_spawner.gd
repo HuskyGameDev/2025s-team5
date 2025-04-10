@@ -6,11 +6,12 @@ var TRACK = preload("res://Components/Track/Track.tscn")
 func _on_timer_timeout() -> void:
 	if track_cast.is_colliding():
 		var track : Track = TRACK.instantiate()
+		var terrain = track_cast.get_collider().get_parent().get_parent()
 		track.rotation = global_rotation
 		track.position = track_cast.get_collision_point()
 		
-		track.terrain = track_cast.get_collider().get_parent().get_parent()
-		get_tree().root.add_child(track)
+		track.terrain = terrain
+		terrain.add_child(track)
 		
 		var floor_normal = track_cast.get_collision_normal()
 		track.basis.y = floor_normal

@@ -1,0 +1,114 @@
+[gd_scene load_steps=13 format=3 uid="uid://cwqg03gbbdhik"]
+
+[ext_resource type="Script" uid="uid://blj16va5qalod" path="res://Scenes/Menus/AreaSelectorMenu/area_selector.gd" id="1_wikk6"]
+[ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="2_wikk6"]
+[ext_resource type="PackedScene" uid="uid://bckkvwb8kxlca" path="res://Scenes/Menus/AreaSelectorMenu/AreaButton.tscn" id="3_adtjc"]
+[ext_resource type="Texture2D" uid="uid://cmmxxgkfsc4as" path="res://Art/Images/AreaTropicalIcon.png" id="4_tjcjc"]
+[ext_resource type="PackedScene" uid="uid://dw1fjemcs6y66" path="res://Scenes/Areas/Tropical_Area.tscn" id="5_sod50"]
+[ext_resource type="Texture2D" uid="uid://blrlf5fl8p6le" path="res://Art/Images/AreaDesertIcon.png" id="6_y07d8"]
+[ext_resource type="Texture2D" uid="uid://cognjo6yymoe8" path="res://Art/Images/AreaTropicalHillsIcon.png" id="8_4i7uc"]
+[ext_resource type="PackedScene" uid="uid://cincw3qd7h6v6" path="res://Scenes/Areas/Tropical_Hills_Area.tscn" id="8_6j2y5"]
+[ext_resource type="PackedScene" uid="uid://ujsfdvaaagwx" path="res://Scenes/Areas/Desert_Area.tscn" id="8_m72wj"]
+[ext_resource type="PackedScene" uid="uid://h7eh6gptuvno" path="res://Scenes/Areas/Taiga_Area.tscn" id="9_ka2vs"]
+[ext_resource type="Texture2D" uid="uid://emmlilnupwop" path="res://Art/Images/AreaTaigaIcon.png" id="10_kjhfl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ti6f2"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wikk6")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(300, 400)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.5
+offset_top = -30.0
+offset_right = 60.5
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_wikk6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_outline_size = 14
+theme_override_font_sizes/font_size = 28
+text = "AREAS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer"]
+custom_minimum_size = Vector2(300, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TropicalArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
+layout_mode = 2
+size_flags_vertical = 0
+area_name = "Tropical"
+icon = ExtResource("4_tjcjc")
+area = ExtResource("5_sod50")
+text = "Tropical"
+
+[node name="DesertArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
+layout_mode = 2
+size_flags_vertical = 0
+area_name = "Desert"
+icon = ExtResource("6_y07d8")
+area = ExtResource("8_m72wj")
+text = "Desert"
+
+[node name="TaigaArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
+layout_mode = 2
+area_name = "Snowy Taiga"
+icon = ExtResource("10_kjhfl")
+area = ExtResource("9_ka2vs")
+text = "Snowy 
+Taiga
+"
+
+[node name="TropicalHillsArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
+layout_mode = 2
+area_name = "Tropical Hills"
+icon = ExtResource("8_4i7uc")
+area = ExtResource("8_6j2y5")
+text = "Tropical 
+Hills"
+
+[node name="ExitButton" type="Button" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 0.367788, 0.300217, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ti6f2")
+text = "X"
+
+[connection signal="area_button_pressed" from="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/TropicalArea" to="." method="_on_area_button_pressed"]
+[connection signal="area_button_pressed" from="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/DesertArea" to="." method="_on_area_button_pressed"]
+[connection signal="area_button_pressed" from="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/TaigaArea" to="." method="_on_area_button_pressed"]
+[connection signal="area_button_pressed" from="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/TropicalHillsArea" to="." method="_on_area_button_pressed"]
+[connection signal="pressed" from="PanelContainer/ExitButton" to="." method="_on_exit_button_pressed"]

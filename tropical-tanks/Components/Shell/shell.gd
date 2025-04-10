@@ -1,6 +1,7 @@
 extends Node3D
 class_name Shell
 
+const FIRE = preload("res://Components/Fire/Fire.tscn")
 const EXPLOSION = preload("res://Components/Explosion/explosion.tscn")
 const SHELL = preload("res://Components/Shell/shell.tscn")
 
@@ -124,6 +125,10 @@ func explode():
 
 ## Apply Kinetic damage through an imapct
 func impact(body : Node3D):
+	#if sp.flame_effect > 0:
+		#var fire = FIRE.instantiate()
+		#fire.fire_strength = sp.flame_effect
+		#get_tree().root.add_child(fire)
 	# Create new Attack
 	var impact_attack : Attack = Attack.new()
 	

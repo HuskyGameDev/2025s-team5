@@ -4,6 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://mbia017vwtsw" path="res://Components/Track/Tread.png" id="3_6t2wh"]
 
 [node name="Track" type="Node3D"]
+process_thread_group = 2
+process_thread_group_order = 10
+process_thread_messages = 0
 script = ExtResource("1_25jn5")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]

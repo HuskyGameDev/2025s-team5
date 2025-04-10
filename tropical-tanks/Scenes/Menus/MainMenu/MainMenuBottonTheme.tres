@@ -1,0 +1,37 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://257utgrraxew"]
+
+[ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="1_c5u32"]
+[ext_resource type="Texture2D" uid="uid://cnwd7csppqgr7" path="res://Art/Images/MenuButtonHover.png" id="2_xbke3"]
+[ext_resource type="Texture2D" uid="uid://ddsuf0ur4ndh5" path="res://Art/Images/MenuButtonNormal.png" id="3_meeyj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_fo6ee"]
+content_margin_top = 15.0
+content_margin_bottom = 10.0
+texture = ExtResource("2_xbke3")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nqd6t"]
+content_margin_top = 15.0
+content_margin_bottom = 10.0
+texture = ExtResource("3_meeyj")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_agesy"]
+content_margin_left = 25.0
+content_margin_top = 15.0
+content_margin_right = 25.0
+content_margin_bottom = 10.0
+texture = ExtResource("3_meeyj")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v7xr1"]
+bg_color = Color(0.677325, 0.587526, 0.428256, 0.309804)
+
+[resource]
+Button/colors/font_color = Color(0.897382, 0.878404, 0.782954, 1)
+Button/colors/font_hover_color = Color(0.983002, 0.773148, 0.555284, 1)
+Button/colors/font_pressed_color = Color(0.303707, 0.174446, 0.0235585, 1)
+Button/constants/outline_size = 15
+Button/font_sizes/font_size = 20
+Button/fonts/font = ExtResource("1_c5u32")
+Button/styles/hover = SubResource("StyleBoxTexture_fo6ee")
+Button/styles/normal = SubResource("StyleBoxTexture_nqd6t")
+Button/styles/pressed = SubResource("StyleBoxTexture_agesy")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_v7xr1")

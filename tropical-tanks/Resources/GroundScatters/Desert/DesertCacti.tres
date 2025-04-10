@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="GroundScatter" load_steps=5 format=3 uid="uid://5em8vgsam0pn"]
+
+[ext_resource type="PackedScene" uid="uid://dtwrwk5aeupg4" path="res://Objects/Vegetation/Desert/cactus_small.tscn" id="1_30leb"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="1_xv4o2"]
+[ext_resource type="PackedScene" uid="uid://fsebk4cxgwpa" path="res://Objects/Vegetation/Desert/cactus_basic.tscn" id="2_ymlf6"]
+[ext_resource type="PackedScene" uid="uid://bb3loyb2viocu" path="res://Objects/Vegetation/Desert/cactus_four.tscn" id="3_pw0h1"]
+
+[resource]
+script = ExtResource("1_xv4o2")
+primary_objects = Array[PackedScene]([ExtResource("1_30leb"), ExtResource("2_ymlf6"), ExtResource("3_pw0h1")])
+primary_probability = 0.6
+primary_scale_randomness = 0.0
+secondary_objects = Array[PackedScene]([])
+secondary_probability = 1.0
+secondary_scale_randomness = 0.0
+tertiary_objects = Array[PackedScene]([])
+tertiary_probability = 1.0
+tertiary_scale_randomness = 0.0
+spawn_on_grid = false
+amount_of_clusters = 50
+minimum_cluster_spacing = 15.0
+cluster_radius = 8.0
+object_count_range = Vector2i(1, 3)
+minimum_object_spacing = 6.0
+metadata/_custom_type_script = "uid://devstjeflc5ws"

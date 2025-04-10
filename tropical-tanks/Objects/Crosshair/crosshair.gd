@@ -1,19 +1,11 @@
 extends Node3D
 
+@export var crosshair_speed = 17
 @export var camera : TopdownCamera
+@export var local_aiming : bool = true ## To place the aiming reticule in local tank coordinates
 
-@export var local_aiming : bool = true
-
-# Initialize the raycast
 @onready var ray = $RayCast3D
-
-# Mesh to show on the ground where the RayCast3D intersects the ground
-@onready var visual : MeshInstance3D = $Node3D/MeshInstance3D
-
-# Default white reticle: you are aiming at and can hit the ground here
-#var reticle : CompressedTexture2D = preload("res://Art/Images/CrossHairALLWHITE.svg")
-# Red reticle: aiming at an enemy
-#var enemy_aim : CompressedTexture2D = preload("res://Art/Images/CrossHairOutOfRange.svg")
+@onready var visual = $Node3D
 
 # Called when the node enters the scene tree for the first time
 func _ready() -> void:
@@ -25,26 +17,28 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if(local_aiming and camera.target_node):
 		global_position = camera.target_node.global_position
+		
+	if camera.mouse_mode:
+		ray.global_position = camera.aim_target_position + Vector3(0,50,0)
+	else:
+		camera.aim_target_position = ray.get_collision_point()
+		
 	if(ray.is_colliding()):
 		visual.global_position = ray.get_collision_point()
-		camera.aim_target_position = ray.get_collision_point()
-	#if(targeting):
-		#visual.texture = enemy_aim
-	#else:
-		#visual.texture = reticle
-	
+		
 	if Input.is_action_pressed("3d_crosshair_up"):
-		ray.position += Vector3(0, 0, -0.2)
+		ray.position += Vector3(0, 0, -1) * delta * crosshair_speed
 		
 	if Input.is_action_pressed("3d_crosshair_left"):
-		ray.position += Vector3(-0.2, 0, 0)
+		ray.position += Vector3(-1, 0, 0) * delta * crosshair_speed
 		
 	if Input.is_action_pressed("3d_crosshair_down"):
-		ray.position += Vector3(0, 0, 0.2)
+		ray.position += Vector3(0, 0, 1) * delta * crosshair_speed
 		
 	if Input.is_action_pressed("3d_crosshair_right"):
-		ray.position += Vector3(0.2, 0, 0)
+		ray.position += Vector3(1, 0, 0) * delta * crosshair_speed
 
+	$Node3D/Sprite3D.rotation.y += delta
 # Is the reticle hovering over an enemy
 func targeting() -> bool :
 	if(ray.is_colliding()):

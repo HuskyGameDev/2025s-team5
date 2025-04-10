@@ -1,5 +1,0 @@
-[gd_scene format=3 uid="uid://iipnhnqvn5qw"]
-
-[node name="KeyMappings" type="Control"]
-layout_mode = 3
-anchors_preset = 0

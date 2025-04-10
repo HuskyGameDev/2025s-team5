@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://h7eh6gptuvno"]
+
+[ext_resource type="Script" uid="uid://7bejvb7cqqal" path="res://Scenes/Areas/level_manager.gd" id="1_afpv3"]
+[ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="2_7lmos"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="3_wg02i"]
+[ext_resource type="Resource" uid="uid://gsc21svi7dkn" path="res://Resources/GroundScatters/PineScatters.tres" id="4_7sa44"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_afpv3"]
+noise_type = 2
+seed = -446217193
+frequency = 0.0068
+fractal_type = 2
+fractal_lacunarity = 1.625
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_htc78"]
+seed = -534713154
+
+[node name="TaigaArea" type="Node3D"]
+script = ExtResource("1_afpv3")
+area_name = "Tropical"
+
+[node name="Terrain3D" parent="." instance=ExtResource("2_7lmos")]
+debug_screen = false
+hill_height = 25.0
+water_level = 1.0
+heightMap = SubResource("FastNoiseLite_afpv3")
+snow_coverage = 0.4
+color_noise = SubResource("FastNoiseLite_htc78")
+terrain_colors = Array[Color]([Color(0.259487, 0.528277, 0.294677, 1), Color(0.503956, 0.633323, 0.42276, 1), Color(0.483471, 0.450582, 0.186055, 1), Color(0.375183, 0.461706, 0.113143, 1)])
+editor_show_ground_scatter = true
+ground_scatters = Array[ExtResource("3_wg02i")]([ExtResource("4_7sa44")])

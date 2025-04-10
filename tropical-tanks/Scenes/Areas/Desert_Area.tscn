@@ -1,14 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://ujsfdvaaagwx"]
+[gd_scene load_steps=7 format=3 uid="uid://ujsfdvaaagwx"]
 
 [ext_resource type="Script" uid="uid://7bejvb7cqqal" path="res://Scenes/Areas/level_manager.gd" id="1_armvt"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="2_txa00"]
 [ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="3_b7tma"]
-[ext_resource type="Resource" uid="uid://b86p5w8k331dj" path="res://Resources/GroundScatters/Desert/JoshuaTrees.tres" id="4_6mpnw"]
-[ext_resource type="PackedScene" uid="uid://cffc6hqf0dgah" path="res://Objects/Pickups/Pickup.tscn" id="5_l27uu"]
-[ext_resource type="Resource" uid="uid://b3h7etbbo8d0f" path="res://Resources/Upgrades/double_barrel.tres" id="6_l27uu"]
+[ext_resource type="Resource" uid="uid://5em8vgsam0pn" path="res://Resources/GroundScatters/Desert/DesertCacti.tres" id="4_l27uu"]
+[ext_resource type="Resource" uid="uid://8oxg70awgug6" path="res://Resources/GroundScatters/ExplosiveBarrels.tres" id="5_xnc8k"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_armvt"]
-seed = -1258246738
+seed = 1665658471
 
 [node name="DesertArea" type="Node3D"]
 script = ExtResource("1_armvt")
@@ -22,24 +21,4 @@ decimation_step_range = Vector2i(1, 1)
 snow_coverage = 0.0
 color_noise = SubResource("FastNoiseLite_armvt")
 terrain_colors = Array[Color]([Color(0.796046, 0.556889, 3.85046e-07, 1), Color(0.599541, 0.530457, 0.367308, 1), Color(0.639561, 0.491815, 0.351999, 1)])
-ground_scatters = Array[ExtResource("3_b7tma")]([ExtResource("4_6mpnw")])
-
-[node name="Pickup" parent="." instance=ExtResource("5_l27uu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.38283, 7.57631, -4.17931)
-upgrade = ExtResource("6_l27uu")
-
-[node name="Pickup2" parent="." instance=ExtResource("5_l27uu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.929972, 7.57631, -4.17931)
-upgrade = ExtResource("6_l27uu")
-
-[node name="Pickup3" parent="." instance=ExtResource("5_l27uu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.33066, 7.57631, -4.17931)
-upgrade = ExtResource("6_l27uu")
-
-[node name="Pickup4" parent="." instance=ExtResource("5_l27uu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.80737, 7.57631, -4.17931)
-upgrade = ExtResource("6_l27uu")
-
-[node name="Pickup5" parent="." instance=ExtResource("5_l27uu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0835, 7.57631, -4.17931)
-upgrade = ExtResource("6_l27uu")
+ground_scatters = Array[ExtResource("3_b7tma")]([ExtResource("4_l27uu"), ExtResource("5_xnc8k")])

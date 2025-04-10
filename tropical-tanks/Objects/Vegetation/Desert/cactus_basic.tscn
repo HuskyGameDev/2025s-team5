@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://fsebk4cxgwpa"]
+
+[ext_resource type="PackedScene" uid="uid://xtnuh7brto2v" path="res://Components/HealthManager/health_manager.tscn" id="1_fprqk"]
+[ext_resource type="Resource" uid="uid://n8ghonpiev85" path="res://Resources/Effects/SpawnLeafParticles.tres" id="2_5durv"]
+[ext_resource type="PackedScene" uid="uid://cv2sditv3ydli" path="res://Components/HealthManager/Hitbox/hitbox.tscn" id="2_ojpsv"]
+[ext_resource type="PackedScene" uid="uid://b1xpf1rkp7irn" path="res://Art/Models/Vegetation/TwoArmCactus.blend" id="3_ojpsv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5durv"]
+size = Vector3(1, 8.22156, 1)
+
+[node name="CactusBasic" type="Node3D"]
+
+[node name="HealthManager" parent="." instance=ExtResource("1_fprqk")]
+death_effects = Array[Resource]([ExtResource("2_5durv")])
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health_manager") instance=ExtResource("2_ojpsv")]
+collision_layer = 4
+health_manager = NodePath("../HealthManager")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.61078, 0)
+shape = SubResource("BoxShape3D_5durv")
+
+[node name="TwoArmCactus" parent="." instance=ExtResource("3_ojpsv")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, -0.518148, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.61078, 0)
+shape = SubResource("BoxShape3D_5durv")

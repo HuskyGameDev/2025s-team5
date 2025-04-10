@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://bckkvwb8kxlca"]
+
+[ext_resource type="Script" uid="uid://cnj0a31cs1okf" path="res://Scenes/Menus/AreaSelectorMenu/area_button.gd" id="1_mj4rw"]
+[ext_resource type="Texture2D" uid="uid://ca7tm8b83f0sl" path="res://Art/Images/DebugTexture.png" id="2_5nlmw"]
+[ext_resource type="Texture2D" uid="uid://bkxtqxj1te7la" path="res://Art/Images/CrossHairOutOfRange.svg" id="3_toqrd"]
+[ext_resource type="Texture2D" uid="uid://dwfc8ryjgwdnw" path="res://Art/Images/CrossHairBlocked.svg" id="4_toqrd"]
+[ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="5_2cmca"]
+
+[node name="TropicalArea" type="HBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_mj4rw")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 2
+texture = ExtResource("2_5nlmw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TropicalButton" type="TextureButton" parent="TextureRect"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_pressed = ExtResource("3_toqrd")
+texture_hover = ExtResource("4_toqrd")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="RichTextLabel" type="Label" parent="."]
+custom_minimum_size = Vector2(48.275, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("5_2cmca")
+text = "NULL"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[connection signal="pressed" from="TextureRect/TropicalButton" to="." method="_on_tropical_button_pressed"]

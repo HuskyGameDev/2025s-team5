@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="UpgradePool" load_steps=9 format=3 uid="uid://x50377gvax73"]
+[gd_resource type="Resource" script_class="UpgradePool" load_steps=12 format=3 uid="uid://x50377gvax73"]
 
 [ext_resource type="Script" uid="uid://d2gy6jwxlqodv" path="res://Resources/ResourceClasses/UpgradeDropPool.gd" id="1_0cw36"]
 [ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="2_a4d15"]
@@ -8,8 +8,11 @@
 [ext_resource type="Resource" uid="uid://cq47unnw0k30u" path="res://Resources/Upgrades/add_explosion_size.tres" id="6_bmokk"]
 [ext_resource type="Resource" uid="uid://muyyw3hbkop7" path="res://Resources/Upgrades/add_shot_power.tres" id="7_aark6"]
 [ext_resource type="Resource" uid="uid://blbyd64hdvem0" path="res://Resources/Upgrades/add_shell_mass.tres" id="8_26mrc"]
+[ext_resource type="Resource" uid="uid://4x874xljk5ou" path="res://Resources/Upgrades/fuse.tres" id="9_eufxr"]
+[ext_resource type="Resource" uid="uid://br0r6vudaj050" path="res://Resources/Upgrades/dupe_shell.tres" id="10_regf8"]
+[ext_resource type="Resource" uid="uid://boja4s344bo50" path="res://Resources/Upgrades/fire_shot_upgrade.tres" id="11_regf8"]
 
 [resource]
 script = ExtResource("1_0cw36")
-upgrade_drop_pool = Array[ExtResource("2_a4d15")]([ExtResource("3_4jo0j"), ExtResource("4_bmokk"), ExtResource("5_aark6"), ExtResource("6_bmokk"), ExtResource("7_aark6"), ExtResource("8_26mrc"), ExtResource("8_26mrc"), ExtResource("8_26mrc")])
+upgrade_drop_pool = Array[ExtResource("2_a4d15")]([ExtResource("3_4jo0j"), ExtResource("4_bmokk"), ExtResource("5_aark6"), ExtResource("6_bmokk"), ExtResource("7_aark6"), ExtResource("8_26mrc"), ExtResource("9_eufxr"), ExtResource("10_regf8"), ExtResource("6_bmokk"), ExtResource("8_26mrc"), ExtResource("7_aark6"), ExtResource("11_regf8")])
 metadata/_custom_type_script = "uid://d2gy6jwxlqodv"

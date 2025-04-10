@@ -1,4 +1,6 @@
 extends Node3D
+class_name Crater
+@onready var mesh_instance_3d: MeshInstance3D = %MeshInstance3D
 
 var terrain : Node3D
 #@onready var mat :StandardMaterial3D = %MeshInstance3D.get_surface_override_material(0)

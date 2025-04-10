@@ -1,22 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://tjjc1wb78g4q"]
+[gd_scene load_steps=5 format=3 uid="uid://tjjc1wb78g4q"]
 
 [ext_resource type="Script" uid="uid://bhffxqms73j6l" path="res://Objects/Crosshair/crosshair.gd" id="1_4y0r3"]
 [ext_resource type="Material" uid="uid://dn1f2kqqs1fel" path="res://Art/Materials/CrosshairMaterial.tres" id="2_rfg6e"]
+[ext_resource type="Texture2D" uid="uid://dvurnxli5ri8m" path="res://Art/Images/CrossHairALLWHITE.svg" id="3_l7oha"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_4y0r3"]
-lightmap_size_hint = Vector2i(14, 21)
+[sub_resource type="CylinderMesh" id="CylinderMesh_x83m6"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 5.0
 
 [node name="Crosshair" type="Node3D"]
 script = ExtResource("1_4y0r3")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 50, -5)
 target_position = Vector3(0, -100, 0)
 collide_with_areas = true
 
 [node name="Node3D" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
-mesh = SubResource("BoxMesh_4y0r3")
+mesh = SubResource("CylinderMesh_x83m6")
 skeleton = NodePath("../..")
 surface_material_override/0 = ExtResource("2_rfg6e")
+
+[node name="Sprite3D" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+axis = 1
+shaded = true
+no_depth_test = true
+texture = ExtResource("3_l7oha")
