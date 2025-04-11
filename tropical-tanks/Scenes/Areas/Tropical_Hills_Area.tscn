@@ -9,12 +9,12 @@
 [ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="7_pfeqy"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r7mgm"]
-seed = 2100955950
+seed = -1097634880
 frequency = 0.0062
 fractal_type = 2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_htc78"]
-seed = -1460438222
+seed = 20513707
 
 [node name="TropicalHillsArea" type="Node3D"]
 script = ExtResource("1_r7mgm")

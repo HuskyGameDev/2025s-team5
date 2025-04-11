@@ -41,7 +41,7 @@ const SETTINGS_MENU = preload("res://Scenes/Menus/SettingsMenu/settings_menu.tsc
 func _on_settings_button_pressed() -> void:
 	hide_menu()
 	var scene = SETTINGS_MENU.instantiate()
-	scene.parent_menu = self
+	#scene.parent_menu = self
 	canvasLayer.add_child(scene)
 	
 const HOW_TO_PLAY_MENU = preload("res://Scenes/Menus/HowToPlayMenu/how_to_play_menu.tscn")

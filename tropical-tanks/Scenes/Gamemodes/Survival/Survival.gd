@@ -35,7 +35,7 @@ func _player_destroyed():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	game_over()
 
-var experience :int = 0
+var experience :int = 15
 func _tank_destroyed(tank : TankChassis, position):
 	if tank.is_in_group("Player"):
 		_player_destroyed()
@@ -62,6 +62,9 @@ func game_over():
 	
 func next_wave():
 	wave_timer.start()
+	if wave < 4:
+		if enemies.size() > 0:
+			return
 	if enemies.size() > wave / 2 + 1:
 		return
 	wave += 1
