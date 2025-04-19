@@ -6,7 +6,7 @@
 [node name="EnemyRoot" type="Node3D" node_paths=PackedStringArray("tank", "turrets") groups=["Enemy"]]
 script = ExtResource("1_gxatg")
 tank = NodePath("Tank")
-turrets = [NodePath("")]
+turrets = [null]
 
 [node name="Tank" parent="." groups=["Enemy"] instance=ExtResource("1_umy6l")]
 

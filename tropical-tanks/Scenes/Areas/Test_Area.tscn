@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://tea0p18wpjf1"]
+
+[ext_resource type="Script" uid="uid://7bejvb7cqqal" path="res://Scenes/Areas/level_manager.gd" id="1_le2mo"]
+[ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_lsdmn"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="2_le2mo"]
+[ext_resource type="PackedScene" uid="uid://cvqxewvukkcxn" path="res://Objects/Vegetation/flower.tscn" id="4_le2mo"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i4wca"]
+noise_type = 2
+seed = 646506130
+frequency = 0.0068
+fractal_type = 2
+fractal_octaves = 2
+fractal_lacunarity = 2.34
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_s8bj4"]
+seed = -1252768529
+
+[sub_resource type="Resource" id="Resource_le2mo"]
+script = ExtResource("2_le2mo")
+primary_objects = Array[PackedScene]([ExtResource("4_le2mo")])
+primary_probability = 1.0
+primary_scale_randomness = 0.0
+secondary_objects = Array[PackedScene]([])
+secondary_probability = 1.0
+secondary_scale_randomness = 0.0
+tertiary_objects = Array[PackedScene]([])
+tertiary_probability = 1.0
+tertiary_scale_randomness = 0.0
+spawn_on_grid = true
+amount_of_clusters = 100
+minimum_cluster_spacing = 10.0
+cluster_radius = 4.0
+object_count_range = Vector2i(49, 50)
+minimum_object_spacing = 1.0
+metadata/_custom_type_script = "uid://devstjeflc5ws"
+
+[node name="TestArea" type="Node3D"]
+script = ExtResource("1_le2mo")
+
+[node name="Terrain3D" parent="." instance=ExtResource("1_lsdmn")]
+debug_screen = false
+hill_height = 15.0
+water_level = 1.0
+heightMap = SubResource("FastNoiseLite_i4wca")
+snow_coverage = 0.3
+color_noise = SubResource("FastNoiseLite_s8bj4")
+terrain_colors = Array[Color]([Color(0.858282, 0, 0.171441, 1), Color(0.864376, 0.470382, 0, 1), Color(0.632793, 0.372462, 0, 1), Color(0.577858, 0.371471, 5.77569e-07, 1)])
+editor_show_ground_scatter = true
+ground_scatters = Array[ExtResource("2_le2mo")]([SubResource("Resource_le2mo")])

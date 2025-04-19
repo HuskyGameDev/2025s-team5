@@ -1,7 +1,7 @@
 extends CharacterBody3D
 class_name TankChassis
 
-@export var SPEED = 500.0
+@export var speed = 500.0
 @export var tank_rotation : float = 0.0
 @export var upgrades : Array[Upgrade] = []
 
@@ -16,8 +16,10 @@ var turrets_count : int = 1
 @onready var turret_mounts : Array[TurretMount] = [$TurretMount]
 @onready var team_marker: Sprite3D = $TeamMarker
 
-var base_view_range = 10
+var base_view_range = 5
 var view_range = 20 + base_view_range
+
+@export var health : float = 50
 
 var controls = {
 	"forward" = false,
@@ -34,7 +36,8 @@ func _ready() -> void:
 		if i < turret_mounts.size():
 			turret_mounts[i].has_turret = true
 			
-			
+	health_manager.max_health = health
+	health_manager.health = health
 	set_team_markers()
 	
 func set_team_markers():
@@ -44,6 +47,20 @@ func set_team_markers():
 	if is_in_group("Enemy"):
 		team_marker.hide()
 		$Sprite3D.modulate = Color.DARK_RED
+
+const RADAR_MARKER = preload("res://Components/RadarMarker/radar_marker.tscn")
+func update_radar():
+	for target : Node3D in get_tree().get_nodes_in_group("Enemy"):
+		var marker = RADAR_MARKER.instantiate()
+		marker.position = global_position
+		var angle_to_target = -Vector2(0,0).angle_to_point(Vector2(target.global_position.x -global_position.x,target.global_position.z - global_position.z))
+		marker.rotate_y(angle_to_target)
+		print(angle_to_target)
+		print(target.global_position)
+		print(target.position)
+		add_child(marker)
+		
+		
 
 func get_turrets() -> Array[Turret]:
 	var turrets : Array[Turret] = []
@@ -106,11 +123,11 @@ func _physics_process(delta: float) -> void:
 		var move_vector_angle = move_normal.angle_to(ground_cast.get_collision_normal(0))
 		
 		if controls.get("forward"):
-			velocity = (delta * SPEED * move_vector)
+			velocity = (delta * speed * move_vector)
 			if move_vector_angle != 0 and velocity != Vector3.ZERO:
 				velocity = velocity.rotated(rotation_axis,move_vector_angle)
 		if controls.get("backward"):
-			velocity = (delta * -SPEED * move_vector) #.rotated(rotation_axis.normalized(),move_vector_angle)
+			velocity = (delta * -speed * move_vector) #.rotated(rotation_axis.normalized(),move_vector_angle)
 			if move_vector_angle != 0 and velocity != Vector3.ZERO:
 				velocity = velocity.rotated(rotation_axis, -move_vector_angle)
 
@@ -141,3 +158,8 @@ func take_damage(attack : Attack):
 	print("DAMAGE WRONG")
 	health_manager.take_damage(attack)
 	
+
+
+func _on_radar_timer_timeout() -> void:
+	if is_in_group("Player"):
+		update_radar()

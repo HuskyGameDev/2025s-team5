@@ -152,7 +152,7 @@ func generate_snow_height_data() -> void:
 			)
 			
 # Terrain color thresholds
-var sand_height = water_level  # Height threshold for sand
+var sand_height = water_level * 0.5 # Height threshold for sand
 const steep_slope_threshold = 1.25  # Height difference for rocky terrain
 const max_slope_factor = 1.5  # Factor to control steep slope coloration blending
 const sand_color = Color(0.8, 0.7, 0.5, 1)  # Sandy color

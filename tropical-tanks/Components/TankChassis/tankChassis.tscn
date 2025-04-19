@@ -89,3 +89,10 @@ max_health = 50.0
 death_effects = Array[Resource]([SubResource("Resource_83u42")])
 take_water_damage = true
 indicators = true
+
+[node name="RadarTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[connection signal="timeout" from="RadarTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="RadarTimer" to="." method="_on_radar_timer_timeout"]

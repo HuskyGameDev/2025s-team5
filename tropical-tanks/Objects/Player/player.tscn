@@ -30,6 +30,7 @@ script = ExtResource("1_ikaho")
 tank = NodePath("Tank")
 
 [node name="Tank" parent="." groups=["Player"] instance=ExtResource("1_avp0u")]
+health = 100.0
 
 [node name="CameraRoot" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("3_wp58l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.502262, 0)
@@ -130,7 +131,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[connection signal="pressed" from="CanvasLayer/Control/HowToPlayButton" to="CanvasLayer" method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/HowToPlayButton" to="CanvasLayer" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HowToPlayButton" to="CanvasLayer" method="_on_how_to_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/SettingsButton" to="CanvasLayer" method="_on_settings_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/SettingsButton" to="CanvasLayer" method="_on_settings_button_pressed"]

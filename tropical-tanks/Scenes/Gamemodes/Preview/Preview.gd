@@ -7,6 +7,8 @@ func _ready() -> void:
 	spawn_enemy()
 	spawn_enemy()
 	spawn_enemy()
+	spawn_enemy()
+	spawn_enemy()
 	SIGNALBUS.tankDestroyed.connect(_tank_destroyed)
 		
 	
@@ -24,7 +26,7 @@ func _process(delta: float) -> void:
 	
 func spawn_enemy():
 	var tank = TANKS.create_mob_tank()
-	var pos = Vector3(randi_range(-50,50),40,randi_range(-50,50))
+	var pos = Vector3(randi_range(-24,24),40,randi_range(-24,24))
 	tank.position = pos
 	print(get_tree().root.get_child(0))
 	get_parent().add_child(tank)

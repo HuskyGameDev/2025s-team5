@@ -23,13 +23,20 @@ func spawn_player():
 	
 func spawn_enemy():
 	var tank = TANKS.create_mob_tank()
-	var pos = Vector3(randi_range(-100,100),40,randi_range(-100,100))
+	var pos = Vector3(randi_range(-70,70),40,randi_range(-70,70))
 	tank.position = pos
 	get_parent().add_child(tank)
 	enemies.append(tank)
 	GLOBAL.aging_factor = exp(enemies.size()/5)
+	if wave < 10:
+		tank.speed = .8 * tank.speed
+	tank.health = 25
+	tank.health = tank.health + wave * 5
 	
-	
+#func _process(delta: float) -> void:
+	#pass
+	#if Input.is_action_just_pressed("spawn_pickup"):
+			#spawn_enemy()
 
 func _player_destroyed():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -53,7 +60,7 @@ func _tank_destroyed(tank : TankChassis, position):
 func spawn_pickup(pos : Vector3):
 	var pickup : Pickup = PICKUP.instantiate()
 	pickup.upgrade = UPGRADE_POOL.select_upgrade()
-	get_tree().root.add_child(pickup)
+	get_parent().add_child(pickup)
 	pickup.global_position = pos
 	
 func game_over():

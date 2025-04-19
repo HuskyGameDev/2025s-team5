@@ -7,13 +7,13 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_afpv3"]
 noise_type = 2
-seed = 399028859
+seed = -1484384231
 frequency = 0.0068
 fractal_type = 2
 fractal_lacunarity = 1.625
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_htc78"]
-seed = 1299346753
+seed = 222893999
 
 [node name="TaigaArea" type="Node3D"]
 script = ExtResource("1_afpv3")

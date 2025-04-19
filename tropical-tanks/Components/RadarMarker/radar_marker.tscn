@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bimt00u2upm20"]
+
+[ext_resource type="Script" uid="uid://delpnc23c771x" path="res://Components/RadarMarker/radar_marker.gd" id="1_qjdn2"]
+[ext_resource type="Texture2D" uid="uid://ucgl1jwjnaa" path="res://Components/RadarMarker/Marker.svg" id="2_qjdn2"]
+
+[node name="RadarMarker" type="Node3D"]
+top_level = true
+script = ExtResource("1_qjdn2")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(-1.31134e-08, 0, -0.3, 0, 0.3, 0, 0.3, 0, -1.31134e-08, 3, 0, 0)
+modulate = Color(1, 0, 0, 1)
+axis = 1
+no_depth_test = true
+render_priority = 10
+texture = ExtResource("2_qjdn2")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

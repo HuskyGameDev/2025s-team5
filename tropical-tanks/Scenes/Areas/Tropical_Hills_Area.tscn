@@ -1,20 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://cincw3qd7h6v6"]
+[gd_scene load_steps=9 format=3 uid="uid://cincw3qd7h6v6"]
 
 [ext_resource type="Script" uid="uid://7bejvb7cqqal" path="res://Scenes/Areas/level_manager.gd" id="1_r7mgm"]
 [ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="2_7gdxt"]
 [ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="3_5jl6s"]
 [ext_resource type="Resource" uid="uid://c6qqbt8n1spbd" path="res://Resources/GroundScatters/TropicalForest.tres" id="4_r7mgm"]
 [ext_resource type="Resource" uid="uid://8oxg70awgug6" path="res://Resources/GroundScatters/ExplosiveBarrels.tres" id="5_me4f3"]
-[ext_resource type="Resource" uid="uid://c658la25pdnso" path="res://Resources/GroundScatters/TropicalBushDense.tres" id="6_lbnja"]
 [ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="7_pfeqy"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r7mgm"]
-seed = -1097634880
+seed = 1877774923
 frequency = 0.0062
 fractal_type = 2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_htc78"]
-seed = 20513707
+seed = -73260483
 
 [node name="TropicalHillsArea" type="Node3D"]
 script = ExtResource("1_r7mgm")
@@ -31,4 +30,4 @@ color_noise = SubResource("FastNoiseLite_htc78")
 terrainColoringMode = 0
 terrain_colors = Array[Color]([Color(0.45, 0.7, 0.25, 1), Color(0.524972, 0.650539, 0.310138, 1), Color(0.519208, 0.648793, 0.185922, 1), Color(0.354107, 0.465945, 0.166281, 1)])
 editor_show_ground_scatter = true
-ground_scatters = Array[ExtResource("3_5jl6s")]([ExtResource("4_r7mgm"), ExtResource("5_me4f3"), ExtResource("6_lbnja"), ExtResource("7_pfeqy")])
+ground_scatters = Array[ExtResource("3_5jl6s")]([ExtResource("4_r7mgm"), ExtResource("5_me4f3"), ExtResource("7_pfeqy")])

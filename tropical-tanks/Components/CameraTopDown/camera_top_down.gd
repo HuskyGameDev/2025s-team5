@@ -1,6 +1,8 @@
 extends Node3D
 class_name TopdownCamera
 
+
+
 @export var follow_speed : float = 2.0
 @export var mouse_weight : float = 0.01
 @export var target_node : Node3D
@@ -19,7 +21,14 @@ func _ready() -> void:
 	if target_node is TankChassis:
 		turrets = target_node.get_turrets()
 	assert(turrets.size() > 0, "Camera controller has no turrets to control") # ADD TURRETS TO THE CAMERA IN INSPECTOR
-	
+
+const UPGRADE_POOL = preload("res://Resources/UpgradePools/basic_upgrades.tres")
+const PICKUP = preload("res://Objects/Pickups/Pickup.tscn")
+func spawn_pickup(pos : Vector3):
+	var pickup : Pickup = PICKUP.instantiate()
+	pickup.upgrade = UPGRADE_POOL.select_upgrade()
+	get_tree().root.add_child(pickup)
+	pickup.global_position = pos
 	
 func _physics_process(delta: float) -> void:
 	if target_node:
@@ -28,6 +37,8 @@ func _physics_process(delta: float) -> void:
 	# Use a raycast from mouse to find where the mouse is intersecting the scene.
 	if(mouse_mode):
 		aim_target_position = raycast_from_mouse(get_viewport().get_mouse_position(),1)["position"]
+		#if Input.is_action_just_pressed("spawn_pickup"):
+			#spawn_pickup(aim_target_position)
 			
 	if turrets:
 		for turret in turrets:

@@ -1,13 +1,15 @@
 [gd_resource type="Resource" script_class="Upgrade" load_steps=3 format=3 uid="uid://br0r6vudaj050"]
 
-[ext_resource type="Texture2D" uid="uid://bkxtqxj1te7la" path="res://Art/Images/CrossHairOutOfRange.svg" id="1_luvun"]
+[ext_resource type="Texture2D" uid="uid://c40x2hqe1pd6u" path="res://Art/Images/BulletDecrease.svg" id="1_luvun"]
 [ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="2_7rl2f"]
 
 [resource]
 script = ExtResource("2_7rl2f")
 image = ExtResource("1_luvun")
+rarity_color = Color(0, 0, 0, 1)
 double_barrel = 0
 split_barrel = 0
+initial_shot_power = 0.0
 mass = 0.0
 drag = 0.0
 armor_piercing = 0.0

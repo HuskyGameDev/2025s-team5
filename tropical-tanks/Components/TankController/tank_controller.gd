@@ -37,8 +37,6 @@ func _physics_process(_delta: float) -> void:
 		if turrets and target:
 			for turret in turrets:
 				turret.target_position = target.global_position
-	else:
-		queue_free()
 	
 	if target and targeting == true:
 		if angle_to_target > targeting_accuracy:
