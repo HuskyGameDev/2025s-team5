@@ -1,6 +1,6 @@
 extends Control
 
-const VERSION = "alpha 1"
+const VERSION = "alpha 2"
 
 var levels = [
 "res://Scenes/Menus/MainMenu/main_menu.tscn",
