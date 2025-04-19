@@ -1,6 +1,8 @@
 extends Node3D
 class_name HealthManager
 
+signal health_changed(health_percent : float)
+
 @export var max_health : float = 100.0
 @export var death_effects : Array[Resource]
 @export var take_water_damage : bool = false
@@ -22,7 +24,10 @@ var water_depth : float = 0
 var hitboxes : Array[Hitbox] = []
 
 var water_damage_timer : Timer
-@onready var health = max_health
+@onready var health = max_health :
+	set(value):
+		health = value
+		emit_signal("health_changed",health/max_health)
 func _ready() -> void:
 	if take_water_damage:
 		water_damage_timer = Timer.new()

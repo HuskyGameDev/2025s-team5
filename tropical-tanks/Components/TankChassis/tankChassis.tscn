@@ -62,8 +62,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.49231, -0.83051, 0)
 [node name="TreadSpawner2" parent="TankChassisModelParts/TreadSpawners" instance=ExtResource("6_14oo1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.56724, -0.83051, 0)
 
-[node name="TankLabel" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.07549, -1.88722)
+[node name="TankHealthLabel" type="Label3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, -1.31134e-07, 3, 0, -3, -1.31134e-07, 0, 2.3, 0)
+visible = false
+billboard = 1
 text = "PLACEHOLDER"
 
 [node name="GroundCast" type="ShapeCast3D" parent="."]
@@ -94,5 +96,6 @@ indicators = true
 wait_time = 1.5
 autostart = true
 
+[connection signal="health_changed" from="HealthManager" to="." method="_on_health_manager_health_changed"]
 [connection signal="timeout" from="RadarTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="RadarTimer" to="." method="_on_radar_timer_timeout"]

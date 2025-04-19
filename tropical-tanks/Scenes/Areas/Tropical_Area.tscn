@@ -9,14 +9,14 @@
 [ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="7_jqptp"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_xhw3n"]
-seed = -83269534
+seed = 1530939389
 frequency = 0.0036
 fractal_type = 2
 fractal_octaves = 6
 fractal_weighted_strength = 0.37
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_htc78"]
-seed = 203691389
+seed = -150402305
 
 [node name="TropicalArea" type="Node3D"]
 script = ExtResource("1_detiw")

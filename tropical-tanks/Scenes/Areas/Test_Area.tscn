@@ -7,14 +7,14 @@
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_i4wca"]
 noise_type = 2
-seed = 646506130
+seed = -2066617105
 frequency = 0.0068
 fractal_type = 2
 fractal_octaves = 2
 fractal_lacunarity = 2.34
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_s8bj4"]
-seed = -1252768529
+seed = 377789763
 
 [sub_resource type="Resource" id="Resource_le2mo"]
 script = ExtResource("2_le2mo")

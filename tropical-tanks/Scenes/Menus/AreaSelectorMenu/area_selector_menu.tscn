@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cwqg03gbbdhik"]
+[gd_scene load_steps=23 format=3 uid="uid://cwqg03gbbdhik"]
 
 [ext_resource type="Script" uid="uid://blj16va5qalod" path="res://Scenes/Menus/AreaSelectorMenu/area_selector.gd" id="1_wikk6"]
 [ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="2_wikk6"]
@@ -11,6 +11,51 @@
 [ext_resource type="PackedScene" uid="uid://ujsfdvaaagwx" path="res://Scenes/Areas/Desert_Area.tscn" id="8_m72wj"]
 [ext_resource type="PackedScene" uid="uid://h7eh6gptuvno" path="res://Scenes/Areas/Taiga_Area.tscn" id="9_ka2vs"]
 [ext_resource type="Texture2D" uid="uid://emmlilnupwop" path="res://Art/Images/AreaTaigaIcon.png" id="10_kjhfl"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_y07d8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4i7uc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y07d8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kjhfl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o2oeo"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_f3ami"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y07d8"]
+bg_color = Color(0.940222, 0.866648, 0.644149, 1)
+border_color = Color(0.0723077, 0.048882, 0.0149621, 1)
+expand_margin_right = 7.0
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_offset = Vector2(-2, 7)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4i7uc"]
+bg_color = Color(0.941176, 0.866667, 0.643137, 1)
+shadow_color = Color(0, 0, 0, 1)
+shadow_size = 2
+shadow_offset = Vector2(-1, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kjhfl"]
+bg_color = Color(0.981264, 0.956226, 0.880142, 1)
+
+[sub_resource type="Theme" id="Theme_yobpx"]
+HScrollBar/icons/decrement = SubResource("ImageTexture_y07d8")
+HScrollBar/icons/decrement_highlight = SubResource("ImageTexture_y07d8")
+HScrollBar/icons/decrement_pressed = SubResource("ImageTexture_y07d8")
+HScrollBar/icons/increment = SubResource("ImageTexture_y07d8")
+HScrollBar/icons/increment_highlight = SubResource("ImageTexture_y07d8")
+HScrollBar/icons/increment_pressed = SubResource("ImageTexture_y07d8")
+HScrollBar/styles/grabber = SubResource("StyleBoxEmpty_4i7uc")
+HScrollBar/styles/grabber_highlight = SubResource("StyleBoxEmpty_y07d8")
+HScrollBar/styles/grabber_pressed = SubResource("StyleBoxEmpty_kjhfl")
+HScrollBar/styles/scroll = SubResource("StyleBoxEmpty_o2oeo")
+HScrollBar/styles/scroll_focus = SubResource("StyleBoxEmpty_f3ami")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_y07d8")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_4i7uc")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_kjhfl")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ti6f2"]
 
@@ -56,6 +101,7 @@ vertical_alignment = 1
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme = SubResource("Theme_yobpx")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer"]
 custom_minimum_size = Vector2(300, 100)
@@ -65,7 +111,6 @@ size_flags_vertical = 3
 
 [node name="TropicalArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
 layout_mode = 2
-size_flags_vertical = 0
 area_name = "Tropical"
 icon = ExtResource("4_tjcjc")
 area = ExtResource("5_sod50")
@@ -73,28 +118,24 @@ text = "Tropical"
 
 [node name="DesertArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
 layout_mode = 2
-size_flags_vertical = 0
-area_name = "Desert"
+area_name = "Tropical"
 icon = ExtResource("6_y07d8")
 area = ExtResource("8_m72wj")
-text = "Desert"
+text = "Tropical"
 
 [node name="TaigaArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
 layout_mode = 2
-area_name = "Snowy Taiga"
+area_name = "Tropical"
 icon = ExtResource("10_kjhfl")
 area = ExtResource("9_ka2vs")
-text = "Snowy 
-Taiga
-"
+text = "Taiga"
 
 [node name="TropicalHillsArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
 layout_mode = 2
-area_name = "Tropical Hills"
+area_name = "Tropical"
 icon = ExtResource("8_4i7uc")
 area = ExtResource("8_6j2y5")
-text = "Tropical 
-Hills"
+text = "Jungle Hills"
 
 [node name="ExitButton" type="Button" parent="PanelContainer"]
 layout_mode = 2

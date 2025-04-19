@@ -58,14 +58,6 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "X"
 
-[node name="FPSLabel" type="Label" parent="PanelContainer/VBoxContainer/TitleContainer"]
-layout_mode = 2
-offset_left = 849.0
-offset_right = 850.0
-offset_bottom = 23.0
-size_flags_horizontal = 8
-size_flags_vertical = 0
-
 [node name="Volume" type="HSplitContainer" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
@@ -98,7 +90,7 @@ dragging_enabled = false
 [node name="Label2" type="Label" parent="PanelContainer/VBoxContainer/Resolutions/HSplitContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-text = "Resolutions"
+text = "Resolution"
 
 [node name="Resolutions" type="OptionButton" parent="PanelContainer/VBoxContainer/Resolutions/HSplitContainer"]
 layout_mode = 2
@@ -158,7 +150,7 @@ dragging_enabled = false
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/FPS/HSplitContainer2"]
 layout_mode = 2
-text = "Hide FPS:"
+text = "Show FPS:"
 
 [node name="FpsShow" type="CheckButton" parent="PanelContainer/VBoxContainer/FPS/HSplitContainer2"]
 layout_mode = 2

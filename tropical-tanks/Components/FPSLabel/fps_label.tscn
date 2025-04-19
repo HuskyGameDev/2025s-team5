@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy3sk6uy3vcyp"]
+
+[ext_resource type="Script" uid="uid://d3f2lqaarkjhg" path="res://Components/FPSLabel/fps_label.gd" id="1_ylkeo"]
+
+[node name="FPSLabel" type="Label"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1.0
+offset_bottom = 23.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+horizontal_alignment = 2
+script = ExtResource("1_ylkeo")

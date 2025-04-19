@@ -23,7 +23,7 @@ func _input(event):
 			# get_tree().change_scene_to_file("res://Scenes/devmenu.tscn")
 
 func _on_quit_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/devmenu.tscn")
+	get_tree().quit()
 	
 const AREA_SELECTOR_MENU = preload("res://Scenes/Menus/AreaSelectorMenu/area_selector_menu.tscn")
 func _on_start_button_pressed() -> void:

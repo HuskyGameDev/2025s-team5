@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://8oxg70awgug6" path="res://Resources/GroundScatters/ExplosiveBarrels.tres" id="5_xnc8k"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_armvt"]
-seed = 1955695936
+seed = 1991808652
 
 [node name="DesertArea" type="Node3D"]
 script = ExtResource("1_armvt")

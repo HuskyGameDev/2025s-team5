@@ -46,6 +46,8 @@ func set_team_markers():
 		$Sprite3D.modulate = Color.CADET_BLUE
 	if is_in_group("Enemy"):
 		team_marker.hide()
+		$TankHealthLabel.show()
+		$TankHealthLabel.modulate = Color.DARK_RED
 		$Sprite3D.modulate = Color.DARK_RED
 
 const RADAR_MARKER = preload("res://Components/RadarMarker/radar_marker.tscn")
@@ -163,3 +165,7 @@ func take_damage(attack : Attack):
 func _on_radar_timer_timeout() -> void:
 	if is_in_group("Player"):
 		update_radar()
+
+
+func _on_health_manager_health_changed(health_percent: float) -> void:
+	$TankHealthLabel.text = str(snapped(health_percent * 100,0),"%")

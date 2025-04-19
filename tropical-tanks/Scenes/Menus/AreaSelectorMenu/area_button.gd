@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends Control
 
 class_name AreaButton
 
@@ -13,11 +13,10 @@ signal area_button_pressed(area)
 
 
 func _ready() -> void:
-	$TextureRect.texture = icon
+	$HBoxContainer/TextureRect.texture = icon
 	#$TropicalButton.texture_normal = icon
 	#$TropicalButton.texture_pressed = icon
-	$RichTextLabel.text = text
+	$HBoxContainer/RichTextLabel.text = text
 
-
-func _on_tropical_button_pressed() -> void:
+func _on_button_pressed() -> void:
 	emit_signal("area_button_pressed",self)

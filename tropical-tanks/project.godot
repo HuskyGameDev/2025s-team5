@@ -18,12 +18,14 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 run/max_fps=120
 boot_splash/image="uid://cmmxxgkfsc4as"
 config/icon="uid://q88hah6fily"
+config/windows_native_icon="res://Art/Images/TropicalTanksLogoFinal.ico"
 
 [autoload]
 
 TANKS="*res://Classes/TANKS.gd"
 SIGNALBUS="*res://Classes/SIGNALBUS.gd"
 GLOBAL="*res://Classes/GLOBAL.gd"
+SETTINGS="*res://Classes/SETTINGS.gd"
 
 [display]
 

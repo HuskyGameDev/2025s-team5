@@ -11,14 +11,12 @@ func close():
 	get_parent().get_child(0).show()
 	queue_free()
 
-@onready var fps_label: Label = $PanelContainer/VBoxContainer/TitleContainer/FPSLabel
+
+
 @onready var volume_slider: HSlider = $PanelContainer/VBoxContainer/Volume/VolumeSlider
 
 func _ready() -> void:
 	volume_slider.value = AudioServer.get_bus_volume_db(0)+80
-
-func _process(delta: float) -> void:
-	fps_label.text = "FPS: " + str(int(Engine.get_frames_per_second()))
 
 func _on_resolutions_item_selected(index: int) -> void:
 	match index:
@@ -57,9 +55,9 @@ func _on_option_button_item_selected(index: int) -> void:
 
 func _on_fps_show_toggled(toggled_on: bool) -> void:
 	if toggled_on:
-		fps_label.hide()
+		SETTINGS.SHOW_FPS = true
 	else:
-		fps_label.show()
+		SETTINGS.SHOW_FPS = false
 
 
 func _on_fullscreen_toggled(toggled_on: bool) -> void:
