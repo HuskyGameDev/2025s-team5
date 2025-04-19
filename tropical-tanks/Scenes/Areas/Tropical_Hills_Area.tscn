@@ -8,12 +8,12 @@
 [ext_resource type="Resource" uid="uid://kjb0kgs77fx7" path="res://Resources/GroundScatters/TropicalBushFlowers.tres" id="7_pfeqy"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_r7mgm"]
-seed = 1006548070
+seed = 698949161
 frequency = 0.0062
 fractal_type = 2
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_htc78"]
-seed = -1506173239
+seed = 698949161
 
 [node name="TropicalHillsArea" type="Node3D"]
 script = ExtResource("1_r7mgm")
@@ -21,6 +21,8 @@ area_name = "Tropical"
 
 [node name="Terrain3D" parent="." instance=ExtResource("2_7gdxt")]
 debug_screen = false
+set_seed = 698949161
+island = false
 hill_height = 25.0
 water_level = 6.0
 heightMap = SubResource("FastNoiseLite_r7mgm")
@@ -28,6 +30,8 @@ decimation_step_range = Vector2i(1, 2)
 snow_coverage = 0.0
 color_noise = SubResource("FastNoiseLite_htc78")
 terrainColoringMode = 0
-terrain_colors = Array[Color]([Color(0.45, 0.7, 0.25, 1), Color(0.524972, 0.650539, 0.310138, 1), Color(0.519208, 0.648793, 0.185922, 1), Color(0.354107, 0.465945, 0.166281, 1)])
+terrain_colors = Array[Color]([Color(0.45, 0.7, 0.25, 1), Color(0.524972, 0.650539, 0.310138, 1), Color(0.620638, 0.613293, 0.208152, 1), Color(0.354107, 0.465945, 0.166281, 1), Color(0.431741, 0.461031, 0.0783708, 1)])
+beach_colors = Array[Color]([Color(0.8, 0.701961, 0.501961, 1)])
+slope_colors = Array[Color]([Color(0.263815, 0.235172, 0.197684, 1)])
 editor_show_ground_scatter = true
 ground_scatters = Array[ExtResource("3_5jl6s")]([ExtResource("4_r7mgm"), ExtResource("5_me4f3"), ExtResource("7_pfeqy")])

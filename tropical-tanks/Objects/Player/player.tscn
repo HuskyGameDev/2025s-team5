@@ -9,7 +9,7 @@
 [ext_resource type="FontFile" uid="uid://crmfpld4a4jcn" path="res://Art/Fonts/FreeGodotFontpack/fonts/kirifont/KiriFont.otf" id="6_jllbl"]
 [ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="7_0mj7g"]
 [ext_resource type="Texture2D" uid="uid://ctmsdsau55lr" path="res://Art/Images/HealthBar.svg" id="8_xtia4"]
-[ext_resource type="Theme" uid="uid://257utgrraxew" path="res://Scenes/Menus/MainMenu/MainMenuBottonTheme.tres" id="10_5xe3a"]
+[ext_resource type="Theme" uid="uid://257utgrraxew" path="res://Scenes/Menus/MainMenu/main_menu_button_theme.tres" id="10_5xe3a"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_thffa"]
 texture = ExtResource("5_bpp7x")
@@ -131,7 +131,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[connection signal="pressed" from="CanvasLayer/Control/HowToPlayButton" to="CanvasLayer" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/HowToPlayButton" to="CanvasLayer" method="_on_how_to_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/HowToPlayButton" to="CanvasLayer" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/SettingsButton" to="CanvasLayer" method="_on_settings_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/SettingsButton" to="CanvasLayer" method="_on_settings_button_pressed"]

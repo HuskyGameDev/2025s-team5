@@ -4,7 +4,7 @@ class_name SurvivalGamemode
 const PLAYER = preload("res://Objects/Player/player.tscn")
 const UPGRADE_POOL = preload("res://Resources/UpgradePools/basic_upgrades.tres")
 const PICKUP = preload("res://Objects/Pickups/Pickup.tscn")
-
+const ENEMY_UPGRADE_POOL = preload("res://Resources/UpgradePools/enemy_upgrades.tres")
 var enemies : Array[TankChassis] = []
 
 @onready var wave_timer : Timer = $WaveTimer
@@ -24,14 +24,22 @@ func spawn_player():
 func spawn_enemy():
 	var tank = TANKS.create_mob_tank()
 	var pos = Vector3(randi_range(-70,70),40,randi_range(-70,70))
+	
 	tank.position = pos
+	tank.rotation
+	tank.health = 25
+	tank.health = tank.health + wave * 5
+	if wave < 10:
+		tank.speed = .8 * tank.speed
+		
 	get_parent().add_child(tank)
 	enemies.append(tank)
 	GLOBAL.aging_factor = exp(enemies.size()/5)
-	if wave < 10:
-		tank.speed = .8 * tank.speed
-	tank.health = 25
-	tank.health = tank.health + wave * 5
+	
+	if wave > 3:
+		for i in wave - 3:
+			if randf() < 0.1:
+				tank.on_upgrade_pickup(ENEMY_UPGRADE_POOL.select_upgrade())
 	
 #func _process(delta: float) -> void:
 	#pass
@@ -43,6 +51,7 @@ func _player_destroyed():
 	game_over()
 
 var experience :int = 15
+var upgrade_cost = 5
 func _tank_destroyed(tank : TankChassis, position):
 	if tank.is_in_group("Player"):
 		_player_destroyed()
@@ -50,10 +59,11 @@ func _tank_destroyed(tank : TankChassis, position):
 	if enemies.has(tank):
 		experience += randi_range(3,5)
 		enemies.erase(tank)
-		if experience > 10:
+		if experience > upgrade_cost:
 			if position.y > 0:
-				experience -= 10
+				experience -= upgrade_cost
 				spawn_pickup(position)
+				upgrade_cost += 1
 	if enemies.size() <= 0:
 		next_wave()
 			

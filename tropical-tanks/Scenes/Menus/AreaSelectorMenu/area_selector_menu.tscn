@@ -1,16 +1,18 @@
-[gd_scene load_steps=23 format=3 uid="uid://cwqg03gbbdhik"]
+[gd_scene load_steps=25 format=3 uid="uid://cwqg03gbbdhik"]
 
-[ext_resource type="Script" uid="uid://blj16va5qalod" path="res://Scenes/Menus/AreaSelectorMenu/area_selector.gd" id="1_wikk6"]
+[ext_resource type="Script" uid="uid://blj16va5qalod" path="res://Scenes/Menus/AreaSelectorMenu/area_selector_menu.gd" id="1_wikk6"]
 [ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="2_wikk6"]
-[ext_resource type="PackedScene" uid="uid://bckkvwb8kxlca" path="res://Scenes/Menus/AreaSelectorMenu/AreaButton.tscn" id="3_adtjc"]
-[ext_resource type="Texture2D" uid="uid://cmmxxgkfsc4as" path="res://Art/Images/AreaTropicalIcon.png" id="4_tjcjc"]
+[ext_resource type="PackedScene" uid="uid://bckkvwb8kxlca" path="res://Scenes/Menus/AreaSelectorMenu/area_button.tscn" id="3_adtjc"]
+[ext_resource type="Texture2D" uid="uid://cmmxxgkfsc4as" path="res://Art/Images/Icons/AreaTropicalIcon.png" id="4_tjcjc"]
 [ext_resource type="PackedScene" uid="uid://dw1fjemcs6y66" path="res://Scenes/Areas/Tropical_Area.tscn" id="5_sod50"]
-[ext_resource type="Texture2D" uid="uid://blrlf5fl8p6le" path="res://Art/Images/AreaDesertIcon.png" id="6_y07d8"]
-[ext_resource type="Texture2D" uid="uid://cognjo6yymoe8" path="res://Art/Images/AreaTropicalHillsIcon.png" id="8_4i7uc"]
+[ext_resource type="Texture2D" uid="uid://blrlf5fl8p6le" path="res://Art/Images/Icons/AreaDesertIcon.png" id="6_y07d8"]
+[ext_resource type="Texture2D" uid="uid://cognjo6yymoe8" path="res://Art/Images/Icons/AreaTropicalHillsIcon.png" id="8_4i7uc"]
 [ext_resource type="PackedScene" uid="uid://cincw3qd7h6v6" path="res://Scenes/Areas/Tropical_Hills_Area.tscn" id="8_6j2y5"]
 [ext_resource type="PackedScene" uid="uid://ujsfdvaaagwx" path="res://Scenes/Areas/Desert_Area.tscn" id="8_m72wj"]
 [ext_resource type="PackedScene" uid="uid://h7eh6gptuvno" path="res://Scenes/Areas/Taiga_Area.tscn" id="9_ka2vs"]
-[ext_resource type="Texture2D" uid="uid://emmlilnupwop" path="res://Art/Images/AreaTaigaIcon.png" id="10_kjhfl"]
+[ext_resource type="Texture2D" uid="uid://emmlilnupwop" path="res://Art/Images/Icons/AreaTaigaIcon.png" id="10_kjhfl"]
+[ext_resource type="Texture2D" uid="uid://c75pc0sfhyf3e" path="res://Art/Images/Icons/AreaRubbleIcon.png" id="12_kjhfl"]
+[ext_resource type="PackedScene" uid="uid://bas5r44c5ak7x" path="res://Scenes/Areas/RubblePit_Area.tscn" id="13_o2oeo"]
 
 [sub_resource type="ImageTexture" id="ImageTexture_y07d8"]
 
@@ -33,7 +35,7 @@ shadow_size = 4
 shadow_offset = Vector2(-2, 7)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4i7uc"]
-bg_color = Color(0.941176, 0.866667, 0.643137, 1)
+bg_color = Color(0.999999, 0.769294, 0.418652, 1)
 shadow_color = Color(0, 0, 0, 1)
 shadow_size = 2
 shadow_offset = Vector2(-1, 2)
@@ -111,31 +113,34 @@ size_flags_vertical = 3
 
 [node name="TropicalArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
 layout_mode = 2
-area_name = "Tropical"
 icon = ExtResource("4_tjcjc")
 area = ExtResource("5_sod50")
 text = "Tropical"
 
 [node name="DesertArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
 layout_mode = 2
-area_name = "Tropical"
 icon = ExtResource("6_y07d8")
 area = ExtResource("8_m72wj")
-text = "Tropical"
+text = "Desert"
 
 [node name="TaigaArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
 layout_mode = 2
-area_name = "Tropical"
 icon = ExtResource("10_kjhfl")
 area = ExtResource("9_ka2vs")
 text = "Taiga"
 
 [node name="TropicalHillsArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
 layout_mode = 2
-area_name = "Tropical"
 icon = ExtResource("8_4i7uc")
 area = ExtResource("8_6j2y5")
 text = "Jungle Hills"
+
+[node name="RubblePitArea" parent="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_adtjc")]
+visible = false
+layout_mode = 2
+icon = ExtResource("12_kjhfl")
+area = ExtResource("13_o2oeo")
+text = "Rubble Pit"
 
 [node name="ExitButton" type="Button" parent="PanelContainer"]
 layout_mode = 2
@@ -152,4 +157,5 @@ text = "X"
 [connection signal="area_button_pressed" from="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/DesertArea" to="." method="_on_area_button_pressed"]
 [connection signal="area_button_pressed" from="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/TaigaArea" to="." method="_on_area_button_pressed"]
 [connection signal="area_button_pressed" from="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/TropicalHillsArea" to="." method="_on_area_button_pressed"]
+[connection signal="area_button_pressed" from="PanelContainer/VBoxContainer/ScrollContainer/VBoxContainer/RubblePitArea" to="." method="_on_area_button_pressed"]
 [connection signal="pressed" from="PanelContainer/ExitButton" to="." method="_on_exit_button_pressed"]

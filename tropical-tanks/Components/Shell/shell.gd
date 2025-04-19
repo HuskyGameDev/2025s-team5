@@ -19,6 +19,9 @@ var power : float = 0 # Total power of the bullet based on speed * mass
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if sp.bounces_left > 0:
+		$BounceMesh.show()
+		
 	scale = Vector3.ONE * pow(sp.mass,0.3333)
 	# Start Fuse timer
 	if sp.num_fuse > 0:
@@ -56,6 +59,10 @@ func bounce(normal_vector : Vector3):
 		
 	velocity = velocity.reflect(reflection_plane) * (1.0 - sp.bounce_loss/sp.bounces_left)
 	sp.bounces_left -= 1 # Decrement bounce counter
+	if sp.bounces_left <= 0:
+		$BounceMesh.hide()
+	
+	
 	if sp.num_split > 0:
 		split()
 		sp.num_split -= 1

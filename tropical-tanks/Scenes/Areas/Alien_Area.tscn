@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://brbrdutkg3xib"]
+
+[ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="1_ny6ba"]
+[ext_resource type="Script" uid="uid://7bejvb7cqqal" path="res://Scenes/Areas/level_manager.gd" id="1_nyvmy"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="2_v1ay6"]
+[ext_resource type="Resource" uid="uid://5irpqi1x3ii" path="res://Resources/GroundScatters/AlienScatter.tres" id="3_nyvmy"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ny6ba"]
+seed = -252521153
+frequency = 0.0039
+fractal_type = 3
+fractal_lacunarity = 1.65
+fractal_gain = 0.345
+fractal_ping_pong_strength = 4.28
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_melf7"]
+noise_type = 4
+seed = -252521153
+frequency = 0.0027
+fractal_type = 3
+fractal_octaves = 4
+
+[node name="AlienArea" type="Node3D"]
+script = ExtResource("1_nyvmy")
+area_name = "Alien Area"
+
+[node name="Terrain3D" parent="." instance=ExtResource("1_ny6ba")]
+debug_screen = false
+set_seed = 4042446143
+island = false
+hill_height = 10.0
+water_level = 1.0
+heightMap = SubResource("FastNoiseLite_ny6ba")
+snow_coverage = 0.1
+snow_depth = 0.3
+snowHeightMap = SubResource("FastNoiseLite_melf7")
+terrain_colors = Array[Color]([Color(0.180896, 0.119102, 0.0504795, 1), Color(0.29025, 0.269583, 0.0339208, 1), Color(0.100328, 0, 0.594218, 1), Color(0.564706, 0, 0.654902, 1)])
+beach_colors = Array[Color]([Color(0.969925, 0.876572, 0.935786, 1)])
+slope_colors = Array[Color]([Color(0.207952, 0.232627, 0.139561, 1)])
+ground_scatters = Array[ExtResource("2_v1ay6")]([ExtResource("3_nyvmy")])

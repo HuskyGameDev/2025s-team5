@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dwlo11ont4xx0" path="res://Scenes/Menus/MainMenu/main_menu.gd" id="1_behrf"]
 [ext_resource type="PackedScene" uid="uid://dw1fjemcs6y66" path="res://Scenes/Areas/Tropical_Area.tscn" id="2_omq0y"]
 [ext_resource type="Script" uid="uid://dbq3cpjiqnjdf" path="res://Scenes/Menus/MainMenu/camera_orbiter.gd" id="3_id83c"]
-[ext_resource type="Theme" uid="uid://257utgrraxew" path="res://Scenes/Menus/MainMenu/MainMenuBottonTheme.tres" id="6_0l8wx"]
+[ext_resource type="Theme" uid="uid://257utgrraxew" path="res://Scenes/Menus/MainMenu/main_menu_button_theme.tres" id="6_0l8wx"]
 [ext_resource type="Texture2D" uid="uid://buyvs5rpxo1ah" path="res://Art/Images/TropicalTanks.png" id="9_egttt"]
 [ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="14_6c6cs"]
 

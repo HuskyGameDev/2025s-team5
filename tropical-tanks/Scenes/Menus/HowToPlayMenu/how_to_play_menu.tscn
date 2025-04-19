@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cgg06o7531s3t" path="res://Scenes/Menus/HowToPlayMenu/how_to_play_menu.gd" id="1_ukjac"]
 [ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="2_73p2k"]
-[ext_resource type="Texture2D" uid="uid://bqyllomh7c1er" path="res://Art/Images/PlayerIcon.png" id="3_bbdgi"]
-[ext_resource type="Texture2D" uid="uid://cej08nlku005l" path="res://Art/Images/EnemyIcon.png" id="4_otn5k"]
+[ext_resource type="Texture2D" uid="uid://bqyllomh7c1er" path="res://Art/Images/Icons/PlayerIcon.png" id="3_bbdgi"]
+[ext_resource type="Texture2D" uid="uid://cej08nlku005l" path="res://Art/Images/Icons/EnemyIcon.png" id="4_otn5k"]
 
 [node name="HowToPlay" type="Control"]
 layout_mode = 3

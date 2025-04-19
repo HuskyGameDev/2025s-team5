@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://bas5r44c5ak7x"]
+
+[ext_resource type="Script" uid="uid://7bejvb7cqqal" path="res://Scenes/Areas/level_manager.gd" id="1_2me6g"]
+[ext_resource type="PackedScene" uid="uid://becekjbr5mdjl" path="res://Objects/Terrain3D/terrain3D.tscn" id="2_xg0tk"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="3_ejo4p"]
+[ext_resource type="Resource" uid="uid://8oxg70awgug6" path="res://Resources/GroundScatters/ExplosiveBarrels.tres" id="4_bmic6"]
+[ext_resource type="Resource" uid="uid://bw6xx755uyg2m" path="res://Resources/GroundScatters/ExplosiveBarrelsDense.tres" id="5_t6r0f"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ny6ba"]
+noise_type = 5
+seed = -1037796887
+frequency = 0.0001
+fractal_octaves = 10
+fractal_lacunarity = 2.355
+fractal_gain = 2.32
+fractal_weighted_strength = 1.0
+fractal_ping_pong_strength = 4.28
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_melf7"]
+noise_type = 4
+seed = -1037796887
+frequency = 0.0027
+fractal_type = 3
+fractal_octaves = 4
+
+[node name="RubblePit" type="Node3D"]
+script = ExtResource("1_2me6g")
+area_name = "Alien Area"
+
+[node name="Terrain3D" parent="." instance=ExtResource("2_xg0tk")]
+debug_screen = false
+set_seed = 3257170409
+island = false
+water_level = 0.0
+heightMap = SubResource("FastNoiseLite_ny6ba")
+decimation_step_range = Vector2i(1, 1)
+snow_coverage = 0.0
+snow_depth = 0.3
+snowHeightMap = SubResource("FastNoiseLite_melf7")
+terrainColoringMode = 3
+terrain_colors = Array[Color]([Color(0, 0, 0, 1), Color(0.447628, 0.247217, 0.0924803, 1)])
+beach_colors = Array[Color]([Color(0.374547, 0.332066, 0.242792, 1)])
+slope_colors = Array[Color]([Color(0.0794992, 0.0922436, 0.0440694, 1)])
+ground_scatters = Array[ExtResource("3_ejo4p")]([ExtResource("4_bmic6"), ExtResource("5_t6r0f")])

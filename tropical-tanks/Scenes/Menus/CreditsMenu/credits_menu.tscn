@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dkky7qwohf5w8" path="res://Scenes/Menus/CreditsMenu/credits_menu.gd" id="1_yqe7g"]
 [ext_resource type="Theme" uid="uid://beq3sqokihu4k" path="res://Art/Themes/menu_theme.tres" id="2_qc2ky"]
 [ext_resource type="Texture2D" uid="uid://buyvs5rpxo1ah" path="res://Art/Images/TropicalTanks.png" id="3_gjhwf"]
-[ext_resource type="Theme" uid="uid://jgems5n4omh2" path="res://Scenes/Menus/CreditsMenu/CreditsTheme.tres" id="3_mg3ie"]
+[ext_resource type="Theme" uid="uid://jgems5n4omh2" path="res://Scenes/Menus/CreditsMenu/credits_theme.tres" id="3_mg3ie"]
 [ext_resource type="Texture2D" uid="uid://cy1gybfk7rsy7" path="res://Art/Images/header-logo.svg" id="4_8drul"]
 
 [node name="Credits" type="Control"]

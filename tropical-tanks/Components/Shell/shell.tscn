@@ -1,9 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://dh5mgvc4y04ql"]
+[gd_scene load_steps=6 format=3 uid="uid://dh5mgvc4y04ql"]
 
 [ext_resource type="Script" uid="uid://dot20x8gjogkc" path="res://Components/Shell/shell.gd" id="1_f5510"]
+[ext_resource type="Material" uid="uid://b0ul4yj7wb8bu" path="res://Art/Materials/ShellMaterial.tres" id="2_mla5l"]
 
 [sub_resource type="PrismMesh" id="PrismMesh_h46kv"]
+material = ExtResource("2_mla5l")
 size = Vector3(0.2, 0.6, 0.2)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dex2n"]
+radius = 0.2
+height = 0.7
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_okp7v"]
 size = Vector3(0.2, 0.2, 0.1)
@@ -15,6 +21,13 @@ script = ExtResource("1_f5510")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.1)
 layers = 2
 mesh = SubResource("PrismMesh_h46kv")
+
+[node name="BounceMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.121982)
+visible = false
+layers = 2
+material_override = ExtResource("2_mla5l")
+mesh = SubResource("CapsuleMesh_dex2n")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -2)

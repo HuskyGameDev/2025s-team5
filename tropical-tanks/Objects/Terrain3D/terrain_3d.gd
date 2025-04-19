@@ -10,9 +10,12 @@ var rng = RandomNumberGenerator.new()
 # Heightmap configuration
 @export var debug_screen : bool = false
 @export_group("Size")
+@export var random_seed : bool = true
+@export var set_seed : int = 1
 @export var xsize = 256 ## X Size of terrain3D in vertices.
 @export var zsize = 256 ## Z Size of terrain3D in vertices.
 @export_group("Terrain Parameters")
+@export var island : bool = false
 @export var hill_height : float = 30.0 ## The height to stretch hills vertically.
 @export var water_level : float = 2.5 ## The height to shift terrain down and fill with water.
 @export var water_shallow_depth : float = 0.0 ## The max depth that is safe for a body. Bodies deeper than this value will take damage.
@@ -62,15 +65,17 @@ var snow_height_data = {}
 # Material for the terrain mesh
 var ground_material = preload("res://Objects/Terrain3D/terrain_material.tres")
 var CRATER_MATERIAL = preload("res://Components/Crater/crater_material.tres")
-
+const GAUSSIAN_DISTRIBUTION = preload("res://Components/Crater/GaussianDistribution.png")
 
 
 func _ready():
 	$LoadingScreen.show()
-	heightMap.seed = randi()
-	snowHeightMap.seed = randi()
-	
-	
+	if random_seed:
+		set_seed = randi()
+	rng.seed = set_seed
+	heightMap.seed = set_seed
+	snowHeightMap.seed = set_seed
+	color_noise.seed = set_seed
 	
 	heightImage = heightMap.get_image(xsize,zsize)
 	snowHeightImage = snowHeightMap.get_image(xsize,zsize)
@@ -82,9 +87,6 @@ func _ready():
 		
 	await get_tree().process_frame
 	$LoadingScreen.hide()
-	
-	rng.randomize()
-	color_noise.seed = rng.seed
 		
 	if erosion: check_erosion()		# Check for erosiong map / do erosion 
 	generate_terrain_height_data() 	# Generate height data from the height image
@@ -124,6 +126,8 @@ func check_erosion() -> void:
 		erosion.save(heightImage, "res://Objects/Terrain3D/HeightMaps/eroded_map.png")
 
 func generate_terrain_height_data() -> void:
+	var gaus_image = GAUSSIAN_DISTRIBUTION.get_image()
+	gaus_image.resize(xsize,zsize)
 	height_data.clear()
 	if water_level > 0:
 		water_mesh.show()
@@ -132,7 +136,12 @@ func generate_terrain_height_data() -> void:
 	for x in range(xsize):
 		for z in range(zsize):
 			var raw_terrain_height = heightImage.get_pixel(x, z).r
-			var adjusted_terrain_height = raw_terrain_height * hill_height - water_level
+			var adjusted_terrain_height = raw_terrain_height * hill_height
+			if island:
+				var island_height = gaus_image.get_pixel(x,z).r
+				adjusted_terrain_height = adjusted_terrain_height * island_height + water_level - 1
+		
+			adjusted_terrain_height = adjusted_terrain_height - water_level
 			height_data[Vector2(x, z)] = Vector3(
 				x + randf_range(-0.2, 0.2),
 				adjusted_terrain_height,
@@ -145,6 +154,9 @@ func generate_snow_height_data() -> void:
 		for z in range(zsize):
 			var raw_snow_height = snowHeightImage.get_pixel(x,z).r
 			var adjusted_snow_height = (raw_snow_height - 1.0 + snow_coverage)  * snow_depth
+			var coast_melt = height_data[Vector2(x,z)].y - sand_height * raw_snow_height
+			if coast_melt < 0:
+				adjusted_snow_height += coast_melt
 			snow_height_data[Vector2(x, z)] = Vector3(
 				x + randf_range(-0.2, 0.2),
 				adjusted_snow_height,
@@ -154,20 +166,11 @@ func generate_snow_height_data() -> void:
 # Terrain color thresholds
 var sand_height = water_level * 0.5 # Height threshold for sand
 const steep_slope_threshold = 1.25  # Height difference for rocky terrain
-const max_slope_factor = 1.5  # Factor to control steep slope coloration blending
-const sand_color = Color(0.8, 0.7, 0.5, 1)  # Sandy color
+const max_slope_factor = 1.5  # Factor to control steep slope coloration blending  # Sandy color
 
 # Interpolation blending control parameters
 const height_blend_factor = 3  # Control how much height influences blending
 const slope_blend_factor = 0.5   # Control how much slope influences blending
-
-				# Define green palette
-var greens = [
-	Color(0.35, 0.55, 0.2),   # Dark forest green
-	Color(0.45, 0.7, 0.25),    # Vibrant lime
-	Color(0.6, 0.85, 0.3),     # Bright chartreuse
-	Color(0.5, 0.65, 0.25)     # Olive green
-	]
 
 func calculate_colors():
 	colorImage = Image.create(xsize,zsize,false,Image.FORMAT_RGB8)
@@ -177,6 +180,7 @@ func calculate_colors():
 	for x in range(xsize):
 		for z in range(zsize):
 			var adjusted_height = height_data[Vector2(x, z)].y
+			var snow_height = snow_height_data[Vector2(x,z)].y
 			
 			# Calculate maximum slope difference
 			var slope = calculate_slope(x,z)
@@ -188,11 +192,11 @@ func calculate_colors():
 			
 			# Base color determination
 			var base_color: Color
+			var noise_value = colorNoise.get_pixel(x,z).r
 			if adjusted_height < sand_height * colorNoise.get_pixel(x,z).r:
-				base_color = sand_color
+				pass#base_color = beach_colors[0]
 			else:
 				# Generate green variations using noise
-				var noise_value = colorNoise.get_pixel(x,z).r
 			
 				
 				# Select and blend greens based on noise
@@ -203,15 +207,18 @@ func calculate_colors():
 	
 				
 				# Add subtle yellow variation
-				if noise_value > 0.7:
-					base_color = base_color.lerp(Color(0.7, 0.8, 0.4), (noise_value - 0.7) * 3)
+				#if noise_value > 0.7:
+				#	base_color = base_color.lerp(Color(0.7, 0.8, 0.4), (noise_value - 0.7) * 3)
 			
 			# Slope-based blending with rocky color
-			var rocky_color = Color(0.45, 0.35, 0.25)  # Earthy brown
+			var rocky_color = slope_colors[0]  # Earthy brown
 			var slope_color = base_color.lerp(rocky_color, smoothstep(0.2, 0.8, slope_blend))
 			
 			# Final color blending
-			var final_color = sand_color.lerp(slope_color, height_blend)
+			var final_color = beach_colors[0].lerp(slope_color, height_blend)
+			var snow_blend_factor = 0.2
+			if snow_height > -snow_blend_factor:
+				final_color =  final_color.lerp(snowbase_colors[0],(snow_height + snow_blend_factor)*4)
 			
 			# Add micro-variations using original height noise
 			var micro_variation = 1.0 + (heightImage.get_pixel(x, z).r - 0.5) * 0.1

@@ -65,7 +65,8 @@ func spawn_crater():
 		crater.basis.x = -crater.basis.z.cross(floor_normal)
 		crater.basis = crater.basis.orthonormalized()
 		
-		crater.mesh_instance_3d.scale = crater.scale * explosion_power 
+		crater.mesh_instance_3d.scale = crater.scale * explosion_power * 0.5
+		crater.mesh_instance_3d.position.y = randf_range(0.1,0.3)
 		crater.global_position = crater_cast.get_collision_point()
 		
 	

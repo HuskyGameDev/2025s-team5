@@ -70,6 +70,7 @@ text = "PLACEHOLDER"
 
 [node name="GroundCast" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08683, 0)
+top_level = true
 shape = ExtResource("5_83u42")
 
 [node name="DamageCast" type="ShapeCast3D" parent="."]

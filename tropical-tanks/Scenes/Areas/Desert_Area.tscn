@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://8oxg70awgug6" path="res://Resources/GroundScatters/ExplosiveBarrels.tres" id="5_xnc8k"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_armvt"]
-seed = 1991808652
+seed = -1919087761
 
 [node name="DesertArea" type="Node3D"]
 script = ExtResource("1_armvt")
@@ -15,10 +15,14 @@ area_name = "Desert"
 
 [node name="Terrain3D" parent="." instance=ExtResource("2_txa00")]
 debug_screen = false
+set_seed = 2375879535
+island = false
 hill_height = 15.0
 water_level = 0.0
 decimation_step_range = Vector2i(1, 1)
 snow_coverage = 0.0
 color_noise = SubResource("FastNoiseLite_armvt")
 terrain_colors = Array[Color]([Color(0.796046, 0.556889, 3.85046e-07, 1), Color(0.599541, 0.530457, 0.367308, 1), Color(0.639561, 0.491815, 0.351999, 1)])
+beach_colors = Array[Color]([Color(0.8, 0.701961, 0.501961, 1)])
+slope_colors = Array[Color]([Color(0.45, 0.35, 0.25, 1)])
 ground_scatters = Array[ExtResource("3_b7tma")]([ExtResource("4_l27uu"), ExtResource("5_xnc8k")])

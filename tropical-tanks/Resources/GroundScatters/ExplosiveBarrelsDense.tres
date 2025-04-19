@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="GroundScatter" load_steps=3 format=3 uid="uid://bw6xx755uyg2m"]
+
+[ext_resource type="PackedScene" uid="uid://cc62krn8h3ak0" path="res://Objects/ExplosiveBarrel/explosive_barrel.tscn" id="1_77xx6"]
+[ext_resource type="Script" uid="uid://devstjeflc5ws" path="res://Resources/ResourceClasses/GroundScatter.gd" id="2_8mcnw"]
+
+[resource]
+script = ExtResource("2_8mcnw")
+primary_objects = Array[PackedScene]([ExtResource("1_77xx6")])
+primary_probability = 0.5
+primary_scale_randomness = 0.0
+secondary_objects = Array[PackedScene]([])
+secondary_probability = 1.0
+secondary_scale_randomness = 0.0
+tertiary_objects = Array[PackedScene]([])
+tertiary_probability = 1.0
+tertiary_scale_randomness = 0.0
+spawn_on_grid = true
+amount_of_clusters = 30
+minimum_cluster_spacing = 15.0
+cluster_radius = 8.0
+object_count_range = Vector2i(5, 10)
+minimum_object_spacing = 3.0
+metadata/_custom_type_script = "uid://devstjeflc5ws"

@@ -10,6 +10,7 @@ class_name TankController
 @onready var terrain_checker: RayCast3D = $TerrainChecker
 
 var angle_to_target : float
+var angle_to_origin : float
 var distance_to_target : float
 
 var water_nearby = false
@@ -39,17 +40,8 @@ func _physics_process(_delta: float) -> void:
 				turret.target_position = target.global_position
 	
 	if target and targeting == true:
-		if angle_to_target > targeting_accuracy:
-			controls["turn_right"] = false
-			controls["turn_left"] = true
-		elif angle_to_target < -targeting_accuracy:
-			controls["turn_right"] = true
-			controls["turn_left"] = false
-		else:
-			controls["turn_right"] = false
-			controls["turn_left"] = false
-			controls["forward"] = true
-			
+		turn_towards_angle(angle_to_target,targeting_accuracy)
+
 	if terrain_checker.is_colliding():
 		controls["backward"] = false
 		if terrain_checker.get_collision_point().y < 0:
@@ -61,14 +53,24 @@ func _physics_process(_delta: float) -> void:
 			controls["forward"] = true
 			water_nearby = false
 		if global_position.y < 0:
+			turn_towards_angle(angle_to_origin,targeting_accuracy)
 			controls["forward"] = true
-			controls["turn_left"] = false
-			controls["turn_right"] = false
 			
 	else:
 		controls["forward"] = false
 		controls["backward"] = true
 		controls["turn_right"] = true
+func turn_towards_angle(angle, accuracy):
+	if angle > accuracy:
+		controls["turn_right"] = false
+		controls["turn_left"] = true
+	elif angle < -accuracy:
+		controls["turn_right"] = true
+		controls["turn_left"] = false
+	else:
+		controls["turn_right"] = false
+		controls["turn_left"] = false
+		controls["forward"] = true
 	
 func get_distance_to_target() -> float:
 	var distance_to_target = tank.global_position.distance_to(target.global_position)
@@ -77,6 +79,11 @@ func get_distance_to_target() -> float:
 func get_angle_to_target() -> float:
 	var angle_to_target = (-tank.global_transform.basis.z).signed_angle_to((target.global_position - tank.global_position) * Vector3(1,0,1), Vector3(0,1,0))
 	return angle_to_target
+	
+func get_angle_to_origin() -> float:
+	var angle_to_origin = (-tank.global_transform.basis.z).signed_angle_to((- tank.global_position) * Vector3(1,0,1), Vector3(0,1,0))
+	return angle_to_origin
+	
 	
 func _on_timer_timeout() -> void:
 	if (randf() < 0.2):
@@ -97,6 +104,7 @@ func _on_timer_timeout() -> void:
 	
 	if target:
 		angle_to_target = get_angle_to_target()
+		angle_to_origin = get_angle_to_origin()
 		distance_to_target = get_distance_to_target()
 		if (randf() < 0.8) and distance_to_target < 20:
 			controls["shoot"] = true

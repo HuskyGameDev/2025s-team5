@@ -32,6 +32,7 @@ var controls = {
 
 
 func _ready() -> void:
+	tank_rotation =(-global_transform.basis.z).signed_angle_to((-global_position) * Vector3(1,0,1), Vector3(0,1,0))
 	for i in turrets_count:
 		if i < turret_mounts.size():
 			turret_mounts[i].has_turret = true
@@ -72,7 +73,8 @@ func get_turrets() -> Array[Turret]:
 	return turrets
 
 func on_upgrade_pickup(U : Upgrade):
-	health_manager.health = health_manager.max_health
+	if health_manager:
+		health_manager.health = health_manager.max_health
 	upgrades.append(U)
 	for turret  in get_turrets():
 		turret.initial_shot_power += U.initial_shot_power
@@ -100,7 +102,7 @@ func on_upgrade_pickup(U : Upgrade):
 var move_vector = Vector3(0,0,-1)
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
-	
+	ground_cast.global_position = global_position + Vector3(0,1,0)
 	var move_normal = Vector3(0,1,0)
 	move_vector = Vector3(0,0,-1).rotated(move_normal,tank_rotation)
 	
@@ -120,8 +122,8 @@ func _physics_process(delta: float) -> void:
 
 		#position += ground_cast.get_collision_point() - ground_cast.global_position - ground_cast.target_position
 		
-		
-		var rotation_axis = (move_normal.cross(ground_cast.get_collision_normal(0))).normalized()
+		var ground_normal = ground_cast.get_collision_normal(0)
+		var rotation_axis = (move_normal.cross(ground_normal)).normalized()
 		var move_vector_angle = move_normal.angle_to(ground_cast.get_collision_normal(0))
 		
 		if controls.get("forward"):
@@ -137,8 +139,8 @@ func _physics_process(delta: float) -> void:
 			tank_rotation += 1.3 * delta
 		if controls.get("turn_right"):
 			tank_rotation += -1.3 * delta
-	
-		
+
+		#rotation.x = (-basis.z).signed_angle_to(ground_normal,-basis.z.cross(ground_normal)) - PI/2
 		#if move_vector_angle != 0 and velocity != Vector3.ZERO:
 		#	velocity = velocity.rotated(rotation_axis,move_vector_angle)
 			#look_at(global_position + move_vector.rotated(rotation_axis,move_vector_angle))
@@ -150,7 +152,8 @@ func _physics_process(delta: float) -> void:
 	if controls.get("shoot"):
 		for turret in get_turrets():
 			turret.shoot()
-	look_at(global_position + move_vector)
+	rotation.y = tank_rotation
+	#look_at(global_position + move_vector)
 	move_and_slide()
 
 func on_death():

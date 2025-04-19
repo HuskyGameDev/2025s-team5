@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="UpgradePool" load_steps=7 format=3 uid="uid://cuy8gylhdajas"]
+
+[ext_resource type="Script" uid="uid://d2gy6jwxlqodv" path="res://Resources/ResourceClasses/UpgradeDropPool.gd" id="1_2tisc"]
+[ext_resource type="Script" uid="uid://ddav0isbkjqxj" path="res://Resources/ResourceClasses/Upgrade.gd" id="2_1yjl2"]
+[ext_resource type="Resource" uid="uid://fa6xnbn1mopn" path="res://Resources/Upgrades/add_bounce.tres" id="3_1j5il"]
+[ext_resource type="Resource" uid="uid://muyyw3hbkop7" path="res://Resources/Upgrades/add_shot_power.tres" id="4_6esy0"]
+[ext_resource type="Resource" uid="uid://b3h7etbbo8d0f" path="res://Resources/Upgrades/double_barrel.tres" id="5_xo4yf"]
+[ext_resource type="Resource" uid="uid://cg16y5p88jqqr" path="res://Resources/Upgrades/split_barrel.tres" id="6_vexuj"]
+
+[resource]
+script = ExtResource("1_2tisc")
+upgrade_drop_pool = Array[ExtResource("2_1yjl2")]([ExtResource("3_1j5il"), ExtResource("4_6esy0"), ExtResource("5_xo4yf"), ExtResource("6_vexuj")])
+metadata/_custom_type_script = "uid://d2gy6jwxlqodv"

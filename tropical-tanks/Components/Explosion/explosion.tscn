@@ -30,8 +30,8 @@ script = ExtResource("1_fpfk5")
 stream = SubResource("AudioStreamRandomizer_qplp0")
 
 [node name="CraterCast" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0479447, 0)
-target_position = Vector3(0, -3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.492259, 0)
+target_position = Vector3(0, -5, 0)
 
 [node name="ShapeCast3D" type="ShapeCast3D" parent="."]
 shape = SubResource("SphereShape3D_1b34y")
